@@ -1,0 +1,84 @@
+﻿  Animator.cpp
+C:\C++\Projects\MarioGame\Animator.h(28,38): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Animator.cpp')
+  
+C:\C++\Projects\MarioGame\Animator.h(28,59): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Animator.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Animator.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103):
+      the template instantiation context (the oldest one first) is
+          C:\C++\Projects\MarioGame\Animator.cpp(19,19):
+          see reference to function template instantiation 'void std::vector<Animation,std::allocator<Animation>>::emplace_back<sf::Sprite&,int&,int&,std::pair<int,int>&,float&,const std::function<bool (void)>&,const std::function<int (void)>&,bool&>(sf::Sprite &,int &,int &,std::pair<int,int> &,float &,const std::function<bool (void)> &,const std::function<int (void)> &,bool &)' being compiled
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(858,24):
+          see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_one_at_back<sf::Sprite&,int&,int&,std::pair<int,int>&,float&,const std::function<bool (void)>&,const std::function<int (void)>&,bool&>(sf::Sprite &,int &,int &,std::pair<int,int> &,float &,const std::function<bool (void)> &,const std::function<int (void)> &,bool &)' being compiled
+          with
+          [
+              _Ty=Animation
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(776,20):
+          see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_back_with_unused_capacity<sf::Sprite&,int&,int&,std::pair<int,int>&,float&,const std::function<bool (void)>&,const std::function<int (void)>&,bool&>(sf::Sprite &,int &,int &,std::pair<int,int> &,float &,const std::function<bool (void)> &,const std::function<int (void)> &,bool &)' being compiled
+          with
+          [
+              _Ty=Animation
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(794,27):
+          see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,sf::Sprite&,int&,int&,std::pair<int,int>&,float&,const std::function<bool (void)>&,const std::function<int (void)>&,bool&>(_Alloc &,_Objty *const ,sf::Sprite &,int &,int &,std::pair<int,int> &,float &,const std::function<bool (void)> &,const std::function<int (void)> &,bool &)' being compiled
+          with
+          [
+              _Alloc=std::allocator<Animation>,
+              _Ty=Animation,
+              _Objty=Animation
+          ]
+  
+  AudioManager.cpp
+  Game.cpp
+C:\C++\Projects\MarioGame\Animator.h(28,38): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Game.cpp')
+  
+C:\C++\Projects\MarioGame\Animator.h(28,59): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Game.cpp')
+  
+C:\C++\Projects\MarioGame\Game.cpp(18,72): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\C++\Projects\MarioGame\Game.cpp(18,72): warning C4244:         with
+C:\C++\Projects\MarioGame\Game.cpp(18,72): warning C4244:         [
+C:\C++\Projects\MarioGame\Game.cpp(18,72): warning C4244:             T=unsigned int
+C:\C++\Projects\MarioGame\Game.cpp(18,72): warning C4244:         ]
+C:\C++\Projects\MarioGame\Game.cpp(18,45): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\C++\Projects\MarioGame\Game.cpp(18,45): warning C4244:         with
+C:\C++\Projects\MarioGame\Game.cpp(18,45): warning C4244:         [
+C:\C++\Projects\MarioGame\Game.cpp(18,45): warning C4244:             T=unsigned int
+C:\C++\Projects\MarioGame\Game.cpp(18,45): warning C4244:         ]
+  main.cpp
+C:\C++\Projects\MarioGame\Animator.h(28,38): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\C++\Projects\MarioGame\Animator.h(28,59): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+  Map.cpp
+  Mario.cpp
+C:\C++\Projects\MarioGame\Animator.h(28,38): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Mario.cpp')
+  
+C:\C++\Projects\MarioGame\Animator.h(28,59): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Mario.cpp')
+  
+C:\C++\Projects\MarioGame\MarioState.h(71,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Mario.cpp')
+  
+C:\C++\Projects\MarioGame\MarioState.h(76,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Mario.cpp')
+  
+C:\C++\Projects\MarioGame\MarioState.h(118,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Mario.cpp')
+  
+C:\C++\Projects\MarioGame\MarioState.h(123,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Mario.cpp')
+  
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 910 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  MarioGame.vcxproj -> C:\C++\Projects\MarioGame\x64\Release\MarioGame.exe
