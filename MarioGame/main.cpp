@@ -3,6 +3,8 @@
 
 #include "Game.h"
 
+
+
 int main()
 {
 	Game game;
@@ -13,6 +15,8 @@ int main()
 
 		game.render();
 	}
+
+   
 
 	return 0;
 }
