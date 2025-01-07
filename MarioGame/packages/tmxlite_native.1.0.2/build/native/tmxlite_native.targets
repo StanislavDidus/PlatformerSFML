@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="tmxlite_native_init">
+  <PropertyGroup Label="Default initializers for properties">
+    <Linkage-tmxlite_native Condition="'$(Linkage-tmxlite_native)' == ''">dynamic</Linkage-tmxlite_native>
+    <CallingConvention-tmxlite_native Condition="'$(CallingConvention-tmxlite_native)' == ''">cdecl</CallingConvention-tmxlite_native>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>HAS_TMXLITE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)../..//build/native/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)../..//build/native/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="Win32 and Release" Condition="'$(Platform.ToLower())' == 'win32' And ( $(Configuration.ToLower().IndexOf('debug')) == -1 )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../..//build/native/lib/Win32\Release\tmxlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="Win32 and Debug" Condition="'$(Platform.ToLower())' == 'win32' And ( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../..//build/native/lib/Win32\Debug\tmxlite-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="x64 and Release" Condition="'$(Platform.ToLower())' == 'x64' And ( $(Configuration.ToLower().IndexOf('debug')) == -1 )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../..//build/native/lib/x64\Release\tmxlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="x64 and Debug" Condition="'$(Platform.ToLower())' == 'x64' And ( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../..//build/native/lib/x64\Debug\tmxlite-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\default-propertiesui.xml" />
+  </ItemGroup>
+  <UsingTask TaskName="tmxlite_native_Contains" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">
+    <ParameterGroup>
+      <Text Output="false" ParameterType="System.String" />
+      <Library Output="false" Required="true" ParameterType="System.String" />
+      <Value Output="false" Required="true" ParameterType="System.String" />
+      <Result Output="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <Code>Result = ((Text ?? "").Split(';').Contains(Library) ) ? Value : String.Empty;</Code>
+    </Task>
+  </UsingTask>
+  <Target Name="tmxlite_native_init">
+    <tmxlite_native_Contains Text="Linkage-dynamic" Library="tmxlite_native" Value="dynamic" Condition="'$(Linkage-tmxlite_native)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-tmxlite_native" />
+    </tmxlite_native_Contains>
+    <tmxlite_native_Contains Text="Linkage-static" Library="tmxlite_native" Value="static" Condition="'$(Linkage-tmxlite_native)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-tmxlite_native" />
+    </tmxlite_native_Contains>
+    <tmxlite_native_Contains Text="Linkage-ltcg" Library="tmxlite_native" Value="ltcg" Condition="'$(Linkage-tmxlite_native)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-tmxlite_native" />
+    </tmxlite_native_Contains>
+    <tmxlite_native_Contains Text="Linkage-sxs" Library="tmxlite_native" Value="sxs" Condition="'$(Linkage-tmxlite_native)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-tmxlite_native" />
+    </tmxlite_native_Contains>
+    <tmxlite_native_Contains Text="CallingConvention-cdecl" Library="tmxlite_native" Value="cdecl" Condition="'$(CallingConvention-tmxlite_native)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-tmxlite_native" />
+    </tmxlite_native_Contains>
+    <tmxlite_native_Contains Text="CallingConvention-stdcall" Library="tmxlite_native" Value="stdcall" Condition="'$(CallingConvention-tmxlite_native)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-tmxlite_native" />
+    </tmxlite_native_Contains>
+    <tmxlite_native_Contains Text="CallingConvention-fastcall" Library="tmxlite_native" Value="fastcall" Condition="'$(CallingConvention-tmxlite_native)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-tmxlite_native" />
+    </tmxlite_native_Contains>
+    <tmxlite_native_Contains Text="CallingConvention-thiscall" Library="tmxlite_native" Value="thiscall" Condition="'$(CallingConvention-tmxlite_native)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-tmxlite_native" />
+    </tmxlite_native_Contains>
+    <tmxlite_native_Contains Text="CallingConvention-clrcall" Library="tmxlite_native" Value="clrcall" Condition="'$(CallingConvention-tmxlite_native)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-tmxlite_native" />
+    </tmxlite_native_Contains>
+  </Target>
+</Project>

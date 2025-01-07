@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\SFML_VS2019.1.0.0\build\SFML_VS2019.props" Condition="Exists('packages\SFML_VS2019.1.0.0\build\SFML_VS2019.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -76,12 +77,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)External/SFML/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutnioDir)packages\SFML_VS2019.1.0.0\build\native\x64\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)External/SFML/lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)packages\SFML_VS2019.1.0.0\build\native\x64\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -93,14 +94,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)External/SFML/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutnioDir)packages\SFML_VS2019.1.0.0\build\native\x64\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)External/SFML/lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)packages\SFML_VS2019.1.0.0\build\native\x64\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-audio.lib;sfml-network.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -110,12 +111,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)External/SFML/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutnioDir)packages\SFML_VS2019.1.0.0\build\native\x64\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)External/SFML/lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)packages\SFML_VS2019.1.0.0\build\native\x64\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -127,14 +128,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)External/SFML/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutnioDir)packages\SFML_VS2019.1.0.0\build\native\x64\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)External/SFML/lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)packages\SFML_VS2019.1.0.0\build\native\x64\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-audio.lib;sfml-network.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -155,7 +156,25 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mario.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\SFML_VS2019.1.0.0\build\SFML_VS2019.targets" Condition="Exists('packages\SFML_VS2019.1.0.0\build\SFML_VS2019.targets')" />
+    <Import Project="packages\tmxlite_native.redist.1.0.2\build\native\tmxlite_native.redist.targets" Condition="Exists('packages\tmxlite_native.redist.1.0.2\build\native\tmxlite_native.redist.targets')" />
+    <Import Project="packages\tmxlite_native.1.0.2\build\native\tmxlite_native.targets" Condition="Exists('packages\tmxlite_native.1.0.2\build\native\tmxlite_native.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\SFML_VS2019.1.0.0\build\SFML_VS2019.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SFML_VS2019.1.0.0\build\SFML_VS2019.props'))" />
+    <Error Condition="!Exists('packages\SFML_VS2019.1.0.0\build\SFML_VS2019.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SFML_VS2019.1.0.0\build\SFML_VS2019.targets'))" />
+    <Error Condition="!Exists('packages\tmxlite_native.redist.1.0.2\build\native\tmxlite_native.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\tmxlite_native.redist.1.0.2\build\native\tmxlite_native.redist.targets'))" />
+    <Error Condition="!Exists('packages\tmxlite_native.1.0.2\build\native\tmxlite_native.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\tmxlite_native.1.0.2\build\native\tmxlite_native.targets'))" />
+  </Target>
 </Project>
