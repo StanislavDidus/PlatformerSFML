@@ -1,37 +1,6 @@
 ﻿#include "Map.h"
 
 //Init
-void Map::initSprites()
-{
-	//Platform
-	//this->addObject("Textures/Levels/Pump0.png", { 470.f, /*390.f*/ this->window->getSize().y - 16.f * 3.33f * 2.f - 32.f * 3.33f }, { 3.33f, 3.33f }, true);
-	/*this->addObject("Textures/Levels/Ground.png", { 0.f, this->window->getSize().y - 16.f * 3.33f * 2.f }, { 3.33f, 3.33f }, true);
-	this->addObject("Textures/Levels/Ground.png", { 240.f * 3.33f, this->window->getSize().y - 16.f * 3.33f * 2.f }, { 3.33f, 3.33f }, true);
-
-	this->addObject("Textures/Levels/Bush0.png", { 0.f, this->window->getSize().y - 16.f * 3.33f * 2.f - 35.f * 3.33f}, { 3.33f, 3.33f}, false);
-	this->addObject("Textures/Levels/Bush1.png", { 0.f + 11.f * 16.f * 3.33f + 16.f * 3.33f / 2, this->window->getSize().y - 16.f * 3.33f * 2.f - 16.f * 3.33f }, { 3.33f, 3.33f }, false);
-	this->addObject("Textures/Levels/Bush2.png", { 0.f + 16.f * 16.f * 3.33f, this->window->getSize().y - 16.f * 3.33f * 2.f - 19.f * 3.33f }, { 3.33f, 3.33f }, false);
-	this->addObject("Textures/Levels/Cloud0.png", { 159.f , this->window->getSize().y - 24.f * 3.33f * 4.f - 35.f * 3.33f }, { 3.33f, 3.33f }, false);
-	this->addObject("Textures/Levels/Cloud1.png", { 500.f , this->window->getSize().y - 24.f * 3.33f * 5.f - 35.f * 3.33f }, { 3.33f, 3.33f }, false);
-
-	this->addObject("Textures/Levels/LuckyBlock.png", { 16.f * 3.33f * 17.f, this->window->getSize().y - 16.f * 3.33f * 6.f}, { 3.33f, 3.33f }, true);*/
-
-	/*this->addObject("assets/Textures/Levels/Ground.png", this->getBlock(0.f, 1.5f, 3.125f), { 3.125f, 3.125f }, true);
-	this->addObject("assets/Textures/Levels/Ground.png", this->getBlock((256.f * 3.125f) / (16.f * 3.125f), 1.5f, 3.125f), { 3.125f, 3.125f }, true);
-
-	this->addObject("assets/Textures/Levels/Bush0.png", this->getBlock(0.f, 3.70f, 3.125f), { 3.125f, 3.125f }, false);
-	this->addObject("assets/Textures/Levels/Bush1.png", { 0.f + 11.f * 16.f * 3.125f + 16.f * 3.125f / 2, this->window->getSize().y - 16.f * 3.125f * 2.f - 16.f * 3.125f + 16.f * 3.125f / 2 }, { 3.125f, 3.125f }, false);
-	this->addObject("assets/Textures/Levels/Bush2.png", { 0.f + 16.f * 16.f * 3.125f, this->window->getSize().y - 16.f * 3.125f * 2.f - 19.f * 3.125f + 16.f * 3.125f / 2 }, { 3.125f, 3.125f }, false);
-	this->addObject("assets/Textures/Levels/Cloud0.png", { 159.f , this->window->getSize().y - 24.f * 3.125f * 4.f - 35.f * 3.125f + 16.f * 3.125f / 2 }, { 3.125f, 3.125f }, false);
-	this->addObject("assets/Textures/Levels/Cloud1.png", { 500.f , this->window->getSize().y - 24.f * 3.125f * 5.f - 35.f * 3.125f + 16.f * 3.125f / 2 }, { 3.125f, 3.125f }, false);
-
-	this->addObject("assets/Textures/Levels/LuckyBlock.png", { 16.f * 3.125f * 17.f, this->window->getSize().y - 16.f * 3.125f * 6.f + 16.f * 3.125f / 2 }, { 3.125f, 3.125f }, true);
-	this->addObject("assets/Textures/Levels/LuckyBlock.png", { 16.f * 3.125f * 23.f, this->window->getSize().y - 16.f * 3.125f * 9.f + 16.f * 3.125f / 2 }, { 3.125f, 3.125f }, true);
-	*/
-
-	//2.34
-}
-
 void Map::initTiledMap()
 {
 	if (!this->tiled_map.load("assets/TiledMaps/Level1.tmx"))
@@ -52,11 +21,68 @@ void Map::initTiledMap()
 	}
 }
 
+void Map::initSprites()
+{
+	for (const auto& lay : this->tiled_map.getLayers())
+	{
+		if (const auto tileLayer = dynamic_cast<tmx::TileLayer*>(lay.get()))
+		{
+			for (int x = 0; x < this->tiled_map.getBounds().width / this->tile_sets[0]->getTileSize().x; x++)
+			{
+				for (int y = 0; y < this->tiled_map.getBounds().height / this->tile_sets[0]->getTileSize().y; y++)
+				{
+					auto& tile = tileLayer->getTiles()[y * this->tiled_map.getBounds().width / this->tile_sets[0]->getTileSize().x + x];
+
+					if (tile.ID == 0)
+						continue;
+
+					int GID = tile.ID - this->tile_sets[0]->getFirstGID();
+
+					int sprite_pos_x = (GID % this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().x;
+					int sprite_pos_y = (GID / this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().y;
+
+					int window_pos_x = x * this->tile_sets[0]->getTileSize().x * 3.125f;
+					int window_pos_y = y * this->tile_sets[0]->getTileSize().y * 3.125f;
+
+					sf::Sprite sprite;
+					sprite.setTexture(*this->textures[0]);
+					sprite.setTextureRect(sf::IntRect(
+						sprite_pos_x,
+						sprite_pos_y,
+						this->tile_sets[0]->getTileSize().x,
+						this->tile_sets[0]->getTileSize().y));
+
+					sprite.setPosition(window_pos_x, window_pos_y);
+					sprite.setScale(3.125f, 3.125f);
+
+
+					this->other_tiles.push_back(sprite);
+				}
+			}
+		}
+	}
+}
+
+void Map::initImage()
+{
+	this->image = std::make_unique<sf::VertexArray>(sf::Quads, this->other_tiles.size());
+
+	for (int i = 0; i < this->other_tiles.size(); i++)
+	{
+		sf::IntRect texRect = this->other_tiles[i].getTextureRect();
+		this->image->operator[](i) = sf::Vertex(
+			this->other_tiles[i].getPosition(),
+			sf::Vector2f(texRect.left, texRect.top)
+		);
+	}
+}
+
 //Con/Des
 Map::Map(sf::RenderWindow* window) : window(window)
 {
-	this->initSprites();
 	this->initTiledMap();
+	this->initSprites();
+	this->initImage();
 }
 
 Map::~Map()
@@ -227,41 +253,7 @@ void Map::update()
 
 void Map::render(sf::RenderTarget* target)
 {
-	for (const auto& lay : this->tiled_map.getLayers())
-	{
-		if (const auto tileLayer = dynamic_cast<tmx::TileLayer*>(lay.get()))
-		{
-			for (int x = 0; x < this->tiled_map.getBounds().width / this->tile_sets[0]->getTileSize().x; x++)
-			{
-				for (int y = 0; y < this->tiled_map.getBounds().height / this->tile_sets[0]->getTileSize().y; y++)
-				{
-					auto& tile = tileLayer->getTiles()[y * this->tiled_map.getBounds().width / this->tile_sets[0]->getTileSize().x + x];
-
-					if (tile.ID == 0)
-						continue;
-
-					int GID = tile.ID - this->tile_sets[0]->getFirstGID();
-
-					int sprite_pos_x = (GID % this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().x;
-					int sprite_pos_y = (GID / this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().y;
-
-					int window_pos_x = x * this->tile_sets[0]->getTileSize().x * 3.125f;
-					int window_pos_y = y * this->tile_sets[0]->getTileSize().y * 3.125f;
-
-					sf::Sprite sprite;
-					sprite.setTexture(*this->textures[0]);
-					sprite.setTextureRect(sf::IntRect(
-						sprite_pos_x,
-						sprite_pos_y,
-						this->tile_sets[0]->getTileSize().x,
-						this->tile_sets[0]->getTileSize().y));
-
-					sprite.setPosition(window_pos_x, window_pos_y);
-					sprite.setScale(3.125f, 3.125f);
-
-					target->draw(sprite);
-				}
-			}
-		}
-	}
+	for(const auto& tile : this->other_tiles)
+		target->draw(tile);
 }
+	

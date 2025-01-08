@@ -9,6 +9,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <iostream>
+#include <unordered_map>
 
 class Map
 {
@@ -20,13 +21,19 @@ private:
 	std::vector<std::unique_ptr<sf::Texture>> textures;
 	tmx::Map tiled_map;
 	tmx::Tileset* tile_set;
-	
+
+	std::unique_ptr<sf::VertexArray> image;
+
+	//Sprites
+	std::vector<std::unordered_map<sf::Sprite, tmx::Tileset::Tile::Animation>> animation_tiles;
+	std::vector<sf::Sprite> other_tiles;
 
 	//Window
 	sf::RenderWindow* window;
 	
-	void initSprites();
 	void initTiledMap();
+	void initSprites();
+	void initImage();
 public:
 	Map(sf::RenderWindow* window);
 	virtual ~Map();
