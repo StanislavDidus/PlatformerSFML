@@ -26,6 +26,7 @@ private:
 
 	//Sprites
 	std::vector<std::unordered_map<sf::Sprite, tmx::Tileset::Tile::Animation>> animation_tiles;
+	std::vector<sf::Sprite> collide_tiles;
 	std::vector<sf::Sprite> other_tiles;
 
 	//Window

@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Mario.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -66,7 +66,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Document",
@@ -76,7 +76,7 @@
               "RelativeDocumentMoniker": "packages\\tmxlite_native.1.0.2\\build\\native\\include\\tmxlite\\detail\\Log.hpp",
               "ToolTip": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\packages\\tmxlite_native.1.0.2\\build\\native\\include\\tmxlite\\detail\\Log.hpp",
               "RelativeToolTip": "packages\\tmxlite_native.1.0.2\\build\\native\\include\\tmxlite\\detail\\Log.hpp",
-              "ViewState": "AgIAAIoAAAAAAAAAAIBJwGYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAAAGcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-01-07T15:53:36.429Z",
               "EditorCaption": ""
@@ -89,10 +89,9 @@
               "RelativeDocumentMoniker": "src\\AudioManager.h",
               "ToolTip": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\AudioManager.h",
               "RelativeToolTip": "src\\AudioManager.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-07T14:56:36.077Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T14:56:36.077Z"
             },
             {
               "$type": "Document",
@@ -104,8 +103,7 @@
               "RelativeToolTip": "src\\AudioManager.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-07T14:56:36.535Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T14:56:36.535Z"
             },
             {
               "$type": "Document",
@@ -117,8 +115,7 @@
               "RelativeToolTip": "src\\Math.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-07T14:56:30.963Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T14:56:30.963Z"
             },
             {
               "$type": "Document",
@@ -130,8 +127,7 @@
               "RelativeToolTip": "src\\Animator.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-07T14:56:37.038Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T14:56:37.038Z"
             },
             {
               "$type": "Document",
@@ -143,31 +139,30 @@
               "RelativeToolTip": "src\\Animator.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-07T14:56:37.495Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T14:56:37.495Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Map.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Map.h",
               "RelativeDocumentMoniker": "src\\Map.h",
               "ToolTip": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Map.h",
               "RelativeToolTip": "src\\Map.h",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABYAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABwAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-01-07T14:56:33.685Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Map.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Map.cpp",
               "RelativeDocumentMoniker": "src\\Map.cpp",
               "ToolTip": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Map.cpp",
               "RelativeToolTip": "src\\Map.cpp",
-              "ViewState": "AgIAAPUAAAAAAAAAAAAAAP0AAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAABQBAAAAAAAAAAAAACABAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-01-07T14:56:34.143Z",
               "EditorCaption": ""
@@ -195,8 +190,7 @@
               "RelativeToolTip": "src\\MarioState.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-07T14:56:32.151Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T14:56:32.151Z"
             },
             {
               "$type": "Document",
@@ -208,8 +202,7 @@
               "RelativeToolTip": "src\\Mario.cpp",
               "ViewState": "AgIAAD8AAAAAAAAAAAAAAEMAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-07T14:56:33.236Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T14:56:33.236Z"
             },
             {
               "$type": "Document",
@@ -221,18 +214,17 @@
               "RelativeToolTip": "src\\Game.h",
               "ViewState": "AgIAACcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-07T14:56:35.132Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T14:56:35.132Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Game.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Game.cpp",
               "RelativeDocumentMoniker": "src\\Game.cpp",
               "ToolTip": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Game.cpp",
               "RelativeToolTip": "src\\Game.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABGAAAAAAAAAA==",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAFMAAACIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-01-07T14:56:35.598Z",
               "EditorCaption": ""
@@ -247,8 +239,7 @@
               "RelativeToolTip": "src\\main.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-07T14:56:34.637Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T14:56:34.637Z"
             }
           ]
         }

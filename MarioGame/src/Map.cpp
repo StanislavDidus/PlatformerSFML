@@ -55,8 +55,36 @@ void Map::initSprites()
 					sprite.setPosition(window_pos_x, window_pos_y);
 					sprite.setScale(3.125f, 3.125f);
 
+					// Look for an tile by ID
+					std::vector<tmx::Tileset::Tile> tiles = this->tile_sets[0]->getTiles();
+					tmx::Tileset::Tile* foundTile = nullptr;
+					for (auto& tl : tiles) {
+						if (tl.ID == GID) {
+							foundTile = &tl;
+							break;
+						}
+					}
 
-					this->other_tiles.push_back(sprite);
+					if (foundTile)
+						if (!foundTile->animation.frames.empty()) // if there is an animation
+						{
+							//std::unordered_map<sf::Sprite, tmx::Tileset::Tile::Animation> newMap;
+							//newMap[sprite] = foundTile->animation;
+							//this->animation_tiles.push_back(newMap);
+						}
+						if (lay->getName() == "Collisions")
+						{
+							this->collide_tiles.push_back(sprite);
+							
+						}
+						else if (lay->getName() == "Interactions")
+						{
+							this->collide_tiles.push_back(sprite);
+						}
+						else
+						{
+							this->other_tiles.push_back(sprite);
+						}
 				}
 			}
 		}
@@ -96,7 +124,7 @@ const void Map::calibrateCollision(const sf::FloatRect& player, float& x, float&
 	sf::FloatRect newBoundsY = { player.left , player.top + y, player.width, player.height };
 
 
-	for (auto& object : this->all_objects)
+	for (auto& object : this->collide_tiles)
 	{
 		sf::FloatRect objectBounds = object.getGlobalBounds();
 		if (y != 0)
@@ -173,7 +201,7 @@ const bool Map::checkGround(const sf::FloatRect& player, float x, float y)
 {
 	sf::FloatRect newBounds = { player.left , player.top + y, player.width, player.height };
 
-	for (auto& object : this->all_objects)
+	for (auto& object : this->collide_tiles)
 	{
 		sf::FloatRect objectBounds = object.getGlobalBounds();
 
@@ -195,7 +223,7 @@ const bool Map::checkRoof(const sf::FloatRect& player, float x, float y)
 {
 	sf::FloatRect newBounds = { player.left , player.top + y, player.width, player.height };
 
-	for (auto& object : this->all_objects)
+	for (auto& object : this->collide_tiles)
 	{
 		sf::FloatRect objectBounds = object.getGlobalBounds();
 
@@ -253,7 +281,11 @@ void Map::update()
 
 void Map::render(sf::RenderTarget* target)
 {
-	for(const auto& tile : this->other_tiles)
+	//for(const auto& tile : this->animation_tiles)
+		//target->draw(tile);
+	for (const auto& tile : this->other_tiles)
+		target->draw(tile);
+	for (const auto& tile : this->collide_tiles)
 		target->draw(tile);
 }
 	
