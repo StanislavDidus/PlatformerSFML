@@ -12,7 +12,7 @@ void Game::initVariables()
 
 void Game::initWindow()
 {
-	this->window = std::make_unique<sf::RenderWindow>(sf::VideoMode(800,600), "Mario nintendo game", sf::Style::Default); // 4:3
+	this->window = std::make_unique<sf::RenderWindow>(sf::VideoMode(1500,1000), "Mario nintendo game", sf::Style::Default); // 4:3
 	// 800 600
 	//this->window->setFramerateLimit(60);
 	this->window->setVerticalSyncEnabled(false);

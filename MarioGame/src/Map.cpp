@@ -53,7 +53,7 @@ void Map::initSprites()
 						this->tile_sets[0]->getTileSize().y));
 
 					sprite.setPosition(window_pos_x, window_pos_y);
-					sprite.setScale(3.125f, 3.125f);
+					//sprite.setScale(3.125f, 3.125f);
 
 					// Look for an tile by ID
 					std::vector<tmx::Tileset::Tile> tiles = this->tile_sets[0]->getTiles();
@@ -72,36 +72,59 @@ void Map::initSprites()
 							//newMap[sprite] = foundTile->animation;
 							//this->animation_tiles.push_back(newMap);
 						}
-						if (lay->getName() == "Collisions")
-						{
-							this->collide_tiles.push_back(sprite);
-							
-						}
-						else if (lay->getName() == "Interactions")
-						{
-							this->collide_tiles.push_back(sprite);
-						}
-						else
-						{
-							this->other_tiles.push_back(sprite);
-						}
+					if (lay->getName() == "Collisions")
+					{
+						this->collide_tiles.push_back(static_cast<sf::IntRect>(sprite.getGlobalBounds()));
+
+					}
+					else if (lay->getName() == "Interactions")
+					{
+						this->collide_tiles.push_back(static_cast<sf::IntRect>(sprite.getGlobalBounds()));
+					}
+
+					this->all_tiles.push_back({ sprite.getGlobalBounds(), sprite.getTextureRect() });
 				}
 			}
 		}
 	}
 }
 
+void Map::initVerArray()
+{
+	this->v_array = std::make_unique<sf::VertexArray>(sf::Quads, this->all_tiles.size() * 4);
+
+	sf::Vector2f scale = { 1.f, 1.f };
+
+	for (int i = 0; i < this->all_tiles.size(); i++)
+	{
+		sf::FloatRect posRect = this->all_tiles[i].first;
+		sf::IntRect texRect = this->all_tiles[i].second;
+
+		//std::cout << texRect.left << ", " << texRect.top << "\n";
+		
+		this->v_array->operator[](0 + i * 4).position = sf::Vector2f(posRect.left * scale.x, posRect.top * scale.y);
+		this->v_array->operator[](1 + i * 4).position = sf::Vector2f((posRect.left + posRect.width) * scale.x, posRect.top * scale.y);
+		this->v_array->operator[](2 + i * 4).position = sf::Vector2f((posRect.left + posRect.width) * scale.x, (posRect.top + posRect.height) * scale.y);
+		this->v_array->operator[](3 + i * 4).position = sf::Vector2f(posRect.left * scale.x, (posRect.top + posRect.height) * scale.y);
+		
+		this->v_array->operator[](0 + i * 4).texCoords = sf::Vector2f(texRect.left, texRect.top);
+		this->v_array->operator[](1 + i * 4).texCoords = sf::Vector2f(texRect.left + posRect.width, texRect.top);
+		this->v_array->operator[](2 + i * 4).texCoords = sf::Vector2f(texRect.left + posRect.width, texRect.top + posRect.height);
+		this->v_array->operator[](3 + i * 4).texCoords = sf::Vector2f(texRect.left, texRect.top + posRect.height);
+	}
+}
+
 void Map::initImage()
 {
-	this->image = std::make_unique<sf::VertexArray>(sf::Quads, this->other_tiles.size());
+	this->image = std::make_unique<sf::Image>();
+	this->image->create(this->tiled_map.getBounds().width * 3.125f, this->tiled_map.getBounds().height * 3.125f, sf::Color::Transparent);
 
-	for (int i = 0; i < this->other_tiles.size(); i++)
+	for (const auto& tile : this->all_tiles)
 	{
-		sf::IntRect texRect = this->other_tiles[i].getTextureRect();
-		this->image->operator[](i) = sf::Vertex(
-			this->other_tiles[i].getPosition(),
-			sf::Vector2f(texRect.left, texRect.top)
-		);
+		sf::FloatRect posRect = tile.first;
+		sf::IntRect texRect = tile.second;
+
+		image->copy(this->textures[0]->copyToImage(), posRect.left * 3.125f, posRect.top * 3.125f, texRect, true);
 	}
 }
 
@@ -110,6 +133,7 @@ Map::Map(sf::RenderWindow* window) : window(window)
 {
 	this->initTiledMap();
 	this->initSprites();
+	this->initVerArray();
 	this->initImage();
 }
 
@@ -126,7 +150,7 @@ const void Map::calibrateCollision(const sf::FloatRect& player, float& x, float&
 
 	for (auto& object : this->collide_tiles)
 	{
-		sf::FloatRect objectBounds = object.getGlobalBounds();
+		sf::FloatRect objectBounds = static_cast<sf::FloatRect>(object);
 		if (y != 0)
 		{
 			bool topCollision = newBoundsY.top < objectBounds.top + objectBounds.height &&
@@ -203,7 +227,7 @@ const bool Map::checkGround(const sf::FloatRect& player, float x, float y)
 
 	for (auto& object : this->collide_tiles)
 	{
-		sf::FloatRect objectBounds = object.getGlobalBounds();
+		sf::FloatRect objectBounds = static_cast<sf::FloatRect>(object);
 
 		bool bottomCollision = newBounds.top + newBounds.height > objectBounds.top &&
 			newBounds.top + newBounds.height < objectBounds.top + objectBounds.height &&
@@ -225,7 +249,7 @@ const bool Map::checkRoof(const sf::FloatRect& player, float x, float y)
 
 	for (auto& object : this->collide_tiles)
 	{
-		sf::FloatRect objectBounds = object.getGlobalBounds();
+		sf::FloatRect objectBounds = static_cast<sf::FloatRect>(object);
 
 		bool topCollision = newBounds.top < objectBounds.top + objectBounds.height &&
 			newBounds.top > objectBounds.top &&
@@ -283,9 +307,18 @@ void Map::render(sf::RenderTarget* target)
 {
 	//for(const auto& tile : this->animation_tiles)
 		//target->draw(tile);
-	for (const auto& tile : this->other_tiles)
-		target->draw(tile);
-	for (const auto& tile : this->collide_tiles)
-		target->draw(tile);
+	//for (const auto& tile : this->other_tiles)
+	//{
+		//sf::Sprite sprite = sf::Sprite(tile);
+		//target->draw(tile);
+	//}
+	//for (const auto& tile : this->collide_tiles)
+		//target->draw(tile);
+
+	sf::RenderStates rs;
+	sf::Texture texture1;
+	texture1.loadFromImage(*this->image);
+	rs.texture = &texture1;
+	target->draw(*this->v_array, rs);
 }
 	

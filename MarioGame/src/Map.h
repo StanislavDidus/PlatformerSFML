@@ -22,18 +22,20 @@ private:
 	tmx::Map tiled_map;
 	tmx::Tileset* tile_set;
 
-	std::unique_ptr<sf::VertexArray> image;
+	std::unique_ptr<sf::VertexArray> v_array;
+	std::unique_ptr<sf::Image> image;
 
 	//Sprites
-	std::vector<std::unordered_map<sf::Sprite, tmx::Tileset::Tile::Animation>> animation_tiles;
-	std::vector<sf::Sprite> collide_tiles;
-	std::vector<sf::Sprite> other_tiles;
+	std::vector<std::unordered_map<sf::IntRect, tmx::Tileset::Tile::Animation>> animation_tiles;
+	std::vector<sf::IntRect> collide_tiles;
+	std::vector <std::pair<sf::FloatRect, sf::IntRect>> all_tiles;
 
 	//Window
 	sf::RenderWindow* window;
 	
 	void initTiledMap();
 	void initSprites();
+	void initVerArray();
 	void initImage();
 public:
 	Map(sf::RenderWindow* window);
