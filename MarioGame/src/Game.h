@@ -58,6 +58,7 @@ public:
 	void updateView();
 	void updateAudio();
 	void updateText();
+	void updateMap();
 	void update();
 	void renderLevel();
 	void renderText();

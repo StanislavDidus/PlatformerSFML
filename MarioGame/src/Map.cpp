@@ -8,7 +8,7 @@ void Map::initTiledMap()
 
 	for (const auto& currentTileSet : this->tiled_map.getTilesets())
 	{
-		this->tile_sets.push_back(std::make_unique<tmx::Tileset>(currentTileSet));
+		this->tile_sets.emplace_back(std::make_unique<tmx::Tileset>(currentTileSet));
 		std::unique_ptr<sf::Texture> texture = std::make_unique<sf::Texture>();
 		if (!texture->loadFromFile(currentTileSet.getImagePath()))
 		{
@@ -16,7 +16,7 @@ void Map::initTiledMap()
 		}
 		else
 		{
-			this->textures.push_back(std::move(texture));
+			this->textures.emplace_back(std::move(texture));
 		}
 	}
 }
@@ -41,8 +41,8 @@ void Map::initSprites()
 					int sprite_pos_x = (GID % this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().x;
 					int sprite_pos_y = (GID / this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().y;
 
-					int window_pos_x = x * this->tile_sets[0]->getTileSize().x * 3.125f;
-					int window_pos_y = y * this->tile_sets[0]->getTileSize().y * 3.125f;
+					int window_pos_x = x * this->tile_sets[0]->getTileSize().x;
+					int window_pos_y = y * this->tile_sets[0]->getTileSize().y;
 
 					sf::Sprite sprite;
 					sprite.setTexture(*this->textures[0]);
@@ -52,7 +52,7 @@ void Map::initSprites()
 						this->tile_sets[0]->getTileSize().x,
 						this->tile_sets[0]->getTileSize().y));
 
-					sprite.setPosition(window_pos_x, window_pos_y);
+					sprite.setPosition(window_pos_x , window_pos_y );
 					//sprite.setScale(3.125f, 3.125f);
 
 					// Look for an tile by ID
@@ -65,24 +65,49 @@ void Map::initSprites()
 						}
 					}
 
-					if (foundTile)
-						if (!foundTile->animation.frames.empty()) // if there is an animation
-						{
-							//std::unordered_map<sf::Sprite, tmx::Tileset::Tile::Animation> newMap;
-							//newMap[sprite] = foundTile->animation;
-							//this->animation_tiles.push_back(newMap);
-						}
+					
 					if (lay->getName() == "Collisions")
 					{
-						this->collide_tiles.push_back(static_cast<sf::IntRect>(sprite.getGlobalBounds()));
+						this->collide_tiles.emplace_back(
+							window_pos_x * 3.125f,
+							window_pos_y * 3.125f,
+							this->tile_sets[0]->getTileSize().x * 3.125f,
+							this->tile_sets[0]->getTileSize().y * 3.125f
+						);
 
 					}
 					else if (lay->getName() == "Interactions")
 					{
-						this->collide_tiles.push_back(static_cast<sf::IntRect>(sprite.getGlobalBounds()));
+						this->collide_tiles.emplace_back(
+								window_pos_x * 3.125f,
+								window_pos_y * 3.125f,
+								this->tile_sets[0]->getTileSize().x * 3.125f,
+							this->tile_sets[0]->getTileSize().y * 3.125f
+							);
 					}
 
-					this->all_tiles.push_back({ sprite.getGlobalBounds(), sprite.getTextureRect() });
+					if (foundTile)
+					{
+						
+						if (!foundTile->animation.frames.empty()) // if there is an animation
+						{
+							this->animation_tiles.emplace_back(sprite.getGlobalBounds(), sprite.getTextureRect(), foundTile->animation);
+							
+						}
+						else
+						{
+							this->all_tiles.emplace_back(sprite.getGlobalBounds(), sprite.getTextureRect());
+						}
+						
+					}
+					else
+					{
+						this->all_tiles.emplace_back(sprite.getGlobalBounds(), sprite.getTextureRect());
+					}
+					
+					
+					
+					
 				}
 			}
 		}
@@ -92,39 +117,81 @@ void Map::initSprites()
 void Map::initVerArray()
 {
 	this->v_array = std::make_unique<sf::VertexArray>(sf::Quads, this->all_tiles.size() * 4);
+	this->animated_v_array = std::make_unique<sf::VertexArray>(sf::Quads, this->animation_tiles.size() * 4);
 
-	sf::Vector2f scale = { 1.f, 1.f };
+	sf::Vector2f scale = { 3.125f,3.125f };
 
 	for (int i = 0; i < this->all_tiles.size(); i++)
 	{
 		sf::FloatRect posRect = this->all_tiles[i].first;
+
+		sf::View view = this->window->getView();
+		if ((posRect.left + posRect.width) * scale.x < view.getCenter().x - view.getSize().x / 2 ||
+			posRect.left * scale.x >= view.getCenter().x + view.getSize().x / 2 ||
+			(posRect.top + posRect.height) * scale.y < view.getCenter().y - view.getSize().y / 2 ||
+			posRect.top * scale.y >= view.getCenter().y + view.getSize().y / 2)
+		{
+			//std::cout << "Pixel: " << i << ", posRect: " << posRect.left << ", " << posRect.top << " is cleared\n";
+			continue;
+		}
+
 		sf::IntRect texRect = this->all_tiles[i].second;
 
 		//std::cout << texRect.left << ", " << texRect.top << "\n";
-		
-		this->v_array->operator[](0 + i * 4).position = sf::Vector2f(posRect.left * scale.x, posRect.top * scale.y);
-		this->v_array->operator[](1 + i * 4).position = sf::Vector2f((posRect.left + posRect.width) * scale.x, posRect.top * scale.y);
-		this->v_array->operator[](2 + i * 4).position = sf::Vector2f((posRect.left + posRect.width) * scale.x, (posRect.top + posRect.height) * scale.y);
-		this->v_array->operator[](3 + i * 4).position = sf::Vector2f(posRect.left * scale.x, (posRect.top + posRect.height) * scale.y);
+
+		float tile_x = posRect.left * scale.x;
+		float tile_y = posRect.top * scale.y;
+		float tile_width = (posRect.left + posRect.width) * scale.x;
+		float tile_height = (posRect.top + posRect.height) * scale.y;
+
+		float tex_width = texRect.left + texRect.width;
+		float tex_height = texRect.top + texRect.height;
+
+		this->v_array->operator[](0 + i * 4).position = sf::Vector2f(tile_x, tile_y);
+		this->v_array->operator[](1 + i * 4).position = sf::Vector2f(tile_width, tile_y);
+		this->v_array->operator[](2 + i * 4).position = sf::Vector2f(tile_width, tile_height);
+		this->v_array->operator[](3 + i * 4).position = sf::Vector2f(tile_x, tile_height);
 		
 		this->v_array->operator[](0 + i * 4).texCoords = sf::Vector2f(texRect.left, texRect.top);
-		this->v_array->operator[](1 + i * 4).texCoords = sf::Vector2f(texRect.left + posRect.width, texRect.top);
-		this->v_array->operator[](2 + i * 4).texCoords = sf::Vector2f(texRect.left + posRect.width, texRect.top + posRect.height);
-		this->v_array->operator[](3 + i * 4).texCoords = sf::Vector2f(texRect.left, texRect.top + posRect.height);
+		this->v_array->operator[](1 + i * 4).texCoords = sf::Vector2f(tex_width, texRect.top);
+		this->v_array->operator[](2 + i * 4).texCoords = sf::Vector2f(tex_width, tex_height);
+		this->v_array->operator[](3 + i * 4).texCoords = sf::Vector2f(texRect.left, tex_height);
 	}
-}
 
-void Map::initImage()
-{
-	this->image = std::make_unique<sf::Image>();
-	this->image->create(this->tiled_map.getBounds().width * 3.125f, this->tiled_map.getBounds().height * 3.125f, sf::Color::Transparent);
-
-	for (const auto& tile : this->all_tiles)
+	for (int i = 0; i < this->animation_tiles.size(); i++)
 	{
-		sf::FloatRect posRect = tile.first;
-		sf::IntRect texRect = tile.second;
+		sf::FloatRect posRect = this->animation_tiles[i].posRect;
+		
+		sf::View view = this->window->getView();
+		if ((posRect.left + posRect.width) * scale.x < view.getCenter().x - view.getSize().x / 2 ||
+			posRect.left * scale.x >= view.getCenter().x + view.getSize().x / 2 ||
+			(posRect.top + posRect.height) * scale.y < view.getCenter().y - view.getSize().y / 2 ||
+			posRect.top * scale.y >= view.getCenter().y + view.getSize().y / 2)
+		{
+			//std::cout << "Pixel: " << i << ", posRect: " << posRect.left << ", " << posRect.top << " is cleared\n";
+			continue;
+		}
 
-		image->copy(this->textures[0]->copyToImage(), posRect.left * 3.125f, posRect.top * 3.125f, texRect, true);
+		
+		sf::IntRect texRect = this->animation_tiles[i].texRect;
+
+		float tile_x = posRect.left * scale.x;
+		float tile_y = posRect.top * scale.y;
+		float tile_width = (posRect.left + posRect.width) * scale.x;
+		float tile_height = (posRect.top + posRect.height) * scale.y;
+
+		float tex_width = texRect.left + texRect.width;
+		float tex_height = texRect.top + texRect.height;
+
+		this->animated_v_array->operator[](0 + i * 4).position = sf::Vector2f(tile_x, tile_y);
+		this->animated_v_array->operator[](1 + i * 4).position = sf::Vector2f(tile_width, tile_y);
+		this->animated_v_array->operator[](2 + i * 4).position = sf::Vector2f(tile_width, tile_height);
+		this->animated_v_array->operator[](3 + i * 4).position = sf::Vector2f(tile_x, tile_height);
+
+		this->animated_v_array->operator[](0 + i * 4).texCoords = sf::Vector2f(texRect.left, texRect.top);
+		this->animated_v_array->operator[](1 + i * 4).texCoords = sf::Vector2f(tex_width, texRect.top);
+		this->animated_v_array->operator[](2 + i * 4).texCoords = sf::Vector2f(tex_width, tex_height);
+		this->animated_v_array->operator[](3 + i * 4).texCoords = sf::Vector2f(texRect.left, tex_height);
 	}
 }
 
@@ -134,7 +201,6 @@ Map::Map(sf::RenderWindow* window) : window(window)
 	this->initTiledMap();
 	this->initSprites();
 	this->initVerArray();
-	this->initImage();
 }
 
 Map::~Map()
@@ -266,41 +332,52 @@ const bool Map::checkRoof(const sf::FloatRect& player, float x, float y)
 	return false;
 }
 
-sf::Vector2f Map::getBlock(float x, float y, float mult)
+void Map::updateAnimations()
 {
-	sf::Vector2f pos = { x * 16.f * mult,
-		this->window->getSize().y - 16.f * mult * y };
-
-	return pos;
-}
-
-//Modifiers
-void Map::addObject(const std::string& texturePath, const sf::Vector2f& position, const sf::Vector2f& scale, bool is_collision)
-{
-	auto texture = std::make_unique<sf::Texture>();
-	if (!texture->loadFromFile(texturePath))
+	for (auto& tile : this->animation_tiles)
 	{
-		std::cout << "ERROR::MAP::ADDOBJECT::Could not load texture: " << texturePath << "\n";
-		return;
+		//std::cout << tile.animation.frames[tile.current_frame].duration << "\n";
+		if (tile.clock.getElapsedTime().asMilliseconds() > tile.animation.frames[tile.current_frame].duration)
+		{
+			int nextFrame = (tile.current_frame + 1 >= tile.animation.frames.size()) ? 0 : tile.current_frame + 1;
+			std::vector<tmx::Tileset::Tile> tiles = this->tile_sets[0]->getTiles();
+			tmx::Tileset::Tile* foundTile = nullptr;
+			for (auto& tl : tiles) {
+				if (tl.ID == tile.animation.frames[nextFrame].tileID) {
+					foundTile = &tl;
+					break;
+				}
+			}
+
+			int sprite_pos_x = (tile.animation.frames[nextFrame].tileID % this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().x;
+			int sprite_pos_y = (tile.animation.frames[nextFrame].tileID / this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().y;
+
+			tile.texRect = sf::IntRect(sprite_pos_x, sprite_pos_y, this->tile_sets[0]->getTileSize().x, this->tile_sets[0]->getTileSize().y);
+
+			tile.current_frame++;
+			if (tile.current_frame >= tile.animation.frames.size())
+				tile.current_frame = 0;
+
+			
+
+			tile.clock.restart();
+		}
 	}
-
-	this->textures.push_back(std::move(texture));
-
-	sf::Sprite sprite;
-	sprite.setTexture(*this->textures.back());
-	sprite.setPosition(position);
-	sprite.setScale(scale);
-
-	if (is_collision)
-		this->all_objects.push_back(sprite);
-	else
-		this->not_col_objects.push_back(sprite);
 }
 
 //Functions
-void Map::update()
+void Map::update(float deltaTime)
 {
+	this->updateAnimations();
 
+
+	timeSinceLastUpdate += deltaTime;
+
+	if (timeSinceLastUpdate >= updateTime) 
+	{
+		this->initVerArray(); 
+		timeSinceLastUpdate = 0.0f;
+	}
 }
 
 void Map::render(sf::RenderTarget* target)
@@ -316,9 +393,9 @@ void Map::render(sf::RenderTarget* target)
 		//target->draw(tile);
 
 	sf::RenderStates rs;
-	sf::Texture texture1;
-	texture1.loadFromImage(*this->image);
-	rs.texture = &texture1;
+	rs.texture = this->textures[0].get();
+	
 	target->draw(*this->v_array, rs);
+	target->draw(*this->animated_v_array, rs);
 }
 	

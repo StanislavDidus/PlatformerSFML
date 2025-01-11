@@ -152,7 +152,7 @@ class IMarioJump : public IMarioState
 			mario.is_jump_over = true;
 		}
 
-		if (mario.map->checkRoof(mario.getBounds(), mario.velocity.x, mario.velocity.y * mario.deltaTime) && !mario.is_jump_over)
+		if (mario.map->checkRoof(mario.getBounds(), mario.velocity.x, mario.velocity.y * mario.deltaTime))
 		{
 			mario.is_jump_over = true;
 			mario.velocity.y += 500.f;

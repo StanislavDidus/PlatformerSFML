@@ -1,4 +1,5 @@
-#include "Game.h"
+﻿#include "Game.h"
+
 
 //Init
 void Game::initVariables()
@@ -12,13 +13,14 @@ void Game::initVariables()
 
 void Game::initWindow()
 {
-	this->window = std::make_unique<sf::RenderWindow>(sf::VideoMode(1500,1000), "Mario nintendo game", sf::Style::Default); // 4:3
+	this->window = std::make_unique<sf::RenderWindow>(sf::VideoMode(800,600), "Mario nintendo game", sf::Style::Default); // 4:3
+	
 	// 800 600
 	//this->window->setFramerateLimit(60);
 	this->window->setVerticalSyncEnabled(false);
 
 	this->view = std::make_unique<sf::View>();
-	this->view->setSize(this->window->getSize().x, this->window->getSize().y);
+	this->view->setSize(800,600);
 }
 
 void Game::initMap()
@@ -81,9 +83,16 @@ void Game::updateEvents()
 
 void Game::updateView()
 {
-	sf::Vector2f newPos = sf::Vector2f(MathUtils::clamp(400.f + mario->getPosition().x - 400.f, 0.f + this->window->getSize().x / 2.f, 1500.f), 325.f);
+	sf::Vector2f newPos = sf::Vector2f(MathUtils::clamp(mario->getPosition().x, this->window->getSize().x / 2.f , 2500.f), 325.f);
 	this->last_camera_pos = MathUtils::lerp(this->last_camera_pos, newPos, 10 * mario->deltaTime);
+	//this->view->setCenter({this->mario->getPosition().x, 325.f});
 	this->view->setCenter(this->last_camera_pos);
+	
+	//std::cout << this->view->getCenter().x << ", " << this->view->getCenter().y << "\n";
+	//this->view->setSize(800, 600);
+	//this->view->setCenter(this->mario->getPosition());
+
+	//
 }
 
 void Game::updateAudio()
@@ -104,6 +113,11 @@ void Game::updateText()
 	this->fps_text.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f, this->view->getCenter().y - this->window->getSize().y / 2.f);
 }
 
+void Game::updateMap()
+{
+	this->map->update(this->mario->deltaTime);
+}
+
 void Game::update()
 {
 	float deltaTime = this->clock.restart().asSeconds();
@@ -114,6 +128,7 @@ void Game::update()
 	this->updateView();
 	this->updateAudio();
 	this->updateText();
+	this->updateMap();
 }
 
 void Game::renderLevel()
