@@ -34,10 +34,12 @@ class IMarioIdle : public IMarioState
 		
 		float deltaX = mario.velocity.x;
 		float deltaY = mario.velocity.y * deltaTime;
-		//mario.map->calibrateCollision(mario.sprite.getGlobalBounds(), deltaX, deltaY);
-		mario.col->callibrateCollision(mario.sprite.getGlobalBounds(), deltaX, deltaY);
+		mario.col->callibrateCollision(mario.getBounds(), deltaX, deltaY);
 		mario.sprite.move(deltaX, deltaY);
-		mario.is_ground = mario.map->checkGround(mario.sprite.getGlobalBounds(), mario.velocity.x, mario.velocity.y * deltaTime);
+		mario.is_ground = mario.col->checkCollision({ mario.getBounds().left,
+			mario.getBounds().top + mario.velocity.y * deltaTime,
+			mario.getBounds().width,
+			mario.getBounds().height }, mario.velocity, "All", CollisionType::DOWN);
 
 		mario.velocity.x *= 0.9f;
 		mario.applyGravity(deltaTime);
@@ -83,10 +85,12 @@ class IMarioWalk : public IMarioState
 		
 		float deltaX = mario.velocity.x;
 		float deltaY = mario.velocity.y * deltaTime;
-		//mario.map->calibrateCollision(mario.sprite.getGlobalBounds(), deltaX, deltaY);
 		mario.col->callibrateCollision(mario.sprite.getGlobalBounds(), deltaX, deltaY);
 		mario.sprite.move(deltaX, deltaY);
-		mario.is_ground = mario.map->checkGround(mario.sprite.getGlobalBounds(), mario.velocity.x, mario.velocity.y * deltaTime);
+		mario.is_ground = mario.col->checkCollision({mario.getBounds().left,
+			mario.getBounds().top + mario.velocity.y * deltaTime,
+			mario.getBounds().width,
+			mario.getBounds().height}, mario.velocity, "All", CollisionType::DOWN);
 
 		mario.velocity.x *= 0.9f;
 
@@ -129,10 +133,14 @@ class IMarioJump : public IMarioState
 
 		//Apply gravity and move 
 		float deltaX = mario.velocity.x;
-		float deltaY = mario.velocity.y * deltaTime;
-		mario.map->calibrateCollision(mario.sprite.getGlobalBounds(), deltaX, deltaY);
+		float deltaY = mario.velocity.y * deltaTime;;
+		mario.col->callibrateCollision(mario.sprite.getGlobalBounds(), deltaX, deltaY);
 		mario.sprite.move(deltaX, deltaY);
-		mario.is_ground = mario.map->checkGround(mario.getBounds(), mario.velocity.x, mario.velocity.y * deltaTime);
+		mario.is_ground = mario.col->checkCollision({ mario.getBounds().left,
+			mario.getBounds().top + mario.velocity.y * deltaTime,
+			mario.getBounds().width,
+			mario.getBounds().height }, mario.velocity, "All", CollisionType::DOWN);
+
 		mario.velocity.x *= 0.9f;
 		mario.applyGravity(deltaTime);
 
@@ -154,10 +162,13 @@ class IMarioJump : public IMarioState
 			mario.is_jump_over = true;
 		}
 
-		if (mario.map->checkRoof(mario.getBounds(), mario.velocity.x, mario.velocity.y * mario.deltaTime))
+		if (mario.col->checkCollision({ mario.getBounds().left,
+			mario.getBounds().top + mario.velocity.y * deltaTime,
+			mario.getBounds().width,
+			mario.getBounds().height }, mario.velocity, "All", CollisionType::TOP) && !mario.is_jump_over)
 		{
 			mario.is_jump_over = true;
-			mario.velocity.y += 500.f;
+			mario.velocity.y += 400.f;
 		}
 		
 		if (mario.is_ground)

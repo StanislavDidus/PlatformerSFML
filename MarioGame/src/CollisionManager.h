@@ -1,12 +1,15 @@
-#pragma once
+﻿#pragma once
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+#include "Math.h"
+
 #include <iostream>
 #include <vector>
 #include <string>
+#include <functional> 
 
 enum CollisionType
 {
@@ -25,18 +28,22 @@ class CollisionManager
 {
 private:
 	std::vector<CollisionEvent> collisions;
+	std::vector<sf::FloatRect> src_pos;
+
 public:
 	void addCollision(const CollisionEvent& collision) { collisions.emplace_back(collision); }
+	void addSourse(const sf::FloatRect& pos) { src_pos.emplace_back(pos); }
 
 	std::vector<CollisionEvent> getCollisions() const { return collisions; }
+	std::vector<sf::FloatRect> getSources() const { return src_pos; }
 
 	void clearCollision() { collisions.clear(); }
 
-	bool checkCollision(const sf::FloatRect& player, const std::string& type, const CollisionType& side)
+	bool checkCollision(const sf::FloatRect& player, const sf::Vector2f velocity, const std::string& type, const CollisionType& side)
 	{
 		for (const auto& col : collisions)
 		{
-			if (col.collider_type == type)
+			if (col.collider_type == type || type == "All")
 			{
 				sf::FloatRect object = col.collider_bounds;
 				
@@ -74,8 +81,9 @@ public:
 						player.top < object.top + object.height &&
 						player.left < object.left + object.width &&
 						player.left + player.width > object.left)
-					{
-						return true;
+					{		
+						if(velocity.y > 0)
+							return true;
 					}
 					break;
 				case CollisionType::ALL:
@@ -96,6 +104,7 @@ public:
 		for (auto& object : collisions)
 		{
 			sf::FloatRect objectBounds = static_cast<sf::FloatRect>(object.collider_bounds);
+			
 			if (y != 0)
 			{
 				bool topCollision = newBoundsY.top < objectBounds.top + objectBounds.height &&

@@ -39,7 +39,7 @@ void Game::initAudio()
 
 	//Main theme
 	this->game_audio_manager->addSound("Main Theme", "assets/Sounds/Game/Ground Theme.wav", true);
-	this->game_audio_manager->playSound("Main Theme");
+	//this->game_audio_manager->playSound("Main Theme");
 }
 
 void Game::initText()
@@ -53,6 +53,8 @@ void Game::initText()
 void Game::initMario()
 {
 	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get());
+
+	this->col_manager->addSourse(this->mario->getBounds());
 }
 
 //Con/Des

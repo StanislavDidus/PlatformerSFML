@@ -83,7 +83,7 @@ Mario::~Mario()
 }
 
 //Accessors
-const sf::FloatRect Mario::getBounds() const
+const sf::FloatRect Mario::getBounds() const 
 {
 	return this->sprite.getGlobalBounds();
 }
@@ -134,6 +134,11 @@ void Mario::setState(const std::shared_ptr<IMarioState>& state)
 	this->current_state = state; // set new state
 
 	this->current_state->onEnter(*this); // OnEnter
+}
+
+void Mario::updateCollision()
+{
+
 }
 
 void Mario::update(float deltaTime)

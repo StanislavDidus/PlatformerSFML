@@ -19,4 +19,9 @@ namespace MathUtils
 			return max;
 		return value;
 	}
+
+	inline float distance(sf::FloatRect v1, sf::FloatRect v2)
+	{
+		return std::sqrt(std::pow(v2.left - v1.left, 2.f) + std::pow(v2.top - v1.top, 2.f));
+	}
 }

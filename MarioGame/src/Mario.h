@@ -88,6 +88,7 @@ public:
 	void flip(int dir);
 	void applyGravity(float deltaTime);
 	void setState(const std::shared_ptr<IMarioState>& state);
+	void updateCollision();
 	void update(float deltaTime);
 	void render(sf::RenderTarget* target);
 };

@@ -39,9 +39,9 @@ private:
 
 	//Sprites
 	std::vector<AnimationTile> animation_tiles;
-	std::vector<sf::IntRect> collide_tiles;
 	std::vector<std::pair<sf::FloatRect, sf::IntRect>> all_tiles;
 	std::vector<std::pair<sf::FloatRect, std::string>> tiles_type;
+	std::vector<std::pair<sf::FloatRect, std::string>> temp_tiles_type;
 
 	std::vector<sf::FloatRect> lucky_blocks;
 
@@ -62,11 +62,7 @@ public:
 	Map(sf::RenderWindow* window, CollisionManager* col);
 	virtual ~Map();
 
-	const void calibrateCollision(const sf::FloatRect& player, float& x, float& y);
-	const bool checkGround(const sf::FloatRect& player, float x, float y);
-	const bool checkRoof(const sf::FloatRect& player, float x, float y);
-
-	const std::vector<sf::FloatRect> getLuckyBlocks() const;
+	//const std::vector<sf::FloatRect> getLuckyBlocks() const;
 
 	void updateAnimations();
 	void updateCollisions();

@@ -52,7 +52,7 @@ void Map::initSprites()
 						this->tile_sets[0]->getTileSize().x,
 						this->tile_sets[0]->getTileSize().y));
 
-					sprite.setPosition(window_pos_x , window_pos_y );
+					sprite.setPosition(window_pos_x, window_pos_y);
 					//sprite.setScale(3.125f, 3.125f);
 
 					// Look for an tile by ID
@@ -65,44 +65,31 @@ void Map::initSprites()
 						}
 					}
 
-					
-					if (lay->getName() == "Collisions")
-					{
-						this->collide_tiles.emplace_back(
-							window_pos_x * 3.125f,
+					sf::FloatRect col_rect = { window_pos_x * 3.125f,
 							window_pos_y * 3.125f,
 							this->tile_sets[0]->getTileSize().x * 3.125f,
-							this->tile_sets[0]->getTileSize().y * 3.125f
-						);
+							this->tile_sets[0]->getTileSize().y * 3.125f };
 
-					}
-					else if (lay->getName() == "Interactions")
+
+					if (lay->getName() == "Collisions")
 					{
-						sf::FloatRect bounds = { window_pos_x * 3.125f, window_pos_y * 3.125f,this->tile_sets[0]->getTileSize().x * 3.125f, this->tile_sets[0]->getTileSize().y * 3.125f };
-						this->collide_tiles.emplace_back(
-								bounds
-							);
-
-						//this->col_manager->addCollision({});
+						this->tiles_type.emplace_back(col_rect, "Ground");
 					}
 
 					if (foundTile)
 					{
-						
+
 						if (!foundTile->animation.frames.empty()) // if there is an animation
 						{
 							this->animation_tiles.emplace_back(sprite.getGlobalBounds(), sprite.getTextureRect(), foundTile->animation);
-							
+
 						}
 						else
 						{
 							this->all_tiles.emplace_back(sprite.getGlobalBounds(), sprite.getTextureRect());
 						}
 
-						sf::FloatRect col_rect = { window_pos_x * 3.125f,
-							window_pos_y * 3.125f,
-							this->tile_sets[0]->getTileSize().x * 3.125f,
-							this->tile_sets[0]->getTileSize().y * 3.125f };
+
 
 						if (foundTile->properties[0].getStringValue() == "LuckyBlock")
 						{
@@ -112,20 +99,13 @@ void Map::initSprites()
 						{
 							this->tiles_type.emplace_back(col_rect, "Brick");
 						}
-						else
-						{
-							this->tiles_type.emplace_back(col_rect, "Ground");
-						}
-						
+
 					}
 					else
 					{
 						this->all_tiles.emplace_back(sprite.getGlobalBounds(), sprite.getTextureRect());
+
 					}
-					
-					
-					
-					
 				}
 			}
 		}
@@ -169,7 +149,7 @@ void Map::initVerArray()
 		this->v_array->operator[](1 + i * 4).position = sf::Vector2f(tile_width, tile_y);
 		this->v_array->operator[](2 + i * 4).position = sf::Vector2f(tile_width, tile_height);
 		this->v_array->operator[](3 + i * 4).position = sf::Vector2f(tile_x, tile_height);
-		
+
 		this->v_array->operator[](0 + i * 4).texCoords = sf::Vector2f(texRect.left, texRect.top);
 		this->v_array->operator[](1 + i * 4).texCoords = sf::Vector2f(tex_width, texRect.top);
 		this->v_array->operator[](2 + i * 4).texCoords = sf::Vector2f(tex_width, tex_height);
@@ -179,7 +159,7 @@ void Map::initVerArray()
 	for (int i = 0; i < this->animation_tiles.size(); i++)
 	{
 		sf::FloatRect posRect = this->animation_tiles[i].posRect;
-		
+
 		sf::View view = this->window->getView();
 		if ((posRect.left + posRect.width) * scale.x < view.getCenter().x - view.getSize().x / 2 ||
 			posRect.left * scale.x >= view.getCenter().x + view.getSize().x / 2 ||
@@ -190,7 +170,7 @@ void Map::initVerArray()
 			continue;
 		}
 
-		
+
 		sf::IntRect texRect = this->animation_tiles[i].texRect;
 
 		float tile_x = posRect.left * scale.x;
@@ -226,135 +206,6 @@ Map::~Map()
 }
 
 //Accessors
-const void Map::calibrateCollision(const sf::FloatRect& player, float& x, float& y)
-{
-	sf::FloatRect newBoundsX = { player.left + x, player.top, player.width, player.height };
-	sf::FloatRect newBoundsY = { player.left , player.top + y, player.width, player.height };
-
-
-	for (auto& object : this->collide_tiles)
-	{
-		sf::FloatRect objectBounds = static_cast<sf::FloatRect>(object);
-		if (y != 0)
-		{
-			bool topCollision = newBoundsY.top < objectBounds.top + objectBounds.height &&
-				newBoundsY.top > objectBounds.top &&
-				newBoundsY.left < objectBounds.left + objectBounds.width &&
-				newBoundsY.left + newBoundsY.width > objectBounds.left;
-
-			bool bottomCollision = newBoundsY.top + newBoundsY.height > objectBounds.top &&
-				newBoundsY.top + newBoundsY.height < objectBounds.top + objectBounds.height &&
-				newBoundsY.left < objectBounds.left + objectBounds.width &&
-				newBoundsY.left + newBoundsY.width > objectBounds.left;
-
-			if (y < 0)
-			{
-				if (topCollision)
-				{
-					y = objectBounds.top + objectBounds.height - player.top;
-					continue;
-					//std::cout << "top\n";
-				}
-			}
-
-			else if (y > 0)
-			{
-				if (bottomCollision)
-				{
-					y = objectBounds.top - player.height - player.top;
-					continue;
-					//std::cout << "bottom\n";
-				}
-			}
-		}
-
-		if (x != 0)
-		{
-			bool leftCollision = newBoundsX.left < objectBounds.left + objectBounds.width &&
-				newBoundsX.left + newBoundsX.width > objectBounds.left &&
-				newBoundsX.top < objectBounds.top + objectBounds.height &&
-				newBoundsX.top + newBoundsX.height > objectBounds.top;
-
-			bool rightCollision = newBoundsX.left + newBoundsX.width > objectBounds.left &&
-				newBoundsX.left < objectBounds.left + objectBounds.width &&
-				newBoundsX.top < objectBounds.top + objectBounds.height &&
-				newBoundsX.top + newBoundsX.height > objectBounds.top;
-
-			if (x < 0)
-			{
-				if (leftCollision)
-				{
-					//std::cout << "left\n";
-					x = objectBounds.left + objectBounds.width - player.left;
-					continue;
-				}
-
-				if (newBoundsX.left < 0.f) // Left side of the screen
-					x = 0.f;
-			}
-			else if (x > 0)
-			{
-				if (rightCollision)
-				{
-					//std::cout << "right\n";
-					x = objectBounds.left - player.width - player.left;
-					continue;
-				}
-			}
-		}
-	}
-}
-
-const bool Map::checkGround(const sf::FloatRect& player, float x, float y)
-{
-	sf::FloatRect newBounds = { player.left , player.top + y, player.width, player.height };
-
-	for (auto& object : this->collide_tiles)
-	{
-		sf::FloatRect objectBounds = static_cast<sf::FloatRect>(object);
-
-		bool bottomCollision = newBounds.top + newBounds.height > objectBounds.top &&
-			newBounds.top + newBounds.height < objectBounds.top + objectBounds.height &&
-			newBounds.left < objectBounds.left + objectBounds.width &&
-			newBounds.left + newBounds.width > objectBounds.left;
-
-		if (bottomCollision && y > 0)
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-const bool Map::checkRoof(const sf::FloatRect& player, float x, float y)
-{
-	sf::FloatRect newBounds = { player.left , player.top + y, player.width, player.height };
-
-	for (auto& object : this->collide_tiles)
-	{
-		sf::FloatRect objectBounds = static_cast<sf::FloatRect>(object);
-
-		bool topCollision = newBounds.top < objectBounds.top + objectBounds.height &&
-			newBounds.top > objectBounds.top &&
-			newBounds.left < objectBounds.left + objectBounds.width &&
-			newBounds.left + newBounds.width > objectBounds.left;
-
-		if (topCollision && y < 0)
-		{
-			
-			return true;
-		}
-	}
-
-	return false;
-}
-
-const std::vector<sf::FloatRect> Map::getLuckyBlocks() const
-{
-	return this->lucky_blocks;
-}
-
 void Map::updateAnimations()
 {
 	for (auto& tile : this->animation_tiles)
@@ -381,7 +232,7 @@ void Map::updateAnimations()
 			if (tile.current_frame >= tile.animation.frames.size())
 				tile.current_frame = 0;
 
-			
+
 
 			tile.clock.restart();
 		}
@@ -391,24 +242,49 @@ void Map::updateAnimations()
 void Map::updateCollisions()
 {
 	this->col_manager->clearCollision();
+	sf::Vector2f scale = { 3.125f, 3.125f };
 	for (const auto& col : this->tiles_type)
 	{
-		this->col_manager->addCollision({ col.first, col.second });
+		bool src_found = false;
+		for (const auto& src : this->col_manager->getSources())
+		{
+			if (MathUtils::distance(col.first, src) < src.width * 2.5f)
+			{
+				src_found = true;
+				break;
+			}
+			//std::cout << src.left << ", " << src.top << "\n";
+		}
+		
+		if (src_found)
+		{
+			/*sf::View view = this->window->getView();
+			sf::FloatRect posRect = { col.first.left / scale.x, col.first.top / scale.y, col.first.width / scale.x, col.first.height / scale.y };
+			if ((posRect.left + posRect.width) * scale.x < view.getCenter().x - view.getSize().x / 2 ||
+				posRect.left * scale.x >= view.getCenter().x + view.getSize().x / 2 ||
+				(posRect.top + posRect.height) * scale.y < view.getCenter().y - view.getSize().y / 2 ||
+				posRect.top * scale.y >= view.getCenter().y + view.getSize().y / 2)
+			{
+				continue;
+			}*/
+			this->col_manager->addCollision({ col.first, col.second });
+		}
 	}
-	
+
 }
 
 //Functions
 void Map::update(float deltaTime)
 {
 	this->updateAnimations();
-	this->updateCollisions();
+	
 
 	timeSinceLastUpdate += deltaTime;
 
-	if (timeSinceLastUpdate >= updateTime) 
+	if (timeSinceLastUpdate >= updateTime)
 	{
-		this->initVerArray(); 
+		this->initVerArray();
+		this->updateCollisions();
 		timeSinceLastUpdate = 0.0f;
 	}
 }
@@ -416,8 +292,7 @@ void Map::update(float deltaTime)
 void Map::render(sf::RenderTarget* target)
 {
 	this->rs.texture = this->textures[0].get();
-	
+
 	target->draw(*this->v_array, this->rs);
 	target->draw(*this->animated_v_array, this->rs);
 }
-	
