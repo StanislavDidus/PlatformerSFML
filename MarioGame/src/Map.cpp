@@ -78,12 +78,12 @@ void Map::initSprites()
 					}
 					else if (lay->getName() == "Interactions")
 					{
+						sf::FloatRect bounds = { window_pos_x * 3.125f, window_pos_y * 3.125f,this->tile_sets[0]->getTileSize().x * 3.125f, this->tile_sets[0]->getTileSize().y * 3.125f };
 						this->collide_tiles.emplace_back(
-								window_pos_x * 3.125f,
-								window_pos_y * 3.125f,
-								this->tile_sets[0]->getTileSize().x * 3.125f,
-							this->tile_sets[0]->getTileSize().y * 3.125f
+								bounds
 							);
+
+						//this->col_manager->addCollision({});
 					}
 
 					if (foundTile)
@@ -97,6 +97,24 @@ void Map::initSprites()
 						else
 						{
 							this->all_tiles.emplace_back(sprite.getGlobalBounds(), sprite.getTextureRect());
+						}
+
+						sf::FloatRect col_rect = { window_pos_x * 3.125f,
+							window_pos_y * 3.125f,
+							this->tile_sets[0]->getTileSize().x * 3.125f,
+							this->tile_sets[0]->getTileSize().y * 3.125f };
+
+						if (foundTile->properties[0].getStringValue() == "LuckyBlock")
+						{
+							this->tiles_type.emplace_back(col_rect, "LuckyBlock");
+						}
+						else if (foundTile->properties[0].getStringValue() == "Brick")
+						{
+							this->tiles_type.emplace_back(col_rect, "Brick");
+						}
+						else
+						{
+							this->tiles_type.emplace_back(col_rect, "Ground");
 						}
 						
 					}
@@ -196,7 +214,7 @@ void Map::initVerArray()
 }
 
 //Con/Des
-Map::Map(sf::RenderWindow* window) : window(window)
+Map::Map(sf::RenderWindow* window, CollisionManager* col) : window(window), col_manager(col)
 {
 	this->initTiledMap();
 	this->initSprites();
@@ -324,12 +342,17 @@ const bool Map::checkRoof(const sf::FloatRect& player, float x, float y)
 
 		if (topCollision && y < 0)
 		{
+			
 			return true;
-			std::cout << "ROOF\n";
 		}
 	}
 
 	return false;
+}
+
+const std::vector<sf::FloatRect> Map::getLuckyBlocks() const
+{
+	return this->lucky_blocks;
 }
 
 void Map::updateAnimations()
@@ -365,11 +388,21 @@ void Map::updateAnimations()
 	}
 }
 
+void Map::updateCollisions()
+{
+	this->col_manager->clearCollision();
+	for (const auto& col : this->tiles_type)
+	{
+		this->col_manager->addCollision({ col.first, col.second });
+	}
+	
+}
+
 //Functions
 void Map::update(float deltaTime)
 {
 	this->updateAnimations();
-
+	this->updateCollisions();
 
 	timeSinceLastUpdate += deltaTime;
 
@@ -382,20 +415,9 @@ void Map::update(float deltaTime)
 
 void Map::render(sf::RenderTarget* target)
 {
-	//for(const auto& tile : this->animation_tiles)
-		//target->draw(tile);
-	//for (const auto& tile : this->other_tiles)
-	//{
-		//sf::Sprite sprite = sf::Sprite(tile);
-		//target->draw(tile);
-	//}
-	//for (const auto& tile : this->collide_tiles)
-		//target->draw(tile);
-
-	sf::RenderStates rs;
-	rs.texture = this->textures[0].get();
+	this->rs.texture = this->textures[0].get();
 	
-	target->draw(*this->v_array, rs);
-	target->draw(*this->animated_v_array, rs);
+	target->draw(*this->v_array, this->rs);
+	target->draw(*this->animated_v_array, this->rs);
 }
 	

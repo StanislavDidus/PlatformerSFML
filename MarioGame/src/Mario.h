@@ -29,6 +29,8 @@ private:
 
 	Map* map;
 
+	CollisionManager* col;
+
 	//Audio
 	std::unique_ptr<AudioManager> mario_audio_manager;
 
@@ -70,7 +72,7 @@ public:
 	friend class IMarioWalk;
 	friend class IMarioJump;
 
-	Mario(sf::RenderWindow* window, Map* map);
+	Mario(sf::RenderWindow* window, Map* map, CollisionManager* col);
 	virtual ~Mario();
 
 	//Accessors

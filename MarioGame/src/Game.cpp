@@ -25,7 +25,12 @@ void Game::initWindow()
 
 void Game::initMap()
 {
-	this->map = std::make_unique<Map>(this->window.get());
+	this->map = std::make_unique<Map>(this->window.get(), this->col_manager.get());
+}
+
+void Game::initCollisions()
+{
+	this->col_manager = std::make_unique<CollisionManager>();
 }
 
 void Game::initAudio()
@@ -47,7 +52,7 @@ void Game::initText()
 
 void Game::initMario()
 {
-	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get());
+	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get());
 }
 
 //Con/Des
@@ -55,6 +60,7 @@ Game::Game()
 {
 	this->initVariables();
 	this->initWindow();
+	this->initCollisions();
 	this->initMap();
 	this->initMario();
 	this->initAudio();
@@ -83,7 +89,7 @@ void Game::updateEvents()
 
 void Game::updateView()
 {
-	sf::Vector2f newPos = sf::Vector2f(MathUtils::clamp(mario->getPosition().x, this->window->getSize().x / 2.f , 2500.f), 325.f);
+	sf::Vector2f newPos = sf::Vector2f(MathUtils::clamp(mario->getPosition().x, this->window->getSize().x / 2.f , 5000.f), 325.f);
 	this->last_camera_pos = MathUtils::lerp(this->last_camera_pos, newPos, 10 * mario->deltaTime);
 	//this->view->setCenter({this->mario->getPosition().x, 325.f});
 	this->view->setCenter(this->last_camera_pos);

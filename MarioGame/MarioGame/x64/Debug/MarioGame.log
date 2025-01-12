@@ -6,99 +6,99 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(34,117): warning C4244:       
 C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(34,117): warning C4244:         ]
 C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(55,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(55,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(147,19): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(147,19): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(147,19): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(147,19): warning C4244:             T=int
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(147,19): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(148,20): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(148,20): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(148,20): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(148,20): warning C4244:             T=int
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(148,20): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,86): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,86): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,86): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,86): warning C4244:             T=int
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,86): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,86): warning C4244:         and
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,86): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,86): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,86): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,72): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,72): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,72): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,72): warning C4244:             T=int
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,72): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,72): warning C4244:         and
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,72): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,72): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(155,72): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(156,83): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(156,83): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(156,83): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(156,83): warning C4244:             T=int
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(156,83): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(156,83): warning C4244:         and
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(156,83): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(156,83): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(156,83): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(158,72): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(158,72): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(158,72): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(158,72): warning C4244:             T=int
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(158,72): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(158,72): warning C4244:         and
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(158,72): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(158,72): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(158,72): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(183,19): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(183,19): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(183,19): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(183,19): warning C4244:             T=int
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(183,19): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(184,20): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(184,20): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(184,20): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(184,20): warning C4244:             T=int
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(184,20): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,95): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,95): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,95): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,95): warning C4244:             T=int
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,95): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,95): warning C4244:         and
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,95): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,95): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,95): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,81): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,81): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,81): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,81): warning C4244:             T=int
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,81): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,81): warning C4244:         and
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,81): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,81): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(191,81): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(192,92): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(192,92): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(192,92): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(192,92): warning C4244:             T=int
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(192,92): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(192,92): warning C4244:         and
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(192,92): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(192,92): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(192,92): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(194,81): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(194,81): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(194,81): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(194,81): warning C4244:             T=int
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(194,81): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(194,81): warning C4244:         and
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(194,81): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(194,81): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(194,81): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(340,52): warning C4018: '>': signed/unsigned mismatch
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(165,19): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(165,19): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(165,19): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(165,19): warning C4244:             T=int
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(165,19): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(166,20): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(166,20): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(166,20): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(166,20): warning C4244:             T=int
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(166,20): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,86): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,86): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,86): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,86): warning C4244:             T=int
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,86): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,86): warning C4244:         and
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,86): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,86): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,86): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,72): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,72): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,72): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,72): warning C4244:             T=int
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,72): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,72): warning C4244:         and
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,72): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,72): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(173,72): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(174,83): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(174,83): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(174,83): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(174,83): warning C4244:             T=int
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(174,83): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(174,83): warning C4244:         and
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(174,83): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(174,83): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(174,83): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(176,72): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(176,72): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(176,72): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(176,72): warning C4244:             T=int
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(176,72): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(176,72): warning C4244:         and
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(176,72): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(176,72): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(176,72): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(201,19): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(201,19): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(201,19): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(201,19): warning C4244:             T=int
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(201,19): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(202,20): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(202,20): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(202,20): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(202,20): warning C4244:             T=int
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(202,20): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,95): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,95): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,95): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,95): warning C4244:             T=int
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,95): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,95): warning C4244:         and
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,95): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,95): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,95): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,81): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,81): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,81): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,81): warning C4244:             T=int
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,81): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,81): warning C4244:         and
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,81): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,81): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(209,81): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(210,92): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(210,92): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(210,92): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(210,92): warning C4244:             T=int
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(210,92): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(210,92): warning C4244:         and
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(210,92): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(210,92): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(210,92): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(212,81): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(212,81): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(212,81): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(212,81): warning C4244:             T=int
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(212,81): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(212,81): warning C4244:         and
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(212,81): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(212,81): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(212,81): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Map.cpp(363,52): warning C4018: '>': signed/unsigned mismatch
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103): warning C4244: 'argument': conversion from '_Ty' to 'T', possible loss of data
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103): warning C4244:         with
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103): warning C4244:         [

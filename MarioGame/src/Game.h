@@ -7,9 +7,11 @@
 
 #include <sstream>
 
+
 #include "Mario.h"
 #include "AudioManager.h"
 #include "Map.h"
+#include "CollisionManager.h"
 
 #include "Math.h"
 
@@ -30,6 +32,9 @@ private:
 	std::unique_ptr<Mario> mario;
 	bool is_colliding;
 
+	//Collisions
+	std::unique_ptr<CollisionManager> col_manager;
+
 	//Level
 	std::unique_ptr<Map> map;
 
@@ -46,6 +51,7 @@ private:
 	void initWindow();
 	void initMario();
 	void initMap();
+	void initCollisions();
 	void initAudio();
 	void initText();
 public:

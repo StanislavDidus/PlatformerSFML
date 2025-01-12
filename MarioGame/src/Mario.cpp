@@ -69,7 +69,7 @@ void Mario::initAudio()
 }
 
 //Con/Des
-Mario::Mario(sf::RenderWindow* window, Map* map) : window(window), map(map)
+Mario::Mario(sf::RenderWindow* window, Map* map, CollisionManager* col) : window(window), map(map), col(col)
 {
 	this->initVariables();
 	this->initSprite();

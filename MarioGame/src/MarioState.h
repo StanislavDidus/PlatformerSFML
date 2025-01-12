@@ -34,7 +34,8 @@ class IMarioIdle : public IMarioState
 		
 		float deltaX = mario.velocity.x;
 		float deltaY = mario.velocity.y * deltaTime;
-		mario.map->calibrateCollision(mario.sprite.getGlobalBounds(), deltaX, deltaY);
+		//mario.map->calibrateCollision(mario.sprite.getGlobalBounds(), deltaX, deltaY);
+		mario.col->callibrateCollision(mario.sprite.getGlobalBounds(), deltaX, deltaY);
 		mario.sprite.move(deltaX, deltaY);
 		mario.is_ground = mario.map->checkGround(mario.sprite.getGlobalBounds(), mario.velocity.x, mario.velocity.y * deltaTime);
 
@@ -82,7 +83,8 @@ class IMarioWalk : public IMarioState
 		
 		float deltaX = mario.velocity.x;
 		float deltaY = mario.velocity.y * deltaTime;
-		mario.map->calibrateCollision(mario.sprite.getGlobalBounds(), deltaX, deltaY);
+		//mario.map->calibrateCollision(mario.sprite.getGlobalBounds(), deltaX, deltaY);
+		mario.col->callibrateCollision(mario.sprite.getGlobalBounds(), deltaX, deltaY);
 		mario.sprite.move(deltaX, deltaY);
 		mario.is_ground = mario.map->checkGround(mario.sprite.getGlobalBounds(), mario.velocity.x, mario.velocity.y * deltaTime);
 
