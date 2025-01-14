@@ -54,7 +54,7 @@ void Game::initMario()
 {
 	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get());
 
-	this->col_manager->addSourse(this->mario->getBounds());
+	this->col_manager->addSourse(dynamic_cast<GameObject*>(this->mario.get()));
 }
 
 //Con/Des
@@ -91,7 +91,7 @@ void Game::updateEvents()
 
 void Game::updateView()
 {
-	sf::Vector2f newPos = sf::Vector2f(MathUtils::clamp(mario->getPosition().x, this->window->getSize().x / 2.f , 5000.f), 325.f);
+	sf::Vector2f newPos = sf::Vector2f(MathUtils::clamp(mario->getPosition().x, this->window->getSize().x / 2.f , 10150.f), 375.f);
 	this->last_camera_pos = MathUtils::lerp(this->last_camera_pos, newPos, 10 * mario->deltaTime);
 	//this->view->setCenter({this->mario->getPosition().x, 325.f});
 	this->view->setCenter(this->last_camera_pos);

@@ -12,13 +12,14 @@
 #include "Animator.h"
 #include "Map.h"
 #include "AudioManager.h"
+#include "GameObject.h"
 
 class IMarioState;
 class IMarioIdle;
 class IMarioWalk;
 class IMarioJump;
 
-class Mario
+class Mario : public GameObject
 {
 private:
 	sf::RenderWindow* window;
@@ -76,12 +77,12 @@ public:
 	virtual ~Mario();
 
 	//Accessors
-	const sf::FloatRect getBounds() const;
-	const sf::Vector2f getPosition() const;
+	const sf::FloatRect getBounds() const override;
+	const sf::Vector2f getPosition() const override;
 
 	//Modifiers
 	void setGround(bool state);
-	void setPosition(const sf::Vector2f& pos);
+	void setPosition(const sf::Vector2f& pos) override;
 
 	//Functions
 	void move(float dirX, float dirY);
@@ -89,6 +90,6 @@ public:
 	void applyGravity(float deltaTime);
 	void setState(const std::shared_ptr<IMarioState>& state);
 	void updateCollision();
-	void update(float deltaTime);
-	void render(sf::RenderTarget* target);
+	void update(float deltaTime) override;
+	void render(sf::RenderTarget* target) override;
 };

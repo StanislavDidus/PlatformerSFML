@@ -12,6 +12,7 @@
 #include "AudioManager.h"
 #include "Map.h"
 #include "CollisionManager.h"
+#include "GameObject.h"
 
 #include "Math.h"
 

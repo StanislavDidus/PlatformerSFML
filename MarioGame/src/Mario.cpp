@@ -4,8 +4,8 @@
 void Mario::initVariables()
 {
 	this->velocity = { 0.f, 0.f };
-	this->max_velocity = { 1250.f, 400.f};
-	this->acceleration = { 400.f, 1.f };
+	this->max_velocity = { 1200.f, 400.f};
+	this->acceleration = { 300.f, 1.f };
 
 	this->gravity = 980.f;
 
@@ -78,7 +78,7 @@ Mario::Mario(sf::RenderWindow* window, Map* map, CollisionManager* col) : window
 	this->initAudio();
 }
 
-Mario::~Mario()
+Mario::~Mario() 
 {
 }
 
@@ -107,7 +107,7 @@ void Mario::setPosition(const sf::Vector2f& pos)
 //Functions
 void Mario::move(float dirX, float dirY)
 {	
-	this->velocity.x = dirX * this->acceleration.x * deltaTime;
+	this->velocity.x += dirX * this->acceleration.x * deltaTime;
 
 	if (this->velocity.y > this->max_velocity.y)
 		this->velocity.y = this->max_velocity.y;
@@ -152,7 +152,7 @@ void Mario::update(float deltaTime)
 		this->animator->update(this->deltaTime);
 }
 
-void Mario::render(sf::RenderTarget* target)
+void Mario::render(sf::RenderTarget* target) 
 {
 	target->draw(this->sprite);
 

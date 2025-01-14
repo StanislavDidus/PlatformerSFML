@@ -245,18 +245,21 @@ void Map::updateCollisions()
 	sf::Vector2f scale = { 3.125f, 3.125f };
 	for (const auto& col : this->tiles_type)
 	{
-		bool src_found = false;
-		for (const auto& src : this->col_manager->getSources())
+		bool obj_found = false;
+		for (const auto& obj : this->col_manager->getSources())
 		{
-			if (MathUtils::distance(col.first, src) < src.width * 2.5f)
+			sf::FloatRect col_bounds = {col.first.left + col.first.width, col.first.top + col.first.height, col.first.width, col.first.height};
+			sf::FloatRect obj_bounds = { obj->getBounds().left + obj->getBounds().width, obj->getBounds().top + obj->getBounds().height, obj->getBounds().width, obj->getBounds().height };
+			
+			if (MathUtils::distance(col_bounds, obj_bounds) < obj_bounds.width * 3.f)
 			{
-				src_found = true;
+				obj_found = true;
 				break;
 			}
 			//std::cout << src.left << ", " << src.top << "\n";
 		}
 		
-		if (src_found)
+		if (obj_found)
 		{
 			/*sf::View view = this->window->getView();
 			sf::FloatRect posRect = { col.first.left / scale.x, col.first.top / scale.y, col.first.width / scale.x, col.first.height / scale.y };

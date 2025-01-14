@@ -41,7 +41,7 @@ class IMarioIdle : public IMarioState
 			mario.getBounds().width,
 			mario.getBounds().height }, mario.velocity, "All", CollisionType::DOWN);
 
-		mario.velocity.x *= 0.9f;
+		mario.velocity.x *= 0.9f * mario.deltaTime;
 		mario.applyGravity(deltaTime);
 		//Update idle anim
 		//mario.sprite.setTextureRect(sf::IntRect(mario.dir == 1 ? 0 : 16, 0, 16 * mario.dir, 16));
@@ -92,7 +92,7 @@ class IMarioWalk : public IMarioState
 			mario.getBounds().width,
 			mario.getBounds().height}, mario.velocity, "All", CollisionType::DOWN);
 
-		mario.velocity.x *= 0.9f;
+		mario.velocity.x *= 0.9f * mario.deltaTime;
 
 		mario.applyGravity(deltaTime);
 	}
@@ -141,7 +141,7 @@ class IMarioJump : public IMarioState
 			mario.getBounds().width,
 			mario.getBounds().height }, mario.velocity, "All", CollisionType::DOWN);
 
-		mario.velocity.x *= 0.9f;
+		mario.velocity.x *= 0.9f * mario.deltaTime;
 		mario.applyGravity(deltaTime);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && mario.getPosition().y > mario.jump_start_pos - mario.jump_start_max && !mario.is_jump_over)
@@ -162,6 +162,16 @@ class IMarioJump : public IMarioState
 			mario.is_jump_over = true;
 		}
 
+		// Check lucky block collision
+		if (mario.col->checkCollision({ mario.getBounds().left,
+			mario.getBounds().top + mario.velocity.y * deltaTime,
+			mario.getBounds().width,
+			mario.getBounds().height }, mario.velocity, "LuckyBlock", CollisionType::TOP) && !mario.is_jump_over)
+		{
+			std::cout << "Mario hit lucky block!\n";
+		}
+
+		//Then check collision with roof
 		if (mario.col->checkCollision({ mario.getBounds().left,
 			mario.getBounds().top + mario.velocity.y * deltaTime,
 			mario.getBounds().width,

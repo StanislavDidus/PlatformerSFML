@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Math.h"
+#include "GameObject.h"
 
 #include <iostream>
 #include <vector>
@@ -28,14 +29,14 @@ class CollisionManager
 {
 private:
 	std::vector<CollisionEvent> collisions;
-	std::vector<sf::FloatRect> src_pos;
+	std::vector<GameObject*> src_pos;
 
 public:
 	void addCollision(const CollisionEvent& collision) { collisions.emplace_back(collision); }
-	void addSourse(const sf::FloatRect& pos) { src_pos.emplace_back(pos); }
+	void addSourse(GameObject* pos) { src_pos.emplace_back(pos); }
 
 	std::vector<CollisionEvent> getCollisions() const { return collisions; }
-	std::vector<sf::FloatRect> getSources() const { return src_pos; }
+	std::vector<GameObject*> getSources() const { return src_pos; }
 
 	void clearCollision() { collisions.clear(); }
 
@@ -156,8 +157,7 @@ public:
 						continue;
 					}
 
-					if (newBoundsX.left < 0.f)
-						x = 0.f;
+					
 				}
 				else if (x > 0)
 				{
@@ -167,6 +167,9 @@ public:
 						continue;
 					}
 				}
+
+				if (newBoundsX.left < 0.f)
+					x = 0.f;
 			}
 		}
 	}
