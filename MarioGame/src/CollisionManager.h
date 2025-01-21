@@ -28,24 +28,69 @@ struct CollisionEvent
 class CollisionManager
 {
 private:
-	std::vector<CollisionEvent> collisions;
+	
 	std::vector<GameObject*> src_pos;
 
+	float current_time = 0.f;
+
 public:
+	std::vector<CollisionEvent> collisions;
+	std::vector<CollisionEvent> temp_collisions;
 	void addCollision(const CollisionEvent& collision) { collisions.emplace_back(collision); }
 	void addSourse(GameObject* pos) { src_pos.emplace_back(pos); }
+
+	void update(float deltaTime)
+	{
+		this->current_time += deltaTime;
+		
+		if (this->current_time >= 1.f / 30.f)
+		{
+			this->temp_collisions.clear();
+
+			for (const auto& col : this->collisions)
+			{
+				sf::FloatRect collision = col.collider_bounds;
+
+				bool founded = false;
+				for (const auto& object : this->getSources())
+				{
+					sf::FloatRect obj = object->getBounds();
+
+					sf::FloatRect col_bounds = { collision.left + collision.width, collision.top + collision.height, collision.width, collision.height };
+					sf::FloatRect obj_bounds = { obj.left + obj.width, obj.top + obj.height, obj.width, obj.height };
+
+					if (MathUtils::distance(col_bounds, obj_bounds) < obj_bounds.width * 3.f)
+					{
+						founded = true;
+						break;
+					}
+				}
+
+				if (founded)
+					this->temp_collisions.emplace_back(col);
+			}
+
+			this->current_time = 0.f;
+		}
+	}
 
 	std::vector<CollisionEvent> getCollisions() const { return collisions; }
 	std::vector<GameObject*> getSources() const { return src_pos; }
 
 	void clearCollision() { collisions.clear(); }
 
+	bool checkSources(const CollisionEvent& col)
+	{
+		
+	}
+
 	bool checkCollision(const sf::FloatRect& player, const sf::Vector2f velocity, const std::string& type, const CollisionType& side)
 	{
-		for (const auto& col : collisions)
+		for (const auto& col : temp_collisions)
 		{
 			if (col.collider_type == type || type == "All")
 			{
+				
 				sf::FloatRect object = col.collider_bounds;
 				
 				switch (side)
@@ -98,11 +143,12 @@ public:
 		return false;
 	}
 
+
 	void callibrateCollision(const sf::FloatRect& player, float& x, float& y)
 	{
 		sf::FloatRect newBoundsX = { player.left + x, player.top, player.width, player.height };
 		sf::FloatRect newBoundsY = { player.left , player.top + y, player.width, player.height };
-		for (auto& object : collisions)
+		for (const auto& object : temp_collisions)
 		{
 			sf::FloatRect objectBounds = static_cast<sf::FloatRect>(object.collider_bounds);
 			

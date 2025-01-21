@@ -1,4 +1,4 @@
-#include "Animator.h"
+﻿#include "Animator.h"
 
 //Con/Des
 Animator::Animator(sf::Sprite& sprite, int frame_width, int frame_height) : sprite(sprite),
@@ -13,42 +13,43 @@ Animator::~Animator()
 }
 
 //Functions
-void Animator::addAnimation(int firstFrame, int lastFrame, float speed, const std::function<bool()>& condition, const std::function<int()>& get_direction, bool is_looped)
+void Animator::addFrameAnimation(int firstFrame, int lastFrame, float speed, const std::function<bool()>& condition, const std::function<int()>& get_direction, bool is_looped, int prior)
 {
 	std::pair<int, int> frames = {firstFrame, lastFrame};
-	this->animations.emplace_back(this->sprite, this->frame_width, this->frame_height, frames, speed, condition, get_direction, is_looped);
+	this->animations.emplace_back(std::make_unique<FrameAnimation>(this->sprite, this->frame_width, this->frame_height, frames, speed, condition, get_direction, is_looped, prior));
 }
-
 
 void Animator::update(float deltaTime)
 {
 	this->timer += deltaTime;
-	
-	for (Animation& anim : this->animations)
+	this->deltaTime = deltaTime;
+
+	std::vector<Animation*> prior_anim;
+	for (auto& anim : this->animations)
 	{
-		if (anim.condition())
+		if (anim->condition())
 		{
-			if (anim.last_play_time + anim.animation_speed < this->timer)
+			prior_anim.emplace_back(anim.get()); 
+		}
+	}
+
+	if (!prior_anim.empty())
+	{
+		if (prior_anim.size() > 1)
+		{
+			auto* anim_highest_prior = prior_anim[0];
+			for (auto& anim1 : prior_anim)
 			{
-				//Play anim
-				//if(!anim.is_reversed)
-					//anim.sprite.setTextureRect(sf::IntRect(anim.frame_width * anim.current_frame, 0, anim.frame_width, anim.frame_height));
-				//else
-				int dir = anim.get_direction();
-				//this->sprite.setTextureRect(sf::IntRect((dir - 1) * (anim.frame_width / 2 * -1) + anim.current_frame * anim.frame_width, 0, dir * anim.frame_width, anim.frame_height));
-				this->sprite.setTextureRect(sf::IntRect(dir == 1 ? anim.frame_width * anim.current_frame : anim.frame_width * anim.current_frame + anim.frame_width, 0, dir * anim.frame_width, anim.frame_height));
-				anim.current_frame++;
-
-				if (anim.current_frame > anim.animation_frames.second && anim.is_looped)
-					anim.current_frame = anim.animation_frames.first;
-
-				if (anim.current_frame > anim.animation_frames.second && !anim.is_looped)
-					anim.current_frame = anim.animation_frames.second;
-
-				anim.last_play_time = this->timer;
+				if (anim1->priority > anim_highest_prior->priority)
+				{
+					anim_highest_prior = anim1;
+				}
 			}
+			anim_highest_prior->play(this->timer, this->deltaTime);
 		}
 		else
-			anim.current_frame = anim.animation_frames.first;
+		{
+			prior_anim[0]->play(this->timer, this->deltaTime);
+		}
 	}
 }

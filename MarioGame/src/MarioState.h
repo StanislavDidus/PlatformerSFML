@@ -26,22 +26,38 @@ class IMarioIdle : public IMarioState
 		{
 			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioWalk>()));
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && mario.is_ground)
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && mario.is_ground)
 		{
 			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioJump>()));
 		}
+		else 
+		{
+			if (mario.velocity.x > 0.f)
+			{
+				mario.velocity.x -= 325.f * deltaTime;
+			}
+			else if (mario.velocity.x < 0.f)
+			{
+				mario.velocity.x += 325.f * deltaTime;
+			}
+
+			if (std::abs(mario.velocity.x) < 10.f)
+			{	
+				mario.velocity.x = 0.f;
+			}
+		}
 
 		
-		float deltaX = mario.velocity.x;
+		float deltaX = mario.velocity.x * deltaTime;
 		float deltaY = mario.velocity.y * deltaTime;
 		mario.col->callibrateCollision(mario.getBounds(), deltaX, deltaY);
 		mario.sprite.move(deltaX, deltaY);
-		mario.is_ground = mario.col->checkCollision({ mario.getBounds().left,
+		mario.is_ground = mario.col->checkCollision({ mario.getBounds().left + mario.velocity.x * deltaTime,
 			mario.getBounds().top + mario.velocity.y * deltaTime,
 			mario.getBounds().width,
 			mario.getBounds().height }, mario.velocity, "All", CollisionType::DOWN);
 
-		mario.velocity.x *= 0.9f * mario.deltaTime;
+		//mario.velocity.x *= 0.9f * mario.deltaTime;
 		mario.applyGravity(deltaTime);
 		//Update idle anim
 		//mario.sprite.setTextureRect(sf::IntRect(mario.dir == 1 ? 0 : 16, 0, 16 * mario.dir, 16));
@@ -83,23 +99,26 @@ class IMarioWalk : public IMarioState
 			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioIdle>()));
 		}
 		
-		float deltaX = mario.velocity.x;
+		float deltaX = mario.velocity.x * deltaTime;
 		float deltaY = mario.velocity.y * deltaTime;
 		mario.col->callibrateCollision(mario.sprite.getGlobalBounds(), deltaX, deltaY);
 		mario.sprite.move(deltaX, deltaY);
-		mario.is_ground = mario.col->checkCollision({mario.getBounds().left,
+		mario.is_ground = mario.col->checkCollision({mario.getBounds().left + mario.velocity.x * deltaTime,
 			mario.getBounds().top + mario.velocity.y * deltaTime,
 			mario.getBounds().width,
 			mario.getBounds().height}, mario.velocity, "All", CollisionType::DOWN);
 
-		mario.velocity.x *= 0.9f * mario.deltaTime;
+		//mario.velocity.x *= 0.9f * mario.deltaTime;
 
 		mario.applyGravity(deltaTime);
+
+		//Check slide
+		mario.checkSlide();
 	}
 
 	void onExit(Mario& mario) override
 	{
-
+		mario.is_sliding = false;
 	}
 };
 
@@ -130,9 +149,25 @@ class IMarioJump : public IMarioState
 			mario.move(1.f, 0.f);
 			mario.flip(1.f);
 		}
+		else
+		{
+			if (mario.velocity.x > 0.f)
+			{
+				mario.velocity.x -= 325.f * deltaTime;
+			}
+			else if (mario.velocity.x < 0.f)
+			{
+				mario.velocity.x += 325.f * deltaTime;
+			}
+
+			if (std::abs(mario.velocity.x) < 10.f)
+			{
+				mario.velocity.x = 0.f;
+			}
+		}
 
 		//Apply gravity and move 
-		float deltaX = mario.velocity.x;
+		float deltaX = mario.velocity.x * deltaTime;
 		float deltaY = mario.velocity.y * deltaTime;;
 		mario.col->callibrateCollision(mario.sprite.getGlobalBounds(), deltaX, deltaY);
 		mario.sprite.move(deltaX, deltaY);
@@ -141,7 +176,6 @@ class IMarioJump : public IMarioState
 			mario.getBounds().width,
 			mario.getBounds().height }, mario.velocity, "All", CollisionType::DOWN);
 
-		mario.velocity.x *= 0.9f * mario.deltaTime;
 		mario.applyGravity(deltaTime);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && mario.getPosition().y > mario.jump_start_pos - mario.jump_start_max && !mario.is_jump_over)
@@ -173,7 +207,7 @@ class IMarioJump : public IMarioState
 
 		//Then check collision with roof
 		if (mario.col->checkCollision({ mario.getBounds().left,
-			mario.getBounds().top + mario.velocity.y * deltaTime,
+			mario.getBounds().top + mario.velocity.y * mario.deltaTime,
 			mario.getBounds().width,
 			mario.getBounds().height }, mario.velocity, "All", CollisionType::TOP) && !mario.is_jump_over)
 		{

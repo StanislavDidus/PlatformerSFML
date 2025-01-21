@@ -43,6 +43,7 @@ private:
 
 	sf::Vector2f velocity; // velocity.x , velocity.y
 	sf::Vector2f max_velocity; // max velocity
+	float speed;
 	sf::Vector2f acceleration; // acceleration
 
 	float jump_start_pos;
@@ -50,7 +51,10 @@ private:
 
 	int direction;
 
-	
+	//Slide
+	float slide_time;
+	float slide_time_max;
+	bool is_sliding;
 
 	//Jump
 	bool is_jump_over;
@@ -86,6 +90,7 @@ public:
 
 	//Functions
 	void move(float dirX, float dirY);
+	void checkSlide();
 	void flip(int dir);
 	void applyGravity(float deltaTime);
 	void setState(const std::shared_ptr<IMarioState>& state);

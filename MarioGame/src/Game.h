@@ -66,6 +66,7 @@ public:
 	void updateAudio();
 	void updateText();
 	void updateMap();
+	void updateCollisions(float deltaTime);
 	void update();
 	void renderLevel();
 	void renderText();

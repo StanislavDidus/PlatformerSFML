@@ -63,8 +63,8 @@ Game::Game()
 	this->initVariables();
 	this->initWindow();
 	this->initCollisions();
-	this->initMap();
 	this->initMario();
+	this->initMap();
 	this->initAudio();
 	this->initText();
 }
@@ -93,8 +93,9 @@ void Game::updateView()
 {
 	sf::Vector2f newPos = sf::Vector2f(MathUtils::clamp(mario->getPosition().x, this->window->getSize().x / 2.f , 10150.f), 375.f);
 	this->last_camera_pos = MathUtils::lerp(this->last_camera_pos, newPos, 10 * mario->deltaTime);
-	//this->view->setCenter({this->mario->getPosition().x, 325.f});
-	this->view->setCenter(this->last_camera_pos);
+	this->view->setCenter({this->mario->getPosition().x, 325.f});
+	
+	//this->view->setCenter({this->mario->getPosition().x , 375.f});
 	
 	//std::cout << this->view->getCenter().x << ", " << this->view->getCenter().y << "\n";
 	//this->view->setSize(800, 600);
@@ -126,12 +127,18 @@ void Game::updateMap()
 	this->map->update(this->mario->deltaTime);
 }
 
+void Game::updateCollisions(float deltaTime)
+{
+	this->col_manager->update(deltaTime);
+}
+
 void Game::update()
 {
 	float deltaTime = this->clock.restart().asSeconds();
 	deltaTime = std::min(deltaTime, 0.033f);
 	
 	this->updateEvents();
+	this->updateCollisions(deltaTime);
 	this->mario->update(deltaTime);
 	this->updateView();
 	this->updateAudio();

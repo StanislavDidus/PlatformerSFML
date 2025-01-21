@@ -9,6 +9,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "CollisionManager.h"
+#include "GameObject.h"
 
 #include <iostream>
 #include <unordered_map>
@@ -29,21 +30,21 @@ struct AnimationTile
 class Map
 {
 private:
-	std::vector<std::unique_ptr<tmx::Tileset>> tile_sets;
-	std::vector<std::unique_ptr<sf::Texture>> textures;
-	tmx::Map tiled_map;
-	//tmx::Tileset* tile_set;
+	std::vector<std::unique_ptr<tmx::Tileset>> tile_sets; // all tilesets
+	std::vector<std::unique_ptr<sf::Texture>> textures; // all textures for tile sets
+	tmx::Map tiled_map; // level tiled map
 
-	std::unique_ptr<sf::VertexArray> v_array;
-	std::unique_ptr<sf::VertexArray> animated_v_array;
+	std::unique_ptr<sf::VertexArray> v_array; // vertexArray for level
+	std::unique_ptr<sf::VertexArray> animated_v_array; // vertexArray for animated tiles
 
 	//Sprites
-	std::vector<AnimationTile> animation_tiles;
-	std::vector<std::pair<sf::FloatRect, sf::IntRect>> all_tiles;
-	std::vector<std::pair<sf::FloatRect, std::string>> tiles_type;
-	std::vector<std::pair<sf::FloatRect, std::string>> temp_tiles_type;
+	std::vector<AnimationTile> animation_tiles; // All animated tiles
+	std::vector<std::pair<sf::FloatRect, sf::IntRect>> all_tiles; // All tiles except animated
+	std::vector<std::pair<sf::FloatRect, std::string>> tiles_type; // All tiles with collisions
 
-	std::vector<sf::FloatRect> lucky_blocks;
+	std::vector<GameObject> gameObjects; // gameObject (LuckyBlocks, Bricks)
+
+	std::vector<sf::FloatRect> lucky_blocks; // All lucky blocks
 
 	//Collision
 	CollisionManager* col_manager;
@@ -58,6 +59,7 @@ private:
 	void initTiledMap();
 	void initSprites();
 	void initVerArray();
+	void initCollisions();
 public:
 	Map(sf::RenderWindow* window, CollisionManager* col);
 	virtual ~Map();

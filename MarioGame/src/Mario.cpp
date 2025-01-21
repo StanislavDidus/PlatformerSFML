@@ -4,8 +4,8 @@
 void Mario::initVariables()
 {
 	this->velocity = { 0.f, 0.f };
-	this->max_velocity = { 1200.f, 400.f};
-	this->acceleration = { 300.f, 1.f };
+	this->max_velocity = { 400.f, 400.f};
+	this->acceleration = { 750.f, 1.f };
 
 	this->gravity = 980.f;
 
@@ -17,6 +17,12 @@ void Mario::initVariables()
 
 	this->jump_start_pos = 0.f;
 	this->jump_start_max = 150.f;
+
+	this->is_sliding = false;
+	this->slide_time = 0.f;
+	this->slide_time_max = 0.65f;
+
+	this->speed = 0.f;
 }
 
 void Mario::initSprite()
@@ -48,16 +54,22 @@ void Mario::initAnimator()
 
 	//Add animations
 	//Idle
-	this->animator->addAnimation(
-		0, 0, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioIdle>(this->current_state) != nullptr; }, [this]() {return this->direction; }, true
+	this->animator->addFrameAnimation(
+		0, 0, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioIdle>(this->current_state) != nullptr; }, [this]() {return this->direction; }, true, 5
 	);
 	//Run
-	this->animator->addAnimation(
-		1, 3, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, true
+	this->animator->addFrameAnimation(
+		1, 3, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, true, 5
+	);
+	//Slide
+	this->animator->addFrameAnimation(
+		4, 4, 50.f / 1000.f, [this]() {
+			return this->is_sliding && std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr;
+		}, [this]() {return this->direction; }, true, 10
 	);
 	//Jump
-	this->animator->addAnimation(
-		4, 5, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioJump>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, false
+	this->animator->addFrameAnimation(
+		5, 5, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioJump>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, false, 5
 	);
 }
 
@@ -65,7 +77,7 @@ void Mario::initAudio()
 {
 	this->mario_audio_manager = std::make_unique<AudioManager>();
 
-	this->mario_audio_manager->addSound("Jump", "assets/Sounds/Mario/Jump.wav", false);
+	//this->mario_audio_manager->addSound("Jump", "assets/Sounds/Mario/Jump.wav", false);
 }
 
 //Con/Des
@@ -107,10 +119,39 @@ void Mario::setPosition(const sf::Vector2f& pos)
 //Functions
 void Mario::move(float dirX, float dirY)
 {	
+
 	this->velocity.x += dirX * this->acceleration.x * deltaTime;
 
-	if (this->velocity.y > this->max_velocity.y)
-		this->velocity.y = this->max_velocity.y;
+	if (std::abs(this->velocity.x) > this->max_velocity.x)
+		this->velocity.x = this->max_velocity.x * (this->velocity.x > 0 ? 1.f : -1.f);
+}
+
+void Mario::checkSlide()
+{
+	if (!this->is_sliding) 
+	{
+		if (this->direction == -1 && this->velocity.x > 0)
+		{
+			this->is_sliding = true;
+			
+		}
+		else if (this->direction == 1 && this->velocity.x < 0)
+		{
+			this->is_sliding = true;
+		}
+	}
+
+	if (this->is_sliding)
+	{
+		this->slide_time += this->deltaTime;
+
+		if (this->slide_time >= this->slide_time_max || this->velocity.x == 0.f)
+		{
+			this->is_sliding = false;
+			this->slide_time = 0.f;
+			
+		}
+	}
 }
 
 void Mario::flip(int dir)
