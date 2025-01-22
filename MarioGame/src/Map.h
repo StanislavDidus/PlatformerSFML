@@ -27,6 +27,38 @@ struct AnimationTile
 	}
 };
 
+class Tile
+{
+private:
+	sf::FloatRect posRect;
+	sf::IntRect texRect;
+
+	int tile_set_index;
+	
+	bool is_collision;
+	bool is_animation;
+
+	tmx::Tileset::Tile::Animation* animation;
+	std::unique_ptr<sf::Clock> anim_timer;
+	int current_frame;
+public:
+	Tile(sf::FloatRect p, sf::IntRect t, bool col, bool anim) : posRect(p), texRect(t), is_collision(col), is_animation(anim)
+	{
+		
+		//Init clock
+		if (this->is_animation)
+		{
+			this->anim_timer = std::make_unique<sf::Clock>();
+			this->current_frame = 0;
+		}
+	}
+
+	void setAnim(tmx::Tileset::Tile::Animation& anim)
+	{
+		this->animation = &anim;
+	}
+};
+
 class Map
 {
 private:
@@ -35,16 +67,18 @@ private:
 	tmx::Map tiled_map; // level tiled map
 
 	std::unique_ptr<sf::VertexArray> v_array; // vertexArray for level
-	std::unique_ptr<sf::VertexArray> animated_v_array; // vertexArray for animated tiles
+	//std::unique_ptr<sf::VertexArray> animated_v_array; // vertexArray for animated tiles
 
 	//Sprites
 	std::vector<AnimationTile> animation_tiles; // All animated tiles
 	std::vector<std::pair<sf::FloatRect, sf::IntRect>> all_tiles; // All tiles except animated
 	std::vector<std::pair<sf::FloatRect, std::string>> tiles_type; // All tiles with collisions
 
-	std::vector<GameObject> gameObjects; // gameObject (LuckyBlocks, Bricks)
+	std::vector<Tile> tiles; // ALL tiles
 
-	std::vector<sf::FloatRect> lucky_blocks; // All lucky blocks
+	//std::vector<GameObject> gameObjects; // gameObject (LuckyBlocks, Bricks)
+
+	//std::vector<sf::FloatRect> lucky_blocks; // All lucky blocks
 
 	//Collision
 	CollisionManager* col_manager;
