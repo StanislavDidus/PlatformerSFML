@@ -116,15 +116,16 @@ void Map::initVerArray()
 
 	for (int i = 0; i < this->all_tiles.size(); i++)
 	{
+		
 		sf::FloatRect posRect = this->all_tiles[i].first;
-
+		
 		sf::View view = this->window->getView();
 		if ((posRect.left + posRect.width) * scale.x < view.getCenter().x - view.getSize().x / 2 ||
 			posRect.left * scale.x >= view.getCenter().x + view.getSize().x / 2 ||
 			(posRect.top + posRect.height) * scale.y < view.getCenter().y - view.getSize().y / 2 ||
 			posRect.top * scale.y >= view.getCenter().y + view.getSize().y / 2)
 		{
-			v_size += 4;
+			
 			continue;
 		}
 
@@ -152,6 +153,8 @@ void Map::initVerArray()
 
 		
 	}
+
+	v_size += 4 * this->all_tiles.size();
 
 	for (int i = 0; i < this->animation_tiles.size(); i++)
 	{

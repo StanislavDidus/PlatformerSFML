@@ -93,7 +93,7 @@ void Game::updateView()
 {
 	sf::Vector2f newPos = sf::Vector2f(MathUtils::clamp(mario->getPosition().x, this->window->getSize().x / 2.f , 10150.f), 375.f);
 	this->last_camera_pos = MathUtils::lerp(this->last_camera_pos, newPos, 10 * mario->deltaTime);
-	this->view->setCenter({this->mario->getPosition().x, 325.f});
+	this->view->setCenter(this->last_camera_pos);
 	
 	//this->view->setCenter({this->mario->getPosition().x , 375.f});
 	

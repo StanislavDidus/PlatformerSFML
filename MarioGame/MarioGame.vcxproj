@@ -157,6 +157,7 @@
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\LuckyBlock.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\Mario.h" />
     <ClInclude Include="src\MarioState.h" />
