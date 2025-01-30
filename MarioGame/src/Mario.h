@@ -77,16 +77,16 @@ public:
 	friend class IMarioWalk;
 	friend class IMarioJump;
 
-	Mario(sf::RenderWindow* window, Map* map, CollisionManager* col);
+	Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, const sf::FloatRect& rect, const std::string& type);
 	virtual ~Mario();
 
 	//Accessors
-	const sf::FloatRect getBounds() const override;
-	const sf::Vector2f getPosition() const override;
+	const sf::FloatRect getBounds() const;
+	const sf::Vector2f getPosition() const;
 
 	//Modifiers
 	void setGround(bool state);
-	void setPosition(const sf::Vector2f& pos) override;
+	void setPosition(const sf::Vector2f& newPosition) override;
 
 	//Functions
 	void move(float dirX, float dirY);

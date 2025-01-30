@@ -130,7 +130,7 @@ class IMarioJump : public IMarioState
 
 		mario.is_jump_over = false;
 
-		mario.velocity.y = -150.f;
+		mario.velocity.y = -50.f;
 
 		mario.mario_audio_manager->playSound("Jump");
 	}
@@ -202,7 +202,19 @@ class IMarioJump : public IMarioState
 			mario.getBounds().width,
 			mario.getBounds().height }, mario.velocity, "LuckyBlock", CollisionType::TOP) && !mario.is_jump_over)
 		{
-			std::cout << "Mario hit lucky block!\n";
+			// if hit lucky block
+			
+
+			GameObject* obj = mario.col->getObject({ mario.getBounds().left,
+			mario.getBounds().top + mario.velocity.y * deltaTime,
+			mario.getBounds().width,
+			mario.getBounds().height }, mario.velocity, "LuckyBlock");
+			
+			if(obj != nullptr)
+			{
+				//std::cout << "Mario hit lucky block!\n";
+				obj->onHit();
+			}
 		}
 
 		//Then check collision with roof

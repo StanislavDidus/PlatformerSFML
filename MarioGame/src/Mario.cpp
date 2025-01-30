@@ -32,7 +32,7 @@ void Mario::initSprite()
 
 	this->sprite.setTexture(this->texture);
 	this->sprite.setScale(3.125f, 3.125f);
-	this->sprite.setPosition(16.f * 3.125f * 2.f, 0.f);
+	//this->sprite.setPosition(16.f * 3.125f * 2.f, 0.f);
 
 	this->sprite.setTextureRect(sf::IntRect(0, 0, 16, 16)); // Int rect (x, y, width, height)
 	//this->sprite.setTextureRect(sf::IntRect(32, 0, -16, 16));
@@ -55,21 +55,21 @@ void Mario::initAnimator()
 	//Add animations
 	//Idle
 	this->animator->addFrameAnimation(
-		0, 0, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioIdle>(this->current_state) != nullptr; }, [this]() {return this->direction; }, true, 5
+		0, 0, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioIdle>(this->current_state) != nullptr; }, [this]() {return this->direction; }, true, 5, "Idle"
 	);
 	//Run
 	this->animator->addFrameAnimation(
-		1, 3, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, true, 5
+		1, 3, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, true, 5, "Run"
 	);
 	//Slide
 	this->animator->addFrameAnimation(
 		4, 4, 50.f / 1000.f, [this]() {
 			return this->is_sliding && std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr;
-		}, [this]() {return this->direction; }, true, 10
+		}, [this]() {return this->direction; }, true, 10 , "Slide"
 	);
 	//Jump
 	this->animator->addFrameAnimation(
-		5, 5, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioJump>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, false, 5
+		5, 5, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioJump>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, false, 5, "Jump"
 	);
 }
 
@@ -81,7 +81,8 @@ void Mario::initAudio()
 }
 
 //Con/Des
-Mario::Mario(sf::RenderWindow* window, Map* map, CollisionManager* col) : window(window), map(map), col(col)
+Mario::Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, const sf::FloatRect& rect, const std::string& type) : window(window), 
+	map(map), col(col), GameObject(type, rect)
 {
 	this->initVariables();
 	this->initSprite();
@@ -111,9 +112,10 @@ void Mario::setGround(bool state)
 	this->is_ground = state;
 }
 
-void Mario::setPosition(const sf::Vector2f& pos)
+void Mario::setPosition(const sf::Vector2f& newPosition)
 {
-	this->sprite.setPosition(pos);
+	GameObject::setPosition(newPosition);
+	sprite.setPosition(newPosition); 
 }
 
 //Functions
@@ -191,6 +193,9 @@ void Mario::update(float deltaTime)
 	
 	if (this->animator != nullptr)
 		this->animator->update(this->deltaTime);
+
+	sf::Vector2f newPosition = this->sprite.getPosition();
+	setPosition(newPosition);
 }
 
 void Mario::render(sf::RenderTarget* target) 

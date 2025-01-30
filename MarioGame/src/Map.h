@@ -10,6 +10,8 @@
 
 #include "CollisionManager.h"
 #include "GameObject.h"
+#include "LuckyBlock.h"
+#include "Brick.h"
 
 #include <iostream>
 #include <unordered_map>
@@ -33,16 +35,21 @@ private:
 	sf::FloatRect posRect;
 	sf::IntRect texRect;
 
+	std::string type;
+
 	int tile_set_index;
 	
 	bool is_collision;
 	bool is_animation;
 
-	tmx::Tileset::Tile::Animation* animation;
-	std::unique_ptr<sf::Clock> anim_timer;
-	int current_frame;
+	std::shared_ptr<tmx::Tileset::Tile::Animation> animation;
+	
+	
 public:
-	Tile(sf::FloatRect p, sf::IntRect t, bool col, bool anim) : posRect(p), texRect(t), is_collision(col), is_animation(anim)
+	int current_frame;
+	std::unique_ptr<sf::Clock> anim_timer;
+
+	Tile(const sf::FloatRect& p, const sf::IntRect& t, const std::string& ty, const bool col, const bool anim) : posRect(p), texRect(t), type(ty), is_collision(col), is_animation(anim)
 	{
 		
 		//Init clock
@@ -53,9 +60,51 @@ public:
 		}
 	}
 
-	void setAnim(tmx::Tileset::Tile::Animation& anim)
+	const sf::FloatRect getPosition() const
 	{
-		this->animation = &anim;
+		return this->posRect;
+	}
+	const sf::IntRect getTextureRect() const
+	{
+		return this->texRect;
+	}
+	const std::string& getType() const
+	{
+		return this->type;
+	}
+	sf::Clock* getClock() const
+	{
+		return this->anim_timer.get();
+	}
+	std::shared_ptr<tmx::Tileset::Tile::Animation> getAnimation() const
+	{
+		if (!this->animation)
+		{
+			throw std::runtime_error("Animation is not set for this tile.");
+		}
+		return this->animation;
+	}
+	const int getFrame() const
+	{
+		return this->current_frame;
+	}
+	const bool isCollision() const
+	{
+		return this->is_collision;
+	}
+	const bool isAnimation() const
+	{
+		return this->is_animation;
+	}
+	void setTextureRect(const sf::IntRect& rect)
+	{
+		this->texRect = rect;
+	}
+	
+
+	void setAnimation(std::shared_ptr<tmx::Tileset::Tile::Animation> anim)
+	{
+		this->animation = anim;
 	}
 };
 
@@ -67,18 +116,13 @@ private:
 	tmx::Map tiled_map; // level tiled map
 
 	std::unique_ptr<sf::VertexArray> v_array; // vertexArray for level
-	//std::unique_ptr<sf::VertexArray> animated_v_array; // vertexArray for animated tiles
 
 	//Sprites
-	std::vector<AnimationTile> animation_tiles; // All animated tiles
-	std::vector<std::pair<sf::FloatRect, sf::IntRect>> all_tiles; // All tiles except animated
-	std::vector<std::pair<sf::FloatRect, std::string>> tiles_type; // All tiles with collisions
-
 	std::vector<Tile> tiles; // ALL tiles
+	std::vector<std::unique_ptr<GameObject>> game_objects;
 
-	//std::vector<GameObject> gameObjects; // gameObject (LuckyBlocks, Bricks)
-
-	//std::vector<sf::FloatRect> lucky_blocks; // All lucky blocks
+	std::unordered_map<int, tmx::Tileset::Tile> index_tile;
+	std::unordered_map<int, sf::IntRect> index_texture;
 
 	//Collision
 	CollisionManager* col_manager;

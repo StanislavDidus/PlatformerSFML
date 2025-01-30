@@ -143,20 +143,24 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Brick.cpp" />
     <ClCompile Include="src\Animator.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\LuckyBlock.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Mario.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Brick.h" />
     <ClInclude Include="src\Animator.h" />
     <ClInclude Include="src\AudioManager.h" />
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\LuckyBlock.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\Mario.h" />
     <ClInclude Include="src\MarioState.h" />

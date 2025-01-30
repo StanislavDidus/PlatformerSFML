@@ -21,8 +21,10 @@ struct CollisionEvent
 {
 	sf::FloatRect collider_bounds;
 	std::string collider_type;
+	GameObject* object;
 
-	CollisionEvent(sf::FloatRect fr, std::string col) : collider_bounds(fr), collider_type(col) {}
+	CollisionEvent(sf::FloatRect fr, std::string col) : collider_bounds(fr), collider_type(col), object(nullptr) {}
+	CollisionEvent(sf::FloatRect fr, std::string col, GameObject* object) : collider_bounds(fr), collider_type(col), object(object) {}
 };
 
 class CollisionManager
@@ -96,7 +98,7 @@ public:
 				switch (side)
 				{
 				case CollisionType::LEFT:
-					if (player.left < object.left + object.width &&
+					if (player.left < object.left + object.width &&	
 						player.left + player.width > object.left &&
 						player.top < object.top + object.height &&
 						player.top + player.height > object.top)
@@ -143,7 +145,25 @@ public:
 		return false;
 	}
 
+	GameObject* getObject(const sf::FloatRect& player, const sf::Vector2f velocity, const std::string& type)
+	{
+		for (const auto& col : temp_collisions)
+		{
+			if (col.collider_type == type)
+			{
+				if (col.object != nullptr)
+				{
+					sf::FloatRect object = col.collider_bounds;
 
+					if (player.intersects(object))
+						return col.object;
+				}
+			}
+		}
+
+		return nullptr;
+	}
+	
 	void callibrateCollision(const sf::FloatRect& player, float& x, float& y)
 	{
 		sf::FloatRect newBoundsX = { player.left + x, player.top, player.width, player.height };

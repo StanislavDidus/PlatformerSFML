@@ -52,7 +52,7 @@ void Game::initText()
 
 void Game::initMario()
 {
-	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get());
+	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get(), sf::FloatRect(0, 0, 50, 50), "Mario");
 
 	this->col_manager->addSourse(dynamic_cast<GameObject*>(this->mario.get()));
 }

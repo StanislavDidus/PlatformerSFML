@@ -52,7 +52,7 @@ void Map::initSprites()
 						this->tile_sets[0]->getTileSize().x,
 						this->tile_sets[0]->getTileSize().y));
 
-					sprite.setPosition(window_pos_x, window_pos_y);
+					//sprite.setPosition(window_pos_x, window_pos_y);
 					//sprite.setScale(3.125f, 3.125f);
 
 					// Look for an tile by ID
@@ -70,36 +70,39 @@ void Map::initSprites()
 							this->tile_sets[0]->getTileSize().x * 3.125f,
 							this->tile_sets[0]->getTileSize().y * 3.125f };
 
+					sprite.setPosition(col_rect.left, col_rect.top);
+					sprite.setScale(3.125f, 3.125f);
 
 					if (lay->getName() == "Collisions")
 					{
-						this->tiles_type.emplace_back(col_rect, "Ground");
+						//this->tiles_type.emplace_back(col_rect, "Ground");
+						this->tiles.emplace_back(col_rect, sprite.getTextureRect(), "Ground", true, false);
 					}
-					
-					if (foundTile)
+					else if (foundTile)
 					{
 
-						if (!foundTile->animation.frames.empty()) // if there is an animation
-							this->animation_tiles.emplace_back(sprite.getGlobalBounds(), sprite.getTextureRect(), foundTile->animation);
-						else 
-							this->all_tiles.emplace_back(sprite.getGlobalBounds(), sprite.getTextureRect());
-
-
-						if (foundTile->properties[0].getStringValue() == "LuckyBlock")
+						if (!foundTile->animation.frames.empty())
 						{
-							this->tiles_type.emplace_back(col_rect, "LuckyBlock");
-							//this->gameObjects.emplace_back("LuckyBlock", col_rect);
+							if (foundTile->properties[0].getStringValue() == "LuckyBlock")
+							{
+								//Tile tile = { col_rect, sprite.getTextureRect(), "LuckyBlock", true, true };
+								//tile.setAnimation(std::make_shared<tmx::Tileset::Tile::Animation>(foundTile->animation));
+								//this->tiles.emplace_back(std::move(tile));
+								this->game_objects.emplace_back(std::make_unique<LuckyBlock>(sprite, col_rect, "LuckyBlock"));
+							}
 						}
-						
-						else if (foundTile->properties[0].getStringValue() == "Brick")
+
+						if (foundTile->properties[0].getStringValue() == "Brick")
 						{
-							this->tiles_type.emplace_back(col_rect, "Brick");
-							//this->gameObjects.emplace_back("Brick", col_rect);
+							//this->tiles.emplace_back(col_rect, sprite.getTextureRect(), "Brick", true, false);
+							this->game_objects.emplace_back(std::make_unique<Brick>(sprite, col_rect, "Brick"));
 						}
 
 					}
 					else
-						this->all_tiles.emplace_back(sprite.getGlobalBounds(), sprite.getTextureRect());
+					{
+						this->tiles.emplace_back(col_rect, sprite.getTextureRect(), "Decor", false, false);
+					}
 				}
 			}
 		}
@@ -108,16 +111,14 @@ void Map::initSprites()
 
 void Map::initVerArray()
 {
-	this->v_array = std::make_unique<sf::VertexArray>(sf::Quads, this->all_tiles.size() * 4 + this->animation_tiles.size() * 4);
-	int v_size = 0;
-	//this->animated_v_array = std::make_unique<sf::VertexArray>(sf::Quads, this->animation_tiles.size() * 4);
+	this->v_array = std::make_unique<sf::VertexArray>(sf::Quads, this->tiles.size() * 4 );
 
-	sf::Vector2f scale = { 3.125f,3.125f };
+	sf::Vector2f scale = { 1.f,1.f };
 
-	for (int i = 0; i < this->all_tiles.size(); i++)
+	for (int i = 0; i < this->tiles.size(); i++)
 	{
 		
-		sf::FloatRect posRect = this->all_tiles[i].first;
+		sf::FloatRect posRect = this->tiles[i].getPosition();
 		
 		sf::View view = this->window->getView();
 		if ((posRect.left + posRect.width) * scale.x < view.getCenter().x - view.getSize().x / 2 ||
@@ -129,9 +130,7 @@ void Map::initVerArray()
 			continue;
 		}
 
-		
-
-		sf::IntRect texRect = this->all_tiles[i].second;
+		sf::IntRect texRect = this->tiles[i].getTextureRect();
 
 		float tile_x = posRect.left * scale.x;
 		float tile_y = posRect.top * scale.y;
@@ -150,80 +149,20 @@ void Map::initVerArray()
 		this->v_array->operator[](1 + i * 4).texCoords = sf::Vector2f(tex_width, texRect.top);
 		this->v_array->operator[](2 + i * 4).texCoords = sf::Vector2f(tex_width, tex_height);
 		this->v_array->operator[](3 + i * 4).texCoords = sf::Vector2f(texRect.left, tex_height);
-
-		
-	}
-
-	v_size += 4 * this->all_tiles.size();
-
-	for (int i = 0; i < this->animation_tiles.size(); i++)
-	{
-		sf::FloatRect posRect = this->animation_tiles[i].posRect;
-
-		sf::View view = this->window->getView();
-		if ((posRect.left + posRect.width) * scale.x < view.getCenter().x - view.getSize().x / 2 ||
-			posRect.left * scale.x >= view.getCenter().x + view.getSize().x / 2 ||
-			(posRect.top + posRect.height) * scale.y < view.getCenter().y - view.getSize().y / 2 ||
-			posRect.top * scale.y >= view.getCenter().y + view.getSize().y / 2)
-		{
-			continue;
-		}
-
-
-		sf::IntRect texRect = this->animation_tiles[i].texRect;
-
-		float tile_x = posRect.left * scale.x;
-		float tile_y = posRect.top * scale.y;
-		float tile_width = (posRect.left + posRect.width) * scale.x;
-		float tile_height = (posRect.top + posRect.height) * scale.y;
-
-		float tex_width = texRect.left + texRect.width;
-		float tex_height = texRect.top + texRect.height;
-
-		this->v_array->operator[](v_size + 0 + i * 4).position = sf::Vector2f(tile_x, tile_y);
-		this->v_array->operator[](v_size + 1 + i * 4).position = sf::Vector2f(tile_width, tile_y);
-		this->v_array->operator[](v_size + 2 + i * 4).position = sf::Vector2f(tile_width, tile_height);
-		this->v_array->operator[](v_size + 3 + i * 4).position = sf::Vector2f(tile_x, tile_height);
-
-		this->v_array->operator[](v_size + 0 + i * 4).texCoords = sf::Vector2f(texRect.left, texRect.top);
-		this->v_array->operator[](v_size + 1 + i * 4).texCoords = sf::Vector2f(tex_width, texRect.top);
-		this->v_array->operator[](v_size + 2 + i * 4).texCoords = sf::Vector2f(tex_width, tex_height);
-		this->v_array->operator[](v_size + 3 + i * 4).texCoords = sf::Vector2f(texRect.left, tex_height);
 	}
 }
 
 void Map::initCollisions()
 {
-	//sf::Vector2f scale = { 3.125f, 3.125f };
-	for (const auto& col : this->tiles_type)
+	for (const auto& tile: this->tiles)
 	{
-		//bool obj_found = false;
-		//for (const auto& obj : this->col_manager->getSources())
-		//{
-			//sf::FloatRect col_bounds = { col.first.left + col.first.width, col.first.top + col.first.height, col.first.width, col.first.height };
-			//sf::FloatRect obj_bounds = { obj->getBounds().left + obj->getBounds().width, obj->getBounds().top + obj->getBounds().height, obj->getBounds().width, obj->getBounds().height };
+		if(tile.isCollision())
+			this->col_manager->addCollision({tile.getPosition(), tile.getType()});
+	}
 
-			//if (MathUtils::distance(col_bounds, obj_bounds) < obj_bounds.width * 3.f)
-			//{
-			//obj_found = true;
-			
-			//}
-			//std::cout << src.left << ", " << src.top << "\n";
-		//}
-
-		//if (obj_found)
-		
-			/*sf::View view = this->window->getView();
-			sf::FloatRect posRect = { col.first.left / scale.x, col.first.top / scale.y, col.first.width / scale.x, col.first.height / scale.y };
-			if ((posRect.left + posRect.width) * scale.x < view.getCenter().x - view.getSize().x / 2 ||
-				posRect.left * scale.x >= view.getCenter().x + view.getSize().x / 2 ||
-				(posRect.top + posRect.height) * scale.y < view.getCenter().y - view.getSize().y / 2 ||
-				posRect.top * scale.y >= view.getCenter().y + view.getSize().y / 2)
-			{
-				continue;
-			}*/
-		this->col_manager->addCollision({ col.first, col.second });
-		
+	for (const auto& object : this->game_objects)
+	{
+		this->col_manager->addCollision({ object->getBounds(), object->getType(), object.get()});
 	}
 }
 
@@ -244,33 +183,33 @@ Map::~Map()
 //Accessors
 void Map::updateAnimations()
 {
-	for (auto& tile : this->animation_tiles)
+	for (auto& tile : this->tiles)
 	{
-		//std::cout << tile.animation.frames[tile.current_frame].duration << "\n";
-		if (tile.clock.getElapsedTime().asMilliseconds() > tile.animation.frames[tile.current_frame].duration)
+		if (!tile.isAnimation())
+			continue;
+
+		if (tile.anim_timer->getElapsedTime().asMilliseconds() > tile.getAnimation()->frames[tile.current_frame].duration)
 		{
-			int nextFrame = (tile.current_frame + 1 >= tile.animation.frames.size()) ? 0 : tile.current_frame + 1;
+			int nextFrame = (tile.current_frame + 1 >= tile.getAnimation()->frames.size()) ? 0 : tile.current_frame + 1;
 			std::vector<tmx::Tileset::Tile> tiles = this->tile_sets[0]->getTiles();
 			tmx::Tileset::Tile* foundTile = nullptr;
 			for (auto& tl : tiles) {
-				if (tl.ID == tile.animation.frames[nextFrame].tileID) {
+				if (tl.ID == tile.getAnimation()->frames[nextFrame].tileID) {
 					foundTile = &tl;
 					break;
 				}
 			}
 
-			int sprite_pos_x = (tile.animation.frames[nextFrame].tileID % this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().x;
-			int sprite_pos_y = (tile.animation.frames[nextFrame].tileID / this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().y;
+			int sprite_pos_x = (tile.getAnimation()->frames[nextFrame].tileID % this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().x;
+			int sprite_pos_y = (tile.getAnimation()->frames[nextFrame].tileID / this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().y;
 
-			tile.texRect = sf::IntRect(sprite_pos_x, sprite_pos_y, this->tile_sets[0]->getTileSize().x, this->tile_sets[0]->getTileSize().y);
+			tile.setTextureRect(sf::IntRect(sprite_pos_x, sprite_pos_y, this->tile_sets[0]->getTileSize().x, this->tile_sets[0]->getTileSize().y));
 
-			tile.current_frame++;
-			if (tile.current_frame >= tile.animation.frames.size())
+			tile.current_frame += 1;
+			if (tile.current_frame >= tile.getAnimation()->frames.size())
 				tile.current_frame = 0;
 
-
-
-			tile.clock.restart();
+			tile.anim_timer->restart();
 		}
 	}
 }
@@ -283,6 +222,9 @@ void Map::updateCollisions()
 //Functions
 void Map::update(float deltaTime)
 {
+	
+	//this->initVerArray();
+	
 	this->updateAnimations();
 	
 
@@ -293,6 +235,11 @@ void Map::update(float deltaTime)
 		this->initVerArray();
 		this->updateCollisions();
 		timeSinceLastUpdate = 0.0f;
+	}
+
+	for (const auto& object : this->game_objects)
+	{
+		object->update(deltaTime);
 	}
 }
 
@@ -313,5 +260,10 @@ void Map::render(sf::RenderTarget* target)
 		sp.setScale(3.125f, 3.125f);
 		sp.setPosition({ t.collider_bounds.left, t.collider_bounds.top });
 		target->draw(sp);*/
+	}
+
+	for (auto& object : this->game_objects)
+	{
+		object->render(target);
 	}
 }
