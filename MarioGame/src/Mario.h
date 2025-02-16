@@ -48,6 +48,7 @@ private:
 
 	float jump_start_pos;
 	float jump_start_max;
+	float jump_start_height;
 
 	int direction;
 

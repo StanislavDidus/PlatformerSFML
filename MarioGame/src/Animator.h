@@ -100,55 +100,59 @@ struct PosAnimation : public Animation
     {
         if (!is_playing)
         {
-            //this->is_playing = true;
-            // Перевіряємо, чи ми рухаємося до точки 2
+            // move to second point
             if (is_moving_to_second)
             {
-                // Розраховуємо вектор напрямку
+                // check direction to the point
                 sf::Vector2f dir = this->pos.second - this->sprite.getPosition();
+                // measure distance
                 float distance = std::sqrt(dir.x * dir.x + dir.y * dir.y);
 
-                // Якщо дійшли до точки 2
+                // if we arrived to second point
                 if (fabs(distance) <= 0.1f)
                 {
+                    // callibrate position 
                     this->sprite.setPosition(this->pos.second);
-                    is_moving_to_second = false; // Переходимо до зворотного руху
-                    //std::cout << "1\n";
+                    // move backwards
+                    is_moving_to_second = false;
                 }
                 else
                 {
-                    // Нормалізуємо напрямок і рухаємося
+                    // normalize direction (get unit vector)
                     dir /= distance;
+                    // step
                     sf::Vector2f step = dir * std::min(distance, this->animation_speed * deltaTime);
+                    // set new position
                     this->sprite.setPosition(this->sprite.getPosition() + step);
-                   
-                    //std::cout << "2\n";
                 }
             }
             else
             {
-                // Рухаємося назад до точки 1
+                // move to the first point
                 sf::Vector2f dir = this->pos.first - this->sprite.getPosition();
+                // measure distance
                 float distance = std::sqrt(dir.x * dir.x + dir.y * dir.y);
 
-                // Якщо дійшли до точки 1
+                // if arrived to the first point
                 if (fabs(distance) <= 0.1f)
                 {
+                    // callibrate position
                     this->sprite.setPosition(this->pos.first);
-                    is_playing = false; // Завершуємо анімацію
+                    // finish animation
+                    is_playing = false;
                     this->is_moving_to_second = true;
-                    if(end != nullptr)
+                    if (end != nullptr)
                         *end = false;
-                    //std::cout << "3\n";
               
                 }
                 else
                 {
-                    // Нормалізуємо напрямок і рухаємося
+                    // normalize direction
                     dir /= distance;
+                    // step
                     sf::Vector2f step = dir * std::min(distance, this->animation_speed * deltaTime);
+                    // move by step
                     this->sprite.setPosition(this->sprite.getPosition() + step);
-                    //std::cout << "4\n";
                 }
             }
         }

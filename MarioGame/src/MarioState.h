@@ -47,6 +47,9 @@ class IMarioIdle : public IMarioState
 			}
 		}
 
+		//Callibrate max jump height
+		mario.jump_start_max = 0.3125f * abs(mario.velocity.x) + 25.f;
+
 		
 		float deltaX = mario.velocity.x * deltaTime;
 		float deltaY = mario.velocity.y * deltaTime;
@@ -98,6 +101,9 @@ class IMarioWalk : public IMarioState
 		{
 			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioIdle>()));
 		}
+
+		//Callibrate max jump height
+		mario.jump_start_max = 0.3125f * abs(mario.velocity.x) + 25.f;
 		
 		float deltaX = mario.velocity.x * deltaTime;
 		float deltaY = mario.velocity.y * deltaTime;
@@ -119,6 +125,7 @@ class IMarioWalk : public IMarioState
 	void onExit(Mario& mario) override
 	{
 		mario.is_sliding = false;
+		//--mario.jump_start_max = 25.f;
 	}
 };
 
@@ -166,6 +173,12 @@ class IMarioJump : public IMarioState
 			}
 		}
 
+		//Callibrate max jump height
+		//mario.jump_start_max = 0.3125f * abs(mario.velocity.x) + 25.f;
+
+		//Callibrate max jump height
+		mario.jump_start_max = 0.3125f * abs(mario.velocity.x) + 25.f;
+
 		//Apply gravity and move 
 		float deltaX = mario.velocity.x * deltaTime;
 		float deltaY = mario.velocity.y * deltaTime;;
@@ -180,13 +193,13 @@ class IMarioJump : public IMarioState
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && mario.getPosition().y > mario.jump_start_pos - mario.jump_start_max && !mario.is_jump_over)
 		{
-			mario.velocity.y -= 5000.f * deltaTime;
+			mario.velocity.y -= 4000.f * deltaTime;
 
 			if (std::abs(mario.velocity.y) > mario.max_velocity.y)
 				mario.velocity.y = mario.max_velocity.y * -1.f;
 		}
 
-		if (mario.getPosition().y < mario.jump_start_pos - mario.jump_start_max)
+		if (mario.getPosition().y < mario.jump_start_pos - mario.jump_start_max && mario.velocity.y >= 0.f)
 		{
 			mario.is_jump_over = true;
 		}
@@ -204,7 +217,6 @@ class IMarioJump : public IMarioState
 		{
 			// if hit lucky block
 			
-
 			GameObject* obj = mario.col->getObject({ mario.getBounds().left,
 			mario.getBounds().top + mario.velocity.y * deltaTime,
 			mario.getBounds().width,
@@ -224,7 +236,8 @@ class IMarioJump : public IMarioState
 			mario.getBounds().height }, mario.velocity, "All", CollisionType::TOP) && !mario.is_jump_over)
 		{
 			mario.is_jump_over = true;
-			mario.velocity.y += 400.f;
+			mario.velocity.y += 350.f;
+			//std::cout << "ROOF\n";
 		}
 		
 		if (mario.is_ground)

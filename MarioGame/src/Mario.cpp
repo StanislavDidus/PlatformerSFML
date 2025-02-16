@@ -16,7 +16,8 @@ void Mario::initVariables()
 	this->direction = 1;
 
 	this->jump_start_pos = 0.f;
-	this->jump_start_max = 150.f;
+	this->jump_start_height = 150.f;
+	this->jump_start_max = 25.f; // 25,50 - 150
 
 	this->is_sliding = false;
 	this->slide_time = 0.f;
