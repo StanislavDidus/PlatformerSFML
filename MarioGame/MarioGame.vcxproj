@@ -154,6 +154,7 @@
     <ClCompile Include="src\Mario.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Block.h" />
     <ClInclude Include="src\Brick.h" />
     <ClInclude Include="src\Animator.h" />
     <ClInclude Include="src\AudioManager.h" />

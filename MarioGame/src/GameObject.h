@@ -15,10 +15,7 @@ private:
 	sf::FloatRect bounds;
 public:
 	
-	GameObject(std::string type, sf::FloatRect bounds) : type(type), bounds(bounds)
-	{
-
-	}
+	GameObject(std::string type, sf::FloatRect bounds) : type(type), bounds(bounds) {}
 
 	virtual ~GameObject() = default;
 

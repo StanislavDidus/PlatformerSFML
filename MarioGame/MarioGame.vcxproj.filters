@@ -80,5 +80,8 @@
     <ClInclude Include="src\Brick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Block.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
