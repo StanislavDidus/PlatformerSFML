@@ -6,6 +6,7 @@
 
 #include <functional>
 #include <iostream>
+#include <map>
 
 #include "Math.h"
 
@@ -14,12 +15,76 @@ struct Animation
     std::string name;
     
     int priority = 0;
-    std::function<bool()> condition;
+    bool is_playing = false;
+    std::function<bool()> condition*;
 
-    Animation(const std::string& name, int prio, std::function<bool()> condition) : name(name), priority(prio), condition(condition) {}
+    Animation(const std::string& name, int prio, std::function<bool()>* condition = nullptr) : name(name), priority(prio), condition(condition) {}
     virtual ~Animation() = default;
 
     virtual void play(float timer, float deltaTime, bool* end = nullptr) {}
+};
+
+struct AnimationSequence : public Animation
+{
+    std::vector<std::shared_ptr<Animation>> animations;
+    std::vector<float> timing;
+    float last_play_time;
+
+    bool* bools = new bool[animations.size()];
+
+    AnimationSequence(std::vector<std::shared_ptr<Animation>>&& animations, std::vector<float>& timing, std::function<bool()> condition, const std::string& name, const int prior)
+        : Animation(name, prior, condition), timing(timing), last_play_time(0.f), animations(std::move(animations))
+    {
+        for (int i = 0; i < animations.size(); i++) 
+        {
+            bools[i] = true;
+        }
+    }
+
+    void play(float timer, float deltaTime, bool* end = nullptr) override
+    {
+        //Create an array of boolians
+        
+
+        //Initialize array
+
+        //Update timer
+        for (auto& timer : this->timing)
+        {
+            timer -= deltaTime;
+            if (timer < 0.f)
+                timer = 0.f;
+        }
+        
+        // Play each animation
+        this->is_playing = true;
+        for(int i = 0; i < animations.size(); i++)
+        {
+            if(bools[i] && timing[i] <= 0.f)
+                animations[i]->play(timer, deltaTime, &bools[i]);
+        }
+
+        //Check if all animations are finished
+        bool is_all_animations_finished = true;
+        for (int i = 0; i < animations.size(); i++)
+        {
+            if (bools[i]) is_all_animations_finished = false;
+        }
+
+        if (is_all_animations_finished && end != nullptr)
+        {
+            *end = false;
+            this->is_playing = false;
+        }
+
+        //Clear memory
+        
+    }
+
+    std::shared_ptr<Animation> getAnimation(int index)
+    {
+        return this->animations[index];
+    }
 };
 
 struct FrameAnimation : public Animation
@@ -30,21 +95,19 @@ struct FrameAnimation : public Animation
 
     bool is_looped; 
 
-    std::pair<int, int> animation_frames;
+    std::vector<int> animation_frames;
     int current_frame;
     
-    std::function<int()> get_direction;
+    std::function<int()>* get_direction;
     float animation_speed;
 
     float last_play_time;
 
-    
 
-
-    FrameAnimation(sf::Sprite& sprite, float width, float height, std::pair<int, int>& frames, float speed, std::function<bool()> condition,
-         std::function<int()> get_direction, bool is_looped, int prior , const std::string& name)
-        : Animation(name, prior, condition), sprite(sprite), frame_width(width), frame_height(height), animation_frames(frames), get_direction(get_direction),
-        animation_speed(speed), last_play_time(0.f), current_frame(frames.first), is_looped(is_looped) {
+    FrameAnimation(sf::Sprite& sprite, std::vector<int>& frames, float speed, std::function<bool()>* condition = nullptr,
+         std::function<int()>* get_direction = nullptr, bool is_looped, int prior , const std::string& name)
+        : Animation(name, prior, condition), sprite(sprite), animation_frames(frames), get_direction(get_direction),
+        animation_speed(speed), last_play_time(0.f), current_frame(frames[0]), is_looped(is_looped) {
     }
 
     void play(float timer, float deltaTime, bool* end = nullptr) override
@@ -52,10 +115,11 @@ struct FrameAnimation : public Animation
         if (last_play_time + animation_speed < timer)
         {
             //Play anim
+            //std::cout << "play pos\n";
             //if(!anim.is_reversed)
                 //anim.sprite.setTextureRect(sf::IntRect(anim.frame_width * anim.current_frame, 0, anim.frame_width, anim.frame_height));
             //else
-
+            this->is_playing = true;
             int dir = get_direction();
             //this->sprite.setTextureRect(sf::IntRect((dir - 1) * (anim.frame_width / 2 * -1) + anim.current_frame * anim.frame_width, 0, dir * anim.frame_width, anim.frame_height));
             this->sprite.setTextureRect(sf::IntRect(dir == 1 ? frame_width * current_frame : frame_width * current_frame + frame_width, 0, dir * frame_width, frame_height));
@@ -68,6 +132,11 @@ struct FrameAnimation : public Animation
                 current_frame = animation_frames.second;
 
             last_play_time = timer;
+        }
+        else
+        {
+            this->is_playing = false;
+            //this->sprite.setTextureRect(sf::IntRect(0, 0, frame_width, frame_height));
         }
     }
 };
@@ -86,7 +155,7 @@ struct PosAnimation : public Animation
 
     float last_play_time;
 
-    bool is_playing = false;
+    //bool is_playing = false;
     bool is_moving_to_second = true;
 
 
@@ -98,8 +167,9 @@ struct PosAnimation : public Animation
 
     void play(float timer, float deltaTime, bool* end = nullptr) override
     {
-        if (!is_playing)
+        if (true)
         {
+            is_playing = true;
             // move to second point
             if (is_moving_to_second)
             {
@@ -162,29 +232,31 @@ struct PosAnimation : public Animation
 class Animator
 {
 private:
-    sf::Sprite& sprite;
-    int frame_width;
-    int frame_height;
-
     int current_priority = -1;
 
     float timer;
 
-    std::vector<std::unique_ptr<Animation>> animations;
+    std::vector<std::shared_ptr<Animation>> animations;
 
     float deltaTime;
 
     bool play_anim;
     std::string anim_name;
 
+    std::map<std::string, std::shared_ptr<Animation>> animations_map;
+
 public:
-    Animator(sf::Sprite& sprite, int frame_width, int frame_height);
+    Animator();
 	virtual ~Animator();
 
-    void addFrameAnimation(int firstFrame, int lastFrame, float speed, const std::function<bool()>& condition, const std::function<int()> &get_direction, bool is_looped, int prior, const std::string& name);
-    void addPosAnimation(float speed, std::function<bool()> condition, bool is_looped, int prior, std::pair<sf::Vector2f, sf::Vector2f> pos, const std::string& name);
+    void addFrameAnimation(sf::Sprite& sprite, int w, int h, int firstFrame, int lastFrame, float speed, const std::function<bool()>& condition, const std::function<int()> &get_direction, bool is_looped, int prior, const std::string& name);
+    void addPosAnimation(sf::Sprite& sprite, int w, int h, float speed, std::function<bool()> condition, bool is_looped, int prior, std::pair<sf::Vector2f, sf::Vector2f> pos, const std::string& name);
+    void addAnimationSequence(std::vector<std::shared_ptr<Animation>>&& animations, std::vector<float>& timing, std::function<bool()> condition, const std::string& name, int prior);
 
+    std::shared_ptr<Animation> getAnim(const std::string& name);
     void playAnim(const std::string& name);
+
+    const bool isPlayed() const;
 
     void update(float deltaTime);
 };

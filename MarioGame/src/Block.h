@@ -13,16 +13,19 @@
 class Block : public GameObject
 {
 private:
-	sf::Sprite sprite;
+	
 	sf::Texture texture;
-	//std::unique_ptr<Animator> animator;
 
+	bool is_destroyed;
 public:
 	std::unique_ptr<Animator> animator;
-	Block(const sf::FloatRect& rect, const std::string& type, const std::string& sprite_path) : GameObject(type, rect) 
+	sf::Sprite sprite;
+	Block(const sf::FloatRect& rect, const std::string& type, const std::string& sprite_path) : GameObject(type, rect)
 	{
 		//Sprite
 		
+		this->is_destroyed = false;
+
 		if (!this->texture.loadFromFile(sprite_path)) {
 			std::cerr << "Failed to load texture: " << sprite_path << std::endl;
 		}
@@ -33,14 +36,12 @@ public:
 
 		
 		//Animations
-		animator = std::make_unique<Animator>(
-			this->sprite,
-			static_cast<int>(sprite.getLocalBounds().width),
-			static_cast<int>(sprite.getLocalBounds().height)
-		);
+		animator = std::make_unique<Animator>();
 
 		this->animator->addPosAnimation(
-			150.f, [this]() {return false; }, false, 10, { {this->sprite.getPosition()},{this->sprite.getPosition().x, this->sprite.getPosition().y - 15.f} }, "Hit");
+		this->sprite, 16 * 3.125f, 16 * 3.125f, 150.f, [this]() {return false; }, false, 25, { {this->sprite.getPosition()},{this->sprite.getPosition().x, this->sprite.getPosition().y - 15.f} }, "Hit");
+		
+	
 	}
 
 	virtual ~Block() = default;
@@ -48,6 +49,26 @@ public:
 	void onHit() override
 	{
 		animator->playAnim("Hit");
+	}
+
+	void destroy()
+	{
+		this->is_destroyed = true;
+	}
+
+	const bool isDesroyed() const
+	{
+		return this->is_destroyed;
+	}
+
+	sf::Sprite& getSprite()
+	{
+		return this->sprite;
+	}
+
+	sf::Texture& getTexture()
+	{
+		return this->texture;
 	}
 
 	void update(float deltaTime) override

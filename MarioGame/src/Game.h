@@ -6,7 +6,8 @@
 #include <SFML/Audio.hpp>
 
 #include <sstream>
-
+#include <cmath>
+#include <iomanip>
 
 #include "Mario.h"
 #include "AudioManager.h"
@@ -28,6 +29,8 @@ private:
 	std::unique_ptr<AudioManager> game_audio_manager;
 	
 	sf::Clock clock;
+	float timer = 300.f;
+	float ttimer = 0.f;
 
 	//Mario
 	std::unique_ptr<Mario> mario;
@@ -41,7 +44,19 @@ private:
 
 	//Text
 	sf::Font main_font;
+	//Fps
 	sf::Text fps_text;
+	//Mario score
+	sf::Text score_text;
+	//Coins
+	sf::Text coin_text;
+	//World
+	sf::Text world_text;
+	//Time
+	sf::Text time_text;
+
+	//Score
+	int score;
 	
 	//Frame rate counter
 	sf::Clock fps_clock;
@@ -60,6 +75,8 @@ public:
 	virtual ~Game();
 
 	const bool running() const;
+
+	void addScore(int score);
 
 	void updateEvents();
 	void updateView();

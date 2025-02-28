@@ -62,7 +62,7 @@
     <ClInclude Include="src\Mario.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\MarioState.h">
+    <ClInclude Include="src\MarioState.cpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Math.h">

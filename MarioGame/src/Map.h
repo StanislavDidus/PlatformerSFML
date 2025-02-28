@@ -3,6 +3,8 @@
 #include <tmxlite/Map.hpp>
 #include <tmxlite/TileLayer.hpp>
 #include <tmxlite/Tileset.hpp>
+#include <tmxlite/Layer.hpp>
+#include <tmxlite/ObjectGroup.hpp>
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
@@ -15,6 +17,8 @@
 
 #include <iostream>
 #include <unordered_map>
+
+class Game;
 
 struct AnimationTile
 {
@@ -131,6 +135,9 @@ private:
 	sf::RenderWindow* window;
 	sf::RenderStates rs;
 
+	//Game
+	Game* game;
+
 	float updateTime = 1.0f / 30.0f; 
 	float timeSinceLastUpdate = 0.0f;
 	
@@ -139,7 +146,7 @@ private:
 	void initVerArray();
 	void initCollisions();
 public:
-	Map(sf::RenderWindow* window, CollisionManager* col);
+	Map(Game* game, sf::RenderWindow* window, CollisionManager* col);
 	virtual ~Map();
 
 	//const std::vector<sf::FloatRect> getLuckyBlocks() const;

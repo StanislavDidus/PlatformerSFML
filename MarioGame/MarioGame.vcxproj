@@ -164,7 +164,7 @@
     <ClInclude Include="src\LuckyBlock.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\Mario.h" />
-    <ClInclude Include="src\MarioState.h" />
+    <ClInclude Include="src\MarioState.cpp" />
     <ClInclude Include="src\Math.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

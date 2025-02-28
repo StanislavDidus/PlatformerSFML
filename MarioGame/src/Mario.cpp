@@ -1,11 +1,11 @@
-﻿#include "MarioState.h"
+﻿#include "MarioState.cpp"
 
 //Init
 void Mario::initVariables()
 {
 	this->velocity = { 0.f, 0.f };
-	this->max_velocity = { 400.f, 400.f};
-	this->acceleration = { 750.f, 1.f };
+	this->max_velocity = { 300.f, 400.f};
+	this->acceleration = { 600.f, 1.f };
 
 	this->gravity = 980.f;
 
@@ -21,7 +21,7 @@ void Mario::initVariables()
 
 	this->is_sliding = false;
 	this->slide_time = 0.f;
-	this->slide_time_max = 0.65f;
+	this->slide_time_max = 0.2f;
 
 	this->speed = 0.f;
 }
@@ -47,30 +47,30 @@ void Mario::initState()
 void Mario::initAnimator()
 {
 	//Create animator
-	this->animator = std::make_unique<Animator>(
-	this->sprite,
-	static_cast<int>(this->sprite.getLocalBounds().width),
-	static_cast<int>(this->sprite.getLocalBounds().height)
-	);
+	this->animator = std::make_unique<Animator>();
 
 	//Add animations
 	//Idle
 	this->animator->addFrameAnimation(
-		0, 0, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioIdle>(this->current_state) != nullptr; }, [this]() {return this->direction; }, true, 5, "Idle"
+		this->sprite,16*3.125f, 16*3.125f, 0, 0, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioIdle>(this->current_state) != nullptr; }, [this]() {return this->direction; }, true, 5, "Idle"
 	);
 	//Run
 	this->animator->addFrameAnimation(
-		1, 3, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, true, 5, "Run"
+		this->sprite, 16 * 3.125f, 16 * 3.125f, 1, 3, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, true, 5, "Run"
 	);
 	//Slide
 	this->animator->addFrameAnimation(
-		4, 4, 50.f / 1000.f, [this]() {
+		this->sprite,16 * 3.125f, 16 * 3.125f, 4, 4, 10.f / 1000.f, [this]() {
 			return this->is_sliding && std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr;
 		}, [this]() {return this->direction; }, true, 10 , "Slide"
 	);
 	//Jump
 	this->animator->addFrameAnimation(
-		5, 5, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioJump>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, false, 5, "Jump"
+		this->sprite, 16 * 3.125f, 16 * 3.125f, 5, 5, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioJump>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, false, 5, "Jump"
+	);
+	//Growth
+	this->animator->addFrameAnimation(
+		this->sprite, 16 * 3.125f, 32 * 3.125f, 15, 17, 50.f / 1000.f, [this]() {return false;  }, [this]() {return this->direction; }, false, 25, "Grow"
 	);
 }
 
@@ -129,16 +129,21 @@ void Mario::move(float dirX, float dirY)
 		this->velocity.x = this->max_velocity.x * (this->velocity.x > 0 ? 1.f : -1.f);
 }
 
+void Mario::grow()
+{
+	this->animator->playAnim("Grow");
+}
+
 void Mario::checkSlide()
 {
 	if (!this->is_sliding) 
 	{
-		if (this->direction == -1 && this->velocity.x > 0)
+		if (this->direction == -1 && this->velocity.x > 150.f)
 		{
 			this->is_sliding = true;
 			
 		}
-		else if (this->direction == 1 && this->velocity.x < 0)
+		else if (this->direction == 1 && this->velocity.x < -150.f)
 		{
 			this->is_sliding = true;
 		}
@@ -194,6 +199,12 @@ void Mario::update(float deltaTime)
 	
 	if (this->animator != nullptr)
 		this->animator->update(this->deltaTime);
+
+	// Limit mario x movement 
+	this->sprite.setPosition(MathUtils::clamp(this->sprite.getPosition().x, this->window->getView().getCenter().x - this->window->getSize().x / 2.f, this->window->getView().getCenter().x + this->window->getSize().x / 2.f - this->sprite.getGlobalBounds().width), this->sprite.getPosition().y);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::H))
+		this->grow();
 
 	sf::Vector2f newPosition = this->sprite.getPosition();
 	setPosition(newPosition);

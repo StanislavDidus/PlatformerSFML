@@ -91,6 +91,7 @@ public:
 
 	//Functions
 	void move(float dirX, float dirY);
+	void grow();
 	void checkSlide();
 	void flip(int dir);
 	void applyGravity(float deltaTime);

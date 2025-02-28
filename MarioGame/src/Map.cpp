@@ -85,10 +85,11 @@ void Map::initSprites()
 						{
 							if (foundTile->properties[0].getStringValue() == "LuckyBlock")
 							{
+								//std::cout << "lb\n";
 								//Tile tile = { col_rect, sprite.getTextureRect(), "LuckyBlock", true, true };
 								//tile.setAnimation(std::make_shared<tmx::Tileset::Tile::Animation>(foundTile->animation));
 								//this->tiles.emplace_back(std::move(tile));
-								this->game_objects.emplace_back(std::make_unique<LuckyBlock>(sprite, col_rect, "Block"));
+								//this->game_objects.emplace_back(std::make_unique<LuckyBlock>(sprite, col_rect, "Block"));
 							}
 						}
 
@@ -103,6 +104,52 @@ void Map::initSprites()
 					{
 						this->tiles.emplace_back(col_rect, sprite.getTextureRect(), "Decor", false, false);
 					}
+
+				}
+
+				
+			}
+		}
+		if (const auto objectLayer = dynamic_cast<tmx::ObjectGroup*>(lay.get()))
+		{
+			for (const auto& object : objectLayer->getObjects())
+			{
+				int GID = object.getTileID() - this->tile_sets[0]->getFirstGID();
+
+				int sprite_pos_x = (GID % this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().x;
+				int sprite_pos_y = (GID / this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().y;
+
+				sf::Sprite sprite;
+				sprite.setTexture(*this->textures[0]);
+				sprite.setTextureRect(sf::IntRect(
+					sprite_pos_x,
+					sprite_pos_y,
+					this->tile_sets[0]->getTileSize().x,
+					this->tile_sets[0]->getTileSize().y));
+
+				sf::FloatRect col_rect = { object.getPosition().x * 3.125f,
+							(object.getPosition().y * 3.125f ) - 16.f * 3.125f,
+							this->tile_sets[0]->getTileSize().x * 3.125f,
+							this->tile_sets[0]->getTileSize().y * 3.125f };
+
+				sprite.setPosition(col_rect.left, col_rect.top);
+				sprite.setScale(3.125f, 3.125f);
+				
+				if (object.getProperties()[0].getStringValue() == "Mushroom")
+				{
+					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, col_rect, "Block", LuckyBlockType::Mushroom));
+				}
+				else if (object.getProperties()[0].getStringValue() == "UP")
+				{
+					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, col_rect, "Block", LuckyBlockType::UP));
+				}
+				else if (object.getProperties()[0].getStringValue() == "Coin")
+				{
+					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, col_rect, "Block", LuckyBlockType::Coin));
+				}
+				else
+				{
+					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, col_rect, "Block", LuckyBlockType::None));
 				}
 			}
 		}
@@ -167,7 +214,7 @@ void Map::initCollisions()
 }
 
 //Con/Des
-Map::Map(sf::RenderWindow* window, CollisionManager* col) : window(window), col_manager(col)
+Map::Map(Game* game, sf::RenderWindow* window, CollisionManager* col) : game(game), window(window), col_manager(col)
 {
 	this->initTiledMap();
 	this->initSprites();
@@ -251,7 +298,22 @@ void Map::update(float deltaTime)
 	for (const auto& object : this->game_objects)
 	{
 		object->update(deltaTime);
+
+		Block* block = dynamic_cast<Block*>(object.get());
+		if (block != nullptr && block->isDesroyed())
+		{
+			//this->game_objects.erase(i);
+		}
 	}
+
+	this->game_objects.erase(std::remove_if(this->game_objects.begin(), this->game_objects.end(),
+		[](const std::unique_ptr<GameObject>& obj) { 
+			Block* block = dynamic_cast<Block*>(obj.get());
+			if(block != nullptr && block->isDesroyed())
+				return true; 
+			return false;
+		}),
+		this->game_objects.end());
 }
 
 void Map::render(sf::RenderTarget* target)

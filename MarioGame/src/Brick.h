@@ -15,4 +15,6 @@ private:
 
 public:
 	Brick(const sf::Sprite& sprite, const sf::FloatRect& rect, const std::string& type);
+
+	void onHit() override;
 };
