@@ -12,17 +12,17 @@ Animator::~Animator()
 }
 
 //Functions
-void Animator::addFrameAnimation(sf::Sprite& sprite, int w, int h, int firstFrame, int lastFrame, float speed, const std::function<bool()>& condition, const std::function<int()>& get_direction, bool is_looped, int prior, const std::string& name)
+void Animator::addFrameAnimation(sf::Sprite& sprite, int w, int h, const std::vector<int>& frames, float speed, const std::function<bool()>& condition, const std::function<int()>& get_direction, bool is_looped, int prior, const std::string& name)
 {
-	std::pair<int, int> frames = {firstFrame, lastFrame};
-	std::shared_ptr<FrameAnimation> anim = std::make_shared<FrameAnimation>(sprite, sprite.getGlobalBounds().width / 3.125f, sprite.getGlobalBounds().height / 3.125f, frames, speed, condition, get_direction, is_looped, prior, name);
+	//std::pair<int, int> frames = {firstFrame, lastFrame};
+	std::shared_ptr<FrameAnimation> anim = std::make_shared<FrameAnimation>(sprite, w, h, frames, speed, condition, get_direction, is_looped, prior, name);
 	this->animations.emplace_back(anim);
 	this->animations_map[name] = anim;
 }
 
-void Animator::addPosAnimation(sf::Sprite& sprite, int w, int h, float speed, std::function<bool()> condition, bool is_looped, int prior, std::pair<sf::Vector2f, sf::Vector2f> pos, const std::string& name)
+void Animator::addPosAnimation(sf::Sprite& sprite, int w, int h, float speed, std::function<bool()> condition, bool is_looped, int prior, std::vector<sf::Vector2f> positions, const std::string& name)
 {
-	std::shared_ptr<PosAnimation> anim = std::make_shared<PosAnimation>(sprite, sprite.getGlobalBounds().width / 3.125f, sprite.getGlobalBounds().height / 3.125f, speed, condition, is_looped, prior, pos, name);
+	std::shared_ptr<PosAnimation> anim = std::make_shared<PosAnimation>(sprite, sprite.getGlobalBounds().width / 3.125f, sprite.getGlobalBounds().height / 3.125f, speed, condition, is_looped, prior, positions, name);
 	this->animations.emplace_back(anim);
 	this->animations_map[name] = anim;
 }

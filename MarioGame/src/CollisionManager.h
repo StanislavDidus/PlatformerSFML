@@ -147,6 +147,8 @@ public:
 
 	GameObject* getObject(const sf::FloatRect& player, const sf::Vector2f velocity, const std::string& type)
 	{
+		std::vector<GameObject*> gameObjects;
+		GameObject* closestGO = nullptr;
 		for (const auto& col : temp_collisions)
 		{
 			if (col.collider_type == type)
@@ -155,13 +157,24 @@ public:
 				{
 					sf::FloatRect object = col.collider_bounds;
 
-					if (player.intersects(object))
-						return col.object;
+					if (player.intersects(object) && col.object->isActive())
+					{
+						gameObjects.push_back(col.object);
+					}
+					
 				}
 			}
 		}
 
-		return nullptr;
+		for (GameObject* go : gameObjects)
+		{
+			if (!closestGO || MathUtils::distance(go->getBounds(), player) < MathUtils::distance(closestGO->getBounds(), player))
+			{
+				closestGO = go;
+			}
+		}
+
+		return closestGO;
 	}
 	
 	void callibrateCollision(const sf::FloatRect& player, float& x, float& y)

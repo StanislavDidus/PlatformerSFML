@@ -27,7 +27,7 @@ void Game::initWindow()
 
 void Game::initMap()
 {
-	this->map = std::make_unique<Map>(this, this->window.get(), this->col_manager.get());
+	this->map = std::make_unique<Map>(this, this->window.get(), this->col_manager.get(), gameObjects);
 }
 
 void Game::initCollisions()
@@ -195,6 +195,12 @@ void Game::update()
 	this->updateEvents();
 	this->updateCollisions(deltaTime);
 	this->mario->update(deltaTime);
+
+	for (const auto& object : gameObjects)
+	{
+		object->update(deltaTime);
+	}
+
 	this->updateView();
 	this->updateAudio();
 	this->updateText();
@@ -220,6 +226,11 @@ void Game::render()
 	this->window->clear();
 
 	//Render level
+	for (const auto& object : gameObjects)
+	{
+		object->render(window.get());
+	}
+
 	this->renderLevel();
 
 	//Render player

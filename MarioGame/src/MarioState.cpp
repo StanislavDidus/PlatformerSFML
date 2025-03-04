@@ -224,7 +224,6 @@ class IMarioJump : public IMarioState
 			
 			if(obj != nullptr)
 			{
-				//std::cout << "Mario hit lucky block!\n";
 				obj->onHit();
 			}
 		}

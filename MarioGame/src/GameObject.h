@@ -10,12 +10,12 @@
 class GameObject
 {
 private:
-	
 	std::string type;
 	sf::FloatRect bounds;
 public:
-	
-	GameObject(std::string type, sf::FloatRect bounds) : type(type), bounds(bounds) {}
+	bool is_active;
+
+	GameObject(std::string type, sf::FloatRect bounds) : type(type), bounds(bounds), is_active(true) {}
 
 	virtual ~GameObject() = default;
 
@@ -27,6 +27,9 @@ public:
 	const sf::FloatRect getBounds() const { return bounds; };	
 	const std::string getType() const { return type; };
 
+	const bool isActive() const { return is_active; };
+
+	const sf::Vector2f getPosition() { return { bounds.left, bounds.top }; };
 	virtual void setPosition(const sf::Vector2f& newPosition) {
 		bounds.left = newPosition.x;
 		bounds.top = newPosition.y;

@@ -115,6 +115,8 @@ public:
 class Map
 {
 private:
+	std::vector<std::shared_ptr<GameObject>>& gameObjects_;
+
 	std::vector<std::unique_ptr<tmx::Tileset>> tile_sets; // all tilesets
 	std::vector<std::unique_ptr<sf::Texture>> textures; // all textures for tile sets
 	tmx::Map tiled_map; // level tiled map
@@ -146,7 +148,7 @@ private:
 	void initVerArray();
 	void initCollisions();
 public:
-	Map(Game* game, sf::RenderWindow* window, CollisionManager* col);
+	Map(Game* game, sf::RenderWindow* window, CollisionManager* col, std::vector<std::shared_ptr<GameObject>>& gameObjects_);
 	virtual ~Map();
 
 	//const std::vector<sf::FloatRect> getLuckyBlocks() const;

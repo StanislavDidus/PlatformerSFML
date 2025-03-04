@@ -5,10 +5,12 @@
 #include <SFML/Graphics.hpp>
 
 #include <iostream>
+#include <vector>
 
 #include "Gameobject.h"
 #include "Block.h"
 #include "Animator.h"
+#include "MushRoom.h"
 
 class Game;
 
@@ -20,11 +22,11 @@ enum LuckyBlockType
 class LuckyBlock : public Block
 {
 private:
+	std::vector<std::shared_ptr<GameObject>>& gameObjects_;
+
 	LuckyBlockType l_type;
 
 	Game* game;
-
-	bool is_active = true;
 
 	sf::Texture coin_texture;
 	sf::Sprite coin_sprite;
@@ -40,14 +42,15 @@ private:
 	std::unique_ptr<Animator> coin_animator;
 
 public:
-	LuckyBlock(Game* game, const sf::Sprite& sprite, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type);
+	LuckyBlock(Game* game, const sf::Sprite& sprite, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects);
 
-	std::shared_ptr<Animation> createPositionAnimation(sf::Sprite& sprite, float speed, std::string name, std::pair<sf::Vector2f, sf::Vector2f> points);
+	//std::shared_ptr<Animation> createPositionAnimation(sf::Sprite& sprite, float speed, std::string name, std::vector<sf::Vector2f> positions);
 
 	void update(float deltaTime) override;
 	void render(sf::RenderTarget* target) override;
 
 	void onHit() override;
 
+	const void spawnMushroom();
 	const void giveCoin() const;
 };

@@ -39,7 +39,7 @@ public:
 		animator = std::make_unique<Animator>();
 
 		this->animator->addPosAnimation(
-		this->sprite, 16 * 3.125f, 16 * 3.125f, 150.f, [this]() {return false; }, false, 25, { {this->sprite.getPosition()},{this->sprite.getPosition().x, this->sprite.getPosition().y - 15.f} }, "Hit");
+			this->sprite, 16 * 3.125f, 16 * 3.125f, 150.f, [this]() {return false; }, false, 25, std::vector<sf::Vector2f>{{this->sprite.getPosition().x, this->sprite.getPosition().y - 15.f}, { this->sprite.getPosition() }}, "Hit");
 		
 	
 	}

@@ -29,8 +29,11 @@ private:
 	std::unique_ptr<AudioManager> game_audio_manager;
 	
 	sf::Clock clock;
-	float timer = 300.f;
+	float timer = 400.f;
 	float ttimer = 0.f;
+
+	//Items
+	std::vector<std::shared_ptr<GameObject>> gameObjects;
 
 	//Mario
 	std::unique_ptr<Mario> mario;

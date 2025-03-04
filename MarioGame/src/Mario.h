@@ -25,8 +25,14 @@ private:
 	sf::RenderWindow* window;
 	sf::Clock clock;
 
+	//Mario
 	sf::Texture texture;
+	//Big Mario
+	sf::Texture texture1;
+
 	sf::Sprite sprite;
+
+	
 
 	Map* map;
 
@@ -51,6 +57,8 @@ private:
 	float jump_start_height;
 
 	int direction;
+
+	bool is_grown;
 
 	//Slide
 	float slide_time;
