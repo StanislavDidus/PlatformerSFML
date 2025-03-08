@@ -27,12 +27,12 @@ void Game::initWindow()
 
 void Game::initMap()
 {
-	this->map = std::make_unique<Map>(this, this->window.get(), this->col_manager.get(), gameObjects);
+	this->map = std::make_unique<Map>(this, this->window.get(), this->col_manager, gameObjects);
 }
 
 void Game::initCollisions()
 {
-	this->col_manager = std::make_unique<CollisionManager>();
+	this->col_manager = std::make_shared<CollisionManager>();
 }
 
 void Game::initAudio()
@@ -223,7 +223,7 @@ void Game::renderText()
 
 void Game::render()
 {
-	this->window->clear();
+	this->window->clear({99,173,255,255}); // Blue
 
 	//Render level
 	for (const auto& object : gameObjects)

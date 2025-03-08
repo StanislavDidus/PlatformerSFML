@@ -6,12 +6,15 @@
 
 #include "GameObject.h"
 #include "Animator.h"
+#include "CollisionManager.h"
 
 #include "string"
 
 class Item : public GameObject
 {
 private:
+	float timer = 0.f;
+
 	void initSprite()
 	{
 		this->sprite.setScale(3.125f, 3.125f);
@@ -27,12 +30,19 @@ private:
 		);
 	}
 public:
+	bool is_active = false;
+
+	int direction = 1;
+	sf::Vector2f velocity = { 250.f, 500.f };
+
+	std::shared_ptr<CollisionManager> col;
+
 	sf::Texture texture;
 	sf::Sprite sprite;
 
 	std::unique_ptr<Animator> animator;
 
-	Item(const sf::FloatRect& rect, const std::string& name) : GameObject(name, rect)
+	Item(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<CollisionManager> col) : GameObject(name, rect), col(col)
 	{
 		initSprite();
 		initAnimations();
@@ -42,15 +52,47 @@ public:
 	}
 	virtual ~Item() {}
 
-	//void setTexture(const sf::Texture& texture) { this->texture = texture; }
-	//void setSprite(const sf::Sprite& sprite) { this->sprite = sprite; }
+	const bool isActive() const { return is_active; }
 
-	//const sf::Sprite getSprite() const { return sprite; }
-	//const sf::Texture getTexture() const { return texture; }
+	void move(sf::Vector2f pos, int dir, float deltaTime)
+	{
+		sf::Vector2f newPos = sprite.getPosition() + sf::Vector2f(dir * pos.x * deltaTime, 0.f) ;
+		sprite.setPosition(newPos);
+	}
+
+	void checkCollision(float deltaTime)
+	{
+		if (col->checkCollision(sf::FloatRect(
+				sprite.getGlobalBounds().left + velocity.x * deltaTime, sprite.getGlobalBounds().top,
+				sprite.getGlobalBounds().width, sprite.getGlobalBounds().height
+			), velocity, "All", CollisionType::RIGHT))
+		{
+			direction = -1;
+		}
+		else if (col->checkCollision(sf::FloatRect(
+			sprite.getGlobalBounds().left - velocity.x * deltaTime, sprite.getGlobalBounds().top,
+			sprite.getGlobalBounds().width, sprite.getGlobalBounds().height
+		), velocity, "All", CollisionType::LEFT))
+		{
+			direction = 1;
+		}
+	}
+
+	void updateTimer(float deltaTime) 
+	{
+		if (timer < 0.8f)
+			timer += deltaTime;
+		else
+		{
+			timer = 0.8f;
+			is_active = true;
+		}
+	}
 
 	void update(float deltaTime) override
 	{
-
+		move(velocity, direction, deltaTime);
+		updateTimer(deltaTime);
 	}
 
 	void render(sf::RenderTarget* target) override

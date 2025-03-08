@@ -58,6 +58,9 @@ private:
 
 	int direction;
 
+	//Grow
+	float grow_time;
+	float grow_timer;
 	bool is_grown;
 
 	//Slide
@@ -101,6 +104,7 @@ public:
 	void move(float dirX, float dirY);
 	void grow();
 	void checkSlide();
+	void chechCollisions();
 	void flip(int dir);
 	void applyGravity(float deltaTime);
 	void setState(const std::shared_ptr<IMarioState>& state);

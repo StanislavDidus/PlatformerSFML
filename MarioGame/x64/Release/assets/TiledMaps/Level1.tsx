@@ -9,6 +9,7 @@
  <tile id="3">
   <properties>
    <property name="Interactable" value="LuckyBlock"/>
+   <property name="Type" value="None"/>
   </properties>
   <animation>
    <frame tileid="3" duration="300"/>

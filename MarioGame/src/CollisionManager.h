@@ -19,12 +19,12 @@ enum CollisionType
 
 struct CollisionEvent
 {
-	sf::FloatRect collider_bounds;
+	sf::FloatRect* collider_bounds;
 	std::string collider_type;
 	GameObject* object;
 
 	CollisionEvent(sf::FloatRect fr, std::string col) : collider_bounds(fr), collider_type(col), object(nullptr) {}
-	CollisionEvent(sf::FloatRect fr, std::string col, GameObject* object) : collider_bounds(fr), collider_type(col), object(object) {}
+	CollisionEvent(sf::FloatRect* fr, std::string col, GameObject* object) : collider_bounds(fr), collider_type(col), object(object) {}
 };
 
 class CollisionManager
@@ -51,14 +51,14 @@ public:
 
 			for (const auto& col : this->collisions)
 			{
-				sf::FloatRect collision = col.collider_bounds;
+				sf::FloatRect* collision = col.collider_bounds;
 
 				bool founded = false;
 				for (const auto& object : this->getSources())
 				{
 					sf::FloatRect obj = object->getBounds();
 
-					sf::FloatRect col_bounds = { collision.left + collision.width, collision.top + collision.height, collision.width, collision.height };
+					sf::FloatRect col_bounds = { collision->left + collision.width, collision.top + collision.height, collision.width, collision.height };
 					sf::FloatRect obj_bounds = { obj.left + obj.width, obj.top + obj.height, obj.width, obj.height };
 
 					if (MathUtils::distance(col_bounds, obj_bounds) < obj_bounds.width * 3.f)

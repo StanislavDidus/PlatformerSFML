@@ -131,7 +131,7 @@ private:
 	std::unordered_map<int, sf::IntRect> index_texture;
 
 	//Collision
-	CollisionManager* col_manager;
+	std::shared_ptr<CollisionManager> col_manager;
 
 	//Window
 	sf::RenderWindow* window;
@@ -148,7 +148,7 @@ private:
 	void initVerArray();
 	void initCollisions();
 public:
-	Map(Game* game, sf::RenderWindow* window, CollisionManager* col, std::vector<std::shared_ptr<GameObject>>& gameObjects_);
+	Map(Game* game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects_);
 	virtual ~Map();
 
 	//const std::vector<sf::FloatRect> getLuckyBlocks() const;

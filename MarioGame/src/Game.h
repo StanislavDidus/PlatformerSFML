@@ -40,7 +40,7 @@ private:
 	bool is_colliding;
 
 	//Collisions
-	std::unique_ptr<CollisionManager> col_manager;
+	std::shared_ptr<CollisionManager> col_manager;
 
 	//Level
 	std::unique_ptr<Map> map;

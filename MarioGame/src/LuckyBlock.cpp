@@ -48,7 +48,7 @@ void LuckyBlock::initScore()
 	this->animator->addAnimationSequence(std::move(ps_a), timing, [this]() {return false; }, "Get", 25);
 }
 
-LuckyBlock::LuckyBlock(Game* game, const sf::Sprite& sprite, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects) : Block(rect, type, "assets/Textures/Levels/LuckyBlock.png"), game(game), l_type(l_type), gameObjects_(gameObjects)
+LuckyBlock::LuckyBlock(Game* game, const sf::Sprite& sprite, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects, std::shared_ptr<CollisionManager> col) : Block(rect, type, "assets/Textures/Levels/LuckyBlock.png"), game(game), l_type(l_type), gameObjects_(gameObjects), col(col)
 {
 	this->initLuckyBlock();
 	if (l_type == LuckyBlockType::Coin)
@@ -130,7 +130,9 @@ void LuckyBlock::onHit()
 const void LuckyBlock::spawnMushroom()
 {
 	sf::FloatRect rect = { sprite.getPosition().x, sprite.getPosition().y, 50.f, 50.f};
-	gameObjects_.emplace_back(std::make_unique<MushRoom>(rect, "Mushroom"));
+	std::shared_ptr<MushRoom> obj = std::make_shared<MushRoom>(rect, "Mushroom", col);
+	gameObjects_.emplace_back(obj);
+	
 	//std::cout << "Spawn mushroom\n";
 }
 

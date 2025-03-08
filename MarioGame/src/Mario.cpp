@@ -25,6 +25,8 @@ void Mario::initVariables()
 
 	this->speed = 0.f;
 
+	this->grow_time = 0.9f;
+	this->grow_timer = 0.f;
 	this->is_grown = false;
 }
 
@@ -190,6 +192,28 @@ void Mario::checkSlide()
 	}
 }
 
+void Mario::chechCollisions()
+{
+	if (col->checkCollision({ getBounds().left,
+			getBounds().top,
+			getBounds().width,
+			getBounds().height }, velocity, "Mushroom", CollisionType::ALL))
+	{
+		GameObject* obj = col->getObject({ getBounds().left,
+		getBounds().top,
+		getBounds().width,
+		getBounds().height }, velocity, "Mushroom");
+
+		std::cout << "mushroom1\n";
+
+		if (obj != nullptr)
+		{
+			obj->onHit();
+			std::cout << "mushroom2\n";
+		}
+	}
+}
+
 void Mario::flip(int dir)
 {
 	this->direction = dir;
@@ -229,6 +253,18 @@ void Mario::update(float deltaTime)
 
 	if (this->animator != nullptr)
 		this->animator->update(this->deltaTime);
+
+	//Check Grow
+	if (this->is_grown && this->grow_timer < this->grow_time)
+	{
+		this->grow_timer += deltaTime;
+		this->velocity = { 0.f,0.f };
+	}
+	else if (!this->is_grown && this->grow_timer >= this->grow_time)
+		this->grow_timer = 0.f;
+
+	//Check collisions
+	this->chechCollisions();
 
 	// Limit mario x movement 
 	this->sprite.setPosition(MathUtils::clamp(this->sprite.getPosition().x, this->window->getView().getCenter().x - this->window->getSize().x / 2.f, this->window->getView().getCenter().x + this->window->getSize().x / 2.f - this->sprite.getGlobalBounds().width), this->sprite.getPosition().y);

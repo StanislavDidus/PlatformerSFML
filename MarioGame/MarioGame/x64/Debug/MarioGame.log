@@ -1,4 +1,8 @@
-﻿  Game.cpp
+﻿  CollisionManager.cpp
+C:\GitHubProjects\MarioSFML\MarioGame\src\Math.h(32,36): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+  (compiling source file 'src/CollisionManager.cpp')
+  
+  Game.cpp
 C:\GitHubProjects\MarioSFML\MarioGame\src\Math.h(32,36): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
   (compiling source file 'src/Game.cpp')
   
