@@ -3,6 +3,11 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Math.h(32,36): warning C4244: 'return'
   (compiling source file 'src/CollisionManager.cpp')
   
   Game.cpp
+C:\GitHubProjects\MarioSFML\MarioGame\src\CollisionManager.h(217,59): error C2039: 'top': is not a member of 'GameObject'
+  (compiling source file 'src/CollisionManager.cpp')
+      C:\GitHubProjects\MarioSFML\MarioGame\src\GameObject.h(10,7):
+      see declaration of 'GameObject'
+  
 C:\GitHubProjects\MarioSFML\MarioGame\src\Math.h(32,36): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
   (compiling source file 'src/Game.cpp')
   
@@ -11,6 +16,11 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(184,72): warning C4244: 'in
   
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(184,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Game.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\CollisionManager.h(217,59): error C2039: 'top': is not a member of 'GameObject'
+  (compiling source file 'src/Game.cpp')
+      C:\GitHubProjects\MarioSFML\MarioGame\src\GameObject.h(10,7):
+      see declaration of 'GameObject'
   
 C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(42,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Game.cpp')
@@ -34,9 +44,19 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(42,34): warning C4244: 'argume
 C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(42,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/LuckyBlock.cpp')
   
+C:\GitHubProjects\MarioSFML\MarioGame\src\CollisionManager.h(217,59): error C2039: 'top': is not a member of 'GameObject'
+  (compiling source file 'src/LuckyBlock.cpp')
+      C:\GitHubProjects\MarioSFML\MarioGame\src\Gameobject.h(10,7):
+      see declaration of 'GameObject'
+  
   Map.cpp
 C:\GitHubProjects\MarioSFML\MarioGame\src\Math.h(32,36): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
   (compiling source file 'src/Map.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\CollisionManager.h(217,59): error C2039: 'top': is not a member of 'GameObject'
+  (compiling source file 'src/Map.cpp')
+      C:\GitHubProjects\MarioSFML\MarioGame\src\GameObject.h(10,7):
+      see declaration of 'GameObject'
   
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(184,72): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Map.cpp')
@@ -112,6 +132,11 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(184,72): warning C4244: 'in
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(184,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Mario.cpp')
   
+C:\GitHubProjects\MarioSFML\MarioGame\src\CollisionManager.h(217,59): error C2039: 'top': is not a member of 'GameObject'
+  (compiling source file 'src/Mario.cpp')
+      C:\GitHubProjects\MarioSFML\MarioGame\src\GameObject.h(10,7):
+      see declaration of 'GameObject'
+  
 C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(42,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Mario.cpp')
   
@@ -134,6 +159,11 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(184,72): warning C4244: 'in
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(184,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/main.cpp')
   
+C:\GitHubProjects\MarioSFML\MarioGame\src\CollisionManager.h(217,59): error C2039: 'top': is not a member of 'GameObject'
+  (compiling source file 'src/main.cpp')
+      C:\GitHubProjects\MarioSFML\MarioGame\src\GameObject.h(10,7):
+      see declaration of 'GameObject'
+  
 C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(42,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/main.cpp')
   
@@ -141,4 +171,3 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(42,21): warning C4244: 'argume
   (compiling source file 'src/main.cpp')
   
   Generating Code...
-  MarioGame.vcxproj -> C:\GitHubProjects\MarioSFML\MarioGame\x64\Debug\MarioGame.exe

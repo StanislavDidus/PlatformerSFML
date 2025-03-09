@@ -19,12 +19,12 @@ enum CollisionType
 
 struct CollisionEvent
 {
-	sf::FloatRect* collider_bounds;
+	sf::FloatRect collider_bounds;
 	std::string collider_type;
 	GameObject* object;
 
 	CollisionEvent(sf::FloatRect fr, std::string col) : collider_bounds(fr), collider_type(col), object(nullptr) {}
-	CollisionEvent(sf::FloatRect* fr, std::string col, GameObject* object) : collider_bounds(fr), collider_type(col), object(object) {}
+	CollisionEvent(sf::FloatRect fr, std::string col, GameObject* object) : collider_bounds(fr), collider_type(col), object(object) {}
 };
 
 class CollisionManager
@@ -38,11 +38,24 @@ private:
 public:
 	std::vector<CollisionEvent> collisions;
 	std::vector<CollisionEvent> temp_collisions;
-	void addCollision(const CollisionEvent& collision) { collisions.emplace_back(collision); }
+	void addCollision(const CollisionEvent& collision) 
+	{ 
+		collisions.push_back(collision); 
+		//if(collision.object != nullptr)
+			//std::cout << "collison added" << ", " << collision.object->getType() << "\n";
+	}
 	void addSourse(GameObject* pos) { src_pos.emplace_back(pos); }
 
 	void update(float deltaTime)
-	{
+	{ 
+		for(auto& obj : this->collisions)
+		{
+			if (obj.object != nullptr)
+			{
+				//obj.collider_bounds = obj.object->getBounds();
+			}
+		}
+
 		this->current_time += deltaTime;
 		
 		if (this->current_time >= 1.f / 30.f)
@@ -51,17 +64,17 @@ public:
 
 			for (const auto& col : this->collisions)
 			{
-				sf::FloatRect* collision = col.collider_bounds;
+				sf::FloatRect collision = col.collider_bounds;
 
 				bool founded = false;
 				for (const auto& object : this->getSources())
 				{
 					sf::FloatRect obj = object->getBounds();
 
-					sf::FloatRect col_bounds = { collision->left + collision.width, collision.top + collision.height, collision.width, collision.height };
+					sf::FloatRect col_bounds = { collision.left + collision.width, collision.top + collision.height, collision.width, collision.height };
 					sf::FloatRect obj_bounds = { obj.left + obj.width, obj.top + obj.height, obj.width, obj.height };
 
-					if (MathUtils::distance(col_bounds, obj_bounds) < obj_bounds.width * 3.f)
+					if (MathUtils::distance(col_bounds, obj_bounds) < obj_bounds.width * 3000.f)
 					{
 						founded = true;
 						break;
@@ -177,10 +190,10 @@ public:
 		return closestGO;
 	}
 	
-	void callibrateCollision(const sf::FloatRect& player, float& x, float& y)
+	void callibrateCollision(const GameObject& player, float& x, float& y)
 	{
-		sf::FloatRect newBoundsX = { player.left + x, player.top, player.width, player.height };
-		sf::FloatRect newBoundsY = { player.left , player.top + y, player.width, player.height };
+		sf::FloatRect newBoundsX = { player.getBounds().left + x, player.getBounds().top, player.getBounds().width, player.getBounds().height};
+		sf::FloatRect newBoundsY = { player.getBounds().left , player.getBounds().top + y, player.getBounds().width, player.getBounds().height };
 		for (const auto& object : temp_collisions)
 		{
 			sf::FloatRect objectBounds = static_cast<sf::FloatRect>(object.collider_bounds);
@@ -210,7 +223,7 @@ public:
 				{
 					if (bottomCollision)
 					{
-						y = objectBounds.top - player.height - player.top;
+						y = objectBounds.top - player.getBounds().height - player.getBounds().top;
 						continue;
 					}
 				}
@@ -232,7 +245,7 @@ public:
 				{
 					if (leftCollision)
 					{
-						x = objectBounds.left + objectBounds.width - player.left;
+						x = objectBounds.left + objectBounds.width - player.getBounds().left;
 						continue;
 					}
 
@@ -242,7 +255,7 @@ public:
 				{
 					if (rightCollision)
 					{
-						x = objectBounds.left - player.width - player.left;
+						x = objectBounds.left - player.getBounds().width - player.getBounds().left;
 						continue;
 					}
 				}

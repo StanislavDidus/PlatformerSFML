@@ -262,9 +262,7 @@ void Map::updateAnimations()
 }
 
 void Map::updateCollisions()
-{
-	this->col_manager->clearCollision();
-	
+{	
 	for (const auto& tile : this->tiles)
 	{
 		if (tile.isCollision())
@@ -291,7 +289,7 @@ void Map::update(float deltaTime)
 	if (timeSinceLastUpdate >= updateTime)
 	{
 		this->initVerArray();
-		this->updateCollisions();
+		//this->updateCollisions();
 		timeSinceLastUpdate = 0.0f;
 	}
 
