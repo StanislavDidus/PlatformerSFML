@@ -11,6 +11,7 @@
 #include "Block.h"
 #include "Animator.h"
 #include "MushRoom.h"
+#include "Text.h"
 
 class Game;
 
@@ -33,8 +34,7 @@ private:
 	sf::Texture coin_texture;
 	sf::Sprite coin_sprite;
 
-	sf::Texture score_texture;
-	sf::Sprite score_sprite;
+	std::unique_ptr<Text> score_text;
 
 	void initLuckyBlock();
 	void initCoin();

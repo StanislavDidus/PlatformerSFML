@@ -148,10 +148,12 @@
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\LuckyBlock.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Mario.cpp" />
+    <ClCompile Include="src\MushRoom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Block.h" />
@@ -168,6 +170,7 @@
     <ClInclude Include="src\MarioState.cpp" />
     <ClInclude Include="src\Math.h" />
     <ClInclude Include="src\MushRoom.h" />
+    <ClInclude Include="src\Text.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

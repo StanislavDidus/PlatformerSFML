@@ -8,18 +8,22 @@
 #include <sstream>
 #include <cmath>
 #include <iomanip>
+#include <memory>
 
 #include "Mario.h"
 #include "AudioManager.h"
 #include "Map.h"
 #include "CollisionManager.h"
 #include "GameObject.h"
+#include "Text.h"
 
 #include "Math.h"
 
 class Game
 {
 private:
+	
+
 	std::unique_ptr<sf::RenderWindow> window;
 	std::unique_ptr<sf::View> view;
 
@@ -33,7 +37,7 @@ private:
 	float ttimer = 0.f;
 
 	//Items
-	std::vector<std::shared_ptr<GameObject>> gameObjects;
+	std::vector<std::shared_ptr<GameObject>> gameObjects; // All items (coins,mushroonms,stars)
 
 	//Mario
 	std::unique_ptr<Mario> mario;
@@ -44,6 +48,11 @@ private:
 
 	//Level
 	std::unique_ptr<Map> map;
+
+	//UI
+	sf::Texture small_coin_texture;
+	sf::Sprite small_coin_sprite;
+	std::unique_ptr<Animator> small_coin_anim;
 
 	//Text
 	sf::Font main_font;
@@ -74,12 +83,15 @@ private:
 	void initAudio();
 	void initText();
 public:
+	std::vector<std::unique_ptr<Text>> scores_text;
+
 	Game();
 	virtual ~Game();
 
 	const bool running() const;
 
 	void addScore(int score);
+	void showScore(sf::Vector2f pos, const std::string& path);
 
 	void updateEvents();
 	void updateView();

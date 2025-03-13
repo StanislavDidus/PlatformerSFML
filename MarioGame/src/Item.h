@@ -10,9 +10,13 @@
 
 #include "string"
 
+class Game;
+
 class Item : public GameObject
 {
 private:
+	Game* game;
+
 	float timer = 0.f;
 
 	void initSprite()
@@ -42,7 +46,7 @@ public:
 
 	std::unique_ptr<Animator> animator;
 
-	Item(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<CollisionManager> col) : GameObject(name, rect), col(col)
+	Item(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<CollisionManager> col, Game* game) : GameObject(name, rect), col(col), game(game)
 	{
 		initSprite();
 		initAnimations();
@@ -89,14 +93,7 @@ public:
 		}
 	}
 
-	void update(float deltaTime) override
-	{
-		move(velocity, direction, deltaTime);
-		updateTimer(deltaTime);
-	}
+	void update(float deltaTime) override;
 
-	void render(sf::RenderTarget* target) override
-	{
-		target->draw(sprite);
-	}
+	void render(sf::RenderTarget* target) override;
 };

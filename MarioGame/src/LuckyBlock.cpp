@@ -28,19 +28,14 @@ void LuckyBlock::initCoin()
 
 void LuckyBlock::initScore()
 {
-	this->score_texture.loadFromFile("assets/Textures/Scores/200.png");
-	this->score_sprite.setTexture(this->score_texture);
-	this->score_sprite.setScale(2.f, 2.f);
-	this->score_sprite.setTextureRect(sf::IntRect(0, 0, 23, 7));
-	this->score_sprite.setPosition(this->coin_sprite.getPosition().x, this->coin_sprite.getPosition().y - 85.f);
+	score_text = std::make_unique<Text>(16,7, coin_sprite.getPosition(), "assets/Textures/Scores/200.png");
 
-	PosAnimation ps3 = { score_sprite, score_sprite.getGlobalBounds().width / 2.f, score_sprite.getGlobalBounds().height / 1.5f, 60.f,[this]() {return false; }, false, 10, std::vector<sf::Vector2f>{{coin_sprite.getPosition().x, coin_sprite.getPosition().y - 100},{coin_sprite.getPosition().x, coin_sprite.getPosition().y - 120}}, "Score"};
 	PosAnimation ps = { coin_sprite, coin_sprite.getGlobalBounds().width / 3.125f, coin_sprite.getGlobalBounds().height / 3.125f, 450.f,[this]() {return false; }, false, 10, std::vector<sf::Vector2f>{{sprite.getPosition().x + coin_sprite.getGlobalBounds().width / 2, sprite.getPosition().y - 155},{sprite.getPosition().x + coin_sprite.getGlobalBounds().width / 2, sprite.getPosition().y - 85}}, "Coin"};
 	PosAnimation ps1 = { this->sprite, this->sprite.getGlobalBounds().width / 3.125f, this->sprite.getGlobalBounds().height / 3.125f, 150.f, [this]() {return false; }, false, 25, std::vector<sf::Vector2f>{{sprite.getPosition().x, sprite.getPosition().y - 15}, {sprite.getPosition()}}, "Hit"};
 	std::vector<std::shared_ptr<Animation>> ps_a;
 	ps_a.emplace_back(std::make_unique<PosAnimation>(ps));
 	ps_a.emplace_back(std::make_unique<PosAnimation>(ps1));
-	ps_a.emplace_back(std::make_unique<PosAnimation>(ps3));
+	ps_a.emplace_back(score_text->getAnimation());
 	std::vector<float> timing;
 	timing.emplace_back(0.f);
 	timing.emplace_back(0.f);
@@ -61,6 +56,9 @@ LuckyBlock::LuckyBlock(Game* game, const sf::Sprite& sprite, const sf::FloatRect
 void LuckyBlock::update(float deltaTime)
 {
 	animator->update(deltaTime);
+
+	if (score_text != nullptr)
+		score_text->update(deltaTime);
 
 	sf::Vector2f newPos = this->getSprite().getPosition();
 	setPosition(newPos);
@@ -84,13 +82,13 @@ void LuckyBlock::render(sf::RenderTarget* target)
 				}
 				if (sequence->getAnimation(2)->is_playing)
 				{
-					target->draw(this->score_sprite);
+					if (score_text != nullptr)
+						score_text->render(target);
 				}
 			}
 
 		}
 	}
-
 	target->draw(this->getSprite());
 }
 
@@ -130,7 +128,7 @@ void LuckyBlock::onHit()
 const void LuckyBlock::spawnMushroom()
 {
 	sf::FloatRect rect = { sprite.getPosition().x, sprite.getPosition().y, 50.f, 50.f};
-	std::shared_ptr<MushRoom> obj = std::make_shared<MushRoom>(rect, "Mushroom", col);
+	std::shared_ptr<MushRoom> obj = std::make_shared<MushRoom>(rect, "Mushroom", col, game);
 	gameObjects_.emplace_back(obj);
 	
 	//std::cout << "Spawn mushroom\n";

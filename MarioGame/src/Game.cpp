@@ -46,6 +46,16 @@ void Game::initAudio()
 
 void Game::initText()
 {
+	this->small_coin_texture.loadFromFile("assets/Textures/Levels/SmallCoin.png");
+	this->small_coin_sprite.setTexture(this->small_coin_texture);
+	this->small_coin_sprite.setScale(4.f, 4.f);
+	this->small_coin_sprite.setTextureRect(sf::IntRect(0, 0, 8, 8));
+
+	this->small_coin_anim = std::make_unique<Animator>();
+	this->small_coin_anim->addFrameAnimation(
+		this->small_coin_sprite, 8, 8, std::vector<int>{ 0, 1, 2 }, 400.f / 1000.f, [this]() {return true; }, [this]() {return 1; }, true, 5, "Small_Coin_Idle"
+	);
+
 	this->main_font.loadFromFile("assets/Fonts/SuperMario85.ttf");
 	this->fps_text.setFont(this->main_font);
 	this->fps_text.setCharacterSize(30);
@@ -104,6 +114,13 @@ const bool Game::running() const
 void Game::addScore(int score)
 {
 	this->score += score;
+}
+
+void Game::showScore(sf::Vector2f pos, const std::string& path)
+{
+	std::cout << "before\n";
+	scores_text.reserve(1);
+	std::cout << "after\n";
 }
 
 //Functions
@@ -171,8 +188,10 @@ void Game::updateText()
 	oss2 << "MARIO\n" << std::setw(size + (6 - size)) << std::setfill('0') << this->score << "\n";
 	this->score_text.setString(oss2.str());
 
+	this->small_coin_sprite.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 280.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 55.f);
+
 	this->score_text.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 50.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 20.f);
-	this->coin_text.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 250.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 20.f);
+	this->coin_text.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 290.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 55.f);
 	this->world_text.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 450.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 20.f);
 	this->time_text.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 650.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 20.f);
 }
@@ -189,7 +208,25 @@ void Game::updateCollisions(float deltaTime)
 
 	for (const auto& obj : gameObjects)
 	{
-		this->col_manager->addCollision({ obj->getBounds(), obj->getType(), obj.get() });
+		//this->col_manager->addCollision({ obj->getBounds(), obj->getType(), obj.get() });
+		if (mario->getBounds().intersects(obj->getBounds()))
+		{
+			//std::cout << "Collect: " << obj->getType() << "\n";
+			obj->onHit();
+
+			if (obj->getType() == "Mushroom")
+				this->mario->grow();
+			
+			//delete it
+			auto it = std::find_if(gameObjects.begin(), gameObjects.end(),
+				[obj](const std::shared_ptr<GameObject>& obj1) {
+					return obj1 == obj; 
+				});
+
+			if (it != gameObjects.end()) {
+				//gameObjects.erase(it);  
+			}
+		}
 	}
 	
 	this->col_manager->update(deltaTime);
@@ -209,10 +246,15 @@ void Game::update()
 		object->update(deltaTime);
 	}
 
+	this->small_coin_anim->update(deltaTime);
+
 	this->updateView();
 	this->updateAudio();
 	this->updateText();
 	this->updateMap();
+
+	//for (const auto& score : scores_text)
+		//score->getAnimator()->update(deltaTime);
 }
 
 void Game::renderLevel()
@@ -227,6 +269,8 @@ void Game::renderText()
 	this->window->draw(this->coin_text);
 	this->window->draw(this->world_text);
 	this->window->draw(this->time_text);
+
+	this->window->draw(this->small_coin_sprite);
 }
 
 void Game::render()
@@ -245,6 +289,16 @@ void Game::render()
 	this->mario->render(this->window.get());
 
 	this->renderText();
+
+	for (const auto& score : scores_text)
+	{
+		//if (score->getAnimation() != nullptr)
+			//if (score->getAnimation()->is_playing)
+			{
+				//score->render(this->window.get());
+			}
+		
+	}
 
 	this->window->setView(*this->view.get());
 	

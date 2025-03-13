@@ -73,7 +73,7 @@
   </object>
   <object id="17" gid="4" x="352" y="80" width="16" height="16">
    <properties>
-    <property name="Type" value="UP"/>
+    <property name="Type" value="Coin"/>
    </properties>
   </object>
  </objectgroup>
