@@ -214,7 +214,7 @@ void Map::initCollisions()
 }
 
 //Con/Des
-Map::Map(Game* game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects_) : game(game), window(window), col_manager(col), gameObjects_(gameObjects_)
+Map::Map(std::shared_ptr<Game> game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects_) : game(game), window(window), col_manager(col), gameObjects_(gameObjects_)
 {
 	this->initTiledMap();
 	this->initSprites();
@@ -224,7 +224,7 @@ Map::Map(Game* game, sf::RenderWindow* window, std::shared_ptr<CollisionManager>
 
 Map::~Map()
 {
-
+	
 }
 
 //Accessors

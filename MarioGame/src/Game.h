@@ -19,7 +19,7 @@
 
 #include "Math.h"
 
-class Game
+class Game : public std::enable_shared_from_this<Game>
 {
 private:
 	
@@ -54,6 +54,8 @@ private:
 	sf::Sprite small_coin_sprite;
 	std::unique_ptr<Animator> small_coin_anim;
 
+	std::vector<std::shared_ptr<Text>> scores_;
+
 	//Text
 	sf::Font main_font;
 	//Fps
@@ -83,7 +85,7 @@ private:
 	void initAudio();
 	void initText();
 public:
-	std::vector<std::unique_ptr<Text>> scores_text;
+	
 
 	Game();
 	virtual ~Game();
@@ -93,6 +95,7 @@ public:
 	void addScore(int score);
 	void showScore(sf::Vector2f pos, const std::string& path);
 
+	void init();
 	void updateEvents();
 	void updateView();
 	void updateAudio();

@@ -1,14 +1,16 @@
 ﻿#include "Game.h"
+#include <iostream>
 
 int main()
 {
-	Game game;
+	std::shared_ptr<Game> game = std::make_shared<Game>();
+	game->init();
 
-	while (game.running())
+	while (game->running())
 	{
-		game.update();
+		game->update();
 
-		game.render();
+		game->render();
 	}
 
 	return 0;

@@ -43,7 +43,7 @@ void LuckyBlock::initScore()
 	this->animator->addAnimationSequence(std::move(ps_a), timing, [this]() {return false; }, "Get", 25);
 }
 
-LuckyBlock::LuckyBlock(Game* game, const sf::Sprite& sprite, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects, std::shared_ptr<CollisionManager> col) : Block(rect, type, "assets/Textures/Levels/LuckyBlock.png"), game(game), l_type(l_type), gameObjects_(gameObjects), col(col)
+LuckyBlock::LuckyBlock(std::shared_ptr<Game> game, const sf::Sprite& sprite, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects, std::shared_ptr<CollisionManager> col) : Block(rect, type, "assets/Textures/Levels/LuckyBlock.png"), game(game), l_type(l_type), gameObjects_(gameObjects), col(col)
 {
 	this->initLuckyBlock();
 	if (l_type == LuckyBlockType::Coin)

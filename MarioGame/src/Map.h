@@ -138,7 +138,7 @@ private:
 	sf::RenderStates rs;
 
 	//Game
-	Game* game;
+	std::shared_ptr<Game> game;
 
 	float updateTime = 1.0f / 30.0f; 
 	float timeSinceLastUpdate = 0.0f;
@@ -148,7 +148,7 @@ private:
 	void initVerArray();
 	void initCollisions();
 public:
-	Map(Game* game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects_);
+	Map(std::shared_ptr<Game> game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects_);
 	virtual ~Map();
 
 	//const std::vector<sf::FloatRect> getLuckyBlocks() const;

@@ -8,7 +8,7 @@ class MushRoom : public Item
 private:
 	std::unique_ptr<Text> score_text;
 
-	Game* game;
+	//std::shared_ptr<Game> game;
 
 	bool is_active = true;
 
@@ -25,7 +25,7 @@ private:
 		//score_text = std::make_unique<Text>(16, 8, sprite.getPosition(), "assets/Textures/Scores/1000.png");
 	}
 public:
-	MushRoom(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<CollisionManager> col, Game* game) : Item(rect, name, col, game)
+	MushRoom(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<CollisionManager> col, std::shared_ptr<Game> game) : Item(rect, name, col, game)
 	{
 		initSprite();
 		//initText();
@@ -35,7 +35,7 @@ public:
 		//col->addCollision({ getBounds(), "Mushroom", this});
 	}
 
-	virtual ~MushRoom() { }
+	virtual ~MushRoom() {  }
 
 	void onHit() override;
 

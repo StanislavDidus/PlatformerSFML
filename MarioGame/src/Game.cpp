@@ -27,7 +27,7 @@ void Game::initWindow()
 
 void Game::initMap()
 {
-	this->map = std::make_unique<Map>(this, this->window.get(), this->col_manager, gameObjects);
+	this->map = std::make_unique<Map>(shared_from_this(), this->window.get(), this->col_manager, gameObjects);
 }
 
 void Game::initCollisions()
@@ -92,13 +92,7 @@ void Game::initMario()
 //Con/Des
 Game::Game()
 {
-	this->initVariables();
-	this->initWindow();
-	this->initCollisions();
-	this->initMario();
-	this->initMap();
-	this->initAudio();
-	this->initText();
+	
 }
 
 Game::~Game()
@@ -118,9 +112,22 @@ void Game::addScore(int score)
 
 void Game::showScore(sf::Vector2f pos, const std::string& path)
 {
-	std::cout << "before\n";
-	scores_text.reserve(1);
-	std::cout << "after\n";
+	std::shared_ptr<Text> text = std::make_shared<Text>(16,8,pos,path);
+	text->getAnimator()->playAnim("Score");
+	this->addScore(1000);
+	scores_.push_back(text);
+}
+
+ // Uses for some particular situations
+void Game::init()
+{
+	this->initVariables();
+	this->initWindow();
+	this->initCollisions();
+	this->initMario();
+	this->initMap();
+	this->initAudio();
+	this->initText();
 }
 
 //Functions
@@ -135,22 +142,9 @@ void Game::updateEvents()
 
 void Game::updateView()
 {
-	//sf::Vector2f newPos = sf::Vector2f(MathUtils::clamp(mario->getPosition().x, this->window->getSize().x / 2.f , 10150.f), 375.f);
-
-	
 	this->last_camera_pos = MathUtils::lerp(this->last_camera_pos, { std::max(this->mario->getPosition().x, this->last_camera_pos.x) , 375.f }, 10 * mario->deltaTime);
-	//this->last_camera_pos.x = std::max(this->window->getSize().x / 2.f, this->last_camera_pos.x);
-	//this->last_camera_pos.x = std::min(211 * 16 * 3.125f - this->window->getSize().x / 2.f, this->last_camera_pos.x);
 	this->last_camera_pos.x = MathUtils::clamp(this->last_camera_pos.x, this->window->getSize().x / 2.f, 211.f * 16.f * 3.125f - this->window->getSize().x / 2.f);
 	this->view->setCenter(this->last_camera_pos);
-	
-	//this->view->setCenter({this->mario->getPosition().x , 375.f});
-	
-	//std::cout << this->view->getCenter().x << ", " << this->view->getCenter().y << "\n";
-	//this->view->setSize(800, 600);
-	//this->view->setCenter(this->mario->getPosition());
-
-	//
 }
 
 void Game::updateAudio()
@@ -224,7 +218,7 @@ void Game::updateCollisions(float deltaTime)
 				});
 
 			if (it != gameObjects.end()) {
-				//gameObjects.erase(it);  
+				gameObjects.erase(it);  
 			}
 		}
 	}
@@ -253,8 +247,8 @@ void Game::update()
 	this->updateText();
 	this->updateMap();
 
-	//for (const auto& score : scores_text)
-		//score->getAnimator()->update(deltaTime);
+	for (const auto& score : scores_)
+		score->getAnimator()->update(deltaTime);
 }
 
 void Game::renderLevel()
@@ -290,12 +284,12 @@ void Game::render()
 
 	this->renderText();
 
-	for (const auto& score : scores_text)
+	for (const auto& score : scores_)
 	{
-		//if (score->getAnimation() != nullptr)
-			//if (score->getAnimation()->is_playing)
+		if (score->getAnimation() != nullptr)
+			if (score->getAnimation()->is_playing)
 			{
-				//score->render(this->window.get());
+				score->render(this->window.get());
 			}
 		
 	}

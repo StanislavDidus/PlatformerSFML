@@ -15,7 +15,7 @@ class Game;
 class Item : public GameObject
 {
 private:
-	Game* game;
+	
 
 	float timer = 0.f;
 
@@ -34,6 +34,8 @@ private:
 		);
 	}
 public:
+	std::shared_ptr<Game> game;
+
 	bool is_active = false;
 
 	int direction = 1;
@@ -46,7 +48,7 @@ public:
 
 	std::unique_ptr<Animator> animator;
 
-	Item(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<CollisionManager> col, Game* game) : GameObject(name, rect), col(col), game(game)
+	Item(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<CollisionManager> col, std::shared_ptr<Game> game) : GameObject(name, rect), col(col), game(game)
 	{
 		initSprite();
 		initAnimations();
@@ -54,7 +56,7 @@ public:
 		this->animator->playAnim("Spawn");
 		std::cout << "Spawn\n";
 	}
-	virtual ~Item() {}
+	virtual ~Item() {  }
 
 	const bool isActive() const { return is_active; }
 
