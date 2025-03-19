@@ -141,7 +141,8 @@ void Mario::setGround(bool state)
 void Mario::setPosition(const sf::Vector2f& newPosition)
 {
 	GameObject::setPosition(newPosition);
-	sprite.setPosition(newPosition);
+	//sprite.setPosition(newPosition);
+	//std::cout << newPosition.x << ", " << newPosition.y << "\n";
 }
 
 //Functions
@@ -158,8 +159,11 @@ void Mario::grow()
 {
 	//Set mario1 texture
 	this->sprite.setTexture(this->texture1);
-	this->sprite.setPosition(this->sprite.getPosition().x, this->sprite.getPosition().y - 16.f * 3.125f);
+	this->sprite.setPosition(this->sprite.getPosition().x, this->sprite.getPosition().y);
 	this->sprite.setTextureRect(sf::IntRect(0, 0, 16, 32));
+	//this->sprite.setScale(3.f, 3.f);
+	GameObject::setBounds({16 * 3.f, 32 * 3.f});
+	GameObject::setPosition({ sprite.getPosition().x, sprite.getPosition().y});
 	this->is_grown = true;
 	this->animator->playAnim("Grow");
 }

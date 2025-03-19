@@ -84,7 +84,7 @@ void Game::initText()
 
 void Game::initMario()
 {
-	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get(), sf::FloatRect(0, 0, 50, 50), "Mario");
+	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get(), sf::FloatRect(0, 0, 48, 48), "Mario");
 
 	this->col_manager->addSourse(dynamic_cast<GameObject*>(this->mario.get()));
 }
@@ -269,7 +269,7 @@ void Game::renderText()
 
 void Game::render()
 {
-	this->window->clear({99,173,255,255}); // Blue
+	this->window->clear(); 
 
 	//Render level
 	for (const auto& object : gameObjects)

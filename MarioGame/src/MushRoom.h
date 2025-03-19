@@ -32,7 +32,7 @@ public:
 
 		//col->addSourse(dynamic_cast<GameObject*>(this));
 
-		//col->addCollision({ getBounds(), "Mushroom", this});
+		col->addCollision({ getBounds(), "Mushroom", this});
 	}
 
 	virtual ~MushRoom() {  }
@@ -47,7 +47,7 @@ public:
 		{
 			float deltaX = velocity.x * deltaTime * direction;
 			float deltaY = velocity.y * deltaTime;
-			col->callibrateCollision(sprite.getGlobalBounds(), deltaX, deltaY);
+			col->callibrateCollision(*this, deltaX, deltaY);
 			checkCollision(deltaTime);
 			sprite.move(deltaX, deltaY);
 			//move({deltaX, deltaY}, direction, deltaTime);

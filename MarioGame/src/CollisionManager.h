@@ -190,12 +190,19 @@ public:
 		return closestGO;
 	}
 	
-	void callibrateCollision(const sf::FloatRect& player, float& x, float& y)
+	void callibrateCollision(const GameObject& player, float& x, float& y)
 	{
-		sf::FloatRect newBoundsX = { player.left + x, player.top, player.width, player.height};
-		sf::FloatRect newBoundsY = { player.left , player.top + y, player.width, player.height };
+		sf::FloatRect playerBounds = player.getBounds();
+		sf::FloatRect newBoundsX = { playerBounds.left + x, playerBounds.top, playerBounds.width, playerBounds.height};
+		sf::FloatRect newBoundsY = { playerBounds.left , playerBounds.top + y, playerBounds.width, playerBounds.height };
 		for (const auto& object : temp_collisions)
 		{
+			if(object.object != nullptr)
+				if (*object.object == player)
+				{
+					continue;
+				}
+
 			sf::FloatRect objectBounds = static_cast<sf::FloatRect>(object.collider_bounds);
 			
 			if (y != 0)
@@ -214,7 +221,7 @@ public:
 				{
 					if (topCollision)
 					{
-						y = objectBounds.top + objectBounds.height - player.top;
+						y = objectBounds.top + objectBounds.height - playerBounds.top;
 						continue;
 					}
 				}
@@ -223,7 +230,7 @@ public:
 				{
 					if (bottomCollision)
 					{
-						y = objectBounds.top - player.height - player.top;
+						y = objectBounds.top - playerBounds.height - playerBounds.top;
 						continue;
 					}
 				}
@@ -245,7 +252,7 @@ public:
 				{
 					if (leftCollision)
 					{
-						x = objectBounds.left + objectBounds.width - player.left;
+						x = objectBounds.left + objectBounds.width - playerBounds.left;
 						continue;
 					}
 
@@ -255,7 +262,7 @@ public:
 				{
 					if (rightCollision)
 					{
-						x = objectBounds.left - player.width - player.left;
+						x = objectBounds.left - playerBounds.width - playerBounds.left;
 						continue;
 					}
 				}

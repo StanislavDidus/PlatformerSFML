@@ -33,5 +33,17 @@ public:
 	virtual void setPosition(const sf::Vector2f& newPosition) {
 		bounds.left = newPosition.x;
 		bounds.top = newPosition.y;
+		
+	}
+	
+	virtual void setBounds(const sf::Vector2f& newBounds)
+	{
+		bounds.width = newBounds.x;
+		bounds.height = newBounds.y;
+	}
+
+	bool operator==(const GameObject& other) const
+	{
+		return this->type == other.type && this->bounds == other.bounds;
 	}
 };

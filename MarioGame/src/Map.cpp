@@ -75,8 +75,7 @@ void Map::initSprites()
 
 					if (lay->getName() == "Collisions")
 					{
-						//this->tiles_type.emplace_back(col_rect, "Ground");
-						this->tiles.emplace_back(col_rect, sprite.getTextureRect(), "Ground", true, false);
+						this->tiles.emplace_back(col_rect, sprite.getTextureRect(), "Ground", true, false, 10);
 					}
 					else if (foundTile)
 					{
@@ -100,14 +99,13 @@ void Map::initSprites()
 						}
 
 					}
-					else
+					else if (lay->getName() == "Sky")
 					{
-						this->tiles.emplace_back(col_rect, sprite.getTextureRect(), "Decor", false, false);
+						this->tiles.emplace_back(col_rect, sprite.getTextureRect(), "Sky", false, false, 5);
 					}
-
+					else
+						this->tiles.emplace_back(col_rect, sprite.getTextureRect(), "Decor", false, false, 10);
 				}
-
-				
 			}
 		}
 		if (const auto objectLayer = dynamic_cast<tmx::ObjectGroup*>(lay.get()))
@@ -320,6 +318,11 @@ void Map::render(sf::RenderTarget* target)
 
 	target->draw(*this->v_array, this->rs);
 	//target->draw(*this->animated_v_array, this->rs);
+
+	for (const auto& array : v_arrays)
+	{
+		target->draw(*array.get(), this->rs);
+	}
 
 	//Draw collisions
 	for (auto& t : this->col_manager->temp_collisions)

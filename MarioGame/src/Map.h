@@ -38,6 +38,7 @@ class Tile
 private:
 	sf::FloatRect posRect;
 	sf::IntRect texRect;
+	int layer;
 
 	std::string type;
 
@@ -53,7 +54,7 @@ public:
 	int current_frame;
 	std::unique_ptr<sf::Clock> anim_timer;
 
-	Tile(const sf::FloatRect& p, const sf::IntRect& t, const std::string& ty, const bool col, const bool anim) : posRect(p), texRect(t), type(ty), is_collision(col), is_animation(anim)
+	Tile(const sf::FloatRect& p, const sf::IntRect& t, const std::string& ty, const bool col, const bool anim, int layer) : posRect(p), texRect(t), type(ty), is_collision(col), is_animation(anim), layer(layer)
 	{
 		
 		//Init clock
@@ -122,6 +123,7 @@ private:
 	tmx::Map tiled_map; // level tiled map
 
 	std::unique_ptr<sf::VertexArray> v_array; // vertexArray for level
+	std::vector<std::unique_ptr<sf::VertexArray>> v_arrays;
 
 	//Sprites
 	std::vector<Tile> tiles; // ALL tiles
