@@ -154,6 +154,7 @@
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Mario.cpp" />
     <ClCompile Include="src\MushRoom.cpp" />
+    <ClCompile Include="src\Manager\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Block.h" />
@@ -170,7 +171,9 @@
     <ClInclude Include="src\MarioState.cpp" />
     <ClInclude Include="src\Math.h" />
     <ClInclude Include="src\MushRoom.h" />
+    <ClInclude Include="src\Renderable.h" />
     <ClInclude Include="src\Text.h" />
+    <ClInclude Include="src\Manager\TextureManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

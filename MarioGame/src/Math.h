@@ -27,7 +27,7 @@ namespace MathUtils
 		return std::sqrt(std::pow(v2.left - v1.left, 2.f) + std::pow(v2.top - v1.top, 2.f));
 	}
 
-	constexpr int getDigitCount(int num) {
+	constexpr double getDigitCount(int num) {
 		if (num == 0) return 1;
 		return std::log10(std::abs(num)) + 1;
 	}

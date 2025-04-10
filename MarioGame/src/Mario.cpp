@@ -32,8 +32,6 @@ void Mario::initVariables()
 
 void Mario::initSprite()
 {
-	if (!this->texture.loadFromFile("assets/Textures/Mario/Mario0.png"))
-		std::cout << "Could not load mario0 texture\n";
 	if (!this->texture1.loadFromFile("assets/Textures/Mario/Mario1.png"))
 		std::cout << "Could not load mario1 texture\n";
 
@@ -107,8 +105,8 @@ void Mario::initAudio()
 }
 
 //Con/Des
-Mario::Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, const sf::FloatRect& rect, const std::string& type) : window(window),
-map(map), col(col), GameObject(type, rect)
+Mario::Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, std::shared_ptr<sf::Texture> texture, const sf::FloatRect& rect, const std::string& type, int layer) : window(window), texture(*texture),
+map(map), col(col), GameObject(type, rect, layer)
 {
 	this->initVariables();
 	this->initSprite();
@@ -159,13 +157,18 @@ void Mario::grow()
 {
 	//Set mario1 texture
 	this->sprite.setTexture(this->texture1);
-	this->sprite.setPosition(this->sprite.getPosition().x, this->sprite.getPosition().y);
+	this->sprite.setPosition(this->sprite.getPosition().x, this->sprite.getPosition().y - 48.f);
 	this->sprite.setTextureRect(sf::IntRect(0, 0, 16, 32));
 	//this->sprite.setScale(3.f, 3.f);
 	GameObject::setBounds({16 * 3.f, 32 * 3.f});
 	GameObject::setPosition({ sprite.getPosition().x, sprite.getPosition().y});
 	this->is_grown = true;
 	this->animator->playAnim("Grow");
+}
+
+void Mario::die()
+{
+
 }
 
 void Mario::checkSlide()
@@ -196,25 +199,20 @@ void Mario::checkSlide()
 	}
 }
 
-void Mario::chechCollisions()
+void Mario::checkCollisions()
 {
-	if (col->checkCollision({ getBounds().left,
-			getBounds().top,
-			getBounds().width,
-			getBounds().height }, velocity, "Mushroom", CollisionType::ALL))
+	
+	GameObject* obj = col->getObject({ getBounds().left,
+	getBounds().top,
+	getBounds().width,
+	getBounds().height }, velocity, "Mushroom");
+
+	//std::cout << "mushroom1\n";
+
+	if (obj != nullptr)
 	{
-		GameObject* obj = col->getObject({ getBounds().left,
-		getBounds().top,
-		getBounds().width,
-		getBounds().height }, velocity, "Mushroom");
-
-		std::cout << "mushroom1\n";
-
-		if (obj != nullptr)
-		{
-			obj->onHit();
-			std::cout << "mushroom2\n";
-		}
+		obj->onHit();
+		//std::cout << "mushroom2\n";
 	}
 }
 
@@ -252,6 +250,15 @@ void Mario::update(float deltaTime)
 {
 	this->deltaTime = deltaTime;
 
+	//Check if mario is lower than 0
+	if (this->sprite.getPosition().y - this->sprite.getGlobalBounds().height > 600)
+	{
+		//Dead
+		this->die();
+		//Start death timer
+
+	}
+
 	if (this->current_state != nullptr) // Update current state
 		this->current_state->onUpdate(*this, deltaTime);
 
@@ -268,7 +275,7 @@ void Mario::update(float deltaTime)
 		this->grow_timer = 0.f;
 
 	//Check collisions
-	this->chechCollisions();
+	this->checkCollisions();
 
 	// Limit mario x movement 
 	this->sprite.setPosition(MathUtils::clamp(this->sprite.getPosition().x, this->window->getView().getCenter().x - this->window->getSize().x / 2.f, this->window->getView().getCenter().x + this->window->getSize().x / 2.f - this->sprite.getGlobalBounds().width), this->sprite.getPosition().y);

@@ -20,7 +20,7 @@ private:
 public:
 	std::unique_ptr<Animator> animator;
 	sf::Sprite sprite;
-	Block(const sf::FloatRect& rect, const std::string& type, const std::string& sprite_path) : GameObject(type, rect)
+	Block(const sf::FloatRect& rect, const std::string& type, const std::string& sprite_path, int layer) : GameObject(type, rect, layer)
 	{
 		//Sprite
 		

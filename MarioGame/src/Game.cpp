@@ -13,6 +13,20 @@ void Game::initVariables()
 	this->score = 0;
 }
 
+void Game::initTextureManager()
+{
+	this->texture_manager = std::make_shared<TextureManager>();
+	this->texture_manager->load("Mario", "assets/Textures/Mario/Mario0.png");
+	this->texture_manager->load("MarioBig", "assets/Textures/Mario/Mario1.png");
+	this->texture_manager->load("LuckyBlock", "assets/Textures/Levels/LuckyBlock.png");
+	this->texture_manager->load("Brick", "assets/Textures/Levels/Brick.png");
+	this->texture_manager->load("Mushroom", "assets/Textures/Levels/Mushroom.png");
+	this->texture_manager->load("Coin", "assets/Textures/Levels/Coin_Anim.png");
+	this->texture_manager->load("Block", "assets/Textures/Levels/Block.png");
+	this->texture_manager->load("200S", "assets/Textures/Scores/200.png");
+	this->texture_manager->load("1000S", "assets/Textures/Scores/1000.png");
+}
+
 void Game::initWindow()
 {
 	this->window = std::make_unique<sf::RenderWindow>(sf::VideoMode(800,600), "Mario nintendo game", sf::Style::Default); // 4:3
@@ -80,11 +94,14 @@ void Game::initText()
 	this->time_text.setCharacterSize(30);
 	this->time_text.setFillColor(sf::Color::White);
 	this->time_text.setString("TIME\n 300\n");
+
+
+	//this->mario_icon.setTexture()
 }
 
 void Game::initMario()
 {
-	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get(), sf::FloatRect(0, 0, 48, 48), "Mario");
+	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get(), texture_manager->get("Mario"), sf::FloatRect(0, 0, 48, 48), "Mario", 25);
 
 	this->col_manager->addSourse(dynamic_cast<GameObject*>(this->mario.get()));
 }
@@ -124,6 +141,7 @@ void Game::init()
 	this->initVariables();
 	this->initWindow();
 	this->initCollisions();
+	this->initTextureManager();
 	this->initMario();
 	this->initMap();
 	this->initAudio();
@@ -144,7 +162,8 @@ void Game::updateView()
 {
 	this->last_camera_pos = MathUtils::lerp(this->last_camera_pos, { std::max(this->mario->getPosition().x, this->last_camera_pos.x) , 375.f }, 10 * mario->deltaTime);
 	this->last_camera_pos.x = MathUtils::clamp(this->last_camera_pos.x, this->window->getSize().x / 2.f, 211.f * 16.f * 3.125f - this->window->getSize().x / 2.f);
-	this->view->setCenter(this->last_camera_pos);
+	if(!(mario->getPosition().y - mario->getBounds().height > window->getSize().y))
+		this->view->setCenter(this->last_camera_pos);
 }
 
 void Game::updateAudio()
@@ -230,30 +249,43 @@ void Game::update()
 {
 	float deltaTime = this->clock.restart().asSeconds();
 	deltaTime = std::min(deltaTime, 0.033f);
-	
+
+	//START MENU
+	if (start_game_timer < 0.f)
+		is_game_started = true;
+	else
+		this->start_game_timer -= deltaTime;
+
 	this->updateEvents();
-	this->updateCollisions(deltaTime);
-	this->mario->update(deltaTime);
-
-	for (const auto& object : gameObjects)
+	if (is_game_started)
 	{
-		object->update(deltaTime);
+
+		
+		this->updateCollisions(deltaTime);
+		this->mario->update(deltaTime);
+
+		for (const auto& object : gameObjects)
+		{
+			object->update(deltaTime);
+		}
+
+		this->small_coin_anim->update(deltaTime);
+
+		
+		this->updateAudio();
+		
+		this->updateMap();
+
+		for (const auto& score : scores_)
+			score->getAnimator()->update(deltaTime);
 	}
-
-	this->small_coin_anim->update(deltaTime);
-
 	this->updateView();
-	this->updateAudio();
 	this->updateText();
-	this->updateMap();
-
-	for (const auto& score : scores_)
-		score->getAnimator()->update(deltaTime);
 }
 
 void Game::renderLevel()
 {
-	this->map->render(this->window.get());
+	
 }
 
 void Game::renderText()
@@ -267,34 +299,60 @@ void Game::renderText()
 	this->window->draw(this->small_coin_sprite);
 }
 
+void Game::DisplayStartMenu()
+{
+
+}
+
 void Game::render()
 {
 	this->window->clear(); 
+	renderQueue.clear();
 
-	//Render level
-	for (const auto& object : gameObjects)
+	if (is_game_started)
 	{
-		object->render(window.get());
-	}
 
-	this->renderLevel();
+		//Render level
+		for (const auto& object : gameObjects)
+		{
+			//object->render(window.get());
+			renderQueue.emplace_back(object->layer, [this, object]() {object->render(this->window.get()); });
+		}
 
-	//Render player
-	this->mario->render(this->window.get());
+		//this->map->render(this->window.get());
+		this->map->render(this->renderQueue, this->window.get());
 
-	this->renderText();
+		//Render player
+		renderQueue.emplace_back(mario->layer, [this]() {this->mario->render(this->window.get()); });
 
-	for (const auto& score : scores_)
-	{
-		if (score->getAnimation() != nullptr)
-			if (score->getAnimation()->is_playing)
-			{
-				score->render(this->window.get());
-			}
+		//Render all the objects in queue
+		std::sort(renderQueue.begin(), renderQueue.end());
+		for (const auto& i : renderQueue)
+		{
+			i.renderFunc();
+		}
+
+		//Render UI
+		for (const auto& score : scores_)
+		{
+			if (score->getAnimation() != nullptr)
+				if (score->getAnimation()->is_playing)
+				{
+					score->render(this->window.get());
+				}
+
+		}
+
 		
-	}
 
+		
+
+	}
+	else
+	{
+		this->DisplayStartMenu();
+	}
+	this->renderText();
 	this->window->setView(*this->view.get());
-	
 	this->window->display();
 }

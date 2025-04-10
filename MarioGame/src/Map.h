@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <tmxlite/Map.hpp>
 #include <tmxlite/TileLayer.hpp>
@@ -14,11 +14,22 @@
 #include "GameObject.h"
 #include "LuckyBlock.h"
 #include "Brick.h"
+#include "Renderable.h"
 
 #include <iostream>
+#include <set>
+#include <algorithm>
 #include <unordered_map>
 
 class Game;
+
+struct Vrtx
+{
+	Vrtx(sf::VertexArray v_array, int layer) : v_array(v_array), layer(layer) {}
+	
+	sf::VertexArray v_array;
+	int layer;
+};
 
 struct AnimationTile
 {
@@ -77,6 +88,10 @@ public:
 	{
 		return this->type;
 	}
+	const int getLayer() const
+	{
+		return layer;
+	}
 	sf::Clock* getClock() const
 	{
 		return this->anim_timer.get();
@@ -124,9 +139,10 @@ private:
 
 	std::unique_ptr<sf::VertexArray> v_array; // vertexArray for level
 	std::vector<std::unique_ptr<sf::VertexArray>> v_arrays;
+	std::vector<Vrtx> vrtxs;
 
 	//Sprites
-	std::vector<Tile> tiles; // ALL tiles
+	std::vector<std::shared_ptr<Tile>> tiles; // ALL tiles
 	std::vector<std::unique_ptr<GameObject>> game_objects;
 
 	std::unordered_map<int, tmx::Tileset::Tile> index_tile;
@@ -153,11 +169,11 @@ public:
 	Map(std::shared_ptr<Game> game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects_);
 	virtual ~Map();
 
-	//const std::vector<sf::FloatRect> getLuckyBlocks() const;
+	//const std::vector<sf::// FloatRect> getLuckyBlocks() const;
 
 	void updateAnimations();
 	void updateCollisions();
 	void update(float deltaTime);
-	void render(sf::RenderTarget* target);
+	void render(std::vector<Renderable>& queue, sf::RenderTarget* target);
 };
 

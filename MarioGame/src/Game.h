@@ -13,21 +13,30 @@
 #include "Mario.h"
 #include "AudioManager.h"
 #include "Map.h"
+#include "Renderable.h"
 #include "CollisionManager.h"
 #include "GameObject.h"
 #include "Text.h"
+#include "Manager/TextureManager.h"
 
 #include "Math.h"
 
 class Game : public std::enable_shared_from_this<Game>
 {
 private:
-	
+	//Start game screen
+	float start_game_timer = 3.f;
+	bool is_game_started = false;
+	sf::Texture mario_icon_texture;
+	sf::Sprite mario_icon;
 
 	std::unique_ptr<sf::RenderWindow> window;
 	std::unique_ptr<sf::View> view;
 
 	sf::Vector2f last_camera_pos;
+
+	//Texture Manager
+	std::shared_ptr<TextureManager> texture_manager;
 
 	//Audio
 	std::unique_ptr<AudioManager> game_audio_manager;
@@ -45,6 +54,9 @@ private:
 
 	//Collisions
 	std::shared_ptr<CollisionManager> col_manager;
+
+	//Render
+	std::vector<Renderable> renderQueue;
 
 	//Level
 	std::unique_ptr<Map> map;
@@ -78,6 +90,7 @@ private:
 
 
 	void initVariables();
+	void initTextureManager();
 	void initWindow();
 	void initMario();
 	void initMap();
@@ -94,6 +107,7 @@ public:
 
 	void addScore(int score);
 	void showScore(sf::Vector2f pos, const std::string& path);
+	void DisplayStartMenu();
 
 	void init();
 	void updateEvents();

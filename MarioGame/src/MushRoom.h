@@ -25,14 +25,14 @@ private:
 		//score_text = std::make_unique<Text>(16, 8, sprite.getPosition(), "assets/Textures/Scores/1000.png");
 	}
 public:
-	MushRoom(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<CollisionManager> col, std::shared_ptr<Game> game) : Item(rect, name, col, game)
+	MushRoom(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<CollisionManager> col, std::shared_ptr<Game> game, int layer) : Item(rect, name, col, game, layer)
 	{
 		initSprite();
 		//initText();
 
 		//col->addSourse(dynamic_cast<GameObject*>(this));
 
-		col->addCollision({ getBounds(), "Mushroom", this});
+		//col->addCollision({ getBounds(), "Mushroom", this});
 	}
 
 	virtual ~MushRoom() {  }

@@ -13,9 +13,10 @@ private:
 	std::string type;
 	sf::FloatRect bounds;
 public:
+	int layer;
 	bool is_active;
 
-	GameObject(std::string type, sf::FloatRect bounds) : type(type), bounds(bounds), is_active(true) {}
+	GameObject(std::string type, sf::FloatRect bounds, int layer) : type(type), bounds(bounds), layer(layer), is_active(true) {}
 
 	virtual ~GameObject() = default;
 

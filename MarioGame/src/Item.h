@@ -48,7 +48,7 @@ public:
 
 	std::unique_ptr<Animator> animator;
 
-	Item(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<CollisionManager> col, std::shared_ptr<Game> game) : GameObject(name, rect), col(col), game(game)
+	Item(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<CollisionManager> col, std::shared_ptr<Game> game, int layer) : GameObject(name, rect, layer), col(col), game(game)
 	{
 		initSprite();
 		initAnimations();

@@ -214,23 +214,20 @@ class IMarioJump : public IMarioState
 		}
 
 		// Check lucky block collision
-		if (mario.col->checkCollision({ mario.getBounds().left,
-			mario.getBounds().top + mario.velocity.y * deltaTime,
-			mario.getBounds().width,
-			mario.getBounds().height }, mario.velocity, "Block", CollisionType::TOP) && !mario.is_jump_over)
+		// if hit lucky block
+		if (!mario.is_jump_over)
 		{
-			// if hit lucky block
-			
 			GameObject* obj = mario.col->getObject({ mario.getBounds().left,
 			mario.getBounds().top + mario.velocity.y * deltaTime,
 			mario.getBounds().width,
 			mario.getBounds().height }, mario.velocity, "Block");
-			
-			if(obj != nullptr)
+
+			if (obj != nullptr)
 			{
 				obj->onHit();
 			}
 		}
+		
 
 		//Then check collision with roof
 		if (mario.col->checkCollision({ mario.getBounds().left,

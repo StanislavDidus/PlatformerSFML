@@ -44,7 +44,7 @@ private:
 	std::unique_ptr<Animator> coin_animator;
 
 public:
-	LuckyBlock(std::shared_ptr<Game> game, const sf::Sprite& sprite, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects, std::shared_ptr<CollisionManager> col);
+	LuckyBlock(std::shared_ptr<Game> game, const sf::Sprite& sprite, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects, std::shared_ptr<CollisionManager> col, int layer);
 	virtual ~LuckyBlock() { }
 	//std::shared_ptr<Animation> createPositionAnimation(sf::Sprite& sprite, float speed, std::string name, std::vector<sf::Vector2f> positions);
 

@@ -13,6 +13,7 @@
 #include "Map.h"
 #include "AudioManager.h"
 #include "GameObject.h"
+//#include "Manager/TextureManager.h"
 
 class IMarioState;
 class IMarioIdle;
@@ -89,7 +90,7 @@ public:
 	friend class IMarioWalk;
 	friend class IMarioJump;
 
-	Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, const sf::FloatRect& rect, const std::string& type);
+	Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, std::shared_ptr<sf::Texture> texture, const sf::FloatRect & rect, const std::string& type, int layer);
 	virtual ~Mario();
 
 	//Accessors
@@ -103,8 +104,9 @@ public:
 	//Functions
 	void move(float dirX, float dirY);
 	void grow();
+	void die();
 	void checkSlide();
-	void chechCollisions();
+	void checkCollisions();
 	void flip(int dir);
 	void applyGravity(float deltaTime);
 	void setState(const std::shared_ptr<IMarioState>& state);
