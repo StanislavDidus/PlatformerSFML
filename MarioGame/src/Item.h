@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "Animator.h"
 #include "CollisionManager.h"
+#include "Manager/TextureManager.h"
 
 #include "string"
 
@@ -42,13 +43,14 @@ public:
 	sf::Vector2f velocity = { 250.f, 500.f };
 
 	std::shared_ptr<CollisionManager> col;
+	std::shared_ptr<TextureManager> texture_manager;
 
 	sf::Texture texture;
 	sf::Sprite sprite;
 
 	std::unique_ptr<Animator> animator;
 
-	Item(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<CollisionManager> col, std::shared_ptr<Game> game, int layer) : GameObject(name, rect, layer), col(col), game(game)
+	Item(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<TextureManager> texture_manager, std::shared_ptr<CollisionManager> col, std::shared_ptr<Game> game, int layer) : GameObject(name, rect, layer), col(col), game(game), texture_manager(texture_manager)
 	{
 		initSprite();
 		initAnimations();

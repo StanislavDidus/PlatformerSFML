@@ -10,7 +10,7 @@ void LuckyBlock::initLuckyBlock()
 
 void LuckyBlock::initCoin()
 {
-	this->coin_texture.loadFromFile("assets/Textures/Levels/Coin_Anim.png");
+	this->coin_texture = *texture_manager->get("Coin").get();
 	this->coin_sprite.setTexture(this->coin_texture);
 	this->coin_sprite.setScale(3.125f, 3.125f);
 	this->coin_sprite.setTextureRect(sf::IntRect(0, 0, 8, 16));
@@ -28,7 +28,7 @@ void LuckyBlock::initCoin()
 
 void LuckyBlock::initScore()
 {
-	score_text = std::make_unique<Text>(16,7, coin_sprite.getPosition(), "assets/Textures/Scores/200.png");
+	score_text = std::make_unique<Text>(16,7, coin_sprite.getPosition(), texture_manager->get("200S").get());
 
 	PosAnimation ps = { coin_sprite, coin_sprite.getGlobalBounds().width / 3.125f, coin_sprite.getGlobalBounds().height / 3.125f, 450.f,[this]() {return false; }, false, 10, std::vector<sf::Vector2f>{{sprite.getPosition().x + coin_sprite.getGlobalBounds().width / 2, sprite.getPosition().y - 155},{sprite.getPosition().x + coin_sprite.getGlobalBounds().width / 2, sprite.getPosition().y - 85}}, "Coin"};
 	PosAnimation ps1 = { this->sprite, this->sprite.getGlobalBounds().width / 3.125f, this->sprite.getGlobalBounds().height / 3.125f, 150.f, [this]() {return false; }, false, 25, std::vector<sf::Vector2f>{{sprite.getPosition().x, sprite.getPosition().y - 15}, {sprite.getPosition()}}, "Hit"};
@@ -43,7 +43,7 @@ void LuckyBlock::initScore()
 	this->animator->addAnimationSequence(std::move(ps_a), timing, [this]() {return false; }, "Get", 25);
 }
 
-LuckyBlock::LuckyBlock(std::shared_ptr<Game> game, const sf::Sprite& sprite, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects, std::shared_ptr<CollisionManager> col, int layer) : Block(rect, type, "assets/Textures/Levels/LuckyBlock.png", layer), game(game), l_type(l_type), gameObjects_(gameObjects), col(col)
+LuckyBlock::LuckyBlock(std::shared_ptr<Game> game, const sf::Sprite& sprite, std::shared_ptr<TextureManager> texture_manager, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects, std::shared_ptr<CollisionManager> col, int layer) : Block(rect, type, texture_manager->get("LuckyBlock").get(), layer), game(game), l_type(l_type), gameObjects_(gameObjects), col(col), texture_manager(texture_manager)
 {
 	this->initLuckyBlock();
 	if (l_type == LuckyBlockType::Coin)
@@ -120,7 +120,7 @@ void LuckyBlock::onHit()
 	}
 
 	//Disable
-	this->getTexture().loadFromFile("assets/Textures/Levels/Block.png");
+	this->getTexture() = *texture_manager->get("Block").get();
 	this->sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
 	this->is_active = false;
 }
@@ -128,7 +128,7 @@ void LuckyBlock::onHit()
 const void LuckyBlock::spawnMushroom()
 {
 	sf::FloatRect rect = { sprite.getPosition().x, sprite.getPosition().y, 50.f, 50.f};
-	std::shared_ptr<MushRoom> obj = std::make_shared<MushRoom>(rect, "Mushroom", col, game, 10);
+	std::shared_ptr<MushRoom> obj = std::make_shared<MushRoom>(rect, "Mushroom", texture_manager, col, game, 10);
 	gameObjects_.emplace_back(obj);
 	
 	//std::cout << "Spawn mushroom\n";

@@ -32,9 +32,6 @@ void Mario::initVariables()
 
 void Mario::initSprite()
 {
-	if (!this->texture1.loadFromFile("assets/Textures/Mario/Mario1.png"))
-		std::cout << "Could not load mario1 texture\n";
-
 	this->sprite.setTexture(this->texture);
 	this->sprite.setScale(3.f, 3.f);
 	this->sprite.setTextureRect(sf::IntRect(0, 0, 16, 16)); // Int rect (x, y, width, height)
@@ -105,7 +102,7 @@ void Mario::initAudio()
 }
 
 //Con/Des
-Mario::Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, std::shared_ptr<sf::Texture> texture, const sf::FloatRect& rect, const std::string& type, int layer) : window(window), texture(*texture),
+Mario::Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, std::shared_ptr<sf::Texture> texture, std::shared_ptr<sf::Texture> texture1, const sf::FloatRect& rect, const std::string& type, int layer) : window(window), texture(*texture), texture1(*texture1),
 map(map), col(col), GameObject(type, rect, layer)
 {
 	this->initVariables();

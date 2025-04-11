@@ -1,6 +1,6 @@
 #include "Brick.h"
 
-Brick::Brick(const sf::Sprite& sprite, const sf::FloatRect& rect, const std::string& type, int layer) : Block(rect, type, "assets/Textures/Levels/Brick.png", layer)
+Brick::Brick(const sf::Sprite& sprite, sf::Texture* texture, const sf::FloatRect& rect, const std::string& type, int layer) : Block(rect, type, texture, layer)
 {
 	//this->initSprite();
 	//this->animator->addPosAnimation(

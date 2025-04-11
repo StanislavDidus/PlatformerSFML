@@ -7,7 +7,8 @@ void MushRoom::onHit()
 	{
 		if (game != nullptr)
 		{
-			game->showScore(this->sprite.getPosition(), "assets/Textures/Scores/1000.png");
+			texture = *texture_manager->get("1000S").get();
+			game->showScore({sprite.getPosition().x, sprite.getPosition().y}, &texture);
 		}
 		is_active = false;
 	}

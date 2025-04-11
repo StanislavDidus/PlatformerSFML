@@ -41,12 +41,12 @@ void Game::initWindow()
 
 void Game::initMap()
 {
-	this->map = std::make_unique<Map>(shared_from_this(), this->window.get(), this->col_manager, gameObjects);
+	this->map = std::make_unique<Map>(shared_from_this(), this->window.get(), this->col_manager, this->texture_manager, quadTree, gameObjects);
 }
 
 void Game::initCollisions()
 {
-	this->col_manager = std::make_shared<CollisionManager>();
+	this->col_manager = std::make_shared<CollisionManager>(quadTree);
 }
 
 void Game::initAudio()
@@ -101,7 +101,7 @@ void Game::initText()
 
 void Game::initMario()
 {
-	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get(), texture_manager->get("Mario"), sf::FloatRect(0, 0, 48, 48), "Mario", 25);
+	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get(), texture_manager->get("Mario"), texture_manager->get("MarioBig"), sf::FloatRect(0, 0, 48, 48), "Mario", 25);
 
 	this->col_manager->addSourse(dynamic_cast<GameObject*>(this->mario.get()));
 }
@@ -127,9 +127,9 @@ void Game::addScore(int score)
 	this->score += score;
 }
 
-void Game::showScore(sf::Vector2f pos, const std::string& path)
+void Game::showScore(sf::Vector2f pos, sf::Texture* texture)
 {
-	std::shared_ptr<Text> text = std::make_shared<Text>(16,8,pos,path);
+	std::shared_ptr<Text> text = std::make_shared<Text>(16,8, pos, texture);
 	text->getAnimator()->playAnim("Score");
 	this->addScore(1000);
 	scores_.push_back(text);

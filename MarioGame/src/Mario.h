@@ -13,6 +13,7 @@
 #include "Map.h"
 #include "AudioManager.h"
 #include "GameObject.h"
+#include "Algorythms/QuadTree.h"
 //#include "Manager/TextureManager.h"
 
 class IMarioState;
@@ -33,7 +34,7 @@ private:
 
 	sf::Sprite sprite;
 
-	
+	std::shared_ptr<QuadTree> quadTree;
 
 	Map* map;
 
@@ -90,7 +91,7 @@ public:
 	friend class IMarioWalk;
 	friend class IMarioJump;
 
-	Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, std::shared_ptr<sf::Texture> texture, const sf::FloatRect & rect, const std::string& type, int layer);
+	Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, std::shared_ptr<sf::Texture> texture, std::shared_ptr<sf::Texture> texture1, const sf::FloatRect& rect, const std::string& type, int layer);
 	virtual ~Mario();
 
 	//Accessors

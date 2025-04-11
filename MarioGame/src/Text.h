@@ -24,7 +24,6 @@ private:
 
 	void initSprite()
 	{
-		texture.loadFromFile(path);
 		sprite.setTexture(texture);
 		this->sprite.setScale(3.125f, 3.125f);
 		this->sprite.setTextureRect(sf::IntRect(0, 0, w, h));
@@ -37,7 +36,7 @@ private:
 		animator->addPosAnimation(sprite, sprite.getGlobalBounds().width / 2.f, sprite.getGlobalBounds().height / 1.5f, 90.f, [this]() {return false; }, false, 10, std::vector<sf::Vector2f>{{pos.x, pos.y - 50}, { pos.x, pos.y - 85 }}, "Score");
 	}
 public:
-	Text(int w, int h, const sf::Vector2f& pos, const std::string& path) : path(path), w(w), h(h), pos(pos)
+	Text(int w, int h, const sf::Vector2f& pos, sf::Texture* texture) : path(path), w(w), h(h), pos(pos), texture(*texture)
 	{
 		initSprite();
 		initAnimator();

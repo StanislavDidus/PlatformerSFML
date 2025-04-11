@@ -15,6 +15,8 @@
 #include "LuckyBlock.h"
 #include "Brick.h"
 #include "Renderable.h"
+#include "Manager/TextureManager.h"
+#include "Algorythms/QuadTree.h"
 
 #include <iostream>
 #include <set>
@@ -156,7 +158,9 @@ private:
 	sf::RenderStates rs;
 
 	//Game
+	std::shared_ptr<TextureManager> texture_manager;
 	std::shared_ptr<Game> game;
+	std::shared_ptr<QuadTree> quadTree;
 
 	float updateTime = 1.0f / 30.0f; 
 	float timeSinceLastUpdate = 0.0f;
@@ -166,7 +170,7 @@ private:
 	void initVerArray();
 	void initCollisions();
 public:
-	Map(std::shared_ptr<Game> game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects_);
+	Map(std::shared_ptr<Game> game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, std::shared_ptr<QuadTree> quadTree, std::vector<std::shared_ptr<GameObject>>& gameObjects_);
 	virtual ~Map();
 
 	//const std::vector<sf::// FloatRect> getLuckyBlocks() const;

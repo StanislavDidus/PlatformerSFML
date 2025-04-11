@@ -18,6 +18,7 @@
 #include "GameObject.h"
 #include "Text.h"
 #include "Manager/TextureManager.h"
+#include "Algorythms/QuadTree.h"
 
 #include "Math.h"
 
@@ -54,12 +55,15 @@ private:
 
 	//Collisions
 	std::shared_ptr<CollisionManager> col_manager;
+	std::shared_ptr<QuadTree> quadTree;
 
 	//Render
 	std::vector<Renderable> renderQueue;
 
 	//Level
 	std::unique_ptr<Map> map;
+
+
 
 	//UI
 	sf::Texture small_coin_texture;
@@ -106,7 +110,7 @@ public:
 	const bool running() const;
 
 	void addScore(int score);
-	void showScore(sf::Vector2f pos, const std::string& path);
+	void showScore(sf::Vector2f pos, sf::Texture* texture);
 	void DisplayStartMenu();
 
 	void init();

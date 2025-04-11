@@ -2,11 +2,13 @@
 
 #include "Item.h"
 #include "Text.h"
+#include "Manager/TextureManager.h"
 
 class MushRoom : public Item
 {
 private:
-	std::unique_ptr<Text> score_text;
+	//std::unique_ptr<Text> score_text;
+	
 
 	//std::shared_ptr<Game> game;
 
@@ -14,7 +16,7 @@ private:
 
 	void initSprite()
 	{
-		texture.loadFromFile("assets/Textures/Levels/Mushroom.png");
+		texture = *texture_manager->get("Mushroom").get();
 		sprite.setTexture(texture);
 		//this->sprite.setPosition(getPosition().x , getPosition().y - 50.f);
 		//std::cout << sprite.getPosition().x << ", " << sprite.getPosition().y << "\n";
@@ -25,7 +27,7 @@ private:
 		//score_text = std::make_unique<Text>(16, 8, sprite.getPosition(), "assets/Textures/Scores/1000.png");
 	}
 public:
-	MushRoom(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<CollisionManager> col, std::shared_ptr<Game> game, int layer) : Item(rect, name, col, game, layer)
+	MushRoom(const sf::FloatRect& rect, const std::string& name, std::shared_ptr<TextureManager> texture_manager, std::shared_ptr<CollisionManager> col, std::shared_ptr<Game> game, int layer) : Item(rect, name, texture_manager, col, game, layer)
 	{
 		initSprite();
 		//initText();

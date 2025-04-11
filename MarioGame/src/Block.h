@@ -20,15 +20,13 @@ private:
 public:
 	std::unique_ptr<Animator> animator;
 	sf::Sprite sprite;
-	Block(const sf::FloatRect& rect, const std::string& type, const std::string& sprite_path, int layer) : GameObject(type, rect, layer)
+	Block(const sf::FloatRect& rect, const std::string& type, sf::Texture* texture, int layer) : GameObject(type, rect, layer)
 	{
 		//Sprite
 		
 		this->is_destroyed = false;
 
-		if (!this->texture.loadFromFile(sprite_path)) {
-			std::cerr << "Failed to load texture: " << sprite_path << std::endl;
-		}
+		this->texture = *texture;
 		this->sprite.setPosition(rect.left, rect.top);
 		this->sprite.setTexture(this->texture);
 		this->sprite.setTextureRect({ 0,0,16,16 });

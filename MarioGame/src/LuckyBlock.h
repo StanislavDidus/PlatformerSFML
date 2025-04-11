@@ -12,6 +12,7 @@
 #include "Animator.h"
 #include "MushRoom.h"
 #include "Text.h"
+#include "Manager/TextureManager.h"
 
 class Game;
 
@@ -30,6 +31,7 @@ private:
 	std::shared_ptr<Game> game;
 
 	std::shared_ptr<CollisionManager> col;
+	std::shared_ptr<TextureManager> texture_manager;
 
 	sf::Texture coin_texture;
 	sf::Sprite coin_sprite;
@@ -44,7 +46,7 @@ private:
 	std::unique_ptr<Animator> coin_animator;
 
 public:
-	LuckyBlock(std::shared_ptr<Game> game, const sf::Sprite& sprite, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects, std::shared_ptr<CollisionManager> col, int layer);
+	LuckyBlock(std::shared_ptr<Game> game, const sf::Sprite& sprite, std::shared_ptr<TextureManager> texture_manager, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects, std::shared_ptr<CollisionManager> col, int layer);
 	virtual ~LuckyBlock() { }
 	//std::shared_ptr<Animation> createPositionAnimation(sf::Sprite& sprite, float speed, std::string name, std::vector<sf::Vector2f> positions);
 

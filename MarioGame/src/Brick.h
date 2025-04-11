@@ -14,7 +14,7 @@ class Brick : public Block
 private:
 
 public:
-	Brick(const sf::Sprite& sprite, const sf::FloatRect& rect, const std::string& type, int layer);
+	Brick(const sf::Sprite& sprite, sf::Texture* texture, const sf::FloatRect& rect, const std::string& type, int layer);
 
 	void onHit() override;
 };

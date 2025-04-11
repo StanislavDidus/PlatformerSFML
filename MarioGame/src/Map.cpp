@@ -95,7 +95,7 @@ void Map::initSprites()
 						if (foundTile->properties[0].getStringValue() == "Brick")
 						{
 							//this->tiles.emplace_back(col_rect, sprite.getTextureRect(), "Brick", true, false);
-							this->game_objects.emplace_back(std::make_unique<Brick>(sprite, col_rect, "Block", 15));
+							this->game_objects.emplace_back(std::make_unique<Brick>(sprite, texture_manager->get("Brick").get(), col_rect, "Block", 15));
 						}
 
 					}
@@ -135,19 +135,19 @@ void Map::initSprites()
 				
 				if (object.getProperties()[0].getStringValue() == "Mushroom")
 				{
-					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, col_rect, "Block", LuckyBlockType::Mushroom, gameObjects_, col_manager, 15));
+					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, texture_manager, col_rect, "Block", LuckyBlockType::Mushroom, gameObjects_, col_manager, 15));
 				}
 				else if (object.getProperties()[0].getStringValue() == "UP")
 				{
-					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, col_rect, "Block", LuckyBlockType::UP, gameObjects_, col_manager, 15));
+					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, texture_manager, col_rect, "Block", LuckyBlockType::UP, gameObjects_, col_manager, 15));
 				}
 				else if (object.getProperties()[0].getStringValue() == "Coin")
 				{
-					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, col_rect, "Block", LuckyBlockType::Coin, gameObjects_, col_manager, 15));
+					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, texture_manager, col_rect, "Block", LuckyBlockType::Coin, gameObjects_, col_manager, 15));
 				}
 				else
 				{
-					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, col_rect, "Block", LuckyBlockType::None, gameObjects_, col_manager, 15));
+					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, texture_manager, col_rect, "Block", LuckyBlockType::None, gameObjects_, col_manager, 15));
 				}
 			}
 		}
@@ -245,10 +245,15 @@ void Map::initVerArray()
 
 void Map::initCollisions()
 {
+	quadTree = std::make_shared<QuadTree>(sf::FloatRect(0.f, 0.f, 10550.f, 800.f));
+	
 	for (const auto& tile: this->tiles)
 	{
-		if(tile->isCollision())
-			this->col_manager->addCollision({tile->getPosition(), tile->getType()});
+		if (tile->isCollision())
+		{
+			this->col_manager->addCollision({ tile->getPosition(), tile->getType() });
+			quadTree->insert(sf::FloatRect(tile->getPosition().left, tile->getPosition().top, tile->getPosition().width, tile->getPosition().height));
+		}
 	}
 
 	for (const auto& object : this->game_objects)
@@ -258,7 +263,8 @@ void Map::initCollisions()
 }
 
 //Con/Des
-Map::Map(std::shared_ptr<Game> game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects_) : game(game), window(window), col_manager(col), gameObjects_(gameObjects_)
+Map::Map(std::shared_ptr<Game> game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, std::shared_ptr<QuadTree> quadTree, std::vector<std::shared_ptr<GameObject>>& gameObjects_) : game(game), window(window), col_manager(col), texture_manager(texture_manager),
+gameObjects_(gameObjects_), quadTree(quadTree)
 {
 	this->initTiledMap();
 	this->initSprites();
