@@ -35,13 +35,15 @@ private:
 	std::vector<GameObject*> src_pos;
 	std::shared_ptr<QuadTree> quadTree;
 
+	sf::RenderTarget* target;
+
 	float current_time = 0.f;
 
 public:
 	std::vector<CollisionEvent> collisions;
 	std::vector<CollisionEvent> temp_collisions;
 	
-	CollisionManager(std::shared_ptr<QuadTree> quadTree) : quadTree(quadTree)
+	CollisionManager(std::shared_ptr<QuadTree> quadTree, sf::RenderTarget* target) : quadTree(quadTree), target(target)
 	{
 
 	}
@@ -97,7 +99,7 @@ public:
 		//}
 	}
 
-	std::vector<CollisionEvent> getCollisions() const { return collisions; }
+	//std::vector<CollisionEvent> getCollisions() const { return collisions; }
 	std::vector<GameObject*> getSources() const { return src_pos; }
 
 	void clearCollision() { collisions.clear(); }
@@ -109,7 +111,16 @@ public:
 
 	bool checkCollision(const sf::FloatRect& player, const sf::Vector2f velocity, const std::string& type, const CollisionType& side)
 	{
-		for (const auto& col : temp_collisions)
+		//std::vector<sf::FloatRect> possible_collisions;;
+		//quadTree->checkCollisions(sf::FloatRect(player.left, player.top, player.width, player.height), possible_collisions);
+		sf::FloatRect playerBounds = player;
+		std::vector<CollisionEvent> possible_collisions;
+		if (quadTree != nullptr)
+			quadTree->checkCollisions(sf::FloatRect(playerBounds.left, playerBounds.top, playerBounds.width, playerBounds.height), possible_collisions);
+		
+		//for(const auto& obj : game_objects)
+
+		for (const auto& col : possible_collisions)
 		{
 			if (col.collider_type == type || type == "All")
 			{
@@ -168,9 +179,14 @@ public:
 
 	GameObject* getObject(const sf::FloatRect& player, const sf::Vector2f velocity, const std::string& type)
 	{
+		sf::FloatRect playerBounds = player;
+		std::vector<CollisionEvent> possible_collisions;
+		if (quadTree != nullptr)
+			quadTree->checkCollisions(sf::FloatRect(playerBounds.left, playerBounds.top, playerBounds.width, playerBounds.height), possible_collisions);
+		
 		std::vector<GameObject*> gameObjects;
 		GameObject* closestGO = nullptr;
-		for (const auto& col : temp_collisions)
+		for (const auto& col : possible_collisions)
 		{
 			if (col.collider_type == type)
 			{
@@ -201,82 +217,65 @@ public:
 	void callibrateCollision(const GameObject& player, float& x, float& y)
 	{
 		sf::FloatRect playerBounds = player.getBounds();
-		sf::FloatRect newBoundsX = { playerBounds.left + x, playerBounds.top, playerBounds.width, playerBounds.height};
-		sf::FloatRect newBoundsY = { playerBounds.left , playerBounds.top + y, playerBounds.width, playerBounds.height };
-		for (const auto& object : temp_collisions)
+		sf::FloatRect newBoundsY = playerBounds;
+		newBoundsY.top += y;
+
+		std::vector<CollisionEvent> possible_collisions;
+		if (quadTree != nullptr)
+			quadTree->checkCollisions({ playerBounds.left + x, playerBounds.top + y, playerBounds.width, playerBounds.height }, possible_collisions);
+
+
+		// Спочатку перевірка по Y
+		for (const auto& object : possible_collisions)
 		{
-			if(object.object != nullptr)
-				if (*object.object == player)
-				{
-					continue;
-				}
+			sf::FloatRect objectBounds = object.collider_bounds;
 
-			sf::FloatRect objectBounds = static_cast<sf::FloatRect>(object.collider_bounds);
-			
-			if (y != 0)
+			float playerBottom = playerBounds.top + playerBounds.height;
+
+			if (y > 0) // рух вниз
 			{
-				bool topCollision = newBoundsY.top < objectBounds.top + objectBounds.height &&
-					newBoundsY.top > objectBounds.top &&
-					newBoundsY.left < objectBounds.left + objectBounds.width &&
-					newBoundsY.left + newBoundsY.width > objectBounds.left;
-
-				bool bottomCollision = newBoundsY.top + newBoundsY.height > objectBounds.top &&
-					newBoundsY.top + newBoundsY.height < objectBounds.top + objectBounds.height &&
-					newBoundsY.left < objectBounds.left + objectBounds.width &&
-					newBoundsY.left + newBoundsY.width > objectBounds.left;
-
-				if (y < 0)
+				if (newBoundsY.intersects(objectBounds))
 				{
-					if (topCollision)
-					{
-						y = objectBounds.top + objectBounds.height - playerBounds.top;
-						continue;
-					}
-				}
-
-				else if (y > 0)
-				{
-					if (bottomCollision)
-					{
-						y = objectBounds.top - playerBounds.height - playerBounds.top;
-						continue;
-					}
+					// Рівно стати зверху об'єкта
+					y = objectBounds.top - playerBottom;
+					newBoundsY.top = playerBounds.top + y;
 				}
 			}
-
-			if (x != 0)
+			else if (y < 0) // рух вгору
 			{
-				bool leftCollision = newBoundsX.left < objectBounds.left + objectBounds.width &&
-					newBoundsX.left + newBoundsX.width > objectBounds.left &&
-					newBoundsX.top < objectBounds.top + objectBounds.height &&
-					newBoundsX.top + newBoundsX.height > objectBounds.top;
-
-				bool rightCollision = newBoundsX.left + newBoundsX.width > objectBounds.left &&
-					newBoundsX.left < objectBounds.left + objectBounds.width &&
-					newBoundsX.top < objectBounds.top + objectBounds.height &&
-					newBoundsX.top + newBoundsX.height > objectBounds.top;
-
-				if (x < 0)
+				if (newBoundsY.intersects(objectBounds))
 				{
-					if (leftCollision)
-					{
-						x = objectBounds.left + objectBounds.width - playerBounds.left;
-						continue;
-					}
-
-					
+					// Рівно стати під низом об'єкта
+					y = (objectBounds.top + objectBounds.height) - playerBounds.top;
+					newBoundsY.top = playerBounds.top + y;
 				}
-				else if (x > 0)
+			}
+		}
+
+		// Оновити playerBounds після зміни Y
+		playerBounds.top += y;
+
+		// Потім перевірка по X
+		sf::FloatRect newBoundsX = playerBounds;
+		newBoundsX.left += x;
+
+		for (const auto& object : possible_collisions)
+		{
+			sf::FloatRect objectBounds = object.collider_bounds;
+
+			if (x < 0) // рух вліво
+			{
+				if (newBoundsX.intersects(objectBounds))
 				{
-					if (rightCollision)
-					{
-						x = objectBounds.left - playerBounds.width - playerBounds.left;
-						continue;
-					}
+					x = objectBounds.left + objectBounds.width - playerBounds.left;
 				}
-
-				if (newBoundsX.left < 0.f)
-					x = 0.f;
+			}
+			else if (x > 0) // рух вправо
+			{
+				if (newBoundsX.intersects(objectBounds))
+				{
+					x = objectBounds.left - playerBounds.width - playerBounds.left;
+				}
 			}
 		}
 	}

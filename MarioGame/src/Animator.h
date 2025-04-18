@@ -17,6 +17,7 @@ struct Animation
     int priority = 0;
     bool is_playing = false;
     const std::function<bool()> condition;
+    bool is_finished = false;
 
     Animation(const std::string& name, int prio, const std::function<bool()>& condition) : name(name), priority(prio), condition(condition) {}
     virtual ~Animation() = default;
@@ -43,6 +44,7 @@ struct AnimationSequence : public Animation
 
     void play(float timer, float deltaTime, bool* end = nullptr) override
     {
+        is_finished = false;
         //Create an array of boolians
         
 
@@ -76,6 +78,8 @@ struct AnimationSequence : public Animation
             *end = false;
             this->is_playing = false;
         }
+
+        is_finished = false;
 
         //Clear memory
         
@@ -119,6 +123,7 @@ struct FrameAnimation : public Animation
         if (last_play_time + animation_speed < timer)
         {
             //Play anim
+            is_finished = false;
             this->is_playing = true;
             int dir = get_direction();
             
@@ -146,6 +151,7 @@ struct FrameAnimation : public Animation
                 if (end != nullptr)
                 {
                     std::cout << "Stop\n";
+                    is_finished = true;
                     *end = false;
                 }
             }
@@ -155,6 +161,7 @@ struct FrameAnimation : public Animation
         else
         {
             this->is_playing = false;
+            
         }
     }
 };
@@ -190,6 +197,7 @@ struct PosAnimation : public Animation
         if (true)
         {
             is_playing = true;
+            is_finished = false;
             if (true)
             {
                 // check direction to the point
@@ -209,6 +217,7 @@ struct PosAnimation : public Animation
                     {
                         is_playing = false;
                         currentPos = 0;
+                        is_finished = true;
                         if (end != nullptr)
                             *end = false;
                     }

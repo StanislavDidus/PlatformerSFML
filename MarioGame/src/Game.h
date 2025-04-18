@@ -19,6 +19,7 @@
 #include "Text.h"
 #include "Manager/TextureManager.h"
 #include "Algorythms/QuadTree.h"
+#include "Objects/Flag.h"
 
 #include "Math.h"
 
@@ -26,14 +27,15 @@ class Game : public std::enable_shared_from_this<Game>
 {
 private:
 	//Start game screen
-	float start_game_timer = 3.f;
-	bool is_game_started = false;
+	float start_game_timer;
+	bool is_game_started;
 	sf::Texture mario_icon_texture;
 	sf::Sprite mario_icon;
 
+	//Window
 	std::unique_ptr<sf::RenderWindow> window;
 	std::unique_ptr<sf::View> view;
-
+	//view
 	sf::Vector2f last_camera_pos;
 
 	//Texture Manager
@@ -42,9 +44,10 @@ private:
 	//Audio
 	std::unique_ptr<AudioManager> game_audio_manager;
 	
+	//Timers
 	sf::Clock clock;
-	float timer = 400.f;
-	float ttimer = 0.f;
+	float timer;
+	float ttimer;
 
 	//Items
 	std::vector<std::shared_ptr<GameObject>> gameObjects; // All items (coins,mushroonms,stars)
@@ -63,6 +66,12 @@ private:
 	//Level
 	std::unique_ptr<Map> map;
 
+	//Flag
+	std::unique_ptr<Flag> flag;
+
+	//Sprites
+	//sf::Texture flag_texture;
+	//sf::Sprite flag_sprite;
 
 
 	//UI
@@ -97,6 +106,7 @@ private:
 	void initTextureManager();
 	void initWindow();
 	void initMario();
+	void initFlag();
 	void initMap();
 	void initCollisions();
 	void initAudio();

@@ -20,6 +20,7 @@ class IMarioState;
 class IMarioIdle;
 class IMarioWalk;
 class IMarioJump;
+class IMarioCinematic;
 
 class Mario : public GameObject
 {
@@ -85,11 +86,15 @@ private:
 	void initAnimator();
 	void initAudio();
 public:
+	bool is_touching_flag = false;
+	bool is_finishing;
+	bool is_dead;
 
 	float deltaTime;
 	friend class IMarioIdle;
 	friend class IMarioWalk;
 	friend class IMarioJump;
+	friend class IMarioCinematic;
 
 	Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, std::shared_ptr<sf::Texture> texture, std::shared_ptr<sf::Texture> texture1, const sf::FloatRect& rect, const std::string& type, int layer);
 	virtual ~Mario();
@@ -101,6 +106,8 @@ public:
 	//Modifiers
 	void setGround(bool state);
 	void setPosition(const sf::Vector2f& newPosition) override;
+
+	void Finish(float deltaTime);
 
 	//Functions
 	void move(float dirX, float dirY);

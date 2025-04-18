@@ -3,7 +3,7 @@
 
 void MushRoom::onHit()
 {
-	if (is_active)
+	if (isActive())
 	{
 		if (game != nullptr)
 		{

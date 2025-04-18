@@ -110,6 +110,12 @@ map(map), col(col), GameObject(type, rect, layer)
 	this->initState();
 	this->initAnimator();
 	this->initAudio();
+
+	//this->setPosition({ 10000.f, 400.f });
+	//this->sprite.setPosition(150.f,400.f);
+	
+	//placeholder
+	//this->sprite.setPosition(9451.f, 152.f);
 }
 
 Mario::~Mario()
@@ -138,6 +144,16 @@ void Mario::setPosition(const sf::Vector2f& newPosition)
 	GameObject::setPosition(newPosition);
 	//sprite.setPosition(newPosition);
 	//std::cout << newPosition.x << ", " << newPosition.y << "\n";
+}
+
+void Mario::Finish(float deltaTime)
+{
+	if (!is_finishing)
+	{
+		sprite.move(sprite.getGlobalBounds().width, 0.f);
+		sprite.setTextureRect(sf::IntRect(128, 0, -16, 16));
+		is_finishing = true;
+	}
 }
 
 //Functions
@@ -247,6 +263,8 @@ void Mario::update(float deltaTime)
 {
 	this->deltaTime = deltaTime;
 
+	//std::cout << sprite.getPosition().x << ", " << sprite.getPosition().y << "\n";
+
 	//Check if mario is lower than 0
 	if (this->sprite.getPosition().y - this->sprite.getGlobalBounds().height > 600)
 	{
@@ -277,15 +295,52 @@ void Mario::update(float deltaTime)
 	// Limit mario x movement 
 	this->sprite.setPosition(MathUtils::clamp(this->sprite.getPosition().x, this->window->getView().getCenter().x - this->window->getSize().x / 2.f, this->window->getView().getCenter().x + this->window->getSize().x / 2.f - this->sprite.getGlobalBounds().width), this->sprite.getPosition().y);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::H)) {
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::H)) {
 		if (!wasPressed) {
 			this->grow();
 			std::cout << "Grow\n";
-			wasPressed = true; 
+			wasPressed = true;
 		}
 	}
 	else {
-		wasPressed = false; 
+		wasPressed = false;
+	}*/
+
+	//Check finish state (if mario is not in cinematic state and touches a flag)
+	is_touching_flag = col->checkCollision({ sprite.getGlobalBounds().left + velocity.x * deltaTime,
+		sprite.getGlobalBounds().top,
+		sprite.getGlobalBounds().width,
+		sprite.getGlobalBounds().height
+		}, velocity, "Flag", CollisionType::ALL);
+
+	if (is_touching_flag && std::dynamic_pointer_cast<IMarioCinematic>(this->current_state) == nullptr && !is_finishing)
+	{
+		//std::cout << "Finish\n";
+		setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioCinematic>()));
+
+		sprite.setTextureRect(sf::IntRect(112, 0, 16, 16));
+		sprite.move(20.f,0.f);
+	}
+	if (is_touching_flag && sprite.getPosition().y < 550 - sprite.getGlobalBounds().height && !is_finishing)
+	{
+		sprite.move(0.f, 200.f * deltaTime);
+	}
+
+	if (is_finishing)
+	{
+		//applyGravity(deltaTime);
+		animator->playAnim("Run");
+		move(1.f, 0.f);
+		//velocity.x = 100.f;
+		if (sprite.getPosition().y < 600 - sprite.getGlobalBounds().height)
+			velocity.y = 100.f;
+		else
+			velocity.y = 0;
+
+		if (sprite.getPosition().x > 10200)
+		{
+			is_dead = true;
+		}
 	}
 
 	sf::Vector2f newPosition = this->sprite.getPosition();
@@ -294,7 +349,8 @@ void Mario::update(float deltaTime)
 
 void Mario::render(sf::RenderTarget* target)
 {
-	target->draw(this->sprite);
+	if(!is_dead)
+		target->draw(this->sprite);
 
 	/*sf::RectangleShape debugRect;
 	debugRect.setPosition(sprite.getGlobalBounds().left, sprite.getGlobalBounds().top);

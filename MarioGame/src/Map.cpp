@@ -98,6 +98,11 @@ void Map::initSprites()
 							this->game_objects.emplace_back(std::make_unique<Brick>(sprite, texture_manager->get("Brick").get(), col_rect, "Block", 15));
 						}
 
+						if (foundTile->properties[0].getStringValue() == "Flag")
+						{
+							//this->game_objects.emplace_back(std::make_unique<FlagStick>(sprite, texture_manager->get("Flag").get(), col_rect, "Flag", 15))
+						}
+
 					}
 					else if (lay->getName() == "Sky")
 					{
@@ -245,20 +250,25 @@ void Map::initVerArray()
 
 void Map::initCollisions()
 {
-	quadTree = std::make_shared<QuadTree>(sf::FloatRect(0.f, 0.f, 10550.f, 800.f));
+	
 	
 	for (const auto& tile: this->tiles)
 	{
 		if (tile->isCollision())
 		{
-			this->col_manager->addCollision({ tile->getPosition(), tile->getType() });
-			quadTree->insert(sf::FloatRect(tile->getPosition().left, tile->getPosition().top, tile->getPosition().width, tile->getPosition().height));
+			//this->col_manager->addCollision({ tile->getPosition(), tile->getType() });
+			quadTree->insert({ sf::FloatRect(tile->getPosition().left, tile->getPosition().top, tile->getPosition().width, tile->getPosition().height), "Tiles"});
 		}
 	}
 
+	for (const auto& obj : game_objects)
+	{
+		quadTree->insert({ sf::FloatRect(obj->getBounds().left, obj->getBounds().top, obj->getBounds().width, obj->getBounds().height), obj->getType(), obj.get() });
+	}
+		
 	for (const auto& object : this->game_objects)
 	{
-		this->col_manager->addCollision({ object->getBounds(), object->getType(), object.get()});
+		//this->col_manager->addCollision({ object->getBounds(), object->getType(), object.get()});
 	}
 }
 
@@ -313,16 +323,6 @@ void Map::updateAnimations()
 
 void Map::updateCollisions()
 {	
-	for (const auto& tile : this->tiles)
-	{
-		if (tile->isCollision())
-			this->col_manager->addCollision({ tile->getPosition(), tile->getType() });
-	}
-
-	for (const auto& object : this->game_objects)
-	{
-		this->col_manager->addCollision({ object->getBounds(), object->getType(), object.get() });
-	}
 }
 
 //Functions
@@ -350,12 +350,6 @@ void Map::update(float deltaTime)
 	for (const auto& object : this->game_objects)
 	{
 		object->update(deltaTime);
-
-		Block* block = dynamic_cast<Block*>(object.get());
-		if (block != nullptr && block->isDesroyed())
-		{
-			//this->game_objects.erase(i);
-		}
 	}
 
 	this->game_objects.erase(std::remove_if(this->game_objects.begin(), this->game_objects.end(),

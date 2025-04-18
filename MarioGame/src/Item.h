@@ -37,8 +37,6 @@ private:
 public:
 	std::shared_ptr<Game> game;
 
-	bool is_active = false;
-
 	int direction = 1;
 	sf::Vector2f velocity = { 250.f, 500.f };
 
@@ -55,12 +53,14 @@ public:
 		initSprite();
 		initAnimations();
 
+		is_active = false;
+
 		this->animator->playAnim("Spawn");
 		std::cout << "Spawn\n";
 	}
 	virtual ~Item() {  }
 
-	const bool isActive() const { return is_active; }
+	//const bool isActive() const { return is_active; }
 
 	void move(sf::Vector2f pos, int dir, float deltaTime)
 	{
@@ -88,11 +88,11 @@ public:
 
 	void updateTimer(float deltaTime) 
 	{
-		if (timer < 0.8f)
+		if (timer < 1.f)
 			timer += deltaTime;
 		else
 		{
-			timer = 0.8f;
+			timer = 1.f;
 			is_active = true;
 		}
 	}

@@ -12,7 +12,7 @@ private:
 
 	//std::shared_ptr<Game> game;
 
-	bool is_active = true;
+	//bool is_active = true;
 
 	void initSprite()
 	{

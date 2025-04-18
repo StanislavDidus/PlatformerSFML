@@ -4,13 +4,17 @@
 //Init
 void Game::initVariables()
 {
-	this->is_colliding = false;
+	start_game_timer = 3.f;
+	is_game_started = false;
 
-	this->last_camera_pos = { 0.f,0.f };
-
-	this->lastTime = 0.f;
-
-	this->score = 0;
+	//timers
+	timer = 400.f;
+	ttimer = 0.f;
+	
+	is_colliding = false;
+	last_camera_pos = { 0.f,0.f };
+	lastTime = 0.f;
+	score = 0;
 }
 
 void Game::initTextureManager()
@@ -23,34 +27,43 @@ void Game::initTextureManager()
 	this->texture_manager->load("Mushroom", "assets/Textures/Levels/Mushroom.png");
 	this->texture_manager->load("Coin", "assets/Textures/Levels/Coin_Anim.png");
 	this->texture_manager->load("Block", "assets/Textures/Levels/Block.png");
+	this->texture_manager->load("FlagStick", "assets/Textures/Levels/Flag_Stick.png");
+	this->texture_manager->load("Flag", "assets/Textures/Levels/Flag.png");
 	this->texture_manager->load("200S", "assets/Textures/Scores/200.png");
-	this->texture_manager->load("1000S", "assets/Textures/Scores/1000.png");
+	this->texture_manager->load("1000S", "assets/Textures/Scores/1000.png");	
 }
 
 void Game::initWindow()
 {
+	//Init Window
 	this->window = std::make_unique<sf::RenderWindow>(sf::VideoMode(800,600), "Mario nintendo game", sf::Style::Default); // 4:3
 	
 	// 800 600
 	//this->window->setFramerateLimit(60);
 	this->window->setVerticalSyncEnabled(false);
 
+	//Set View
 	this->view = std::make_unique<sf::View>();
 	this->view->setSize(800,600);
 }
 
 void Game::initMap()
 {
+	//Init TileMap
 	this->map = std::make_unique<Map>(shared_from_this(), this->window.get(), this->col_manager, this->texture_manager, quadTree, gameObjects);
 }
 
 void Game::initCollisions()
 {
-	this->col_manager = std::make_shared<CollisionManager>(quadTree);
+	//Init QuadTree
+	quadTree = std::make_shared<QuadTree>(sf::FloatRect(0.f, 0.f, 10550.f, 700.f), 4, 1000);
+	//Init CollisionManager
+	this->col_manager = std::make_shared<CollisionManager>(quadTree, window.get());
 }
 
 void Game::initAudio()
 {
+	//Init AudioManager
 	this->game_audio_manager = std::make_unique<AudioManager>();
 
 	//Main theme
@@ -60,6 +73,7 @@ void Game::initAudio()
 
 void Game::initText()
 {
+	//Init UI Text
 	this->small_coin_texture.loadFromFile("assets/Textures/Levels/SmallCoin.png");
 	this->small_coin_sprite.setTexture(this->small_coin_texture);
 	this->small_coin_sprite.setScale(4.f, 4.f);
@@ -94,16 +108,20 @@ void Game::initText()
 	this->time_text.setCharacterSize(30);
 	this->time_text.setFillColor(sf::Color::White);
 	this->time_text.setString("TIME\n 300\n");
-
-
-	//this->mario_icon.setTexture()
 }
 
 void Game::initMario()
 {
+	//Init Mario
 	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get(), texture_manager->get("Mario"), texture_manager->get("MarioBig"), sf::FloatRect(0, 0, 48, 48), "Mario", 25);
+}
 
-	this->col_manager->addSourse(dynamic_cast<GameObject*>(this->mario.get()));
+void Game::initFlag()
+{
+	//Init Flag
+	flag = std::make_unique<Flag>("Flag", sf::FloatRect(198.f * 16.f * 3.125f, 1.f * 16.f * 3.125f, 16.f * 3.125f, 16.f * 10.f * 3.125f), 15, texture_manager->get("FlagStick").get(), texture_manager->get("Flag").get());
+	quadTree->insert({flag->getBounds(), "Flag"});
+	//std::cout << flag->getBounds().left << ", " << flag->getBounds().top << "\n";
 }
 
 //Con/Des
@@ -129,6 +147,7 @@ void Game::addScore(int score)
 
 void Game::showScore(sf::Vector2f pos, sf::Texture* texture)
 {
+	//Display scores
 	std::shared_ptr<Text> text = std::make_shared<Text>(16,8, pos, texture);
 	text->getAnimator()->playAnim("Score");
 	this->addScore(1000);
@@ -143,9 +162,13 @@ void Game::init()
 	this->initCollisions();
 	this->initTextureManager();
 	this->initMario();
+	this->initFlag();
 	this->initMap();
 	this->initAudio();
 	this->initText();
+
+	//placeholder
+	//this->last_camera_pos = { 9451.f, 375.f };
 }
 
 //Functions
@@ -160,6 +183,7 @@ void Game::updateEvents()
 
 void Game::updateView()
 {
+	//Update view position regarding mario 
 	this->last_camera_pos = MathUtils::lerp(this->last_camera_pos, { std::max(this->mario->getPosition().x, this->last_camera_pos.x) , 375.f }, 10 * mario->deltaTime);
 	this->last_camera_pos.x = MathUtils::clamp(this->last_camera_pos.x, this->window->getSize().x / 2.f, 211.f * 16.f * 3.125f - this->window->getSize().x / 2.f);
 	if(!(mario->getPosition().y - mario->getBounds().height > window->getSize().y))
@@ -173,6 +197,7 @@ void Game::updateAudio()
 
 void Game::updateText()
 {
+	//Update UI
 	float currentTime = this->fps_clock.restart().asSeconds();
 	float fps = 1.f / (currentTime - this->lastTime);
 
@@ -219,25 +244,29 @@ void Game::updateCollisions(float deltaTime)
 	this->col_manager->clearCollision();
 	this->map->updateCollisions();
 
+	//Check collision with different gameobjects
 	for (const auto& obj : gameObjects)
 	{
 		//this->col_manager->addCollision({ obj->getBounds(), obj->getType(), obj.get() });
 		if (mario->getBounds().intersects(obj->getBounds()))
 		{
 			//std::cout << "Collect: " << obj->getType() << "\n";
-			obj->onHit();
+			if (obj->isActive())
+			{
+				obj->onHit();
 
-			if (obj->getType() == "Mushroom")
-				this->mario->grow();
-			
-			//delete it
-			auto it = std::find_if(gameObjects.begin(), gameObjects.end(),
-				[obj](const std::shared_ptr<GameObject>& obj1) {
-					return obj1 == obj; 
-				});
+				if (obj->getType() == "Mushroom")
+					this->mario->grow();
 
-			if (it != gameObjects.end()) {
-				gameObjects.erase(it);  
+				//delete it
+				auto it = std::find_if(gameObjects.begin(), gameObjects.end(),
+					[obj](const std::shared_ptr<GameObject>& obj1) {
+						return obj1 == obj;
+					});
+
+				if (it != gameObjects.end()) {
+					gameObjects.erase(it);
+				}
 			}
 		}
 	}
@@ -257,10 +286,10 @@ void Game::update()
 		this->start_game_timer -= deltaTime;
 
 	this->updateEvents();
+
+	//If game is started update all needed managers
 	if (is_game_started)
 	{
-
-		
 		this->updateCollisions(deltaTime);
 		this->mario->update(deltaTime);
 
@@ -271,6 +300,18 @@ void Game::update()
 
 		this->small_coin_anim->update(deltaTime);
 
+		//Update flag
+		flag->update(deltaTime);
+		//Final CutScene
+		if (mario->is_touching_flag)
+		{
+			flag->Touch(deltaTime);
+		}
+		if (flag->is_finished)
+		{
+			mario->Finish(deltaTime);
+		}
+		//
 		
 		this->updateAudio();
 		
@@ -279,6 +320,8 @@ void Game::update()
 		for (const auto& score : scores_)
 			score->getAnimator()->update(deltaTime);
 	}
+	
+
 	this->updateView();
 	this->updateText();
 }
@@ -321,6 +364,8 @@ void Game::render()
 
 		//this->map->render(this->window.get());
 		this->map->render(this->renderQueue, this->window.get());
+
+		renderQueue.emplace_back(flag->layer, [this]() {this->flag->render(window.get()); });
 
 		//Render player
 		renderQueue.emplace_back(mario->layer, [this]() {this->mario->render(this->window.get()); });

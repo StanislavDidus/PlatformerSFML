@@ -1,6 +1,8 @@
 #include "QuadTree.h"
 
-QuadTree::QuadTree(const sf::FloatRect& rect) : rect(rect), is_divided(false)
+#include "..\CollisionManager.h"
+
+QuadTree::QuadTree(const sf::FloatRect& rect, int maxCol, int maxDiv) : rect(rect), is_divided(false), MAXCOLLISIONS(maxCol), MAXDIVISIONS(maxDiv)
 {
 
 }
@@ -10,49 +12,68 @@ QuadTree::~QuadTree()
 
 }
 
-void QuadTree::insert(const sf::FloatRect& rect)
+void QuadTree::insert(const CollisionEvent& bound)
 {
-	if (!this->rect.intersects(rect))
+	if (!rect.intersects(bound.collider_bounds))
 		return;
 
 	//Check if reachead a collisions limit
-	if (collisions.size() - 1 < MAXCOLLISIONS && !is_divided)
+	if (is_divided)
 	{
-		collisions.push_back(rect);
+		for (const auto& quadTree : subTrees)
+		{
+			quadTree->insert(bound);
+		}
 	}
 	else
 	{
-		//Divide
-		subdivide();
-		
-		for (const auto& quadTree : subTrees)
+		collisions.push_back(bound);
+
+		if (collisions.size() > MAXCOLLISIONS)
 		{
-			quadTree->insert(rect);
+			subdivide();
 		}
 	}
+}
+
+void QuadTree::clear()
+{
+	if (is_divided)
+	{
+		subTrees.clear();
+		is_divided = false;
+		MAXDIVISIONS = 50;
+	}
+	collisions.clear();
 }
 
 void QuadTree::subdivide()
 {
 	is_divided = true;
 
-	subTrees.emplace_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left, rect.top, rect.width / 2, rect.height / 2))); //Left-Up
-	subTrees.emplace_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left + (rect.width / 2), rect.top, rect.width / 2, rect.height / 2))); //Right-Up
-	subTrees.emplace_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left, rect.top + (rect.height / 2), rect.width / 2, rect.height / 2))); //Left-Down
-	subTrees.emplace_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left + (rect.width / 2), rect.top + (rect.height / 2), rect.width / 2, rect.height / 2))); //Right-Down
+	subTrees.push_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left, rect.top, rect.width / 2, rect.height / 2), MAXCOLLISIONS, MAXDIVISIONS)); //Left-Up
+	subTrees.push_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left + (rect.width / 2), rect.top, rect.width / 2, rect.height / 2), MAXCOLLISIONS, MAXDIVISIONS)); //Right-Up
+	subTrees.push_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left, rect.top + (rect.height / 2), rect.width / 2, rect.height / 2), MAXCOLLISIONS, MAXDIVISIONS)); //Left-Down
+	subTrees.push_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left + (rect.width / 2), rect.top + (rect.height / 2), rect.width / 2, rect.height / 2), MAXCOLLISIONS, MAXDIVISIONS)); //Right-Down
 
 	for (const auto& col : collisions)
 	{
 		for (auto& tree : subTrees)
 		{
-			tree->insert(col);
+			if (tree->rect.intersects(col.collider_bounds))
+			{
+				tree->insert(col);
+			}
 		}
 	}
 	collisions.clear();
 }
 
-void QuadTree::checkCollisions(const sf::FloatRect& player, std::vector<sf::FloatRect>& results)
+void QuadTree::checkCollisions(const sf::FloatRect& player, std::vector<CollisionEvent>& results)
 {
+	if (!player.intersects(rect))
+		return;
+	
 	if(is_divided)
 		for (const auto& tree : subTrees)
 		{
@@ -65,8 +86,7 @@ void QuadTree::checkCollisions(const sf::FloatRect& player, std::vector<sf::Floa
 	{
 		for (const auto& col : collisions)
 		{
-			if(player.intersects(col))
-				results.push_back(col);
+			results.push_back(col);
 		}
 	}
 }

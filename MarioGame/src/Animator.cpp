@@ -40,6 +40,8 @@ std::shared_ptr<Animation> Animator::getAnim(const std::string& name)
 	{
 		return this->animations_map[name];
 	}
+
+	return nullptr;
 }
 
 void Animator::playAnim(const std::string& name)

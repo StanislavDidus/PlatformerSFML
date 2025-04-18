@@ -252,3 +252,29 @@ class IMarioJump : public IMarioState
 		mario.is_jump_over = false;
 	}
 };
+
+class IMarioCinematic: public IMarioState
+{
+	void onEnter(Mario& mario) override
+	{
+		mario.velocity = { 0,0 };
+		mario.sprite.setTextureRect(sf::IntRect(0,0,16,16));
+	}
+
+	void onUpdate(Mario& mario, float deltaTime) override
+	{
+		float deltaX = mario.velocity.x * deltaTime;
+		float deltaY = mario.velocity.y * deltaTime;
+		//mario.col->callibrateCollision(mario, deltaX, deltaY);
+		mario.sprite.move(deltaX, deltaY);
+
+		//mario.applyGravity(deltaTime);
+
+		std::cout << "Cinematic\n";
+	}
+
+	void onExit(Mario& mario) override
+	{
+
+	}
+};

@@ -4,9 +4,12 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+
 #include <iostream>
 #include <vector>
 #include <memory>
+
+struct CollisionEvent;
 
 class QuadTree
 {
@@ -15,18 +18,19 @@ private:
 
 	std::vector<std::unique_ptr<QuadTree>> subTrees;
 
-	std::vector<sf::FloatRect> collisions;
+	std::vector<CollisionEvent> collisions;
 
-	int MAXCOLLISIONS = 4;
-	int MAXDIVISIONS = 1000;
+	int MAXCOLLISIONS = 15;
+	int MAXDIVISIONS = 100;
 
 	bool is_divided;
 public:
-	QuadTree(const sf::FloatRect& rect);
+	QuadTree(const sf::FloatRect& rect, int maxCol, int maxDiv);
 	virtual ~QuadTree();
 
-	void insert(const sf::FloatRect& rect);
+	void insert(const CollisionEvent& rect);
+	void clear();
 	void subdivide();
-	void checkCollisions(const sf::FloatRect& player, std::vector<sf::FloatRect>& collision);
+	void checkCollisions(const sf::FloatRect& player, std::vector<CollisionEvent>& collision);
 };
 
