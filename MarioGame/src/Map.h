@@ -145,7 +145,7 @@ private:
 
 	//Sprites
 	std::vector<std::shared_ptr<Tile>> tiles; // ALL tiles
-	std::vector<std::unique_ptr<GameObject>> game_objects;
+	std::vector<std::unique_ptr<GameObject>> game_objects; // LuckyBlocks, Bricks, Walls
 
 	std::unordered_map<int, tmx::Tileset::Tile> index_tile;
 	std::unordered_map<int, sf::IntRect> index_texture;

@@ -55,15 +55,7 @@ class IMarioIdle : public IMarioState
 		float deltaY = mario.velocity.y * deltaTime;
 		mario.col->callibrateCollision(mario, deltaX, deltaY);
 		mario.sprite.move(deltaX, deltaY);
-		mario.is_ground = mario.col->checkCollision({ mario.sprite.getGlobalBounds().left + mario.velocity.x * deltaTime,
-			mario.sprite.getGlobalBounds().top + mario.velocity.y * deltaTime,
-			mario.sprite.getGlobalBounds().width,
-			mario.sprite.getGlobalBounds().height }, mario.velocity, "All", CollisionType::DOWN);
-
-		//mario.velocity.x *= 0.9f * mario.deltaTime;
 		mario.applyGravity(deltaTime);
-		//Update idle anim
-		//mario.sprite.setTextureRect(sf::IntRect(mario.dir == 1 ? 0 : 16, 0, 16 * mario.dir, 16));
 	}
 
 	void onExit(Mario& mario) override
@@ -107,18 +99,8 @@ class IMarioWalk : public IMarioState
 		
 		float deltaX = mario.velocity.x * deltaTime;
 		float deltaY = mario.velocity.y * deltaTime;
-		//mario.setPosition(mario.getPosition());
 		mario.col->callibrateCollision(mario, deltaX, deltaY);
-		//std::cout << deltaX << ", " << deltaY << "\n"
 		mario.sprite.move(deltaX, deltaY);
-		mario.is_ground = mario.col->checkCollision({ mario.sprite.getGlobalBounds().left + mario.velocity.x * deltaTime,
-			mario.sprite.getGlobalBounds().top + mario.velocity.y * deltaTime,
-			mario.sprite.getGlobalBounds().width,
-			mario.sprite.getGlobalBounds().height}, mario.velocity, "All", CollisionType::DOWN);
-
-		//std::cout << mario.is_ground << "\n";
-
-		//mario.velocity.x *= 0.9f * mario.deltaTime;
 
 		mario.applyGravity(deltaTime);
 
@@ -178,9 +160,6 @@ class IMarioJump : public IMarioState
 		}
 
 		//Callibrate max jump height
-		//mario.jump_start_max = 0.3125f * abs(mario.velocity.x) + 25.f;
-
-		//Callibrate max jump height
 		mario.jump_start_max = 0.3125f * abs(mario.velocity.x) + 25.f;
 
 		//Apply gravity and move 
@@ -188,10 +167,6 @@ class IMarioJump : public IMarioState
 		float deltaY = mario.velocity.y * deltaTime;;
 		mario.col->callibrateCollision(mario, deltaX, deltaY);
 		mario.sprite.move(deltaX, deltaY);
-		mario.is_ground = mario.col->checkCollision({ mario.sprite.getGlobalBounds().left,
-			mario.sprite.getGlobalBounds().top + mario.velocity.y * deltaTime,
-			mario.sprite.getGlobalBounds().width,
-			mario.sprite.getGlobalBounds().height }, mario.velocity, "All", CollisionType::DOWN);
 
 		mario.applyGravity(deltaTime);
 
@@ -265,12 +240,43 @@ class IMarioCinematic: public IMarioState
 	{
 		float deltaX = mario.velocity.x * deltaTime;
 		float deltaY = mario.velocity.y * deltaTime;
-		//mario.col->callibrateCollision(mario, deltaX, deltaY);
 		mario.sprite.move(deltaX, deltaY);
+	}
 
-		//mario.applyGravity(deltaTime);
+	void onExit(Mario& mario) override
+	{
 
-		std::cout << "Cinematic\n";
+	}
+};
+
+class IMarioCollectFlag: public IMarioState
+{
+	void onEnter(Mario& mario) override
+	{
+		
+	}
+
+	void onUpdate(Mario& mario, float deltaTime) override
+	{
+		
+	}
+
+	void onExit(Mario& mario) override
+	{
+
+	}
+};
+
+class IMarioRunToCastle : public IMarioState
+{
+	void onEnter(Mario& mario) override
+	{
+
+	}
+
+	void onUpdate(Mario& mario, float deltaTime) override
+	{
+
 	}
 
 	void onExit(Mario& mario) override

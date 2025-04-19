@@ -58,48 +58,8 @@ public:
 
 	void update(float deltaTime)
 	{ 
-		//for(auto& obj : this->collisions)
-		//{
-		//	if (obj.object != nullptr)
-		//	{
-		//		//obj.collider_bounds = obj.object->getBounds();
-		//	}
-		//}
-
-		//this->current_time += deltaTime;
-		//
-		//if (this->current_time >= 1.f / 30.f)
-		//{
-		//	this->temp_collisions.clear();
-
-		//	for (const auto& col : this->collisions)
-		//	{
-		//		sf::FloatRect collision = col.collider_bounds;
-
-		//		bool founded = false;
-		//		for (const auto& object : this->getSources())
-		//		{
-		//			sf::FloatRect obj = object->getBounds();
-
-		//			sf::FloatRect col_bounds = { collision.left + collision.width, collision.top + collision.height, collision.width, collision.height };
-		//			sf::FloatRect obj_bounds = { obj.left + obj.width, obj.top + obj.height, obj.width, obj.height };
-
-		//			if (MathUtils::distance(col_bounds, obj_bounds) < obj_bounds.width * 3000.f)
-		//			{
-		//				founded = true;
-		//				break;
-		//			}
-		//		}
-
-		//		if (founded)
-		//			this->temp_collisions.emplace_back(col);
-		//	}
-
-		//	this->current_time = 0.f;
-		//}
 	}
 
-	//std::vector<CollisionEvent> getCollisions() const { return collisions; }
 	std::vector<GameObject*> getSources() const { return src_pos; }
 
 	void clearCollision() { collisions.clear(); }

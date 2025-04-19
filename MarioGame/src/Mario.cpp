@@ -295,7 +295,7 @@ void Mario::update(float deltaTime)
 	// Limit mario x movement 
 	this->sprite.setPosition(MathUtils::clamp(this->sprite.getPosition().x, this->window->getView().getCenter().x - this->window->getSize().x / 2.f, this->window->getView().getCenter().x + this->window->getSize().x / 2.f - this->sprite.getGlobalBounds().width), this->sprite.getPosition().y);
 
-	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::H)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
 		if (!wasPressed) {
 			this->grow();
 			std::cout << "Grow\n";
@@ -304,7 +304,7 @@ void Mario::update(float deltaTime)
 	}
 	else {
 		wasPressed = false;
-	}*/
+	}
 
 	//Check finish state (if mario is not in cinematic state and touches a flag)
 	is_touching_flag = col->checkCollision({ sprite.getGlobalBounds().left + velocity.x * deltaTime,
@@ -318,7 +318,10 @@ void Mario::update(float deltaTime)
 		//std::cout << "Finish\n";
 		setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioCinematic>()));
 
-		sprite.setTextureRect(sf::IntRect(112, 0, 16, 16));
+		if(!is_grown)
+			sprite.setTextureRect(sf::IntRect(112, 0, 16, 16));
+		else
+			sprite.setTextureRect(sf::IntRect(0, 64, 16, 32));
 		sprite.move(20.f,0.f);
 	}
 	if (is_touching_flag && sprite.getPosition().y < 550 - sprite.getGlobalBounds().height && !is_finishing)
@@ -329,11 +332,14 @@ void Mario::update(float deltaTime)
 	if (is_finishing)
 	{
 		//applyGravity(deltaTime);
-		animator->playAnim("Run");
+		if (!is_grown)
+			animator->playAnim("Run");
+		else
+			animator->playAnim("BRun");
 		move(1.f, 0.f);
 		//velocity.x = 100.f;
 		if (sprite.getPosition().y < 600 - sprite.getGlobalBounds().height)
-			velocity.y = 100.f;
+			velocity.y = 70.f;
 		else
 			velocity.y = 0;
 
@@ -342,6 +348,11 @@ void Mario::update(float deltaTime)
 			is_dead = true;
 		}
 	}
+
+	is_ground = col->checkCollision({ sprite.getGlobalBounds().left + velocity.x * deltaTime,
+			sprite.getGlobalBounds().top + velocity.y * deltaTime,
+			sprite.getGlobalBounds().width,
+			sprite.getGlobalBounds().height }, velocity, "All", CollisionType::DOWN);
 
 	sf::Vector2f newPosition = this->sprite.getPosition();
 	setPosition(newPosition);

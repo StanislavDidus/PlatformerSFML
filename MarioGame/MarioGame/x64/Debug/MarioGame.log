@@ -25,10 +25,10 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         
 C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         ]
   (compiling source file 'src/Mario.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\MarioState.cpp(93,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\MarioState.cpp(85,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Mario.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\MarioState.cpp(98,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\MarioState.cpp(90,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Mario.cpp')
   
   MarioGame.vcxproj -> C:\GitHubProjects\MarioSFML\MarioGame\x64\Debug\MarioGame.exe

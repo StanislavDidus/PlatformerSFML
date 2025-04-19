@@ -241,8 +241,7 @@ void Game::updateMap()
 
 void Game::updateCollisions(float deltaTime)
 {
-	this->col_manager->clearCollision();
-	this->map->updateCollisions();
+	//this->map->updateCollisions();
 
 	//Check collision with different gameobjects
 	for (const auto& obj : gameObjects)
@@ -270,8 +269,6 @@ void Game::updateCollisions(float deltaTime)
 			}
 		}
 	}
-	
-	this->col_manager->update(deltaTime);
 }
 
 void Game::update()

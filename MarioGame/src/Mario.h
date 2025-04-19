@@ -21,6 +21,8 @@ class IMarioIdle;
 class IMarioWalk;
 class IMarioJump;
 class IMarioCinematic;
+class IMarioCollectFlag;
+class IMarioRunToCastle;
 
 class Mario : public GameObject
 {
@@ -95,6 +97,8 @@ public:
 	friend class IMarioWalk;
 	friend class IMarioJump;
 	friend class IMarioCinematic;
+	friend class IMarioCollectFlag;
+	friend class IMarioRunToCastle;
 
 	Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, std::shared_ptr<sf::Texture> texture, std::shared_ptr<sf::Texture> texture1, const sf::FloatRect& rect, const std::string& type, int layer);
 	virtual ~Mario();

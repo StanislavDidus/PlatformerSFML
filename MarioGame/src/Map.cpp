@@ -206,7 +206,6 @@ void Map::initVerArray()
 	//
 	//this->v_array = std::make_unique<sf::VertexArray>(sf::Quads, this->tiles.size() * 4 );
 
-	sf::Vector2f scale = { 1.f,1.f };
 	for (int j = 0; j < orders.size(); j++)
 	{
 		for (int i = 0; i < groupedObjects[orders[j]].size(); i++)
@@ -215,10 +214,10 @@ void Map::initVerArray()
 			sf::FloatRect posRect = groupedObjects[orders[j]][i]->getPosition();
 
 			sf::View view = this->window->getView();
-			if ((posRect.left + posRect.width) * scale.x < view.getCenter().x - view.getSize().x / 2 ||
-				posRect.left * scale.x >= view.getCenter().x + view.getSize().x / 2 ||
-				(posRect.top + posRect.height) * scale.y < view.getCenter().y - view.getSize().y / 2 ||
-				posRect.top * scale.y >= view.getCenter().y + view.getSize().y / 2)
+			if ((posRect.left + posRect.width) < view.getCenter().x - view.getSize().x / 2 ||
+				posRect.left >= view.getCenter().x + view.getSize().x / 2 + 50.f ||
+				(posRect.top + posRect.height) < view.getCenter().y - view.getSize().y / 2 ||
+				posRect.top >= view.getCenter().y + view.getSize().y / 2)
 			{
 
 				continue;
@@ -226,10 +225,10 @@ void Map::initVerArray()
 
 			sf::IntRect texRect = groupedObjects[orders[j]][i]->getTextureRect();
 
-			float tile_x = posRect.left * scale.x;
-			float tile_y = posRect.top * scale.y;
-			float tile_width = (posRect.left + posRect.width) * scale.x;
-			float tile_height = (posRect.top + posRect.height) * scale.y;
+			float tile_x = posRect.left;
+			float tile_y = posRect.top;
+			float tile_width = (posRect.left + posRect.width);
+			float tile_height = (posRect.top + posRect.height);
 
 			float tex_width = texRect.left + texRect.width;
 			float tex_height = texRect.top + texRect.height;
@@ -290,7 +289,7 @@ Map::~Map()
 //Accessors
 void Map::updateAnimations()
 {
-	for (auto& tile : this->tiles)
+	/*for (auto& tile : this->tiles)
 	{
 		if (!tile->isAnimation())
 			continue;
@@ -318,7 +317,7 @@ void Map::updateAnimations()
 
 			tile->anim_timer->restart();
 		}
-	}
+	}*/
 }
 
 void Map::updateCollisions()
@@ -332,12 +331,8 @@ void Map::update(float deltaTime)
 	
 	//this->initVerArray();
 	
-	this->updateAnimations();
+	//this->updateAnimations();
 	
-
-	
-	
-
 	timeSinceLastUpdate += deltaTime;
 
 	if (timeSinceLastUpdate >= updateTime)
