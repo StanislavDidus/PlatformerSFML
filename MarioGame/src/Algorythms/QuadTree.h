@@ -29,6 +29,7 @@ public:
 	virtual ~QuadTree();
 
 	void insert(const CollisionEvent& rect);
+	void erase(const CollisionEvent& rect);
 	void clear();
 	void subdivide();
 	void checkCollisions(const sf::FloatRect& player, std::vector<CollisionEvent>& collision);

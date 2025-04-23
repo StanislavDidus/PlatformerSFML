@@ -28,6 +28,7 @@ void Game::initTextureManager()
 	this->texture_manager->load("Coin", "assets/Textures/Levels/Coin_Anim.png");
 	this->texture_manager->load("Block", "assets/Textures/Levels/Block.png");
 	this->texture_manager->load("FlagStick", "assets/Textures/Levels/Flag_Stick.png");
+	this->texture_manager->load("BrokenBrick", "assets/Textures/Levels/BrokenBrick.png");
 	this->texture_manager->load("Flag", "assets/Textures/Levels/Flag.png");
 	this->texture_manager->load("200S", "assets/Textures/Scores/200.png");
 	this->texture_manager->load("1000S", "assets/Textures/Scores/1000.png");	
@@ -50,7 +51,7 @@ void Game::initWindow()
 void Game::initMap()
 {
 	//Init TileMap
-	this->map = std::make_unique<Map>(shared_from_this(), this->window.get(), this->col_manager, this->texture_manager, quadTree, gameObjects);
+	this->map = std::make_unique<Map>(shared_from_this(), this->window.get(), this->col_manager, this->texture_manager, quadTree, gameObjects, CollisionEvent( flag->getBounds(), "Flag" ));
 }
 
 void Game::initCollisions()
@@ -237,6 +238,7 @@ void Game::updateText()
 void Game::updateMap()
 {
 	this->map->update(this->mario->deltaTime);
+	//quadTree->insert({ flag->getBounds(), "Flag" });
 }
 
 void Game::updateCollisions(float deltaTime)

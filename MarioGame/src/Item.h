@@ -56,7 +56,6 @@ public:
 		is_active = false;
 
 		this->animator->playAnim("Spawn");
-		std::cout << "Spawn\n";
 	}
 	virtual ~Item() {  }
 
@@ -78,7 +77,7 @@ public:
 			direction = -1;
 		}
 		else if (col->checkCollision(sf::FloatRect(
-			sprite.getGlobalBounds().left - velocity.x * deltaTime, sprite.getGlobalBounds().top,
+			sprite.getGlobalBounds().left + velocity.x * deltaTime * -1.f, sprite.getGlobalBounds().top,
 			sprite.getGlobalBounds().width, sprite.getGlobalBounds().height
 		), velocity, "All", CollisionType::LEFT))
 		{

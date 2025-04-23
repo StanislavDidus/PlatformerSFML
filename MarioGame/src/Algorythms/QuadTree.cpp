@@ -36,6 +36,11 @@ void QuadTree::insert(const CollisionEvent& bound)
 	}
 }
 
+void QuadTree::erase(const CollisionEvent& rect)
+{
+
+}
+
 void QuadTree::clear()
 {
 	if (is_divided)
@@ -86,7 +91,8 @@ void QuadTree::checkCollisions(const sf::FloatRect& player, std::vector<Collisio
 	{
 		for (const auto& col : collisions)
 		{
-			results.push_back(col);
+			if((col.object != nullptr && col.object->is_collision) || col.object == nullptr)
+				results.push_back(col);
 		}
 	}
 }

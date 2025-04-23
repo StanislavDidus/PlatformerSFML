@@ -122,6 +122,9 @@ struct FrameAnimation : public Animation
     {
         if (last_play_time + animation_speed < timer)
         {
+            if (sprite.getTexture() == nullptr)
+                return;
+            
             //Play anim
             is_finished = false;
             this->is_playing = true;
@@ -150,7 +153,7 @@ struct FrameAnimation : public Animation
                 //End animation
                 if (end != nullptr)
                 {
-                    std::cout << "Stop\n";
+                  
                     is_finished = true;
                     *end = false;
                 }

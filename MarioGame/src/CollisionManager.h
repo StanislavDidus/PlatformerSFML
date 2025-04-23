@@ -148,13 +148,13 @@ public:
 		GameObject* closestGO = nullptr;
 		for (const auto& col : possible_collisions)
 		{
-			if (col.collider_type == type)
+			if (col.collider_type == type)	
 			{
 				if (col.object != nullptr)
 				{
 					sf::FloatRect object = col.collider_bounds;
 
-					if (player.intersects(object) && col.object->isActive())
+					if (player.intersects(object) && col.object->is_collision)
 					{
 						gameObjects.push_back(col.object);
 					}

@@ -13,10 +13,7 @@
 class Block : public GameObject
 {
 private:
-	
 	sf::Texture texture;
-
-	bool is_destroyed;
 public:
 	std::unique_ptr<Animator> animator;
 	sf::Sprite sprite;
@@ -49,14 +46,15 @@ public:
 		animator->playAnim("Hit");
 	}
 
+	void onHitBig() override
+	{
+		
+	}
+
 	void destroy()
 	{
 		this->is_destroyed = true;
-	}
-
-	const bool isDesroyed() const
-	{
-		return this->is_destroyed;
+		is_active = false;
 	}
 
 	sf::Sprite& getSprite()
@@ -79,6 +77,7 @@ public:
 	
 	void render(sf::RenderTarget* target) override
 	{
+		
 		target->draw(this->sprite);
 	}
 };

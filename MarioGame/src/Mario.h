@@ -89,14 +89,12 @@ private:
 	void initAudio();
 public:
 	bool is_touching_flag = false;
-	bool is_finishing;
 	bool is_dead;
 
 	float deltaTime;
 	friend class IMarioIdle;
 	friend class IMarioWalk;
 	friend class IMarioJump;
-	friend class IMarioCinematic;
 	friend class IMarioCollectFlag;
 	friend class IMarioRunToCastle;
 

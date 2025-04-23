@@ -148,11 +148,9 @@ void Mario::setPosition(const sf::Vector2f& newPosition)
 
 void Mario::Finish(float deltaTime)
 {
-	if (!is_finishing)
+	if (std::dynamic_pointer_cast<IMarioRunToCastle>(this->current_state) == nullptr)
 	{
-		sprite.move(sprite.getGlobalBounds().width, 0.f);
-		sprite.setTextureRect(sf::IntRect(128, 0, -16, 16));
-		is_finishing = true;
+		setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioRunToCastle>()));
 	}
 }
 
@@ -313,43 +311,14 @@ void Mario::update(float deltaTime)
 		sprite.getGlobalBounds().height
 		}, velocity, "Flag", CollisionType::ALL);
 
-	if (is_touching_flag && std::dynamic_pointer_cast<IMarioCinematic>(this->current_state) == nullptr && !is_finishing)
+	
+	if (is_touching_flag && std::dynamic_pointer_cast<IMarioCollectFlag>(this->current_state) == nullptr && std::dynamic_pointer_cast<IMarioRunToCastle>(this->current_state) == nullptr)
 	{
-		//std::cout << "Finish\n";
-		setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioCinematic>()));
-
-		if(!is_grown)
-			sprite.setTextureRect(sf::IntRect(112, 0, 16, 16));
-		else
-			sprite.setTextureRect(sf::IntRect(0, 64, 16, 32));
-		sprite.move(20.f,0.f);
+		setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioCollectFlag>()));
 	}
-	if (is_touching_flag && sprite.getPosition().y < 550 - sprite.getGlobalBounds().height && !is_finishing)
-	{
-		sprite.move(0.f, 200.f * deltaTime);
-	}
+	//
 
-	if (is_finishing)
-	{
-		//applyGravity(deltaTime);
-		if (!is_grown)
-			animator->playAnim("Run");
-		else
-			animator->playAnim("BRun");
-		move(1.f, 0.f);
-		//velocity.x = 100.f;
-		if (sprite.getPosition().y < 600 - sprite.getGlobalBounds().height)
-			velocity.y = 70.f;
-		else
-			velocity.y = 0;
-
-		if (sprite.getPosition().x > 10200)
-		{
-			is_dead = true;
-		}
-	}
-
-	is_ground = col->checkCollision({ sprite.getGlobalBounds().left + velocity.x * deltaTime,
+	is_ground = col->checkCollision({ sprite.getGlobalBounds().left,
 			sprite.getGlobalBounds().top + velocity.y * deltaTime,
 			sprite.getGlobalBounds().width,
 			sprite.getGlobalBounds().height }, velocity, "All", CollisionType::DOWN);

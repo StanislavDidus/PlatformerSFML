@@ -60,6 +60,41 @@ void LuckyBlock::update(float deltaTime)
 	if (score_text != nullptr)
 		score_text->update(deltaTime);
 
+	if (ready_to_spawn)
+	{
+		if (!animator->getAnim("Hit")->is_playing)
+		{
+			ready_to_spawn = false;
+			if (this->is_active)
+			{
+				switch (this->l_type)
+				{
+				case LuckyBlockType::None:
+
+					break;
+				case LuckyBlockType::Mushroom:
+
+					this->spawnMushroom();
+
+					break;
+				case LuckyBlockType::Coin:
+
+					this->giveCoin();
+					break;
+				case LuckyBlockType::UP:
+
+					break;
+				}
+
+			}
+			this->getTexture() = *texture_manager->get("Block").get();
+			this->sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
+			this->is_active = false;
+		}
+
+		
+	}
+
 	sf::Vector2f newPos = this->getSprite().getPosition();
 	setPosition(newPos);
 }
@@ -95,42 +130,41 @@ void LuckyBlock::render(sf::RenderTarget* target)
 void LuckyBlock::onHit()
 {
 	//Animation
-	//this->animator->playAnim("Hit");
+	this->animator->playAnim("Hit");
 
-	//Bonus
-	if (this->is_active)
+	switch (this->l_type)
 	{
-		switch (this->l_type)
-		{
-		case LuckyBlockType::None:
-			std::cout << "None\n";
-			break;
-		case LuckyBlockType::Mushroom:
-			std::cout << "Mushroom\n";
-			this->spawnMushroom();
-			break;
-		case LuckyBlockType::Coin:
-			std::cout << "Coin\n";
-			this->giveCoin();
-			break;
-		case LuckyBlockType::UP:
-			std::cout << "UP\n";
-			break;
-		}
-	}
+	case LuckyBlockType::None:
 
-	//Disable
-	this->getTexture() = *texture_manager->get("Block").get();
-	this->sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
-	this->is_active = false;
+		break;
+	case LuckyBlockType::Mushroom:
+
+		ready_to_spawn = true;
+
+		break;
+	case LuckyBlockType::Coin:
+
+		this->giveCoin();
+		this->getTexture() = *texture_manager->get("Block").get();
+		this->sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
+		this->is_active = false;
+		break;
+
+		//Bonus
+		//Disable
+	}
+}
+
+void LuckyBlock::onHitBig()
+{
+	onHit();
 }
 
 const void LuckyBlock::spawnMushroom()
 {
-	sf::FloatRect rect = { sprite.getPosition().x, sprite.getPosition().y, 50.f, 50.f};
+	sf::FloatRect rect = { sprite.getPosition().x, sprite.getPosition().y, 50.f, 50.f };
 	std::shared_ptr<MushRoom> obj = std::make_shared<MushRoom>(rect, "Mushroom", texture_manager, col, game, 10);
 	gameObjects_.emplace_back(obj);
-	
 	//std::cout << "Spawn mushroom\n";
 }
 

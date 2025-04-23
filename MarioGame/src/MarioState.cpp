@@ -199,7 +199,13 @@ class IMarioJump : public IMarioState
 
 			if (obj != nullptr)
 			{
-				obj->onHit();
+				if (!mario.is_grown)
+					obj->onHit();
+				else
+					obj->onHitBig();
+
+				mario.is_jump_over = true;
+				mario.velocity.y += 350.f;
 			}
 		}
 		
@@ -228,37 +234,23 @@ class IMarioJump : public IMarioState
 	}
 };
 
-class IMarioCinematic: public IMarioState
-{
-	void onEnter(Mario& mario) override
-	{
-		mario.velocity = { 0,0 };
-		mario.sprite.setTextureRect(sf::IntRect(0,0,16,16));
-	}
-
-	void onUpdate(Mario& mario, float deltaTime) override
-	{
-		float deltaX = mario.velocity.x * deltaTime;
-		float deltaY = mario.velocity.y * deltaTime;
-		mario.sprite.move(deltaX, deltaY);
-	}
-
-	void onExit(Mario& mario) override
-	{
-
-	}
-};
-
 class IMarioCollectFlag: public IMarioState
 {
 	void onEnter(Mario& mario) override
 	{
-		
+		if (!mario.is_grown)
+			mario.sprite.setTextureRect(sf::IntRect(112, 0, 16, 16));
+		else
+			mario.sprite.setTextureRect(sf::IntRect(0, 64, 16, 32));
+		mario.sprite.move(20.f, 0.f);
 	}
 
 	void onUpdate(Mario& mario, float deltaTime) override
 	{
-		
+		if (mario.is_touching_flag && mario.sprite.getPosition().y < 550 - mario.sprite.getGlobalBounds().height)
+		{
+			mario.sprite.move(0.f, 200.f * deltaTime);
+		}
 	}
 
 	void onExit(Mario& mario) override
@@ -271,12 +263,32 @@ class IMarioRunToCastle : public IMarioState
 {
 	void onEnter(Mario& mario) override
 	{
-
+		mario.sprite.move(mario.sprite.getGlobalBounds().width, 0.f);
+		mario.sprite.setTextureRect(sf::IntRect(128, 0, -16, 16));
+		//mario.is_finishing = true;
 	}
 
 	void onUpdate(Mario& mario, float deltaTime) override
 	{
+		if (!mario.is_grown)
+			mario.animator->playAnim("Run");
+		else
+			mario.animator->playAnim("BRun");
+		mario.move(1.f, 0.f);
+		//velocity.x = 100.f;
+		if (mario.sprite.getPosition().y < 600 - mario.sprite.getGlobalBounds().height)
+			mario.velocity.y = 70.f;
+		else
+			mario.velocity.y = 0;
 
+		if (mario.sprite.getPosition().x > 10200)
+		{
+			mario.is_dead = true;
+		}
+
+		float deltaX = mario.velocity.x * deltaTime;
+		float deltaY = mario.velocity.y * deltaTime;
+		mario.sprite.move(deltaX, deltaY);
 	}
 
 	void onExit(Mario& mario) override

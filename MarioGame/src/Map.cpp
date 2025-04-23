@@ -95,7 +95,7 @@ void Map::initSprites()
 						if (foundTile->properties[0].getStringValue() == "Brick")
 						{
 							//this->tiles.emplace_back(col_rect, sprite.getTextureRect(), "Brick", true, false);
-							this->game_objects.emplace_back(std::make_unique<Brick>(sprite, texture_manager->get("Brick").get(), col_rect, "Block", 15));
+							this->game_objects.emplace_back(std::make_unique<Brick>(sprite, texture_manager->get("Brick").get(), texture_manager->get("BrokenBrick").get(), col_rect, "Block", 15));
 						}
 
 						if (foundTile->properties[0].getStringValue() == "Flag")
@@ -249,31 +249,19 @@ void Map::initVerArray()
 
 void Map::initCollisions()
 {
-	
-	
 	for (const auto& tile: this->tiles)
-	{
 		if (tile->isCollision())
-		{
-			//this->col_manager->addCollision({ tile->getPosition(), tile->getType() });
 			quadTree->insert({ sf::FloatRect(tile->getPosition().left, tile->getPosition().top, tile->getPosition().width, tile->getPosition().height), "Tiles"});
-		}
-	}
-
+	
 	for (const auto& obj : game_objects)
-	{
 		quadTree->insert({ sf::FloatRect(obj->getBounds().left, obj->getBounds().top, obj->getBounds().width, obj->getBounds().height), obj->getType(), obj.get() });
-	}
-		
-	for (const auto& object : this->game_objects)
-	{
-		//this->col_manager->addCollision({ object->getBounds(), object->getType(), object.get()});
-	}
+
+	quadTree->insert(flag);
 }
 
 //Con/Des
-Map::Map(std::shared_ptr<Game> game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, std::shared_ptr<QuadTree> quadTree, std::vector<std::shared_ptr<GameObject>>& gameObjects_) : game(game), window(window), col_manager(col), texture_manager(texture_manager),
-gameObjects_(gameObjects_), quadTree(quadTree)
+Map::Map(std::shared_ptr<Game> game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, std::shared_ptr<QuadTree> quadTree, std::vector<std::shared_ptr<GameObject>>& gameObjects_, const CollisionEvent& flag) : game(game), window(window), col_manager(col), texture_manager(texture_manager),
+gameObjects_(gameObjects_), quadTree(quadTree), flag(flag)
 {
 	this->initTiledMap();
 	this->initSprites();
@@ -289,35 +277,7 @@ Map::~Map()
 //Accessors
 void Map::updateAnimations()
 {
-	/*for (auto& tile : this->tiles)
-	{
-		if (!tile->isAnimation())
-			continue;
 
-		if (tile->anim_timer->getElapsedTime().asMilliseconds() > tile->getAnimation()->frames[tile->current_frame].duration)
-		{
-			int nextFrame = (tile->current_frame + 1 >= tile->getAnimation()->frames.size()) ? 0 : tile->current_frame + 1;
-			std::vector<tmx::Tileset::Tile> tiles = this->tile_sets[0]->getTiles();
-			tmx::Tileset::Tile* foundTile = nullptr;
-			for (auto& tl : tiles) {
-				if (tl.ID == tile->getAnimation()->frames[nextFrame].tileID) {
-					foundTile = &tl;
-					break;
-				}
-			}
-
-			int sprite_pos_x = (tile->getAnimation()->frames[nextFrame].tileID % this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().x;
-			int sprite_pos_y = (tile->getAnimation()->frames[nextFrame].tileID / this->tile_sets[0]->getColumnCount()) * this->tile_sets[0]->getTileSize().y;
-
-			tile->setTextureRect(sf::IntRect(sprite_pos_x, sprite_pos_y, this->tile_sets[0]->getTileSize().x, this->tile_sets[0]->getTileSize().y));
-
-			tile->current_frame += 1;
-			if (tile->current_frame >= tile->getAnimation()->frames.size())
-				tile->current_frame = 0;
-
-			tile->anim_timer->restart();
-		}
-	}*/
 }
 
 void Map::updateCollisions()
@@ -328,17 +288,12 @@ void Map::updateCollisions()
 
 void Map::update(float deltaTime)
 {
-	
-	//this->initVerArray();
-	
-	//this->updateAnimations();
-	
 	timeSinceLastUpdate += deltaTime;
 
 	if (timeSinceLastUpdate >= updateTime)
 	{
 		this->initVerArray();
-		//this->initCollisions();
+		
 		timeSinceLastUpdate = 0.0f;
 	}
 
@@ -347,12 +302,24 @@ void Map::update(float deltaTime)
 		object->update(deltaTime);
 	}
 
+	if (quadTreeNeedsUpdate)
+	{
+		quadTreeNeedsUpdate = false;
+		quadTree->clear();
+		initCollisions();
+	}
+
+	std::cout << game_objects.size() << "\n";
+
 	this->game_objects.erase(std::remove_if(this->game_objects.begin(), this->game_objects.end(),
-		[](const std::unique_ptr<GameObject>& obj) { 
-			Block* block = dynamic_cast<Block*>(obj.get());
-			if(block != nullptr && block->isDesroyed())
-				return true; 
-			return false;
+		[this](const std::unique_ptr<GameObject>& obj) {
+			if (obj->isDestroyed())
+			{
+				quadTreeNeedsUpdate = true;
+				//std::cout << "destroy block\n";
+				return true;
+			}
+			return false; 
 		}),
 		this->game_objects.end());
 }
@@ -363,7 +330,6 @@ void Map::render(std::vector<Renderable>& queue, sf::RenderTarget* target)
 
 	for (const auto& vrtx : vrtxs)
 	{
-		//target->draw(vrtx.v_array, this->rs);
 		queue.emplace_back(vrtx.layer, [vrtx, target, this]() {target->draw(vrtx.v_array, this->rs); });
 	}
 

@@ -33,6 +33,8 @@ private:
 	std::shared_ptr<CollisionManager> col;
 	std::shared_ptr<TextureManager> texture_manager;
 
+	bool ready_to_spawn;
+
 	sf::Texture coin_texture;
 	sf::Sprite coin_sprite;
 
@@ -54,6 +56,7 @@ public:
 	void render(sf::RenderTarget* target) override;
 
 	void onHit() override;
+	void onHitBig() override;
 
 	const void spawnMushroom();
 	const void giveCoin() const;

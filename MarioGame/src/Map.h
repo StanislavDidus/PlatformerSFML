@@ -135,6 +135,9 @@ class Map
 private:
 	std::vector<std::shared_ptr<GameObject>>& gameObjects_;
 
+	//Flag
+	CollisionEvent flag;
+
 	std::vector<std::unique_ptr<tmx::Tileset>> tile_sets; // all tilesets
 	std::vector<std::unique_ptr<sf::Texture>> textures; // all textures for tile sets
 	tmx::Map tiled_map; // level tiled map
@@ -161,6 +164,7 @@ private:
 	std::shared_ptr<TextureManager> texture_manager;
 	std::shared_ptr<Game> game;
 	std::shared_ptr<QuadTree> quadTree;
+	bool quadTreeNeedsUpdate = false;
 
 	float updateTime = 1.0f / 30.0f; 
 	float timeSinceLastUpdate = 0.0f;
@@ -170,7 +174,7 @@ private:
 	void initVerArray();
 	void initCollisions();
 public:
-	Map(std::shared_ptr<Game> game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, std::shared_ptr<QuadTree> quadTree, std::vector<std::shared_ptr<GameObject>>& gameObjects_);
+	Map(std::shared_ptr<Game> game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, std::shared_ptr<QuadTree> quadTree, std::vector<std::shared_ptr<GameObject>>& gameObjects_, const CollisionEvent& flag);
 	virtual ~Map();
 
 	//const std::vector<sf::// FloatRect> getLuckyBlocks() const;

@@ -14,13 +14,16 @@ private:
 	sf::FloatRect bounds;
 public:
 	int layer;
-	bool is_active;
+	bool is_active; //Is object active
+	bool is_destroyed;
+	bool is_collision = true; //Collision work
 
 	GameObject(std::string type, sf::FloatRect bounds, int layer) : type(type), bounds(bounds), layer(layer), is_active(true) {}
 
 	virtual ~GameObject() = default;
 
-	virtual void onHit() {}; 
+	virtual void onHit() {}; // When hit by small mario
+	virtual void onHitBig() {}; // When hit by big mario
 
 	virtual void update(float deltaTime) {}
 	virtual void render(sf::RenderTarget* target) = 0;
@@ -29,6 +32,7 @@ public:
 	const std::string getType() const { return type; };
 
 	const bool isActive() const { return is_active; };
+	virtual const bool isDestroyed() const { return is_destroyed; };
 
 	const sf::Vector2f getPosition() { return { bounds.left, bounds.top }; };
 	virtual void setPosition(const sf::Vector2f& newPosition) {
