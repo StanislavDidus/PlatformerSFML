@@ -91,6 +91,10 @@ void Mario::initAnimator()
 	this->animator->addFrameAnimation(
 		this->sprite, 16, 32, std::vector<int>{ 12 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioJump>(this->current_state) != nullptr && this->is_grown;  }, [this]() {return this->direction; }, false, 25, "BJump"
 	);
+	//Crouch
+	this->animator->addFrameAnimation(
+		this->sprite, 16, 32, std::vector<int>{ 13 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioCrouch>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, false, 30, "BCrouch"
+	);
 
 }
 

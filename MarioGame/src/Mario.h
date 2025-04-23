@@ -20,7 +20,7 @@ class IMarioState;
 class IMarioIdle;
 class IMarioWalk;
 class IMarioJump;
-class IMarioCinematic;
+class IMarioCrouch;
 class IMarioCollectFlag;
 class IMarioRunToCastle;
 
@@ -95,6 +95,7 @@ public:
 	friend class IMarioIdle;
 	friend class IMarioWalk;
 	friend class IMarioJump;
+	friend class IMarioCrouch;
 	friend class IMarioCollectFlag;
 	friend class IMarioRunToCastle;
 

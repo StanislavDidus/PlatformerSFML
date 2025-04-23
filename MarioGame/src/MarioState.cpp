@@ -30,6 +30,10 @@ class IMarioIdle : public IMarioState
 		{
 			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioJump>()));
 		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && mario.is_grown)
+		{
+			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioCrouch>()));
+		}
 		else 
 		{
 			if (mario.velocity.x > 0.f)
@@ -88,6 +92,10 @@ class IMarioWalk : public IMarioState
 		{
 			mario.move(1.f, 0.f);
 			mario.flip(1.f);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && mario.is_grown)
+		{
+			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioCrouch>()));
 		}
 		else // If no button is pressed
 		{
@@ -231,6 +239,52 @@ class IMarioJump : public IMarioState
 	void onExit(Mario& mario) override
 	{
 		mario.is_jump_over = false;
+	}
+};
+
+class IMarioCrouch : public IMarioState
+{
+	void onEnter(Mario& mario) override
+	{
+		
+	}
+
+	void onUpdate(Mario& mario, float deltaTime) override
+	{
+		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioIdle>()));
+		}
+		else
+		{
+			if (mario.velocity.x > 0.f)
+			{
+				mario.velocity.x -= 1000.f * deltaTime;
+			}
+			else if (mario.velocity.x < 0.f)
+			{
+				mario.velocity.x += 1000.f * deltaTime;
+			}
+
+			if (std::abs(mario.velocity.x) < 10.f)
+			{
+				mario.velocity.x = 0.f;
+			}
+		}
+		
+		mario.jump_start_max = 0.3125f * abs(mario.velocity.x) + 25.f;
+
+		float deltaX = mario.velocity.x * deltaTime;
+		float deltaY = mario.velocity.y * deltaTime;
+		mario.col->callibrateCollision(mario, deltaX, deltaY);
+		mario.sprite.move(deltaX, deltaY);
+
+		mario.applyGravity(deltaTime);
+	}
+
+	void onExit(Mario& mario) override
+	{
+
 	}
 };
 

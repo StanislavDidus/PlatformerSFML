@@ -130,28 +130,31 @@ void LuckyBlock::render(sf::RenderTarget* target)
 void LuckyBlock::onHit()
 {
 	//Animation
-	this->animator->playAnim("Hit");
-
-	switch (this->l_type)
+	if (is_active)
 	{
-	case LuckyBlockType::None:
+		this->animator->playAnim("Hit");
 
-		break;
-	case LuckyBlockType::Mushroom:
+		switch (this->l_type)
+		{
+		case LuckyBlockType::None:
 
-		ready_to_spawn = true;
+			break;
+		case LuckyBlockType::Mushroom:
 
-		break;
-	case LuckyBlockType::Coin:
+			ready_to_spawn = true;
 
-		this->giveCoin();
-		this->getTexture() = *texture_manager->get("Block").get();
-		this->sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
-		this->is_active = false;
-		break;
+			break;
+		case LuckyBlockType::Coin:
 
-		//Bonus
-		//Disable
+			this->giveCoin();
+			this->getTexture() = *texture_manager->get("Block").get();
+			this->sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
+			this->is_active = false;
+			break;
+
+			//Bonus
+			//Disable
+		}
 	}
 }
 

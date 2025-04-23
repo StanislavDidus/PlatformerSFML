@@ -27,6 +27,7 @@ void QuadTree::insert(const CollisionEvent& bound)
 	}
 	else
 	{
+		collisions.reserve(MAXCOLLISIONS);
 		collisions.push_back(bound);
 
 		if (collisions.size() > MAXCOLLISIONS)
@@ -55,11 +56,13 @@ void QuadTree::clear()
 void QuadTree::subdivide()
 {
 	is_divided = true;
+	
+	subTrees.reserve(4);
 
-	subTrees.push_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left, rect.top, rect.width / 2, rect.height / 2), MAXCOLLISIONS, MAXDIVISIONS)); //Left-Up
-	subTrees.push_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left + (rect.width / 2), rect.top, rect.width / 2, rect.height / 2), MAXCOLLISIONS, MAXDIVISIONS)); //Right-Up
-	subTrees.push_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left, rect.top + (rect.height / 2), rect.width / 2, rect.height / 2), MAXCOLLISIONS, MAXDIVISIONS)); //Left-Down
-	subTrees.push_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left + (rect.width / 2), rect.top + (rect.height / 2), rect.width / 2, rect.height / 2), MAXCOLLISIONS, MAXDIVISIONS)); //Right-Down
+	subTrees.emplace_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left, rect.top, rect.width / 2, rect.height / 2), MAXCOLLISIONS, MAXDIVISIONS)); //Left-Up
+	subTrees.emplace_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left + (rect.width / 2), rect.top, rect.width / 2, rect.height / 2), MAXCOLLISIONS, MAXDIVISIONS)); //Right-Up
+	subTrees.emplace_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left, rect.top + (rect.height / 2), rect.width / 2, rect.height / 2), MAXCOLLISIONS, MAXDIVISIONS)); //Left-Down
+	subTrees.emplace_back(std::make_unique<QuadTree>(sf::FloatRect(rect.left + (rect.width / 2), rect.top + (rect.height / 2), rect.width / 2, rect.height / 2), MAXCOLLISIONS, MAXDIVISIONS)); //Right-Down
 
 	for (const auto& col : collisions)
 	{
