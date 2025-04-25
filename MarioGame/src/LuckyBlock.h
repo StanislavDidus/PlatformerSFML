@@ -24,13 +24,10 @@ enum LuckyBlockType
 class LuckyBlock : public Block
 {
 private:
-	std::vector<std::shared_ptr<GameObject>>& gameObjects_;
-
 	LuckyBlockType l_type;
 
 	std::shared_ptr<Game> game;
 
-	std::shared_ptr<CollisionManager> col;
 	std::shared_ptr<TextureManager> texture_manager;
 
 	bool ready_to_spawn;

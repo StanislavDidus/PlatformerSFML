@@ -95,7 +95,7 @@ void Map::initSprites()
 						if (foundTile->properties[0].getStringValue() == "Brick")
 						{
 							//this->tiles.emplace_back(col_rect, sprite.getTextureRect(), "Brick", true, false);
-							this->game_objects.emplace_back(std::make_unique<Brick>(sprite, texture_manager->get("Brick").get(), texture_manager->get("BrokenBrick").get(), col_rect, "Block", 15));
+							this->game_objects.emplace_back(std::make_unique<Brick>(sprite, texture_manager->get("Brick").get(), texture_manager->get("BrokenBrick").get(), col_rect, "Block", 15, col_manager, gameObjects_));
 						}
 
 						if (foundTile->properties[0].getStringValue() == "Flag")
@@ -302,14 +302,8 @@ void Map::update(float deltaTime)
 		object->update(deltaTime);
 	}
 
-	if (quadTreeNeedsUpdate)
-	{
-		quadTreeNeedsUpdate = false;
-		quadTree->clear();
-		initCollisions();
-	}
+	
 
-	std::cout << game_objects.size() << "\n";
 
 	this->game_objects.erase(std::remove_if(this->game_objects.begin(), this->game_objects.end(),
 		[this](const std::unique_ptr<GameObject>& obj) {
@@ -322,6 +316,13 @@ void Map::update(float deltaTime)
 			return false; 
 		}),
 		this->game_objects.end());
+
+	if (quadTreeNeedsUpdate)
+	{
+		quadTreeNeedsUpdate = false;
+		quadTree->clear();
+		initCollisions();
+	}
 }
 
 void Map::render(std::vector<Renderable>& queue, sf::RenderTarget* target)

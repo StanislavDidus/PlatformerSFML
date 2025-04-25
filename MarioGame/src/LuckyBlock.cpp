@@ -43,7 +43,7 @@ void LuckyBlock::initScore()
 	this->animator->addAnimationSequence(std::move(ps_a), timing, [this]() {return false; }, "Get", 25);
 }
 
-LuckyBlock::LuckyBlock(std::shared_ptr<Game> game, const sf::Sprite& sprite, std::shared_ptr<TextureManager> texture_manager, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects, std::shared_ptr<CollisionManager> col, int layer) : Block(rect, type, texture_manager->get("LuckyBlock").get(), layer), game(game), l_type(l_type), gameObjects_(gameObjects), col(col), texture_manager(texture_manager)
+LuckyBlock::LuckyBlock(std::shared_ptr<Game> game, const sf::Sprite& sprite, std::shared_ptr<TextureManager> texture_manager, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects, std::shared_ptr<CollisionManager> col, int layer) : Block(rect, type, texture_manager->get("LuckyBlock").get(), layer, col, gameObjects), game(game), l_type(l_type), texture_manager(texture_manager)
 {
 	this->initLuckyBlock();
 	if (l_type == LuckyBlockType::Coin)
@@ -56,6 +56,8 @@ LuckyBlock::LuckyBlock(std::shared_ptr<Game> game, const sf::Sprite& sprite, std
 void LuckyBlock::update(float deltaTime)
 {
 	animator->update(deltaTime);
+
+	std::cout << gameObjects.size() << "\n";
 
 	if (score_text != nullptr)
 		score_text->update(deltaTime);
@@ -132,6 +134,7 @@ void LuckyBlock::onHit()
 	//Animation
 	if (is_active)
 	{
+		HitItem();
 		this->animator->playAnim("Hit");
 
 		switch (this->l_type)
@@ -167,7 +170,7 @@ const void LuckyBlock::spawnMushroom()
 {
 	sf::FloatRect rect = { sprite.getPosition().x, sprite.getPosition().y, 50.f, 50.f };
 	std::shared_ptr<MushRoom> obj = std::make_shared<MushRoom>(rect, "Mushroom", texture_manager, col, game, 10);
-	gameObjects_.emplace_back(obj);
+	gameObjects.emplace_back(obj);
 	//std::cout << "Spawn mushroom\n";
 }
 

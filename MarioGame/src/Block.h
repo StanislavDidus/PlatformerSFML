@@ -7,6 +7,8 @@
 #include <iostream>
 
 #include "Gameobject.h"
+#include "Item.h"
+#include "CollisionManager.h"
 #include "Block.h"
 #include "Animator.h"
 
@@ -16,8 +18,10 @@ private:
 	sf::Texture texture;
 public:
 	std::unique_ptr<Animator> animator;
+	std::shared_ptr<CollisionManager> col;
+	std::vector<std::shared_ptr<GameObject>> gameObjects;
 	sf::Sprite sprite;
-	Block(const sf::FloatRect& rect, const std::string& type, sf::Texture* texture, int layer) : GameObject(type, rect, layer)
+	Block(const sf::FloatRect& rect, const std::string& type, sf::Texture* texture, int layer, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects) : GameObject(type, rect, layer), col(col), gameObjects(gameObjects)
 	{
 		//Sprite
 		
@@ -44,11 +48,33 @@ public:
 	void onHit() override
 	{
 		animator->playAnim("Hit");
+		HitItem();
 	}
 
 	void onHitBig() override
 	{
 		
+	}
+
+	virtual void HitItem()
+	{
+		std::cout << "hit\n";
+		sf::FloatRect bounds = { sprite.getGlobalBounds().left, sprite.getGlobalBounds().top, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height };
+		for (const auto& obj : gameObjects)
+		{
+			if (obj->isActive())
+			{
+				if (bounds.intersects(obj->getBounds()))
+				{
+					std::cout << "col\n";
+					Item* item = dynamic_cast<Item*>(obj.get());
+					if (item != nullptr)
+					{
+						item->Jump();
+					}
+				}
+			}
+		}
 	}
 
 	void destroy()
@@ -70,6 +96,8 @@ public:
 	void update(float deltaTime) override
 	{
 		animator->update(deltaTime);
+
+		
 
 		sf::Vector2f newPos = this->sprite.getPosition();
 		setPosition(newPos);

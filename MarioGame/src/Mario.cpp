@@ -217,18 +217,7 @@ void Mario::checkSlide()
 void Mario::checkCollisions()
 {
 	
-	GameObject* obj = col->getObject({ getBounds().left,
-	getBounds().top,
-	getBounds().width,
-	getBounds().height }, velocity, "Mushroom");
-
-	//std::cout << "mushroom1\n";
-
-	if (obj != nullptr)
-	{
-		obj->onHit();
-		//std::cout << "mushroom2\n";
-	}
+	
 }
 
 void Mario::flip(int dir)

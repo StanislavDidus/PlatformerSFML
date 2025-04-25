@@ -23,7 +23,7 @@ private:
 
 	bool is_broken = false;
 public:
-	Brick(const sf::Sprite& sprite, sf::Texture* texture, sf::Texture* texture1, const sf::FloatRect& rect, const std::string& type, int layer);
+	Brick(const sf::Sprite& sprite, sf::Texture* texture, sf::Texture* texture1, const sf::FloatRect& rect, const std::string& type, int layer, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects);
 
 	void initSprites();
 	void initAnimator();

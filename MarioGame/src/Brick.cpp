@@ -1,6 +1,6 @@
 #include "Brick.h"
 
-Brick::Brick(const sf::Sprite& sprite, sf::Texture* texture, sf::Texture* texture1, const sf::FloatRect& rect, const std::string& type, int layer) : Block(rect, type, texture, layer), broken_bricks_texture(*texture1)
+Brick::Brick(const sf::Sprite& sprite, sf::Texture* texture, sf::Texture* texture1, const sf::FloatRect& rect, const std::string& type, int layer, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects) : Block(rect, type, texture, layer, col, gameObjects), broken_bricks_texture(*texture1)
 {
 	//this->initSprite();
 	//this->animator->addPosAnimation(
@@ -40,6 +40,7 @@ void Brick::initAnimator()
 void Brick::onHit()
 {
 	this->animator->playAnim("Hit");
+	HitItem();
 }
 
 void Brick::onHitBig()

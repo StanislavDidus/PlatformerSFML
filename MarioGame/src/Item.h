@@ -61,6 +61,11 @@ public:
 
 	//const bool isActive() const { return is_active; }
 
+	void Jump()
+	{
+		std::cout << "Jump\n";
+	}
+
 	void move(sf::Vector2f pos, int dir, float deltaTime)
 	{
 		sf::Vector2f newPos = sprite.getPosition() + sf::Vector2f(dir * pos.x * deltaTime, 0.f) ;

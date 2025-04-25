@@ -31,45 +31,12 @@ struct CollisionEvent
 class CollisionManager
 {
 private:
-	
-	std::vector<GameObject*> src_pos;
 	std::shared_ptr<QuadTree> quadTree;
-
 	sf::RenderTarget* target;
 
-	float current_time = 0.f;
-
 public:
-	std::vector<CollisionEvent> collisions;
-	std::vector<CollisionEvent> temp_collisions;
-	
-	CollisionManager(std::shared_ptr<QuadTree> quadTree, sf::RenderTarget* target) : quadTree(quadTree), target(target)
-	{
-
-	}
-
-	void addCollision(const CollisionEvent& collision) 
-	{ 
-		collisions.push_back(collision); 
-		//if(collision.object != nullptr)
-			//std::cout << "collison added" << ", " << collision.object->getType() << "\n";
-	}
-	void addSourse(GameObject* pos) { src_pos.emplace_back(pos); }
-
-	void update(float deltaTime)
-	{ 
-	}
-
-	std::vector<GameObject*> getSources() const { return src_pos; }
-
-	void clearCollision() { collisions.clear(); }
-
-	bool checkSources(const CollisionEvent& col)
-	{
-		
-	}
-
-	bool checkCollision(const sf::FloatRect& player, const sf::Vector2f velocity, const std::string& type, const CollisionType& side)
+	CollisionManager(std::shared_ptr<QuadTree> quadTree, sf::RenderTarget* target) : quadTree(quadTree), target(target) {}
+	bool checkCollision(const sf::FloatRect& player, const sf::Vector2f& velocity, const std::string& type, const CollisionType& side)
 	{
 		//std::vector<sf::FloatRect> possible_collisions;;
 		//quadTree->checkCollisions(sf::FloatRect(player.left, player.top, player.width, player.height), possible_collisions);
@@ -136,8 +103,7 @@ public:
 		}
 		return false;
 	}
-
-	GameObject* getObject(const sf::FloatRect& player, const sf::Vector2f velocity, const std::string& type)
+	GameObject* getObject(const sf::FloatRect& player, const sf::Vector2f& velocity, const std::string& type)
 	{
 		sf::FloatRect playerBounds = player;
 		std::vector<CollisionEvent> possible_collisions;
@@ -173,7 +139,6 @@ public:
 
 		return closestGO;
 	}
-	
 	void callibrateCollision(const GameObject& player, float& x, float& y)
 	{
 		sf::FloatRect playerBounds = player.getBounds();
