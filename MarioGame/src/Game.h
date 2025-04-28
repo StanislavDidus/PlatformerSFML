@@ -96,6 +96,7 @@ private:
 
 	//Score
 	int score;
+	int coin_amount;
 	
 	//Frame rate counter
 	sf::Clock fps_clock;
@@ -120,6 +121,7 @@ public:
 	const bool running() const;
 
 	void addScore(int score);
+	void addCoin();
 	void showScore(sf::Vector2f pos, sf::Texture* texture);
 	void DisplayStartMenu();
 

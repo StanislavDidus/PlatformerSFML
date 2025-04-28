@@ -296,6 +296,8 @@ public:
     std::shared_ptr<Animation> getAnim(const std::string& name);
     void playAnim(const std::string& name);
 
+    const sf::FloatRect getCurrentFrame();
+
     const bool isPlayed() const;
 
     void update(float deltaTime);

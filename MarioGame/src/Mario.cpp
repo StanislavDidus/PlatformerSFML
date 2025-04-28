@@ -181,6 +181,29 @@ void Mario::grow()
 	this->animator->playAnim("Grow");
 }
 
+void Mario::fire()
+{
+	play_anim = false;
+	
+	const sf::Texture* tx = sprite.getTexture();
+	sf::Image img = tx->copyToImage();
+	sf::FloatRect fragmentRect = animator->getCurrentFrame();
+	for (unsigned int x = fragmentRect.left; x < fragmentRect.left + fragmentRect.width; ++x)
+	{
+		for (unsigned int y = fragmentRect.top; y < fragmentRect.top + fragmentRect.height; ++y)
+		{
+			if (x < img.getSize().x && y < img.getSize().y)
+			{
+				sf::Color col = img.getPixel(x, y);
+				col.r = 255 - col.r;
+				col.g = 255 - col.g;
+				col.b = 255 - col.b;
+				img.setPixel(x, y, col);
+			}
+		}
+	}
+}
+
 void Mario::die()
 {
 
@@ -268,7 +291,7 @@ void Mario::update(float deltaTime)
 	if (this->current_state != nullptr) // Update current state
 		this->current_state->onUpdate(*this, deltaTime);
 
-	if (this->animator != nullptr)
+	if (this->animator != nullptr && play_anim)
 		this->animator->update(this->deltaTime);
 
 	//Check Grow
@@ -289,7 +312,6 @@ void Mario::update(float deltaTime)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
 		if (!wasPressed) {
 			this->grow();
-			std::cout << "Grow\n";
 			wasPressed = true;
 		}
 	}

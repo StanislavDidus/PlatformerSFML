@@ -143,6 +143,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Objects\Items\FireFlower.cpp" />
     <ClCompile Include="src\Objects\Flag.cpp" />
     <ClCompile Include="src\Algorythms\QuadTree.cpp" />
     <ClCompile Include="src\Brick.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="src\Manager\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Objects\Items\FireFlower.h" />
     <ClInclude Include="src\Objects\Flag.h" />
     <ClInclude Include="src\Algorythms\QuadTree.h" />
     <ClInclude Include="src\Block.h" />

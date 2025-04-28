@@ -53,6 +53,31 @@ void Animator::playAnim(const std::string& name)
 	}
 }
 
+const sf::FloatRect Animator::getCurrentFrame()
+{
+	if (anim_name == "")
+		return sf::FloatRect();
+
+
+	auto anim = getAnim(anim_name);
+	auto frameAnim = std::dynamic_pointer_cast<FrameAnimation>(anim);
+
+	if(frameAnim == nullptr)
+		return sf::FloatRect();
+
+	int dir = frameAnim->get_direction();
+
+	int columnCount = frameAnim->sprite.getTexture()->getSize().x / frameAnim->frame_width;
+	int x = frameAnim->animation_frames[frameAnim->current_frame] % columnCount;
+	int y = frameAnim->animation_frames[frameAnim->current_frame] / columnCount;
+
+	return sf::FloatRect(
+		dir == 1 ? frameAnim->frame_width * x : frameAnim->frame_width * x + frameAnim->frame_width,
+		frameAnim->frame_height * y,
+		dir * frameAnim->frame_width,
+		frameAnim->frame_height);
+}
+
 const bool Animator::isPlayed() const
 {
 	return this->play_anim;

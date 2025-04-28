@@ -12,13 +12,14 @@
 #include "Animator.h"
 #include "MushRoom.h"
 #include "Text.h"
+#include "Objects/Items/FireFlower.h"
 #include "Manager/TextureManager.h"
 
 class Game;
 
 enum LuckyBlockType
 {
-	None, Mushroom, Coin, UP
+	None, MushRoomType, CoinType, UPType, FireFlowerType
 };
 
 class LuckyBlock : public Block
@@ -56,5 +57,6 @@ public:
 	void onHitBig() override;
 
 	const void spawnMushroom();
+	const void spawnFireFlower();
 	const void giveCoin() const;
 };

@@ -15,6 +15,7 @@ void Game::initVariables()
 	last_camera_pos = { 0.f,0.f };
 	lastTime = 0.f;
 	score = 0;
+	coin_amount = 0;
 }
 
 void Game::initTextureManager()
@@ -25,6 +26,7 @@ void Game::initTextureManager()
 	this->texture_manager->load("LuckyBlock", "assets/Textures/Levels/LuckyBlock.png");
 	this->texture_manager->load("Brick", "assets/Textures/Levels/Brick.png");
 	this->texture_manager->load("Mushroom", "assets/Textures/Levels/Mushroom.png");
+	this->texture_manager->load("FireFlower", "assets/Textures/Levels/FireFlower.png");
 	this->texture_manager->load("Coin", "assets/Textures/Levels/Coin_Anim.png");
 	this->texture_manager->load("Block", "assets/Textures/Levels/Block.png");
 	this->texture_manager->load("FlagStick", "assets/Textures/Levels/Flag_Stick.png");
@@ -146,6 +148,11 @@ void Game::addScore(int score)
 	this->score += score;
 }
 
+void Game::addCoin()
+{
+	coin_amount++;
+}
+
 void Game::showScore(sf::Vector2f pos, sf::Texture* texture)
 {
 	//Display scores
@@ -226,6 +233,10 @@ void Game::updateText()
 
 	oss2 << "MARIO\n" << std::setw(size + (6 - size)) << std::setfill('0') << this->score << "\n";
 	this->score_text.setString(oss2.str());
+
+	std::ostringstream oss3;
+	oss3 << " x" << std::setw(2) << std::setfill('0') << coin_amount << "\n";
+	this->coin_text.setString(oss3.str());
 
 	this->small_coin_sprite.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 280.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 55.f);
 
@@ -386,11 +397,6 @@ void Game::render()
 				}
 
 		}
-
-		
-
-		
-
 	}
 	else
 	{

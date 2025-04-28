@@ -38,7 +38,8 @@ public:
 	std::shared_ptr<Game> game;
 
 	int direction = 1;
-	sf::Vector2f velocity = { 250.f, 500.f };
+	float gravity = 980.f;
+	sf::Vector2f velocity = { 250.f, 0.f };
 
 	std::shared_ptr<CollisionManager> col;
 	std::shared_ptr<TextureManager> texture_manager;
@@ -63,7 +64,8 @@ public:
 
 	void Jump()
 	{
-		std::cout << "Jump\n";
+		direction *= -1;
+		velocity.y = -400.f;
 	}
 
 	void move(sf::Vector2f pos, int dir, float deltaTime)

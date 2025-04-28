@@ -19,7 +19,7 @@ private:
 public:
 	std::unique_ptr<Animator> animator;
 	std::shared_ptr<CollisionManager> col;
-	std::vector<std::shared_ptr<GameObject>> gameObjects;
+	std::vector<std::shared_ptr<GameObject>>& gameObjects;
 	sf::Sprite sprite;
 	Block(const sf::FloatRect& rect, const std::string& type, sf::Texture* texture, int layer, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects) : GameObject(type, rect, layer), col(col), gameObjects(gameObjects)
 	{
@@ -53,20 +53,18 @@ public:
 
 	void onHitBig() override
 	{
-		
+		HitItem();
 	}
 
 	virtual void HitItem()
 	{
-		std::cout << "hit\n";
-		sf::FloatRect bounds = { sprite.getGlobalBounds().left, sprite.getGlobalBounds().top, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height };
+		sf::FloatRect bounds = { sprite.getGlobalBounds().left, sprite.getGlobalBounds().top - 50.f, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height };
 		for (const auto& obj : gameObjects)
 		{
 			if (obj->isActive())
 			{
 				if (bounds.intersects(obj->getBounds()))
 				{
-					std::cout << "col\n";
 					Item* item = dynamic_cast<Item*>(obj.get());
 					if (item != nullptr)
 					{

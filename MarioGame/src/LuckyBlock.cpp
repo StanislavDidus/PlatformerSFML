@@ -46,7 +46,7 @@ void LuckyBlock::initScore()
 LuckyBlock::LuckyBlock(std::shared_ptr<Game> game, const sf::Sprite& sprite, std::shared_ptr<TextureManager> texture_manager, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects, std::shared_ptr<CollisionManager> col, int layer) : Block(rect, type, texture_manager->get("LuckyBlock").get(), layer, col, gameObjects), game(game), l_type(l_type), texture_manager(texture_manager)
 {
 	this->initLuckyBlock();
-	if (l_type == LuckyBlockType::Coin)
+	if (l_type == LuckyBlockType::CoinType)
 	{
 		this->initCoin();
 		this->initScore();
@@ -56,8 +56,6 @@ LuckyBlock::LuckyBlock(std::shared_ptr<Game> game, const sf::Sprite& sprite, std
 void LuckyBlock::update(float deltaTime)
 {
 	animator->update(deltaTime);
-
-	std::cout << gameObjects.size() << "\n";
 
 	if (score_text != nullptr)
 		score_text->update(deltaTime);
@@ -74,16 +72,17 @@ void LuckyBlock::update(float deltaTime)
 				case LuckyBlockType::None:
 
 					break;
-				case LuckyBlockType::Mushroom:
+				case LuckyBlockType::MushRoomType:
 
 					this->spawnMushroom();
-
 					break;
-				case LuckyBlockType::Coin:
-
+				case LuckyBlockType::FireFlowerType:
+					this->spawnFireFlower();
+					break;
+				case LuckyBlockType::CoinType:
 					this->giveCoin();
 					break;
-				case LuckyBlockType::UP:
+				case LuckyBlockType::UPType:
 
 					break;
 				}
@@ -142,12 +141,14 @@ void LuckyBlock::onHit()
 		case LuckyBlockType::None:
 
 			break;
-		case LuckyBlockType::Mushroom:
+		case LuckyBlockType::MushRoomType:
 
 			ready_to_spawn = true;
-
 			break;
-		case LuckyBlockType::Coin:
+		case LuckyBlockType::FireFlowerType:
+			ready_to_spawn = true;
+			break;
+		case LuckyBlockType::CoinType:
 
 			this->giveCoin();
 			this->getTexture() = *texture_manager->get("Block").get();
@@ -163,6 +164,10 @@ void LuckyBlock::onHit()
 
 void LuckyBlock::onHitBig()
 {
+	if (l_type == LuckyBlockType::MushRoomType)
+	{
+		l_type = LuckyBlockType::FireFlowerType;
+	}
 	onHit();
 }
 
@@ -171,11 +176,19 @@ const void LuckyBlock::spawnMushroom()
 	sf::FloatRect rect = { sprite.getPosition().x, sprite.getPosition().y, 50.f, 50.f };
 	std::shared_ptr<MushRoom> obj = std::make_shared<MushRoom>(rect, "Mushroom", texture_manager, col, game, 10);
 	gameObjects.emplace_back(obj);
-	//std::cout << "Spawn mushroom\n";
+}
+
+const void LuckyBlock::spawnFireFlower()
+{
+	sf::FloatRect rect = { sprite.getPosition().x, sprite.getPosition().y, 50.f, 50.f };
+	std::shared_ptr<FireFlower> obj = std::make_shared<FireFlower>(rect, "FireFlower", texture_manager, col, game, 10);
+	gameObjects.emplace_back(obj);
 }
 
 const void LuckyBlock::giveCoin() const
 {
 	this->animator->playAnim("Get");
 	this->game->addScore(200);
+	this->game->addCoin();
+	
 }

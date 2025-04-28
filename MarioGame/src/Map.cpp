@@ -95,7 +95,7 @@ void Map::initSprites()
 						if (foundTile->properties[0].getStringValue() == "Brick")
 						{
 							//this->tiles.emplace_back(col_rect, sprite.getTextureRect(), "Brick", true, false);
-							this->game_objects.emplace_back(std::make_unique<Brick>(sprite, texture_manager->get("Brick").get(), texture_manager->get("BrokenBrick").get(), col_rect, "Block", 15, col_manager, gameObjects_));
+							this->blocks.emplace_back(std::make_unique<Brick>(sprite, texture_manager->get("Brick").get(), texture_manager->get("BrokenBrick").get(), col_rect, "Block", 15, col_manager, gameObjects));
 						}
 
 						if (foundTile->properties[0].getStringValue() == "Flag")
@@ -140,19 +140,19 @@ void Map::initSprites()
 				
 				if (object.getProperties()[0].getStringValue() == "Mushroom")
 				{
-					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, texture_manager, col_rect, "Block", LuckyBlockType::Mushroom, gameObjects_, col_manager, 15));
+					this->blocks.emplace_back(std::make_unique<LuckyBlock>(game, sprite, texture_manager, col_rect, "Block", LuckyBlockType::MushRoomType, gameObjects, col_manager, 15));
 				}
 				else if (object.getProperties()[0].getStringValue() == "UP")
 				{
-					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, texture_manager, col_rect, "Block", LuckyBlockType::UP, gameObjects_, col_manager, 15));
+					this->blocks.emplace_back(std::make_unique<LuckyBlock>(game, sprite, texture_manager, col_rect, "Block", LuckyBlockType::UPType, gameObjects, col_manager, 15));
 				}
 				else if (object.getProperties()[0].getStringValue() == "Coin")
 				{
-					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, texture_manager, col_rect, "Block", LuckyBlockType::Coin, gameObjects_, col_manager, 15));
+					this->blocks.emplace_back(std::make_unique<LuckyBlock>(game, sprite, texture_manager, col_rect, "Block", LuckyBlockType::CoinType, gameObjects, col_manager, 15));
 				}
 				else
 				{
-					this->game_objects.emplace_back(std::make_unique<LuckyBlock>(game, sprite, texture_manager, col_rect, "Block", LuckyBlockType::None, gameObjects_, col_manager, 15));
+					this->blocks.emplace_back(std::make_unique<LuckyBlock>(game, sprite, texture_manager, col_rect, "Block", LuckyBlockType::None, gameObjects, col_manager, 15));
 				}
 			}
 		}
@@ -253,15 +253,15 @@ void Map::initCollisions()
 		if (tile->isCollision())
 			quadTree->insert({ sf::FloatRect(tile->getPosition().left, tile->getPosition().top, tile->getPosition().width, tile->getPosition().height), "Tiles"});
 	
-	for (const auto& obj : game_objects)
-		quadTree->insert({ sf::FloatRect(obj->getBounds().left, obj->getBounds().top, obj->getBounds().width, obj->getBounds().height), obj->getType(), obj.get() });
+	for (const auto& block : blocks)
+		quadTree->insert({ sf::FloatRect(block->getBounds().left, block->getBounds().top, block->getBounds().width, block->getBounds().height), block->getType(), block.get() });
 
 	quadTree->insert(flag);
 }
 
 //Con/Des
-Map::Map(std::shared_ptr<Game> game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, std::shared_ptr<QuadTree> quadTree, std::vector<std::shared_ptr<GameObject>>& gameObjects_, const CollisionEvent& flag) : game(game), window(window), col_manager(col), texture_manager(texture_manager),
-gameObjects_(gameObjects_), quadTree(quadTree), flag(flag)
+Map::Map(std::shared_ptr<Game> game, sf::RenderWindow* window, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, std::shared_ptr<QuadTree> quadTree, std::vector<std::shared_ptr<GameObject>>& gameObjects, const CollisionEvent& flag) : game(game), window(window), col_manager(col), texture_manager(texture_manager),
+gameObjects(gameObjects), quadTree(quadTree), flag(flag)
 {
 	this->initTiledMap();
 	this->initSprites();
@@ -297,16 +297,14 @@ void Map::update(float deltaTime)
 		timeSinceLastUpdate = 0.0f;
 	}
 
-	for (const auto& object : this->game_objects)
+	//Update blocks
+	for (const auto& block : this->blocks)
 	{
-		object->update(deltaTime);
+		block->update(deltaTime);
 	}
 
-	
-
-
-	this->game_objects.erase(std::remove_if(this->game_objects.begin(), this->game_objects.end(),
-		[this](const std::unique_ptr<GameObject>& obj) {
+	this->blocks.erase(std::remove_if(this->blocks.begin(), this->blocks.end(),
+		[this](const std::shared_ptr<GameObject>& obj) {
 			if (obj->isDestroyed())
 			{
 				quadTreeNeedsUpdate = true;
@@ -315,7 +313,7 @@ void Map::update(float deltaTime)
 			}
 			return false; 
 		}),
-		this->game_objects.end());
+		this->blocks.end());
 
 	if (quadTreeNeedsUpdate)
 	{
@@ -334,8 +332,9 @@ void Map::render(std::vector<Renderable>& queue, sf::RenderTarget* target)
 		queue.emplace_back(vrtx.layer, [vrtx, target, this]() {target->draw(vrtx.v_array, this->rs); });
 	}
 
-	for (auto& object : this->game_objects)
+	//Render blocks
+	for (auto& block : this->blocks)
 	{
-		queue.emplace_back(object->layer, [&object, this, target]() {object->render(target); });
+		queue.emplace_back(block->layer, [&block, this, target]() {block->render(target); });
 	}
 }

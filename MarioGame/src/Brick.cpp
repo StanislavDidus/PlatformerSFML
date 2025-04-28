@@ -45,13 +45,17 @@ void Brick::onHit()
 
 void Brick::onHitBig()
 {
-	if(!is_broken)
+	if (!is_broken)
+	{
+		HitItem();
 		Destroy();
+	}
 }
 
 void Brick::update(float deltaTime)
 {
 	animator->update(deltaTime);
+
 
 	if(animators_bb.size() > 0)
 		for (auto& animator : animators_bb)

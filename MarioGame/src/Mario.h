@@ -81,6 +81,7 @@ private:
 	
 	//Animation
 	std::unique_ptr<Animator> animator;
+	bool play_anim = true;
 
 	void initVariables();
 	void initSprite();
@@ -115,6 +116,7 @@ public:
 	//Functions
 	void move(float dirX, float dirY);
 	void grow();
+	void fire();
 	void die();
 	void checkSlide();
 	void checkCollisions();
