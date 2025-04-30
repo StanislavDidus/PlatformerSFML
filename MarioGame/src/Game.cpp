@@ -23,6 +23,7 @@ void Game::initTextureManager()
 	this->texture_manager = std::make_shared<TextureManager>();
 	this->texture_manager->load("Mario", "assets/Textures/Mario/Mario0.png");
 	this->texture_manager->load("MarioBig", "assets/Textures/Mario/Mario1.png");
+	this->texture_manager->load("MarioFire", "assets/Textures/Mario/Mario2.png");
 	this->texture_manager->load("LuckyBlock", "assets/Textures/Levels/LuckyBlock.png");
 	this->texture_manager->load("Brick", "assets/Textures/Levels/Brick.png");
 	this->texture_manager->load("Mushroom", "assets/Textures/Levels/Mushroom.png");
@@ -116,7 +117,7 @@ void Game::initText()
 void Game::initMario()
 {
 	//Init Mario
-	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get(), texture_manager->get("Mario"), texture_manager->get("MarioBig"), sf::FloatRect(0, 0, 48, 48), "Mario", 25);
+	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get(), texture_manager, sf::FloatRect(0, 0, 48, 48), "Mario", 25);
 }
 
 void Game::initFlag()

@@ -31,6 +31,7 @@ void Mario::initVariables()
 
 	this->fire_time = 1.3f;
 	this->fire_timer = 0.f;
+	this->fire_transform = false;
 	this->is_fire = false;
 }
 
@@ -54,21 +55,21 @@ void Mario::initAnimator()
 	//Add animations
 	//Idle
 	this->animator->addFrameAnimation(
-		this->sprite, 16, 16, std::vector<int>{0}, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioIdle>(this->current_state) != nullptr && !this->is_grown && !is_fire; }, [this]() {return this->direction; }, true, 5, "Idle"
+		this->sprite, 16, 16, std::vector<int>{0}, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioIdle>(this->current_state) != nullptr && !this->is_grown && !is_fire && !fire_transform; }, [this]() {return this->direction; }, true, 5, "Idle"
 	);
 	//Run
 	this->animator->addFrameAnimation(
-		this->sprite, 16, 16, std::vector<int>{ 1, 2, 3 }, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr && !this->is_grown && !is_fire;  }, [this]() {return this->direction; }, true, 5, "Run"
+		this->sprite, 16, 16, std::vector<int>{ 1, 2, 3 }, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr && !this->is_grown && !is_fire && !fire_transform;  }, [this]() {return this->direction; }, true, 5, "Run"
 	);
 	//Slide
 	this->animator->addFrameAnimation(
 		this->sprite, 16, 16, std::vector<int>{ 4 }, 10.f / 1000.f, [this]() {
-			return this->is_sliding && std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr && !this->is_grown && !is_fire;
+			return this->is_sliding && std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr && !this->is_grown && !is_fire && !fire_transform;
 		}, [this]() {return this->direction; }, true, 10, "Slide"
 			);
 	//Jump
 	this->animator->addFrameAnimation(
-		this->sprite, 16, 16, std::vector<int>{ 5 }, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioJump>(this->current_state) != nullptr && !this->is_grown && !is_fire;  }, [this]() {return this->direction; }, false, 5, "Jump"
+		this->sprite, 16, 16, std::vector<int>{ 5 }, 50.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioJump>(this->current_state) != nullptr && !this->is_grown && !is_fire && !fire_transform;  }, [this]() {return this->direction; }, false, 5, "Jump"
 	);
 
 	//Mario growth animation
@@ -79,29 +80,53 @@ void Mario::initAnimator()
 	//Big Mario Animations
 	//Idle
 	this->animator->addFrameAnimation(
-		this->sprite, 16, 32, std::vector<int>{7}, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioIdle>(this->current_state) != nullptr && this->is_grown && !is_fire; }, [this]() {return this->direction; }, true, 25, "BIdle"
+		this->sprite, 16, 32, std::vector<int>{7}, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioIdle>(this->current_state) != nullptr && this->is_grown && !is_fire && !fire_transform; }, [this]() {return this->direction; }, true, 25, "BIdle"
 	);
 	//Run
 	this->animator->addFrameAnimation(
-		this->sprite, 16, 32, std::vector<int>{ 8, 9, 10 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr && this->is_grown && !is_fire;  }, [this]() {return this->direction; }, true, 25, "BRun"
+		this->sprite, 16, 32, std::vector<int>{ 8, 9, 10 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr && this->is_grown && !is_fire && !fire_transform;  }, [this]() {return this->direction; }, true, 25, "BRun"
 	);
 	//Slide
 	this->animator->addFrameAnimation(
 		this->sprite, 16, 32, std::vector<int>{ 11 }, 25.f / 1000.f, [this]() {
-			return this->is_sliding && std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr && this->is_grown && !is_fire;
+			return this->is_sliding && std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr && this->is_grown && !is_fire && !fire_transform;
 		}, [this]() {return this->direction; }, true, 30, "BSlide"
 			);
 	//Jump
 	this->animator->addFrameAnimation(
-		this->sprite, 16, 32, std::vector<int>{ 12 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioJump>(this->current_state) != nullptr && this->is_grown && !is_fire;  }, [this]() {return this->direction; }, false, 25, "BJump"
+		this->sprite, 16, 32, std::vector<int>{ 12 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioJump>(this->current_state) != nullptr && this->is_grown && !is_fire && !fire_transform;  }, [this]() {return this->direction; }, false, 25, "BJump"
 	);
 	//Crouch
 	this->animator->addFrameAnimation(
-		this->sprite, 16, 32, std::vector<int>{ 13 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioCrouch>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, false, 30, "BCrouch"
+		this->sprite, 16, 32, std::vector<int>{ 13 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioCrouch>(this->current_state) != nullptr && !is_fire && !fire_transform;  }, [this]() {return this->direction; }, false, 30, "BCrouch"
 	);
 	//Transformat into fire mario
 	this->animator->addFrameAnimation(
 		this->sprite, 16, 32, std::vector<int>{ 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3 }, 0.1f, [this]() {return false;  }, [this]() {return this->direction; }, false, 30, "Fire"
+	);
+
+	//Fire Mario Animations
+	//Idle
+	this->animator->addFrameAnimation(
+		this->sprite, 16, 32, std::vector<int>{0}, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioIdle>(this->current_state) != nullptr && this->is_grown && is_fire; }, [this]() {return this->direction; }, true, 25, "FIdle"
+	);
+	//Run
+	this->animator->addFrameAnimation(
+		this->sprite, 16, 32, std::vector<int>{1, 2, 3 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr && this->is_grown && is_fire;  }, [this]() {return this->direction; }, true, 25, "FRun"
+	);
+	//Slide
+	this->animator->addFrameAnimation(
+		this->sprite, 16, 32, std::vector<int>{4 }, 25.f / 1000.f, [this]() {
+			return this->is_sliding && std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr && this->is_grown && is_fire;
+		}, [this]() {return this->direction; }, true, 30, "FSlide"
+			);
+	//Jump
+	this->animator->addFrameAnimation(
+		this->sprite, 16, 32, std::vector<int>{ 5 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioJump>(this->current_state) != nullptr && this->is_grown && is_fire;  }, [this]() {return this->direction; }, false, 25, "FJump"
+	);
+	//Crouch
+	this->animator->addFrameAnimation(
+		this->sprite, 16, 32, std::vector<int>{ 6 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioCrouch>(this->current_state) != nullptr && is_fire;  }, [this]() {return this->direction; }, false, 30, "FCrouch"
 	);
 }
 
@@ -113,8 +138,8 @@ void Mario::initAudio()
 }
 
 //Con/Des
-Mario::Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, std::shared_ptr<sf::Texture> texture, std::shared_ptr<sf::Texture> texture1, const sf::FloatRect& rect, const std::string& type, int layer) : window(window), texture(*texture), texture1(*texture1),
-map(map), col(col), GameObject(type, rect, layer)
+Mario::Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, std::shared_ptr<TextureManager> texture_manager, const sf::FloatRect& rect, const std::string& type, int layer) : window(window), texture(*texture_manager->get("Mario").get()),
+texture1(*texture_manager->get("MarioBig").get()), texture2(*texture_manager->get("MarioFire").get()), map(map), col(col), GameObject(type, rect, layer)
 {
 	this->initVariables();
 	this->initSprite();
@@ -262,7 +287,7 @@ void Mario::fire()
 
 	sprite.setTextureRect(sf::IntRect(0, 0, 16, 32));
 
-	is_fire = true;
+	fire_transform = true;
 	animator->playAnim("Fire");
 }
 
@@ -366,7 +391,7 @@ void Mario::update(float deltaTime)
 		this->grow_timer = 0.f;
 
 	//Check fire and not let mario move while transforms into fire form
-	if (is_fire)
+	if (fire_transform)
 	{
 		if (fire_timer < fire_time)
 		{
@@ -376,8 +401,9 @@ void Mario::update(float deltaTime)
 		else
 		{
 			fire_timer = 0.f;
-			is_fire = false;
-			sprite.setTexture(texture1);
+			fire_transform = false;
+			is_fire = true;
+			sprite.setTexture(texture2);
 		}
 	}
 

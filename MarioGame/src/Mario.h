@@ -40,6 +40,8 @@ private:
 	sf::Texture texture;
 	//Big Mario
 	sf::Texture texture1;
+	//Fire Mario
+	sf::Texture texture2;
 
 	sf::Sprite sprite;
 	sf::Texture tx_glitch;
@@ -79,6 +81,7 @@ private:
 	float fire_time;
 	float fire_timer;
 	bool is_fire;
+	bool fire_transform;
 
 	//Slide
 	float slide_time;
@@ -112,7 +115,7 @@ public:
 	friend class IMarioCollectFlag;
 	friend class IMarioRunToCastle;
 
-	Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, std::shared_ptr<sf::Texture> texture, std::shared_ptr<sf::Texture> texture1, const sf::FloatRect& rect, const std::string& type, int layer);
+	Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, std::shared_ptr<TextureManager> texture_manager, const sf::FloatRect& rect, const std::string& type, int layer);
 	virtual ~Mario();
 
 	//Accessors

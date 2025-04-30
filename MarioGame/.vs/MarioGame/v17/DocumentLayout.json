@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Animator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Animator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Mario.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Mario.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\MarioState.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\MarioState.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Mario.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Mario.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\MarioState.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\MarioState.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Animator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Animator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Animator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -150,7 +150,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 16,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Document",
@@ -250,39 +250,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "MarioState.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\MarioState.cpp",
               "RelativeDocumentMoniker": "src\\MarioState.cpp",
               "ToolTip": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\MarioState.cpp",
               "RelativeToolTip": "src\\MarioState.cpp",
-              "ViewState": "AgIAAE0AAAAAAAAAAAAhwF8AAABIAAAAAAAAAA==",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAhwDMBAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-06T14:26:56.137Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Mario.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Mario.h",
               "RelativeDocumentMoniker": "src\\Mario.h",
               "ToolTip": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Mario.h",
               "RelativeToolTip": "src\\Mario.h",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAhwFAAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAADgAAAAAAAAAAAAhwFMAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-04-22T14:33:50.983Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Mario.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Mario.cpp",
               "RelativeDocumentMoniker": "src\\Mario.cpp",
               "ToolTip": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Mario.cpp",
               "RelativeToolTip": "src\\Mario.cpp",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAhwFcAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAAC8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-06T14:34:08.813Z",
               "EditorCaption": ""
@@ -349,13 +349,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Game.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Game.cpp",
               "RelativeDocumentMoniker": "src\\Game.cpp",
               "ToolTip": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Game.cpp",
               "RelativeToolTip": "src\\Game.cpp",
-              "ViewState": "AgIAAPsAAAAAAAAAAAAAABABAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAO0AAAAAAAAAAAAAAHIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-14T18:25:33.676Z",
               "EditorCaption": ""
@@ -430,12 +430,11 @@
               "RelativeToolTip": "src\\Item.h",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAAGQAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-04T17:46:02.684Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-04T17:46:02.684Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Animator.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Animator.h",
               "RelativeDocumentMoniker": "src\\Animator.h",
@@ -443,8 +442,7 @@
               "RelativeToolTip": "src\\Animator.h",
               "ViewState": "AgIAAGkAAAAAAAAAAAAAAHUAAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-22T14:04:05.826Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-22T14:04:05.826Z"
             },
             {
               "$type": "Document",
@@ -456,8 +454,7 @@
               "RelativeToolTip": "src\\Animator.cpp",
               "ViewState": "AgIAADsAAAAAAAAAAAAlwFAAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-17T15:44:50.959Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-17T15:44:50.959Z"
             },
             {
               "$type": "Document",

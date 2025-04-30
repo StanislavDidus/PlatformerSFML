@@ -294,8 +294,10 @@ class IMarioCollectFlag: public IMarioState
 	{
 		if (!mario.is_grown)
 			mario.sprite.setTextureRect(sf::IntRect(112, 0, 16, 16));
-		else
+		else if (!mario.is_grown && !mario.is_fire)
 			mario.sprite.setTextureRect(sf::IntRect(0, 64, 16, 32));
+		else
+			mario.sprite.setTextureRect(sf::IntRect(0, 32, 16, 32));
 		mario.sprite.move(20.f, 0.f);
 	}
 
@@ -326,8 +328,10 @@ class IMarioRunToCastle : public IMarioState
 	{
 		if (!mario.is_grown)
 			mario.animator->playAnim("Run");
-		else
+		else if(!mario.is_grown && !mario.is_fire)
 			mario.animator->playAnim("BRun");
+		else
+			mario.animator->playAnim("FRun");
 		mario.move(1.f, 0.f);
 		//velocity.x = 100.f;
 		if (mario.sprite.getPosition().y < 600 - mario.sprite.getGlobalBounds().height)
