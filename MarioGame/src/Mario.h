@@ -24,6 +24,12 @@ class IMarioCrouch;
 class IMarioCollectFlag;
 class IMarioRunToCastle;
 
+struct uint3
+{
+	sf::Uint32 x, y, z;
+	uint3(sf::Uint32 x, sf::Uint32 y, sf::Uint32 z) : x(x), y(y), z(z) {}
+};
+
 class Mario : public GameObject
 {
 private:
@@ -36,6 +42,7 @@ private:
 	sf::Texture texture1;
 
 	sf::Sprite sprite;
+	sf::Texture tx_glitch;
 
 	std::shared_ptr<QuadTree> quadTree;
 
@@ -67,6 +74,11 @@ private:
 	float grow_time;
 	float grow_timer;
 	bool is_grown;
+
+	//Fire
+	float fire_time;
+	float fire_timer;
+	bool is_fire;
 
 	//Slide
 	float slide_time;

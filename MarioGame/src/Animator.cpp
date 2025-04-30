@@ -55,27 +55,41 @@ void Animator::playAnim(const std::string& name)
 
 const sf::FloatRect Animator::getCurrentFrame()
 {
-	if (anim_name == "")
+	Animation* anim = currentAnim;
+
+	if (anim == nullptr)
 		return sf::FloatRect();
 
+	FrameAnimation* frameAnim = dynamic_cast<FrameAnimation*>(anim);
 
-	auto anim = getAnim(anim_name);
-	auto frameAnim = std::dynamic_pointer_cast<FrameAnimation>(anim);
-
-	if(frameAnim == nullptr)
+	if (frameAnim == nullptr)
+	{
+		std::cout << "frame\n";
 		return sf::FloatRect();
+	}
 
 	int dir = frameAnim->get_direction();
+	if (dir == 0) dir = 1;
 
 	int columnCount = frameAnim->sprite.getTexture()->getSize().x / frameAnim->frame_width;
 	int x = frameAnim->animation_frames[frameAnim->current_frame] % columnCount;
 	int y = frameAnim->animation_frames[frameAnim->current_frame] / columnCount;
 
+	float left = frameAnim->frame_width * x;
+	float width = frameAnim->frame_width;
+
 	return sf::FloatRect(
-		dir == 1 ? frameAnim->frame_width * x : frameAnim->frame_width * x + frameAnim->frame_width,
+		left,
 		frameAnim->frame_height * y,
-		dir * frameAnim->frame_width,
+		width,
 		frameAnim->frame_height);
+
+	/*return sf::FloatRect(
+		left,
+		frameAnim->frame_height * y,
+		width,
+		frameAnim->frame_height
+	);*/
 }
 
 const bool Animator::isPlayed() const
@@ -110,10 +124,12 @@ void Animator::update(float deltaTime)
 				}
 			}
 			anim_highest_prior->play(this->timer, this->deltaTime);
+			currentAnim = anim_highest_prior;
 		}
 		else
 		{
 			prior_anim[0]->play(this->timer, this->deltaTime);
+			currentAnim = prior_anim[0];
 		}
 	}
 
@@ -123,6 +139,7 @@ void Animator::update(float deltaTime)
 		if (this->animations_map.find(this->anim_name) != this->animations_map.end())
 		{
 			this->animations_map[this->anim_name]->play(this->timer, this->deltaTime, &this->play_anim);
+			currentAnim = this->animations_map[this->anim_name].get();
 			if (!this->play_anim)
 				this->anim_name = "";
 		}

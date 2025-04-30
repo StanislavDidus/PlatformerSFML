@@ -153,7 +153,7 @@ struct FrameAnimation : public Animation
                 //End animation
                 if (end != nullptr)
                 {
-                  
+                    current_frame = 0;
                     is_finished = true;
                     *end = false;
                 }
@@ -275,6 +275,8 @@ private:
     int current_priority = -1;
 
     float timer;
+
+    Animation* currentAnim;
 
     std::vector<std::shared_ptr<Animation>> animations;
 

@@ -269,6 +269,8 @@ void Game::updateCollisions(float deltaTime)
 
 				if (obj->getType() == "Mushroom")
 					this->mario->grow();
+				else if (obj->getType() == "FireFlower")
+					this->mario->fire();
 
 				//delete it
 				auto it = std::find_if(gameObjects.begin(), gameObjects.end(),
