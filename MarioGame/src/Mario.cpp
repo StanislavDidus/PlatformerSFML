@@ -215,8 +215,6 @@ void Mario::grow()
 
 void Mario::fire()
 {
-	play_anim = false;
-
 	const sf::Texture* tx = sprite.getTexture();
 	sf::Image origin_img = tx->copyToImage();
 	sf::FloatRect fragmentRect = animator->getCurrentFrame();
@@ -378,7 +376,7 @@ void Mario::update(float deltaTime)
 	if (this->current_state != nullptr) // Update current state
 		this->current_state->onUpdate(*this, deltaTime);
 
-	if (this->animator != nullptr)
+	if (this->animator != nullptr && play_anim)
 		this->animator->update(this->deltaTime);
 
 	//Check Grow and not let mario move while growing
@@ -415,7 +413,8 @@ void Mario::update(float deltaTime)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
 		if (!wasPressed) {
-			fire();
+			play_anim = false;
+			sprite.setTextureRect(sf::IntRect(64,0,16,32));
 			wasPressed = true;
 		}
 	}

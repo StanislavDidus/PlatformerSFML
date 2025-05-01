@@ -31,14 +31,14 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\MarioState.cpp(89,15): warning C4244: 
 C:\GitHubProjects\MarioSFML\MarioGame\src\MarioState.cpp(94,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Mario.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(257,26): warning C4244: 'initializing': conversion from 'T' to 'unsigned int', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(257,26): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(257,26): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(257,26): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(257,26): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(258,26): warning C4244: 'initializing': conversion from 'T' to 'unsigned int', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(258,26): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(258,26): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(258,26): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(258,26): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(255,26): warning C4244: 'initializing': conversion from 'T' to 'unsigned int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(255,26): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(255,26): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(255,26): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(255,26): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(256,26): warning C4244: 'initializing': conversion from 'T' to 'unsigned int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(256,26): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(256,26): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(256,26): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(256,26): warning C4244:         ]
   MarioGame.vcxproj -> C:\GitHubProjects\MarioSFML\MarioGame\x64\Debug\MarioGame.exe

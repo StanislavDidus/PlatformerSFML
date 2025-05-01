@@ -27,7 +27,7 @@ public:
 
 	virtual ~FireFlower() {}
 
-	void onHit() override { std::cout << "flower\n"; }
+	void onHit() override {  }
 
 	void update(float deltaTime) override
 	{

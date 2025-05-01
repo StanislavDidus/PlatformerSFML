@@ -164,7 +164,7 @@ void Game::showScore(sf::Vector2f pos, sf::Texture* texture)
 }
 
  // Uses for some particular situations
-void Game::init()
+bool Game::init()
 {
 	this->initVariables();
 	this->initWindow();
@@ -175,6 +175,8 @@ void Game::init()
 	this->initMap();
 	this->initAudio();
 	this->initText();
+
+	return true;
 
 	//placeholder
 	//this->last_camera_pos = { 9451.f, 375.f };

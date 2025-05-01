@@ -125,7 +125,7 @@ public:
 	void showScore(sf::Vector2f pos, sf::Texture* texture);
 	void DisplayStartMenu();
 
-	void init();
+	bool init();
 	void updateEvents();
 	void updateView();
 	void updateAudio();
