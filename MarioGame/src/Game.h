@@ -122,7 +122,7 @@ public:
 
 	void addScore(int score);
 	void addCoin();
-	void showScore(sf::Vector2f pos, sf::Texture* texture);
+	void showScore(sf::Vector2f pos, sf::Texture* texture, int score);
 	void DisplayStartMenu();
 
 	bool init();

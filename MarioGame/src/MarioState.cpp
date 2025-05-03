@@ -188,12 +188,14 @@ class IMarioJump : public IMarioState
 
 		if (mario.getPosition().y < mario.jump_start_pos - mario.jump_start_max && mario.velocity.y >= 0.f)
 		{
-			mario.is_jump_over = true;
+			//mario.is_jump_over = true;
+			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioFall>()));
 		}
 
-		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		if (mario.getBounds().top > mario.sprite.getPosition().y)
 		{
-			mario.is_jump_over = true;
+			//mario.is_jump_over = true;
+			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioFall>()));
 		}
 
 		// Check lucky block collision
@@ -228,17 +230,73 @@ class IMarioJump : public IMarioState
 			mario.velocity.y += 350.f;
 			//std::cout << "ROOF\n";
 		}
-		
-		if (mario.is_ground)
-		{
-			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioIdle>()));
-			
-		}
 	}
 
 	void onExit(Mario& mario) override
 	{
 		mario.is_jump_over = false;
+	}
+};
+
+class IMarioFall
+{
+	void onEnter(Mario& mario)
+	{
+
+	}
+
+	void onUpdate(Mario& mario, float deltaTime)
+	{
+		//Inputs
+		//Move mario
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			mario.move(-1.f, 0.f);
+			//mario.flip(-1.f);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			mario.move(1.f, 0.f);
+			//mario.flip(1.f);
+		}
+		else
+		{
+			if (mario.velocity.x > 0.f)
+			{
+				mario.velocity.x -= 325.f * deltaTime;
+			}
+			else if (mario.velocity.x < 0.f)
+			{
+				mario.velocity.x += 325.f * deltaTime;
+			}
+
+			if (std::abs(mario.velocity.x) < 10.f)
+			{
+				mario.velocity.x = 0.f;
+			}
+		}
+
+		//Callibrate max jump height
+		mario.jump_start_max = 0.3125f * abs(mario.velocity.x) + 25.f;
+
+		//Apply gravity and move 
+		float deltaX = mario.velocity.x * deltaTime;
+		float deltaY = mario.velocity.y * deltaTime;;
+		mario.col->callibrateCollision(mario, deltaX, deltaY);
+		mario.sprite.move(deltaX, deltaY);
+
+		mario.applyGravity(deltaTime);
+
+		if (mario.is_ground)
+		{
+			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioIdle>()));
+
+		}
+	}
+
+	void onExit(Mario& mario)
+	{
+
 	}
 };
 
@@ -283,6 +341,24 @@ class IMarioCrouch : public IMarioState
 	}
 
 	void onExit(Mario& mario) override
+	{
+
+	}
+};
+
+class IMarioShoot
+{
+	void onEnter(Mario& mario)
+	{
+
+	}
+
+	void onUpdate(Mario& mario, float deltaTime)
+	{
+
+	}
+
+	void onExit(Mario& mario)
 	{
 
 	}

@@ -15,7 +15,7 @@ private:
 public:
 	int layer;
 	bool is_active; //Is object active
-	bool is_destroyed;
+	bool is_destroyed = false;
 	bool is_collision = true; //Collision work
 
 	GameObject(std::string type, sf::FloatRect bounds, int layer) : type(type), bounds(bounds), layer(layer), is_active(true) {}

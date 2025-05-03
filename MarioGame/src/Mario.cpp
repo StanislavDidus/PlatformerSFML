@@ -33,6 +33,8 @@ void Mario::initVariables()
 	this->fire_timer = 0.f;
 	this->fire_transform = false;
 	this->is_fire = false;
+
+	is_falling = false;
 }
 
 void Mario::initSprite()
@@ -138,7 +140,8 @@ void Mario::initAudio()
 }
 
 //Con/Des
-Mario::Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, std::shared_ptr<TextureManager> texture_manager, const sf::FloatRect& rect, const std::string& type, int layer) : window(window), texture(*texture_manager->get("Mario").get()),
+Mario::Mario(sf::RenderWindow* window, Map* map, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, sf::View* view, const sf::FloatRect& rect, const std::string& type, int layer) : window(window),
+texture_manager(texture_manager), texture(*texture_manager->get("Mario").get()), view(view),
 texture1(*texture_manager->get("MarioBig").get()), texture2(*texture_manager->get("MarioFire").get()), map(map), col(col), GameObject(type, rect, layer)
 {
 	this->initVariables();
@@ -177,7 +180,7 @@ void Mario::setGround(bool state)
 
 void Mario::setPosition(const sf::Vector2f& newPosition)
 {
-	GameObject::setPosition(newPosition);
+	//GameObject::setPosition(newPosition);
 	//sprite.setPosition(newPosition);
 	//std::cout << newPosition.x << ", " << newPosition.y << "\n";
 }
@@ -289,6 +292,12 @@ void Mario::fire()
 	animator->playAnim("Fire");
 }
 
+void Mario::shoot()
+{
+	if(fireBalls.size() < 2)
+		fireBalls.push_back(std::make_shared<FireBall>("FireBall", sf::FloatRect(sprite.getPosition().x + 8 * direction, sprite.getPosition().y + 8, 8, 8), 20, texture_manager, col, direction));
+}
+
 void Mario::die()
 {
 
@@ -356,6 +365,21 @@ void Mario::updateCollision()
 
 }
 
+void Mario::updateFireBalls(float deltaTime)
+{
+	//FireBalls
+	for (int i = fireBalls.size() - 1; i >= 0; i--)
+	{
+		fireBalls[i]->update(deltaTime);
+
+		float distance = view->getCenter().x - fireBalls[i]->getPosition().x;
+		if (fireBalls[i]->isDestroyed() || fireBalls[i]->getPosition().x < 0.f - fireBalls[i]->getBounds().width || abs(distance) > 400.f)
+		{
+			fireBalls.erase(fireBalls.begin() + i);
+		}
+	}
+}
+
 
 bool wasPressed = false;
 void Mario::update(float deltaTime)
@@ -373,10 +397,18 @@ void Mario::update(float deltaTime)
 
 	}
 
+	//Check fall
+	if (velocity.y > 0.f && !is_ground)
+		is_falling = true;
+	else 
+		is_falling = false;
+
+	std::cout << is_falling << "\n";
+
 	if (this->current_state != nullptr) // Update current state
 		this->current_state->onUpdate(*this, deltaTime);
 
-	if (this->animator != nullptr && play_anim)
+	if (this->animator != nullptr && play_anim && !is_falling)
 		this->animator->update(this->deltaTime);
 
 	//Check Grow and not let mario move while growing
@@ -411,10 +443,16 @@ void Mario::update(float deltaTime)
 	// Limit mario x movement 
 	this->sprite.setPosition(MathUtils::clamp(this->sprite.getPosition().x, this->window->getView().getCenter().x - this->window->getSize().x / 2.f, this->window->getView().getCenter().x + this->window->getSize().x / 2.f - this->sprite.getGlobalBounds().width), this->sprite.getPosition().y);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
 		if (!wasPressed) {
-			play_anim = false;
-			sprite.setTextureRect(sf::IntRect(64,0,16,32));
+			if(is_fire)
+				shoot();
+			wasPressed = true;
+		}
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
+		if (!wasPressed) {
+			fire();
 			wasPressed = true;
 		}
 	}
@@ -427,6 +465,8 @@ void Mario::update(float deltaTime)
 	else {
 		wasPressed = false;
 	}
+
+	updateFireBalls(deltaTime);
 
 	//Check finish state (if mario is not in cinematic state and touches a flag)
 	is_touching_flag = col->checkCollision({ sprite.getGlobalBounds().left + velocity.x * deltaTime,
@@ -448,13 +488,20 @@ void Mario::update(float deltaTime)
 			sprite.getGlobalBounds().height }, velocity, "All", CollisionType::DOWN);
 
 	sf::Vector2f newPosition = this->sprite.getPosition();
-	setPosition(newPosition);
+	GameObject::setPosition(newPosition);
 }
 
 void Mario::render(sf::RenderTarget* target)
 {
+	for (auto fireBall : fireBalls)
+	{
+		fireBall->render(target);
+	}
+	
 	if (!is_dead)
 		target->draw(this->sprite);
+
+
 	/*sf::RectangleShape debugRect;
 	debugRect.setPosition(sprite.getGlobalBounds().left, sprite.getGlobalBounds().top);
 	debugRect.setSize({ sprite.getGlobalBounds().width, sprite.getGlobalBounds().height });

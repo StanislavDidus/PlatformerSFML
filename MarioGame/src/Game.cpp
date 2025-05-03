@@ -20,21 +20,24 @@ void Game::initVariables()
 
 void Game::initTextureManager()
 {
+	//Init texture manager
 	this->texture_manager = std::make_shared<TextureManager>();
-	this->texture_manager->load("Mario", "assets/Textures/Mario/Mario0.png");
-	this->texture_manager->load("MarioBig", "assets/Textures/Mario/Mario1.png");
-	this->texture_manager->load("MarioFire", "assets/Textures/Mario/Mario2.png");
-	this->texture_manager->load("LuckyBlock", "assets/Textures/Levels/LuckyBlock.png");
-	this->texture_manager->load("Brick", "assets/Textures/Levels/Brick.png");
-	this->texture_manager->load("Mushroom", "assets/Textures/Levels/Mushroom.png");
-	this->texture_manager->load("FireFlower", "assets/Textures/Levels/FireFlower.png");
-	this->texture_manager->load("Coin", "assets/Textures/Levels/Coin_Anim.png");
-	this->texture_manager->load("Block", "assets/Textures/Levels/Block.png");
-	this->texture_manager->load("FlagStick", "assets/Textures/Levels/Flag_Stick.png");
-	this->texture_manager->load("BrokenBrick", "assets/Textures/Levels/BrokenBrick.png");
-	this->texture_manager->load("Flag", "assets/Textures/Levels/Flag.png");
-	this->texture_manager->load("200S", "assets/Textures/Scores/200.png");
-	this->texture_manager->load("1000S", "assets/Textures/Scores/1000.png");	
+	this->texture_manager->load("Mario", "assets/Textures/Mario/Mario0.png"); //Small mario
+	this->texture_manager->load("MarioBig", "assets/Textures/Mario/Mario1.png"); //Big mario
+	this->texture_manager->load("MarioFire", "assets/Textures/Mario/Mario2.png"); //Fire mario
+	this->texture_manager->load("FireBall", "assets/Textures/FireBall.png"); //FireBall
+	this->texture_manager->load("Explosion", "assets/Textures/Explosion.png"); //Explosion
+	this->texture_manager->load("LuckyBlock", "assets/Textures/Levels/LuckyBlock.png"); //LuckyBlock
+	this->texture_manager->load("Brick", "assets/Textures/Levels/Brick.png"); //Brick
+	this->texture_manager->load("Mushroom", "assets/Textures/Levels/Mushroom.png"); //Mushroom
+	this->texture_manager->load("FireFlower", "assets/Textures/Levels/FireFlower.png"); //FireFlower
+	this->texture_manager->load("Coin", "assets/Textures/Levels/Coin_Anim.png"); //Coin
+	this->texture_manager->load("Block", "assets/Textures/Levels/Block.png"); //Block
+	this->texture_manager->load("FlagStick", "assets/Textures/Levels/Flag_Stick.png"); //FlagStick
+	this->texture_manager->load("BrokenBrick", "assets/Textures/Levels/BrokenBrick.png"); //BrokenBrick
+	this->texture_manager->load("Flag", "assets/Textures/Levels/Flag.png"); //Flag
+	this->texture_manager->load("200S", "assets/Textures/Scores/200.png"); //200 score
+	this->texture_manager->load("1000S", "assets/Textures/Scores/1000.png"); //1000 score
 }
 
 void Game::initWindow()
@@ -117,13 +120,13 @@ void Game::initText()
 void Game::initMario()
 {
 	//Init Mario
-	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), this->col_manager.get(), texture_manager, sf::FloatRect(0, 0, 48, 48), "Mario", 25);
+	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), col_manager, texture_manager, view.get(), sf::FloatRect(0, 0, 48, 48), "Mario", 25);
 }
 
 void Game::initFlag()
 {
 	//Init Flag
-	flag = std::make_unique<Flag>("Flag", sf::FloatRect(198.f * 16.f * 3.125f, 1.f * 16.f * 3.125f, 16.f * 3.125f, 16.f * 10.f * 3.125f), 15, texture_manager->get("FlagStick").get(), texture_manager->get("Flag").get());
+	flag = std::make_unique<Flag>("Flag", sf::FloatRect((198.f * 16.f)  * 3.125f, 1.f * 16.f * 3.125f, 2.f * 3.125f, 16.f * 10.f * 3.125f), 15, texture_manager->get("FlagStick").get(), texture_manager->get("Flag").get());
 	quadTree->insert({flag->getBounds(), "Flag"});
 	//std::cout << flag->getBounds().left << ", " << flag->getBounds().top << "\n";
 }
@@ -154,12 +157,12 @@ void Game::addCoin()
 	coin_amount++;
 }
 
-void Game::showScore(sf::Vector2f pos, sf::Texture* texture)
+void Game::showScore(sf::Vector2f pos, sf::Texture* texture, int score)
 {
 	//Display scores
 	std::shared_ptr<Text> text = std::make_shared<Text>(16,8, pos, texture);
 	text->getAnimator()->playAnim("Score");
-	this->addScore(1000);
+	this->addScore(score);
 	scores_.push_back(text);
 }
 
@@ -272,8 +275,10 @@ void Game::updateCollisions(float deltaTime)
 
 				if (obj->getType() == "Mushroom")
 					this->mario->grow();
-				else if (obj->getType() == "FireFlower")
+				else if (obj->getType() == "FireFlower" && !mario->isFire() && mario->isBig())
 					this->mario->fire();
+				else if (obj->getType() == "FireFlower" && !mario->isFire() && !mario->isBig())
+					this->mario->grow();
 
 				//delete it
 				auto it = std::find_if(gameObjects.begin(), gameObjects.end(),

@@ -14,13 +14,16 @@
 #include "AudioManager.h"
 #include "GameObject.h"
 #include "Algorythms/QuadTree.h"
+#include "Objects/FireBall.h"
 //#include "Manager/TextureManager.h"
 
 class IMarioState;
 class IMarioIdle;
 class IMarioWalk;
 class IMarioJump;
+class IMarioFall;
 class IMarioCrouch;
+class IMarioShoot;
 class IMarioCollectFlag;
 class IMarioRunToCastle;
 
@@ -34,8 +37,10 @@ class Mario : public GameObject
 {
 private:
 	sf::RenderWindow* window;
+	sf::View* view;
 	sf::Clock clock;
 
+	std::shared_ptr<TextureManager> texture_manager;
 	//Mario
 	sf::Texture texture;
 	//Big Mario
@@ -46,11 +51,13 @@ private:
 	sf::Sprite sprite;
 	sf::Texture tx_glitch;
 
+	std::vector<std::shared_ptr<FireBall>> fireBalls;
+
 	std::shared_ptr<QuadTree> quadTree;
 
 	Map* map;
 
-	CollisionManager* col;
+	std::shared_ptr<CollisionManager> col;
 
 	//Audio
 	std::unique_ptr<AudioManager> mario_audio_manager;
@@ -88,6 +95,8 @@ private:
 	float slide_time_max;
 	bool is_sliding;
 
+	bool is_falling;
+
 	//Jump
 	bool is_jump_over;
 	bool is_ground;
@@ -111,11 +120,13 @@ public:
 	friend class IMarioIdle;
 	friend class IMarioWalk;
 	friend class IMarioJump;
+	friend class IMarioFall;
 	friend class IMarioCrouch;
+	friend class IMarioShoot;
 	friend class IMarioCollectFlag;
 	friend class IMarioRunToCastle;
 
-	Mario(sf::RenderWindow* window, Map* map, CollisionManager* col, std::shared_ptr<TextureManager> texture_manager, const sf::FloatRect& rect, const std::string& type, int layer);
+	Mario(sf::RenderWindow* window, Map* map, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, sf::View* view, const sf::FloatRect& rect, const std::string& type, int layer);
 	virtual ~Mario();
 
 	//Accessors
@@ -126,12 +137,16 @@ public:
 	void setGround(bool state);
 	void setPosition(const sf::Vector2f& newPosition) override;
 
+	const bool isBig() const { return is_grown; }
+	const bool isFire() const { return is_fire; }
+
 	void Finish(float deltaTime);
 
 	//Functions
 	void move(float dirX, float dirY);
 	void grow();
 	void fire();
+	void shoot();
 	void die();
 	void checkSlide();
 	void checkCollisions();
@@ -139,6 +154,7 @@ public:
 	void applyGravity(float deltaTime);
 	void setState(const std::shared_ptr<IMarioState>& state);
 	void updateCollision();
+	void updateFireBalls(float deltaTime);
 	void update(float deltaTime) override;
 	void render(sf::RenderTarget* target) override;
 };
