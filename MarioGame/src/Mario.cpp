@@ -34,7 +34,16 @@ void Mario::initVariables()
 	this->fire_transform = false;
 	this->is_fire = false;
 
+	shoot_timer = 0.1f;
+	wasShootPressedLastFrame = false;
+
+	is_touching_flag = false;
+
+	play_anim = true;
+
 	is_falling = false;
+
+	lifes = 3;
 }
 
 void Mario::initSprite()
@@ -130,6 +139,10 @@ void Mario::initAnimator()
 	this->animator->addFrameAnimation(
 		this->sprite, 16, 32, std::vector<int>{ 6 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioCrouch>(this->current_state) != nullptr && is_fire;  }, [this]() {return this->direction; }, false, 30, "FCrouch"
 	);
+	//Shoot
+	this->animator->addFrameAnimation(
+		this->sprite, 16, 32, std::vector<int>{ 9 }, shoot_time, [this]() {return std::dynamic_pointer_cast<IMarioShoot>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, false, 50, "FShoot"
+	);
 }
 
 void Mario::initAudio()
@@ -183,6 +196,11 @@ void Mario::setPosition(const sf::Vector2f& newPosition)
 	//GameObject::setPosition(newPosition);
 	//sprite.setPosition(newPosition);
 	//std::cout << newPosition.x << ", " << newPosition.y << "\n";
+}
+
+const int Mario::getLifes() const
+{
+	return lifes;
 }
 
 void Mario::Finish(float deltaTime)
@@ -294,8 +312,7 @@ void Mario::fire()
 
 void Mario::shoot()
 {
-	if(fireBalls.size() < 2)
-		fireBalls.push_back(std::make_shared<FireBall>("FireBall", sf::FloatRect(sprite.getPosition().x + 8 * direction, sprite.getPosition().y + 8, 8, 8), 20, texture_manager, col, direction));
+	
 }
 
 void Mario::die()
@@ -352,12 +369,32 @@ void Mario::applyGravity(float deltaTime)
 
 void Mario::setState(const std::shared_ptr<IMarioState>& state)
 {
+	if (current_state == state)
+		return;
+	
 	if (this->current_state != nullptr) // OnExit
+	{
 		this->current_state->onExit(*this);
+		
+	}
 
 	this->current_state = state; // set new state
 
 	this->current_state->onEnter(*this); // OnEnter
+}
+
+void Mario::setLastState()
+{
+	if (last_state == current_state)
+		return;
+
+	if (this->last_state != nullptr) // OnExit
+	{
+		this->last_state->onExit(*this);
+
+	}
+
+	this->current_state = last_state; // set new state
 }
 
 void Mario::updateCollision()
@@ -398,12 +435,8 @@ void Mario::update(float deltaTime)
 	}
 
 	//Check fall
-	if (velocity.y > 0.f && !is_ground)
-		is_falling = true;
-	else 
-		is_falling = false;
+	
 
-	std::cout << is_falling << "\n";
 
 	if (this->current_state != nullptr) // Update current state
 		this->current_state->onUpdate(*this, deltaTime);

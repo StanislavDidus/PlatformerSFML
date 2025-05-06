@@ -31,6 +31,8 @@ private:
 	bool is_game_started;
 	sf::Texture mario_icon_texture;
 	sf::Sprite mario_icon;
+	sf::Text current_world_text;
+	sf::Text lifes_amount_text;
 
 	//Window
 	std::unique_ptr<sf::RenderWindow> window;

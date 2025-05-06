@@ -111,10 +111,27 @@ void Game::initText()
 	this->world_text.setFillColor(sf::Color::White);
 	this->world_text.setString("WORLD\n 1-1\n");
 
+	current_world_text.setFont(main_font);
+	current_world_text.setCharacterSize(30);
+	current_world_text.setFillColor(sf::Color::White);
+	current_world_text.setString("WORLD 1-1\n");
+	current_world_text.setPosition(window->getSize().x / 2.f - 150.f, window->getSize().y / 2.f / 30.f - 75.f);
+
 	this->time_text.setFont(this->main_font);
 	this->time_text.setCharacterSize(30);
 	this->time_text.setFillColor(sf::Color::White);
 	this->time_text.setString("TIME\n 300\n");
+
+	lifes_amount_text.setFont(main_font);
+	lifes_amount_text.setCharacterSize(30);
+	lifes_amount_text.setFillColor(sf::Color::White);
+	lifes_amount_text.setPosition(375.f, 25.f);
+
+	mario_icon_texture = *texture_manager->get("Mario");
+	mario_icon.setTexture(mario_icon_texture);
+	mario_icon.setScale(3.3f,3.3f);
+	mario_icon.setTextureRect(sf::IntRect(0, 0, 16, 16));
+	mario_icon.setPosition(250.f,20.f);
 }
 
 void Game::initMario()
@@ -250,6 +267,10 @@ void Game::updateText()
 	this->coin_text.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 290.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 55.f);
 	this->world_text.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 450.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 20.f);
 	this->time_text.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 650.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 20.f);
+
+	std::ostringstream oss4;
+	oss4 << "x   " << mario->getLifes() << "\n";
+	lifes_amount_text.setString(oss4.str());
 }
 
 void Game::updateMap()
@@ -364,7 +385,9 @@ void Game::renderText()
 
 void Game::DisplayStartMenu()
 {
-
+	window->draw(current_world_text);
+	window->draw(mario_icon);
+	window->draw(lifes_amount_text);
 }
 
 void Game::render()

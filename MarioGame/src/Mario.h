@@ -21,7 +21,6 @@ class IMarioState;
 class IMarioIdle;
 class IMarioWalk;
 class IMarioJump;
-class IMarioFall;
 class IMarioCrouch;
 class IMarioShoot;
 class IMarioCollectFlag;
@@ -39,6 +38,8 @@ private:
 	sf::RenderWindow* window;
 	sf::View* view;
 	sf::Clock clock;
+
+	
 
 	std::shared_ptr<TextureManager> texture_manager;
 	//Mario
@@ -63,10 +64,8 @@ private:
 	std::unique_ptr<AudioManager> mario_audio_manager;
 
 	//States
+	std::shared_ptr<IMarioState> last_state;
 	std::shared_ptr<IMarioState> current_state;
-	std::shared_ptr<IMarioIdle> idle_state;
-	std::shared_ptr<IMarioWalk> run_state;
-	std::shared_ptr<IMarioJump> jump_state;
 
 	sf::Vector2f velocity; // velocity.x , velocity.y
 	sf::Vector2f max_velocity; // max velocity
@@ -90,6 +89,11 @@ private:
 	bool is_fire;
 	bool fire_transform;
 
+	//Shoot
+	float shoot_time;
+	float shoot_timer;
+	bool wasShootPressedLastFrame;
+
 	//Slide
 	float slide_time;
 	float slide_time_max;
@@ -102,10 +106,13 @@ private:
 	bool is_ground;
 	
 	float gravity;
+
+	//Lifes
+	int lifes;
 	
 	//Animation
 	std::unique_ptr<Animator> animator;
-	bool play_anim = true;
+	bool play_anim;
 
 	void initVariables();
 	void initSprite();
@@ -113,14 +120,13 @@ private:
 	void initAnimator();
 	void initAudio();
 public:
-	bool is_touching_flag = false;
+	bool is_touching_flag;
 	bool is_dead;
 
 	float deltaTime;
 	friend class IMarioIdle;
 	friend class IMarioWalk;
 	friend class IMarioJump;
-	friend class IMarioFall;
 	friend class IMarioCrouch;
 	friend class IMarioShoot;
 	friend class IMarioCollectFlag;
@@ -140,6 +146,8 @@ public:
 	const bool isBig() const { return is_grown; }
 	const bool isFire() const { return is_fire; }
 
+	const int getLifes() const; //Return the amount of mario's lifes
+
 	void Finish(float deltaTime);
 
 	//Functions
@@ -153,6 +161,7 @@ public:
 	void flip(int dir);
 	void applyGravity(float deltaTime);
 	void setState(const std::shared_ptr<IMarioState>& state);
+	void setLastState();
 	void updateCollision();
 	void updateFireBalls(float deltaTime);
 	void update(float deltaTime) override;

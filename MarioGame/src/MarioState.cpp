@@ -22,6 +22,12 @@ class IMarioIdle : public IMarioState
 	void onUpdate(Mario& mario, float deltaTime) override
 	{
 		//Inputs
+		bool isEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
+		if (isEPressed && !mario.wasShootPressedLastFrame && mario.fireBalls.size() < 2 && mario.is_fire && mario.shoot_time == 0.f)
+		{
+			mario.last_state = mario.current_state;
+			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioShoot>()));
+		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
 			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioWalk>()));
@@ -50,6 +56,7 @@ class IMarioIdle : public IMarioState
 				mario.velocity.x = 0.f;
 			}
 		}
+		mario.wasShootPressedLastFrame = isEPressed;
 
 		//Callibrate max jump height
 		mario.jump_start_max = 0.3125f * abs(mario.velocity.x) + 25.f;
@@ -78,6 +85,12 @@ class IMarioWalk : public IMarioState
 	void onUpdate(Mario& mario, float deltaTime) override
 	{
 		//Inputs
+		bool isEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
+		if (isEPressed && !mario.wasShootPressedLastFrame && mario.fireBalls.size() < 2 && mario.is_fire && mario.shoot_time == 0.f)
+		{
+			mario.last_state = mario.current_state;
+			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioShoot>()));
+		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && mario.is_ground)
 		{
 			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioJump>()));
@@ -101,6 +114,7 @@ class IMarioWalk : public IMarioState
 		{
 			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioIdle>()));
 		}
+		mario.wasShootPressedLastFrame = isEPressed;
 
 		//Callibrate max jump height
 		mario.jump_start_max = 0.3125f * abs(mario.velocity.x) + 25.f;
@@ -140,6 +154,12 @@ class IMarioJump : public IMarioState
 	{
 		//Inputs
 		//Move mario
+		bool isEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
+		if (isEPressed && !mario.wasShootPressedLastFrame && mario.fireBalls.size() < 2 && mario.is_fire && mario.shoot_time == 0.f)
+		{
+			mario.last_state = mario.current_state;
+			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioShoot>()));
+		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
 			mario.move(-1.f, 0.f);
@@ -166,6 +186,7 @@ class IMarioJump : public IMarioState
 				mario.velocity.x = 0.f;
 			}
 		}
+		mario.wasShootPressedLastFrame = isEPressed;
 
 		//Callibrate max jump height
 		mario.jump_start_max = 0.3125f * abs(mario.velocity.x) + 25.f;
@@ -188,14 +209,14 @@ class IMarioJump : public IMarioState
 
 		if (mario.getPosition().y < mario.jump_start_pos - mario.jump_start_max && mario.velocity.y >= 0.f)
 		{
-			//mario.is_jump_over = true;
-			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioFall>()));
+			mario.is_jump_over = true;
+			//mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioFall>()));
 		}
 
 		if (mario.getBounds().top > mario.sprite.getPosition().y)
 		{
-			//mario.is_jump_over = true;
-			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioFall>()));
+			mario.is_jump_over = true;
+			//mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioFall>()));
 		}
 
 		// Check lucky block collision
@@ -230,62 +251,6 @@ class IMarioJump : public IMarioState
 			mario.velocity.y += 350.f;
 			//std::cout << "ROOF\n";
 		}
-	}
-
-	void onExit(Mario& mario) override
-	{
-		mario.is_jump_over = false;
-	}
-};
-
-class IMarioFall
-{
-	void onEnter(Mario& mario)
-	{
-
-	}
-
-	void onUpdate(Mario& mario, float deltaTime)
-	{
-		//Inputs
-		//Move mario
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-			mario.move(-1.f, 0.f);
-			//mario.flip(-1.f);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		{
-			mario.move(1.f, 0.f);
-			//mario.flip(1.f);
-		}
-		else
-		{
-			if (mario.velocity.x > 0.f)
-			{
-				mario.velocity.x -= 325.f * deltaTime;
-			}
-			else if (mario.velocity.x < 0.f)
-			{
-				mario.velocity.x += 325.f * deltaTime;
-			}
-
-			if (std::abs(mario.velocity.x) < 10.f)
-			{
-				mario.velocity.x = 0.f;
-			}
-		}
-
-		//Callibrate max jump height
-		mario.jump_start_max = 0.3125f * abs(mario.velocity.x) + 25.f;
-
-		//Apply gravity and move 
-		float deltaX = mario.velocity.x * deltaTime;
-		float deltaY = mario.velocity.y * deltaTime;;
-		mario.col->callibrateCollision(mario, deltaX, deltaY);
-		mario.sprite.move(deltaX, deltaY);
-
-		mario.applyGravity(deltaTime);
 
 		if (mario.is_ground)
 		{
@@ -294,9 +259,9 @@ class IMarioFall
 		}
 	}
 
-	void onExit(Mario& mario)
+	void onExit(Mario& mario) override
 	{
-
+		//mario.is_jump_over = false;
 	}
 };
 
@@ -346,15 +311,37 @@ class IMarioCrouch : public IMarioState
 	}
 };
 
-class IMarioShoot
+class IMarioShoot : public IMarioState
 {
 	void onEnter(Mario& mario)
 	{
-
+		mario.is_jump_over = true;
+		mario.fireBalls.push_back(std::make_shared<FireBall>("FireBall", sf::FloatRect(mario.sprite.getPosition().x + 8 * mario.direction, mario.sprite.getPosition().y + 8, 8, 8), 20, mario.texture_manager, mario.col, mario.direction));
 	}
 
 	void onUpdate(Mario& mario, float deltaTime)
 	{
+		
+		mario.jump_start_max = 0.3125f * abs(mario.velocity.x) + 25.f;
+
+		//Apply gravity and move 
+		float deltaX = mario.velocity.x * deltaTime;
+		float deltaY = mario.velocity.y * deltaTime;;
+		mario.col->callibrateCollision(mario, deltaX, deltaY);
+		mario.sprite.move(deltaX, deltaY);
+
+		mario.applyGravity(deltaTime);
+		
+		if (mario.shoot_time < mario.shoot_timer)
+		{
+			mario.shoot_time += deltaTime;
+		}
+		else
+		{
+			mario.shoot_time = 0.f;
+			mario.setLastState();
+		}
+		
 
 	}
 
