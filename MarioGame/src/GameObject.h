@@ -49,6 +49,6 @@ public:
 
 	bool operator==(const GameObject& other) const
 	{
-		return this->type == other.type && this->bounds == other.bounds;
+		return type == other.type && bounds == other.bounds;
 	}
 };

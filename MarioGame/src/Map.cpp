@@ -131,13 +131,13 @@ void Map::initSprites()
 					this->tile_sets[0]->getTileSize().y));
 
 				sf::FloatRect col_rect = { object.getPosition().x * 3.125f,
-							(object.getPosition().y * 3.125f ) - 16.f * 3.125f,
+							(object.getPosition().y * 3.125f) - 16.f * 3.125f,
 							this->tile_sets[0]->getTileSize().x * 3.125f,
 							this->tile_sets[0]->getTileSize().y * 3.125f };
 
 				sprite.setPosition(col_rect.left, col_rect.top);
 				sprite.setScale(3.125f, 3.125f);
-				
+
 				if (object.getProperties()[0].getStringValue() == "Mushroom")
 				{
 					this->blocks.emplace_back(std::make_unique<LuckyBlock>(game, sprite, texture_manager, col_rect, "Block", LuckyBlockType::MushRoomType, gameObjects, col_manager, 15));
@@ -168,15 +168,15 @@ void Map::initVerArray()
 	}
 	std::vector<int> orders(unique_orders.begin(), unique_orders.end());
 
-	
+
 	vrtxs.clear();
 	vrtxs.reserve(orders.size());
-	
-	
+
+
 	std::unordered_map<int, std::vector<std::shared_ptr<Tile>>> groupedObjects;
 	for (const auto& order : orders)
 	{
-		groupedObjects[order].reserve(tiles.size()); 
+		groupedObjects[order].reserve(tiles.size());
 	}
 	for (const auto& tile : tiles) {
 		groupedObjects[tile->getLayer()].push_back(tile);
@@ -184,7 +184,7 @@ void Map::initVerArray()
 
 	for (int i = 0; i < orders.size(); i++)
 	{
-		vrtxs.push_back({sf::VertexArray(sf::Quads, groupedObjects[orders[i]].size() * 4), orders[i]});
+		vrtxs.push_back({ sf::VertexArray(sf::Quads, groupedObjects[orders[i]].size() * 4), orders[i] });
 	}
 
 	/*sf::View view = this->window->getView();
@@ -202,7 +202,7 @@ void Map::initVerArray()
 			return !viewRect.intersects(posRect);
 			}), tiles.end());
 	}*/
-	
+
 	//
 	//this->v_array = std::make_unique<sf::VertexArray>(sf::Quads, this->tiles.size() * 4 );
 
@@ -249,10 +249,10 @@ void Map::initVerArray()
 
 void Map::initCollisions()
 {
-	for (const auto& tile: this->tiles)
+	for (const auto& tile : this->tiles)
 		if (tile->isCollision())
-			quadTree->insert({ sf::FloatRect(tile->getPosition().left, tile->getPosition().top, tile->getPosition().width, tile->getPosition().height), "Tiles"});
-	
+			quadTree->insert({ sf::FloatRect(tile->getPosition().left, tile->getPosition().top, tile->getPosition().width, tile->getPosition().height), "Tiles" });
+
 	for (const auto& block : blocks)
 		quadTree->insert({ sf::FloatRect(block->getBounds().left, block->getBounds().top, block->getBounds().width, block->getBounds().height), block->getType(), block.get() });
 
@@ -271,7 +271,7 @@ gameObjects(gameObjects), quadTree(quadTree), flag(flag)
 
 Map::~Map()
 {
-	
+
 }
 
 //Accessors
@@ -281,7 +281,7 @@ void Map::updateAnimations()
 }
 
 void Map::updateCollisions()
-{	
+{
 }
 
 //Functions
@@ -293,7 +293,7 @@ void Map::update(float deltaTime)
 	if (timeSinceLastUpdate >= updateTime)
 	{
 		this->initVerArray();
-		
+
 		timeSinceLastUpdate = 0.0f;
 	}
 
@@ -311,7 +311,7 @@ void Map::update(float deltaTime)
 				//std::cout << "destroy block\n";
 				return true;
 			}
-			return false; 
+			return false;
 		}),
 		this->blocks.end());
 

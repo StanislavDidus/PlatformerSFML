@@ -3,7 +3,7 @@
 //Con/Des
 Animator::Animator()
 {
-	this->timer = 0.f;
+	timer = 0.f;
 }
 
 Animator::~Animator()
@@ -16,29 +16,29 @@ void Animator::addFrameAnimation(sf::Sprite& sprite, int w, int h, const std::ve
 {
 	//std::pair<int, int> frames = {firstFrame, lastFrame};
 	std::shared_ptr<FrameAnimation> anim = std::make_shared<FrameAnimation>(sprite, w, h, frames, speed, condition, get_direction, is_looped, prior, name);
-	this->animations.emplace_back(anim);
-	this->animations_map[name] = anim;
+	animations.emplace_back(anim);
+	animations_map[name] = anim;
 }
 
 void Animator::addPosAnimation(sf::Sprite& sprite, int w, int h, float speed, std::function<bool()> condition, bool is_looped, int prior, std::vector<sf::Vector2f> positions, const std::string& name)
 {
 	std::shared_ptr<PosAnimation> anim = std::make_shared<PosAnimation>(sprite, sprite.getGlobalBounds().width / 3.125f, sprite.getGlobalBounds().height / 3.125f, speed, condition, is_looped, prior, positions, name);
-	this->animations.emplace_back(anim);
-	this->animations_map[name] = anim;
+	animations.emplace_back(anim);
+	animations_map[name] = anim;
 }
 
 void Animator::addAnimationSequence(std::vector<std::shared_ptr<Animation>>&& animations, std::vector<float>& timing, std::function<bool()> condition, const std::string& name, int prior)
 {
 	std::shared_ptr<AnimationSequence> anim = std::make_shared<AnimationSequence>(std::move(animations), timing, condition, name, prior);
-	this->animations.emplace_back(anim);
-	this->animations_map[name] = anim;
+	animations.emplace_back(anim);
+	animations_map[name] = anim;
 }
 
 std::shared_ptr<Animation> Animator::getAnim(const std::string& name)
 {
-	if (this->animations_map.find(name) != this->animations_map.end())
+	if (animations_map.find(name) != animations_map.end())
 	{
-		return this->animations_map[name];
+		return animations_map[name];
 	}
 
 	return nullptr;
@@ -46,10 +46,10 @@ std::shared_ptr<Animation> Animator::getAnim(const std::string& name)
 
 void Animator::playAnim(const std::string& name)
 {
-	if (this->animations_map.find(name) != this->animations_map.end())
+	if (animations_map.find(name) != animations_map.end())
 	{
-		this->play_anim = true;
-		this->anim_name = name;
+		play_anim = true;
+		anim_name = name;
 	}
 }
 
@@ -94,16 +94,16 @@ const sf::FloatRect Animator::getCurrentFrame()
 
 const bool Animator::isPlayed() const
 {
-	return this->play_anim;
+	return play_anim;
 }
 
 void Animator::update(float deltaTime)
 {
-	this->timer += deltaTime;
-	this->deltaTime = deltaTime;
+	timer += deltaTime;
+	deltaTime = deltaTime;
 
 	std::vector<Animation*> prior_anim;
-	for (auto& anim : this->animations)
+	for (auto& anim : animations)
 	{
 		if (anim->condition())
 		{
@@ -123,25 +123,25 @@ void Animator::update(float deltaTime)
 					anim_highest_prior = anim1;
 				}
 			}
-			anim_highest_prior->play(this->timer, this->deltaTime);
+			anim_highest_prior->play(timer, deltaTime);
 			currentAnim = anim_highest_prior;
 		}
 		else
 		{
-			prior_anim[0]->play(this->timer, this->deltaTime);
+			prior_anim[0]->play(timer, deltaTime);
 			currentAnim = prior_anim[0];
 		}
 	}
 
 	//Play last animation
-	if (this->play_anim)
+	if (play_anim)
 	{
-		if (this->animations_map.find(this->anim_name) != this->animations_map.end())
+		if (animations_map.find(anim_name) != animations_map.end())
 		{
-			this->animations_map[this->anim_name]->play(this->timer, this->deltaTime, &this->play_anim);
-			currentAnim = this->animations_map[this->anim_name].get();
-			if (!this->play_anim)
-				this->anim_name = "";
+			animations_map[anim_name]->play(timer, deltaTime, &play_anim);
+			currentAnim = animations_map[anim_name].get();
+			if (!play_anim)
+				anim_name = "";
 		}
 	}
 }

@@ -22,16 +22,16 @@ private:
 
 	void initSprite()
 	{
-		this->sprite.setScale(3.125f, 3.125f);
-		this->sprite.setPosition(getPosition());
+		sprite.setScale(3.125f, 3.125f);
+		sprite.setPosition(getPosition());
 	}
 
 	void initAnimations()
 	{
-		this->animator = std::make_unique<Animator>();
+		animator = std::make_unique<Animator>();
 
-		this->animator->addPosAnimation(
-			sprite, 16, 16, 75.f, [this]() {return false; }, false, 10, { {this->sprite.getPosition()},{this->sprite.getPosition().x, this->sprite.getPosition().y - 16 * 3.125f} }, "Spawn"
+		animator->addPosAnimation(
+			sprite, 16, 16, 75.f, [this]() {return false; }, false, 10, { {sprite.getPosition()},{sprite.getPosition().x, sprite.getPosition().y - 16 * 3.125f} }, "Spawn"
 		);
 	}
 public:
@@ -56,7 +56,7 @@ public:
 
 		is_active = false;
 
-		this->animator->playAnim("Spawn");
+		animator->playAnim("Spawn");
 	}
 	virtual ~Item() {  }
 

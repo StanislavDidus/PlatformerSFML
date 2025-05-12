@@ -56,7 +56,10 @@ private:
 
 	//Mario
 	std::unique_ptr<Mario> mario;
+	int lifes;
 	bool is_colliding;
+
+	bool is_game_over;
 
 	//Collisions
 	std::shared_ptr<CollisionManager> col_manager;
@@ -95,6 +98,8 @@ private:
 	sf::Text world_text;
 	//Time
 	sf::Text time_text;
+	//Game Over
+	sf::Text game_over_text;
 
 	//Score
 	int score;
@@ -126,6 +131,7 @@ public:
 	void addCoin();
 	void showScore(sf::Vector2f pos, sf::Texture* texture, int score);
 	void DisplayStartMenu();
+	void restart();
 
 	bool init();
 	void updateEvents();

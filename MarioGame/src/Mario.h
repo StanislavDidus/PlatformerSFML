@@ -10,6 +10,7 @@
 #include <ctime>
 
 #include "Animator.h"
+#include "TClock.h"
 #include "Map.h"
 #include "AudioManager.h"
 #include "GameObject.h"
@@ -47,7 +48,6 @@ private:
 	//Big Mario
 	sf::Texture texture1;
 	//Fire Mario
-	sf::Texture texture2;
 
 	sf::Sprite sprite;
 	sf::Texture tx_glitch;
@@ -78,14 +78,14 @@ private:
 
 	int direction;
 
+	TClock tclock;
+
 	//Grow
-	float grow_time;
-	float grow_timer;
 	bool is_grown;
 
 	//Fire
-	float fire_time;
-	float fire_timer;
+	//float fire_time;
+	//float fire_timer;
 	bool is_fire;
 	bool fire_transform;
 
@@ -109,6 +109,8 @@ private:
 
 	//Lifes
 	int lifes;
+	float dead_timer;
+	float dead_time;
 	
 	//Animation
 	std::unique_ptr<Animator> animator;
@@ -122,6 +124,8 @@ private:
 public:
 	bool is_touching_flag;
 	bool is_dead;
+	bool need_restart;
+	bool need_quit;
 
 	float deltaTime;
 	friend class IMarioIdle;
@@ -132,7 +136,7 @@ public:
 	friend class IMarioCollectFlag;
 	friend class IMarioRunToCastle;
 
-	Mario(sf::RenderWindow* window, Map* map, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, sf::View* view, const sf::FloatRect& rect, const std::string& type, int layer);
+	Mario(sf::RenderWindow* window, Map* map, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, sf::View* view, const sf::FloatRect& rect, const std::string& type, int layer, int lifes);
 	virtual ~Mario();
 
 	//Accessors

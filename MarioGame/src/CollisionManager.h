@@ -149,38 +149,32 @@ public:
 		if (quadTree != nullptr)
 			quadTree->checkCollisions({ playerBounds.left + x, playerBounds.top + y, playerBounds.width, playerBounds.height }, possible_collisions);
 
-
-		// Спочатку перевірка по Y
 		for (const auto& object : possible_collisions)
 		{
 			sf::FloatRect objectBounds = object.collider_bounds;
 
 			float playerBottom = playerBounds.top + playerBounds.height;
 
-			if (y > 0) // рух вниз
+			if (y > 0)
 			{
 				if (newBoundsY.intersects(objectBounds))
 				{
-					// Рівно стати зверху об'єкта
 					y = objectBounds.top - playerBottom;
 					newBoundsY.top = playerBounds.top + y;
 				}
 			}
-			else if (y < 0) // рух вгору
+			else if (y < 0) 
 			{
 				if (newBoundsY.intersects(objectBounds))
 				{
-					// Рівно стати під низом об'єкта
 					y = (objectBounds.top + objectBounds.height) - playerBounds.top;
 					newBoundsY.top = playerBounds.top + y;
 				}
 			}
 		}
 
-		// Оновити playerBounds після зміни Y
 		playerBounds.top += y;
 
-		// Потім перевірка по X
 		sf::FloatRect newBoundsX = playerBounds;
 		newBoundsX.left += x;
 
@@ -188,14 +182,14 @@ public:
 		{
 			sf::FloatRect objectBounds = object.collider_bounds;
 
-			if (x < 0) // рух вліво
+			if (x < 0) 
 			{
 				if (newBoundsX.intersects(objectBounds))
 				{
 					x = objectBounds.left + objectBounds.width - playerBounds.left;
 				}
 			}
-			else if (x > 0) // рух вправо
+			else if (x > 0) 
 			{
 				if (newBoundsX.intersects(objectBounds))
 				{

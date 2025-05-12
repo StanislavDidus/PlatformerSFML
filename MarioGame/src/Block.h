@@ -25,20 +25,20 @@ public:
 	{
 		//Sprite
 		
-		this->is_destroyed = false;
+		is_destroyed = false;
 
 		this->texture = *texture;
-		this->sprite.setPosition(rect.left, rect.top);
-		this->sprite.setTexture(this->texture);
-		this->sprite.setTextureRect({ 0,0,16,16 });
-		this->sprite.setScale(3.125f, 3.125f);
+		sprite.setPosition(rect.left, rect.top);
+		sprite.setTexture(this->texture);
+		sprite.setTextureRect({ 0,0,16,16 });
+		sprite.setScale(3.125f, 3.125f);
 
 		
 		//Animations
 		animator = std::make_unique<Animator>();
 
-		this->animator->addPosAnimation(
-			this->sprite, 16 * 3.125f, 16 * 3.125f, 150.f, [this]() {return false; }, false, 25, std::vector<sf::Vector2f>{{this->sprite.getPosition().x, this->sprite.getPosition().y - 15.f}, { this->sprite.getPosition() }}, "Hit");
+		animator->addPosAnimation(
+			sprite, 16 * 3.125f, 16 * 3.125f, 150.f, [this]() {return false; }, false, 25, std::vector<sf::Vector2f>{{sprite.getPosition().x, sprite.getPosition().y - 15.f}, { sprite.getPosition() }}, "Hit");
 		
 	
 	}
@@ -77,18 +77,18 @@ public:
 
 	void destroy()
 	{
-		this->is_destroyed = true;
+		is_destroyed = true;
 		is_active = false;
 	}
 
 	sf::Sprite& getSprite()
 	{
-		return this->sprite;
+		return sprite;
 	}
 
 	sf::Texture& getTexture()
 	{
-		return this->texture;
+		return texture;
 	}
 
 	void update(float deltaTime) override
@@ -97,13 +97,13 @@ public:
 
 		
 
-		sf::Vector2f newPos = this->sprite.getPosition();
+		sf::Vector2f newPos = sprite.getPosition();
 		setPosition(newPos);
 	}
 	
 	void render(sf::RenderTarget* target) override
 	{
 		
-		target->draw(this->sprite);
+		target->draw(sprite);
 	}
 };

@@ -34,9 +34,9 @@ public:
 			checkCollision(deltaTime);
 			sprite.move(deltaX, deltaY);
 
-			this->velocity.y += gravity * deltaTime;
-			if (this->velocity.y > 500.f)
-				this->velocity.y = 500.f;
+			velocity.y += gravity * deltaTime;
+			if (velocity.y > 500.f)
+				velocity.y = 500.f;
 			//move({deltaX, deltaY}, direction, deltaTime);
 		}
 

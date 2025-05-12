@@ -404,7 +404,7 @@ class IMarioRunToCastle : public IMarioState
 
 		if (mario.sprite.getPosition().x > 10200)
 		{
-			mario.is_dead = true;
+			mario.need_quit = true;
 		}
 
 		float deltaX = mario.velocity.x * deltaTime;

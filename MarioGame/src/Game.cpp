@@ -14,50 +14,50 @@ void Game::initVariables()
 	is_colliding = false;
 	last_camera_pos = { 0.f,0.f };
 	lastTime = 0.f;
-	score = 0;
-	coin_amount = 0;
+
+	is_game_over = false;
 }
 
 void Game::initTextureManager()
 {
 	//Init texture manager
-	this->texture_manager = std::make_shared<TextureManager>();
-	this->texture_manager->load("Mario", "assets/Textures/Mario/Mario0.png"); //Small mario
-	this->texture_manager->load("MarioBig", "assets/Textures/Mario/Mario1.png"); //Big mario
-	this->texture_manager->load("MarioFire", "assets/Textures/Mario/Mario2.png"); //Fire mario
-	this->texture_manager->load("FireBall", "assets/Textures/FireBall.png"); //FireBall
-	this->texture_manager->load("Explosion", "assets/Textures/Explosion.png"); //Explosion
-	this->texture_manager->load("LuckyBlock", "assets/Textures/Levels/LuckyBlock.png"); //LuckyBlock
-	this->texture_manager->load("Brick", "assets/Textures/Levels/Brick.png"); //Brick
-	this->texture_manager->load("Mushroom", "assets/Textures/Levels/Mushroom.png"); //Mushroom
-	this->texture_manager->load("FireFlower", "assets/Textures/Levels/FireFlower.png"); //FireFlower
-	this->texture_manager->load("Coin", "assets/Textures/Levels/Coin_Anim.png"); //Coin
-	this->texture_manager->load("Block", "assets/Textures/Levels/Block.png"); //Block
-	this->texture_manager->load("FlagStick", "assets/Textures/Levels/Flag_Stick.png"); //FlagStick
-	this->texture_manager->load("BrokenBrick", "assets/Textures/Levels/BrokenBrick.png"); //BrokenBrick
-	this->texture_manager->load("Flag", "assets/Textures/Levels/Flag.png"); //Flag
-	this->texture_manager->load("200S", "assets/Textures/Scores/200.png"); //200 score
-	this->texture_manager->load("1000S", "assets/Textures/Scores/1000.png"); //1000 score
+	texture_manager = std::make_shared<TextureManager>();
+	texture_manager->load("Mario", "assets/Textures/Mario/Mario0.png"); //Small mario
+	texture_manager->load("MarioBig", "assets/Textures/Mario/Mario1.png"); //Big mario
+	//texture_manager->load("MarioFire", "assets/Textures/Mario/Mario2.png"); //Fire mario
+	texture_manager->load("FireBall", "assets/Textures/FireBall.png"); //FireBall
+	texture_manager->load("Explosion", "assets/Textures/Explosion.png"); //Explosion
+	texture_manager->load("LuckyBlock", "assets/Textures/Levels/LuckyBlock.png"); //LuckyBlock
+	texture_manager->load("Brick", "assets/Textures/Levels/Brick.png"); //Brick
+	texture_manager->load("Mushroom", "assets/Textures/Levels/Mushroom.png"); //Mushroom
+	texture_manager->load("FireFlower", "assets/Textures/Levels/FireFlower.png"); //FireFlower
+	texture_manager->load("Coin", "assets/Textures/Levels/Coin_Anim.png"); //Coin
+	texture_manager->load("Block", "assets/Textures/Levels/Block.png"); //Block
+	texture_manager->load("FlagStick", "assets/Textures/Levels/Flag_Stick.png"); //FlagStick
+	texture_manager->load("BrokenBrick", "assets/Textures/Levels/BrokenBrick.png"); //BrokenBrick
+	texture_manager->load("Flag", "assets/Textures/Levels/Flag.png"); //Flag
+	texture_manager->load("200S", "assets/Textures/Scores/200.png"); //200 score
+	texture_manager->load("1000S", "assets/Textures/Scores/1000.png"); //1000 score
 }
 
 void Game::initWindow()
 {
 	//Init Window
-	this->window = std::make_unique<sf::RenderWindow>(sf::VideoMode(800,600), "Mario nintendo game", sf::Style::Default); // 4:3
+	window = std::make_unique<sf::RenderWindow>(sf::VideoMode(800,600), "Mario nintendo game", sf::Style::Default); // 4:3
 	
 	// 800 600
-	//this->window->setFramerateLimit(60);
-	this->window->setVerticalSyncEnabled(false);
+	//window->setFramerateLimit(60);
+	window->setVerticalSyncEnabled(false);
 
 	//Set View
-	this->view = std::make_unique<sf::View>();
-	this->view->setSize(800,600);
+	view = std::make_unique<sf::View>();
+	view->setSize(800,600);
 }
 
 void Game::initMap()
 {
 	//Init TileMap
-	this->map = std::make_unique<Map>(shared_from_this(), this->window.get(), this->col_manager, this->texture_manager, quadTree, gameObjects, CollisionEvent( flag->getBounds(), "Flag" ));
+	map = std::make_unique<Map>(shared_from_this(), window.get(), col_manager, texture_manager, quadTree, gameObjects, CollisionEvent( flag->getBounds(), "Flag" ));
 }
 
 void Game::initCollisions()
@@ -65,51 +65,51 @@ void Game::initCollisions()
 	//Init QuadTree
 	quadTree = std::make_shared<QuadTree>(sf::FloatRect(0.f, 0.f, 10550.f, 700.f), 4, 1000);
 	//Init CollisionManager
-	this->col_manager = std::make_shared<CollisionManager>(quadTree, window.get());
+	col_manager = std::make_shared<CollisionManager>(quadTree, window.get());
 }
 
 void Game::initAudio()
 {
 	//Init AudioManager
-	this->game_audio_manager = std::make_unique<AudioManager>();
+	game_audio_manager = std::make_unique<AudioManager>();
 
 	//Main theme
-	this->game_audio_manager->addSound("Main Theme", "assets/Sounds/Game/Ground Theme.wav", true);
-	//this->game_audio_manager->playSound("Main Theme");
+	game_audio_manager->addSound("Main Theme", "assets/Sounds/Game/Ground Theme.wav", true);
+	//game_audio_manager->playSound("Main Theme");
 }
 
 void Game::initText()
 {
 	//Init UI Text
-	this->small_coin_texture.loadFromFile("assets/Textures/Levels/SmallCoin.png");
-	this->small_coin_sprite.setTexture(this->small_coin_texture);
-	this->small_coin_sprite.setScale(4.f, 4.f);
-	this->small_coin_sprite.setTextureRect(sf::IntRect(0, 0, 8, 8));
+	small_coin_texture.loadFromFile("assets/Textures/Levels/SmallCoin.png");
+	small_coin_sprite.setTexture(small_coin_texture);
+	small_coin_sprite.setScale(4.f, 4.f);
+	small_coin_sprite.setTextureRect(sf::IntRect(0, 0, 8, 8));
 
-	this->small_coin_anim = std::make_unique<Animator>();
-	this->small_coin_anim->addFrameAnimation(
-		this->small_coin_sprite, 8, 8, std::vector<int>{ 0, 1, 2 }, 400.f / 1000.f, [this]() {return true; }, [this]() {return 1; }, true, 5, "Small_Coin_Idle"
+	small_coin_anim = std::make_unique<Animator>();
+	small_coin_anim->addFrameAnimation(
+		small_coin_sprite, 8, 8, std::vector<int>{ 0, 1, 2 }, 400.f / 1000.f, [this]() {return true; }, [this]() {return 1; }, true, 5, "Small_Coin_Idle"
 	);
 
-	this->main_font.loadFromFile("assets/Fonts/SuperMario85.ttf");
-	this->fps_text.setFont(this->main_font);
-	this->fps_text.setCharacterSize(30);
-	this->fps_text.setFillColor(sf::Color::White);
+	main_font.loadFromFile("assets/Fonts/SuperMario85.ttf");
+	fps_text.setFont(main_font);
+	fps_text.setCharacterSize(30);
+	fps_text.setFillColor(sf::Color::White);
 
-	this->score_text.setFont(this->main_font);
-	this->score_text.setCharacterSize(30);
-	this->score_text.setFillColor(sf::Color::White);
-	this->score_text.setString("MARIO\n000000\n");
+	score_text.setFont(main_font);
+	score_text.setCharacterSize(30);
+	score_text.setFillColor(sf::Color::White);
+	score_text.setString("MARIO\n000000\n");
 
-	this->coin_text.setFont(this->main_font);
-	this->coin_text.setCharacterSize(30);
-	this->coin_text.setFillColor(sf::Color::White);
-	this->coin_text.setString(" x00\n");
+	coin_text.setFont(main_font);
+	coin_text.setCharacterSize(30);
+	coin_text.setFillColor(sf::Color::White);
+	coin_text.setString(" x00\n");
 	
-	this->world_text.setFont(this->main_font);
-	this->world_text.setCharacterSize(30);
-	this->world_text.setFillColor(sf::Color::White);
-	this->world_text.setString("WORLD\n 1-1\n");
+	world_text.setFont(main_font);
+	world_text.setCharacterSize(30);
+	world_text.setFillColor(sf::Color::White);
+	world_text.setString("WORLD\n 1-1\n");
 
 	current_world_text.setFont(main_font);
 	current_world_text.setCharacterSize(30);
@@ -117,15 +117,21 @@ void Game::initText()
 	current_world_text.setString("WORLD 1-1\n");
 	current_world_text.setPosition(window->getSize().x / 2.f - 150.f, window->getSize().y / 2.f / 30.f - 75.f);
 
-	this->time_text.setFont(this->main_font);
-	this->time_text.setCharacterSize(30);
-	this->time_text.setFillColor(sf::Color::White);
-	this->time_text.setString("TIME\n 300\n");
+	time_text.setFont(main_font);
+	time_text.setCharacterSize(30);
+	time_text.setFillColor(sf::Color::White);
+	time_text.setString("TIME\n 300\n");
 
 	lifes_amount_text.setFont(main_font);
 	lifes_amount_text.setCharacterSize(30);
 	lifes_amount_text.setFillColor(sf::Color::White);
 	lifes_amount_text.setPosition(375.f, 25.f);
+
+	game_over_text.setFont(main_font);
+	game_over_text.setCharacterSize(30);
+	game_over_text.setFillColor(sf::Color::White);
+	game_over_text.setPosition(window->getSize().x / 2.f - 150, window->getSize().y / 2.f / 30.f - 50.f);
+	game_over_text.setString("Game Over\n");
 
 	mario_icon_texture = *texture_manager->get("Mario");
 	mario_icon.setTexture(mario_icon_texture);
@@ -137,7 +143,7 @@ void Game::initText()
 void Game::initMario()
 {
 	//Init Mario
-	this->mario = std::make_unique<Mario>(this->window.get(), this->map.get(), col_manager, texture_manager, view.get(), sf::FloatRect(0, 0, 48, 48), "Mario", 25);
+	mario = std::make_unique<Mario>(window.get(), map.get(), col_manager, texture_manager, view.get(), sf::FloatRect(0, 0, 48, 48), "Mario", 25, lifes);
 }
 
 void Game::initFlag()
@@ -149,7 +155,7 @@ void Game::initFlag()
 }
 
 //Con/Des
-Game::Game()
+Game::Game() : lifes(3), score(0), coin_amount(0)
 {
 	
 }
@@ -161,7 +167,7 @@ Game::~Game()
 //Accessors
 const bool Game::running() const
 {
-	return this->window->isOpen();
+	return window->isOpen();
 }
 
 void Game::addScore(int score)
@@ -179,46 +185,46 @@ void Game::showScore(sf::Vector2f pos, sf::Texture* texture, int score)
 	//Display scores
 	std::shared_ptr<Text> text = std::make_shared<Text>(16,8, pos, texture);
 	text->getAnimator()->playAnim("Score");
-	this->addScore(score);
+	addScore(score);
 	scores_.push_back(text);
 }
 
  // Uses for some particular situations
 bool Game::init()
 {
-	this->initVariables();
-	this->initWindow();
-	this->initCollisions();
-	this->initTextureManager();
-	this->initMario();
-	this->initFlag();
-	this->initMap();
-	this->initAudio();
-	this->initText();
+	initVariables();
+	initWindow();
+	initCollisions();
+	initTextureManager();
+	initMario();
+	initFlag();
+	initMap();
+	initAudio();
+	initText();
 
 	return true;
 
 	//placeholder
-	//this->last_camera_pos = { 9451.f, 375.f };
+	//last_camera_pos = { 9451.f, 375.f };
 }
 
 //Functions
 void Game::updateEvents()
 {
 	sf::Event event;
-	this->window->pollEvent(event);
+	window->pollEvent(event);
 
 	if (event.type == sf::Event::EventType::Closed)
-		this->window->close();
+		window->close();
 }
 
 void Game::updateView()
 {
 	//Update view position regarding mario 
-	this->last_camera_pos = MathUtils::lerp(this->last_camera_pos, { std::max(this->mario->getPosition().x, this->last_camera_pos.x) , 375.f }, 10 * mario->deltaTime);
-	this->last_camera_pos.x = MathUtils::clamp(this->last_camera_pos.x, this->window->getSize().x / 2.f, 211.f * 16.f * 3.125f - this->window->getSize().x / 2.f);
+	last_camera_pos = MathUtils::lerp(last_camera_pos, { std::max(mario->getPosition().x, last_camera_pos.x) , 375.f }, 10 * mario->deltaTime);
+	last_camera_pos.x = MathUtils::clamp(last_camera_pos.x, window->getSize().x / 2.f, 211.f * 16.f * 3.125f - window->getSize().x / 2.f);
 	if(!(mario->getPosition().y - mario->getBounds().height > window->getSize().y))
-		this->view->setCenter(this->last_camera_pos);
+		view->setCenter(last_camera_pos);
 }
 
 void Game::updateAudio()
@@ -229,64 +235,66 @@ void Game::updateAudio()
 void Game::updateText()
 {
 	//Update UI
-	float currentTime = this->fps_clock.restart().asSeconds();
-	float fps = 1.f / (currentTime - this->lastTime);
+	float currentTime = fps_clock.restart().asSeconds();
+	float fps = 1.f / (currentTime - lastTime);
 
 	std::stringstream ss;
 	ss << "FPS: " << fps;
 	
-	this->fps_text.setString(ss.str());
+	fps_text.setString(ss.str());
 
-	this->fps_text.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 50.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 100.f);
+	fps_text.setPosition(view->getCenter().x - window->getSize().x / 2.f + 50.f, view->getCenter().y - window->getSize().y / 2.f + 100.f);
 
 	std::stringstream ss1;
-	ss1 << "TIME\n " << this->timer << "\n";
-	this->ttimer += this->mario->deltaTime;
-	if (this->ttimer >= 1.f)
+	ss1 << "TIME\n " << timer << "\n";
+	ttimer += mario->deltaTime;
+	if (ttimer >= 1.f)
 	{
-		this->ttimer = 0.f;
-		this->timer -= 1.f;
-		if (this->timer < 0.f)
-			this->timer = 0.f;
+		ttimer = 0.f;
+		timer -= 1.f;
+		if (timer < 0.f)
+			timer = 0.f;
 	}
-	this->time_text.setString(ss1.str());
+	time_text.setString(ss1.str());
 
 	std::ostringstream oss2;
-	int size = MathUtils::getDigitCount(this->score);
+	int size = MathUtils::getDigitCount(score);
 
-	oss2 << "MARIO\n" << std::setw(size + (6 - size)) << std::setfill('0') << this->score << "\n";
-	this->score_text.setString(oss2.str());
+	oss2 << "MARIO\n" << std::setw(size + (6 - size)) << std::setfill('0') << score << "\n";
+	score_text.setString(oss2.str());
 
 	std::ostringstream oss3;
 	oss3 << " x" << std::setw(2) << std::setfill('0') << coin_amount << "\n";
-	this->coin_text.setString(oss3.str());
+	coin_text.setString(oss3.str());
 
-	this->small_coin_sprite.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 280.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 55.f);
+	small_coin_sprite.setPosition(view->getCenter().x - window->getSize().x / 2.f + 280.f, view->getCenter().y - window->getSize().y / 2.f + 55.f);
 
-	this->score_text.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 50.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 20.f);
-	this->coin_text.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 290.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 55.f);
-	this->world_text.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 450.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 20.f);
-	this->time_text.setPosition(this->view->getCenter().x - this->window->getSize().x / 2.f + 650.f, this->view->getCenter().y - this->window->getSize().y / 2.f + 20.f);
+	score_text.setPosition(view->getCenter().x - window->getSize().x / 2.f + 50.f, view->getCenter().y - window->getSize().y / 2.f + 20.f);
+	coin_text.setPosition(view->getCenter().x - window->getSize().x / 2.f + 290.f, view->getCenter().y - window->getSize().y / 2.f + 55.f);
+	world_text.setPosition(view->getCenter().x - window->getSize().x / 2.f + 450.f, view->getCenter().y - window->getSize().y / 2.f + 20.f);
+	time_text.setPosition(view->getCenter().x - window->getSize().x / 2.f + 650.f, view->getCenter().y - window->getSize().y / 2.f + 20.f);
 
 	std::ostringstream oss4;
-	oss4 << "x   " << mario->getLifes() << "\n";
+	oss4 << "x   " << lifes << "\n";
 	lifes_amount_text.setString(oss4.str());
+
+	game_over_text.setPosition(view->getCenter().x - window->getSize().x / 2.f + 250.f, view->getCenter().y - window->getSize().y / 2.f + 275.f);
 }
 
 void Game::updateMap()
 {
-	this->map->update(this->mario->deltaTime);
+	map->update(mario->deltaTime);
 	//quadTree->insert({ flag->getBounds(), "Flag" });
 }
 
 void Game::updateCollisions(float deltaTime)
 {
-	//this->map->updateCollisions();
+	//map->updateCollisions();
 
 	//Check collision with different gameobjects
 	for (const auto& obj : gameObjects)
 	{
-		//this->col_manager->addCollision({ obj->getBounds(), obj->getType(), obj.get() });
+		//col_manager->addCollision({ obj->getBounds(), obj->getType(), obj.get() });
 		if (mario->getBounds().intersects(obj->getBounds()))
 		{
 			//std::cout << "Collect: " << obj->getType() << "\n";
@@ -295,11 +303,11 @@ void Game::updateCollisions(float deltaTime)
 				obj->onHit();
 
 				if (obj->getType() == "Mushroom")
-					this->mario->grow();
+					mario->grow();
 				else if (obj->getType() == "FireFlower" && !mario->isFire() && mario->isBig())
-					this->mario->fire();
+					mario->fire();
 				else if (obj->getType() == "FireFlower" && !mario->isFire() && !mario->isBig())
-					this->mario->grow();
+					mario->grow();
 
 				//delete it
 				auto it = std::find_if(gameObjects.begin(), gameObjects.end(),
@@ -317,29 +325,29 @@ void Game::updateCollisions(float deltaTime)
 
 void Game::update()
 {
-	float deltaTime = this->clock.restart().asSeconds();
+	float deltaTime = clock.restart().asSeconds();
 	deltaTime = std::min(deltaTime, 0.033f);
 
 	//START MENU
 	if (start_game_timer < 0.f)
 		is_game_started = true;
 	else
-		this->start_game_timer -= deltaTime;
+		start_game_timer -= deltaTime;
 
-	this->updateEvents();
+	updateEvents();
 
 	//If game is started update all needed managers
 	if (is_game_started)
 	{
-		this->updateCollisions(deltaTime);
-		this->mario->update(deltaTime);
+		updateCollisions(deltaTime);
+		mario->update(deltaTime);
 
 		for (const auto& object : gameObjects)
 		{
 			object->update(deltaTime);
 		}
 
-		this->small_coin_anim->update(deltaTime);
+		small_coin_anim->update(deltaTime);
 
 		//Update flag
 		flag->update(deltaTime);
@@ -353,18 +361,27 @@ void Game::update()
 			mario->Finish(deltaTime);
 		}
 		//
+
+		if (mario->need_restart)
+		{
+			restart();
+		}
+		if (mario->need_quit)
+		{
+			window->close();
+		}
 		
-		this->updateAudio();
+		updateAudio();
 		
-		this->updateMap();
+		updateMap();
 
 		for (const auto& score : scores_)
 			score->getAnimator()->update(deltaTime);
 	}
 	
 
-	this->updateView();
-	this->updateText();
+	updateView();
+	updateText();
 }
 
 void Game::renderLevel()
@@ -374,13 +391,13 @@ void Game::renderLevel()
 
 void Game::renderText()
 {
-	this->window->draw(this->fps_text);
-	this->window->draw(this->score_text);
-	this->window->draw(this->coin_text);
-	this->window->draw(this->world_text);
-	this->window->draw(this->time_text);
+	window->draw(fps_text);
+	window->draw(score_text);
+	window->draw(coin_text);
+	window->draw(world_text);
+	window->draw(time_text);
 
-	this->window->draw(this->small_coin_sprite);
+	window->draw(small_coin_sprite);
 }
 
 void Game::DisplayStartMenu()
@@ -390,9 +407,35 @@ void Game::DisplayStartMenu()
 	window->draw(lifes_amount_text);
 }
 
+void Game::restart()
+{
+	if (lifes > 1)
+	{
+		//Restart game
+		initVariables();
+		initCollisions();
+		initTextureManager();
+		initMario();
+		initFlag();
+		initMap();
+		initAudio();
+		initText();
+		lifes--;
+	}
+	else
+	{
+		//Game over 
+		//is_game_started = false;
+		is_game_over = true;
+		is_game_started = false;
+	}
+
+	std::cout << "restart\n";
+}
+
 void Game::render()
 {
-	this->window->clear(); 
+	window->clear(); 
 	renderQueue.clear();
 
 	if (is_game_started)
@@ -402,16 +445,16 @@ void Game::render()
 		for (const auto& object : gameObjects)
 		{
 			//object->render(window.get());
-			renderQueue.emplace_back(object->layer, [this, object]() {object->render(this->window.get()); });
+			renderQueue.emplace_back(object->layer, [this, object]() {object->render(window.get()); });
 		}
 
-		//this->map->render(this->window.get());
-		this->map->render(this->renderQueue, this->window.get());
+		//map->render(window.get());
+		map->render(renderQueue, window.get());
 
-		renderQueue.emplace_back(flag->layer, [this]() {this->flag->render(window.get()); });
+		renderQueue.emplace_back(flag->layer, [this]() {flag->render(window.get()); });
 
 		//Render player
-		renderQueue.emplace_back(mario->layer, [this]() {this->mario->render(this->window.get()); });
+		renderQueue.emplace_back(mario->layer, [this]() {mario->render(window.get()); });
 
 		//Render all the objects in queue
 		std::sort(renderQueue.begin(), renderQueue.end());
@@ -426,16 +469,20 @@ void Game::render()
 			if (score->getAnimation() != nullptr)
 				if (score->getAnimation()->is_playing)
 				{
-					score->render(this->window.get());
+					score->render(window.get());
 				}
 
 		}
 	}
-	else
+	else if(!is_game_over && !is_game_started)
 	{
-		this->DisplayStartMenu();
+		DisplayStartMenu();
 	}
-	this->renderText();
-	this->window->setView(*this->view.get());
-	this->window->display();
+	if(is_game_over)
+	{
+		window->draw(game_over_text);
+	}
+	renderText();
+	window->setView(*view.get());
+	window->display();
 }

@@ -25,9 +25,9 @@ private:
 	void initSprite()
 	{
 		sprite.setTexture(texture);
-		this->sprite.setScale(3.125f, 3.125f);
-		this->sprite.setTextureRect(sf::IntRect(0, 0, w, h));
-		this->sprite.setPosition(pos.x, pos.y - 40.f);
+		sprite.setScale(3.125f, 3.125f);
+		sprite.setTextureRect(sf::IntRect(0, 0, w, h));
+		sprite.setPosition(pos.x, pos.y - 40.f);
 	}
 
 	void initAnimator()
@@ -46,7 +46,7 @@ public:
 
 	void update(float deltaTime)
 	{
-		this->animator->update(deltaTime);
+		animator->update(deltaTime);
 	}
 
 	void render(sf::RenderTarget* target)

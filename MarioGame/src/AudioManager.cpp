@@ -22,13 +22,13 @@ void AudioManager::addSound(const std::string& name, const std::string& soundPat
 	sound.setBuffer(*buffer);
 	sound.setLoop(loop);
 
-	this->buffers.push_back(std::move(buffer));
-	this->sounds[name] = sound;
+	buffers.push_back(std::move(buffer));
+	sounds[name] = sound;
 }
 
 void AudioManager::playSound(const std::string& name)
 {
-	this->sounds[name].play();
+	sounds[name].play();
 }
 
 void AudioManager::update()

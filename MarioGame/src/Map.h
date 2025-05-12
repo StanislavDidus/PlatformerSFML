@@ -71,24 +71,24 @@ public:
 	{
 		
 		//Init clock
-		if (this->is_animation)
+		if (is_animation)
 		{
-			this->anim_timer = std::make_unique<sf::Clock>();
-			this->current_frame = 0;
+			anim_timer = std::make_unique<sf::Clock>();
+			current_frame = 0;
 		}
 	}
 
 	const sf::FloatRect getPosition() const
 	{
-		return this->posRect;
+		return posRect;
 	}
 	const sf::IntRect getTextureRect() const
 	{
-		return this->texRect;
+		return texRect;
 	}
 	const std::string& getType() const
 	{
-		return this->type;
+		return type;
 	}
 	const int getLayer() const
 	{
@@ -96,37 +96,37 @@ public:
 	}
 	sf::Clock* getClock() const
 	{
-		return this->anim_timer.get();
+		return anim_timer.get();
 	}
 	std::shared_ptr<tmx::Tileset::Tile::Animation> getAnimation() const
 	{
-		if (!this->animation)
+		if (!animation)
 		{
 			throw std::runtime_error("Animation is not set for this tile.");
 		}
-		return this->animation;
+		return animation;
 	}
 	const int getFrame() const
 	{
-		return this->current_frame;
+		return current_frame;
 	}
 	const bool isCollision() const
 	{
-		return this->is_collision;
+		return is_collision;
 	}
 	const bool isAnimation() const
 	{
-		return this->is_animation;
+		return is_animation;
 	}
 	void setTextureRect(const sf::IntRect& rect)
 	{
-		this->texRect = rect;
+		texRect = rect;
 	}
 	
 
 	void setAnimation(std::shared_ptr<tmx::Tileset::Tile::Animation> anim)
 	{
-		this->animation = anim;
+		animation = anim;
 	}
 };
 

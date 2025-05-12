@@ -25,12 +25,12 @@ void Mario::initVariables()
 
 	this->speed = 0.f;
 
-	this->grow_time = 0.9f;
-	this->grow_timer = 0.f;
+	//this->grow_time = 0.9f;
+	//this->grow_timer = 0.f;
 	this->is_grown = false;
 
-	this->fire_time = 1.3f;
-	this->fire_timer = 0.f;
+	//this->fire_time = 1.3f;
+	//this->fire_timer = 0.f;
 	this->fire_transform = false;
 	this->is_fire = false;
 
@@ -43,7 +43,9 @@ void Mario::initVariables()
 
 	is_falling = false;
 
-	lifes = 3;
+	dead_time = 3.f;
+	dead_timer = 0.f;
+	need_restart = false;
 }
 
 void Mario::initSprite()
@@ -119,29 +121,29 @@ void Mario::initAnimator()
 	//Fire Mario Animations
 	//Idle
 	this->animator->addFrameAnimation(
-		this->sprite, 16, 32, std::vector<int>{0}, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioIdle>(this->current_state) != nullptr && this->is_grown && is_fire; }, [this]() {return this->direction; }, true, 25, "FIdle"
+		this->sprite, 16, 32, std::vector<int>{21}, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioIdle>(this->current_state) != nullptr && this->is_grown && is_fire; }, [this]() {return this->direction; }, true, 25, "FIdle"
 	);
 	//Run
 	this->animator->addFrameAnimation(
-		this->sprite, 16, 32, std::vector<int>{1, 2, 3 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr && this->is_grown && is_fire;  }, [this]() {return this->direction; }, true, 25, "FRun"
+		this->sprite, 16, 32, std::vector<int>{22, 23, 24 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr && this->is_grown && is_fire;  }, [this]() {return this->direction; }, true, 25, "FRun"
 	);
 	//Slide
 	this->animator->addFrameAnimation(
-		this->sprite, 16, 32, std::vector<int>{4 }, 25.f / 1000.f, [this]() {
+		this->sprite, 16, 32, std::vector<int>{25 }, 25.f / 1000.f, [this]() {
 			return this->is_sliding && std::dynamic_pointer_cast<IMarioWalk>(this->current_state) != nullptr && this->is_grown && is_fire;
 		}, [this]() {return this->direction; }, true, 30, "FSlide"
 			);
 	//Jump
 	this->animator->addFrameAnimation(
-		this->sprite, 16, 32, std::vector<int>{ 5 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioJump>(this->current_state) != nullptr && this->is_grown && is_fire;  }, [this]() {return this->direction; }, false, 25, "FJump"
+		this->sprite, 16, 32, std::vector<int>{ 26 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioJump>(this->current_state) != nullptr && this->is_grown && is_fire;  }, [this]() {return this->direction; }, false, 25, "FJump"
 	);
 	//Crouch
 	this->animator->addFrameAnimation(
-		this->sprite, 16, 32, std::vector<int>{ 6 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioCrouch>(this->current_state) != nullptr && is_fire;  }, [this]() {return this->direction; }, false, 30, "FCrouch"
+		this->sprite, 16, 32, std::vector<int>{ 27 }, 100.f / 1000.f, [this]() {return std::dynamic_pointer_cast<IMarioCrouch>(this->current_state) != nullptr && is_fire;  }, [this]() {return this->direction; }, false, 30, "FCrouch"
 	);
 	//Shoot
 	this->animator->addFrameAnimation(
-		this->sprite, 16, 32, std::vector<int>{ 9 }, shoot_time, [this]() {return std::dynamic_pointer_cast<IMarioShoot>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, false, 50, "FShoot"
+		this->sprite, 16, 32, std::vector<int>{ 30 }, shoot_time, [this]() {return std::dynamic_pointer_cast<IMarioShoot>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, false, 50, "FShoot"
 	);
 }
 
@@ -153,9 +155,9 @@ void Mario::initAudio()
 }
 
 //Con/Des
-Mario::Mario(sf::RenderWindow* window, Map* map, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, sf::View* view, const sf::FloatRect& rect, const std::string& type, int layer) : window(window),
+Mario::Mario(sf::RenderWindow* window, Map* map, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, sf::View* view, const sf::FloatRect& rect, const std::string& type, int layer, int lifes) : window(window),
 texture_manager(texture_manager), texture(*texture_manager->get("Mario").get()), view(view),
-texture1(*texture_manager->get("MarioBig").get()), texture2(*texture_manager->get("MarioFire").get()), map(map), col(col), GameObject(type, rect, layer)
+texture1(*texture_manager->get("MarioBig").get()), map(map), col(col), GameObject(type, rect, layer), lifes(lifes)
 {
 	this->initVariables();
 	this->initSprite();
@@ -231,6 +233,7 @@ void Mario::grow()
 	GameObject::setBounds({ 16 * 3.f, 32 * 3.f });
 	GameObject::setPosition({ sprite.getPosition().x, sprite.getPosition().y });
 	this->is_grown = true;
+	tclock.addClock(0.9f, []() {return false; }, "Grow");
 	this->animator->playAnim("Grow");
 }
 
@@ -305,19 +308,19 @@ void Mario::fire()
 	sprite.setTexture(tx_glitch);
 
 	sprite.setTextureRect(sf::IntRect(0, 0, 16, 32));
-
-	fire_transform = true;
+	is_fire = true;
+	tclock.addClock(1.3, []() {return false; }, "Fire");
 	animator->playAnim("Fire");
 }
 
 void Mario::shoot()
 {
-	
+
 }
 
 void Mario::die()
 {
-
+	is_dead = true;
 }
 
 void Mario::checkSlide()
@@ -371,11 +374,11 @@ void Mario::setState(const std::shared_ptr<IMarioState>& state)
 {
 	if (current_state == state)
 		return;
-	
+
 	if (this->current_state != nullptr) // OnExit
 	{
 		this->current_state->onExit(*this);
-		
+
 	}
 
 	this->current_state = state; // set new state
@@ -422,7 +425,7 @@ bool wasPressed = false;
 void Mario::update(float deltaTime)
 {
 	this->deltaTime = deltaTime;
-
+	tclock.update(deltaTime);
 	//std::cout << sprite.getPosition().x << ", " << sprite.getPosition().y << "\n";
 
 	//Check if mario is lower than 0
@@ -435,7 +438,7 @@ void Mario::update(float deltaTime)
 	}
 
 	//Check fall
-	
+
 
 
 	if (this->current_state != nullptr) // Update current state
@@ -445,30 +448,20 @@ void Mario::update(float deltaTime)
 		this->animator->update(this->deltaTime);
 
 	//Check Grow and not let mario move while growing
-	if (this->is_grown && this->grow_timer < this->grow_time)
+	
+	if (tclock.getClock("Grow") != nullptr && tclock.getClock("Grow")->is_playing)
 	{
-		this->grow_timer += deltaTime;
 		this->velocity = { 0.f,0.f };
 	}
-	else if (!this->is_grown && this->grow_timer >= this->grow_time)
-		this->grow_timer = 0.f;
 
 	//Check fire and not let mario move while transforms into fire form
-	if (fire_transform)
+	TClockEvent* fire_clock_event = tclock.getClock("Fire");
+	if (fire_clock_event != nullptr)
 	{
-		if (fire_timer < fire_time)
-		{
-			fire_timer += deltaTime;
-			velocity = { 0.f, 0.f };
-		}
-		else
-		{
-			fire_timer = 0.f;
-			fire_transform = false;
-			is_fire = true;
-			sprite.setTexture(texture2);
-		}
+		velocity = { 0.f, 0.f };
 	}
+	else if (is_grown)
+		sprite.setTexture(texture1);
 
 	//Check collisions
 	this->checkCollisions();
@@ -478,7 +471,7 @@ void Mario::update(float deltaTime)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
 		if (!wasPressed) {
-			if(is_fire)
+			if (is_fire)
 				shoot();
 			wasPressed = true;
 		}
@@ -520,6 +513,17 @@ void Mario::update(float deltaTime)
 			sprite.getGlobalBounds().width,
 			sprite.getGlobalBounds().height }, velocity, "All", CollisionType::DOWN);
 
+	if (is_dead)
+	{
+		if(dead_timer < dead_time)
+			dead_timer += deltaTime;
+		else
+		{
+			dead_timer = 0.f;
+			need_restart = true;
+		}
+	}
+
 	sf::Vector2f newPosition = this->sprite.getPosition();
 	GameObject::setPosition(newPosition);
 }
@@ -530,7 +534,7 @@ void Mario::render(sf::RenderTarget* target)
 	{
 		fireBall->render(target);
 	}
-	
+
 	if (!is_dead)
 		target->draw(this->sprite);
 

@@ -1,39 +1,4 @@
-﻿  FireBall.cpp
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'src/Objects/FireBall.cpp')
-  
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'src/Objects/FireBall.cpp')
-  
-  FireFlower.cpp
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'src/Objects/Items/FireFlower.cpp')
-  
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'src/Objects/Items/FireFlower.cpp')
-  
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:         ]
-  (compiling source file 'src/Objects/Items/FireFlower.cpp')
-  
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         ]
-  (compiling source file 'src/Objects/Items/FireFlower.cpp')
-  
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'src/Objects/Items/FireFlower.cpp')
-  
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'src/Objects/Items/FireFlower.cpp')
-  
-  Flag.cpp
-  QuadTree.cpp
+﻿  QuadTree.cpp
   Brick.cpp
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Brick.cpp')
@@ -41,32 +6,12 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'in
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Brick.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Brick.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Brick.cpp')
   
-  Animator.cpp
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'src/Animator.cpp')
-  
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'src/Animator.cpp')
-  
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.cpp(78,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.cpp(79,14): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.cpp(85,12): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.cpp(85,12): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.cpp(85,12): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.cpp(85,12): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.cpp(85,12): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.cpp(83,27): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.cpp(83,27): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.cpp(83,27): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.cpp(83,27): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.cpp(83,27): warning C4244:         ]
-  AudioManager.cpp
   CollisionManager.cpp
   Game.cpp
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
@@ -75,10 +20,10 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'in
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Game.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Game.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Game.cpp')
   
 C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
@@ -95,7 +40,7 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         
 C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         ]
   (compiling source file 'src/Game.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Game.cpp(238,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Game.cpp(255,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   Item.cpp
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Item.cpp')
@@ -103,10 +48,10 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'in
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Item.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Item.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Item.cpp')
   
 C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
@@ -130,10 +75,10 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'in
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/LuckyBlock.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/LuckyBlock.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/LuckyBlock.cpp')
   
 C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
@@ -149,33 +94,6 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         
 C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:             T=float
 C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         ]
   (compiling source file 'src/LuckyBlock.cpp')
-  
-  main.cpp
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'src/main.cpp')
-  
-C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'src/main.cpp')
-  
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'src/main.cpp')
-  
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'src/main.cpp')
-  
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:         ]
-  (compiling source file 'src/main.cpp')
-  
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         ]
-  (compiling source file 'src/main.cpp')
   
   Map.cpp
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
@@ -184,10 +102,10 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'in
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Map.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Map.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Map.cpp')
   
 C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
@@ -262,10 +180,10 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'in
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Mario.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Mario.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Mario.cpp')
   
 C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
@@ -288,17 +206,17 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\MarioState.cpp(102,15): warning C4244:
 C:\GitHubProjects\MarioSFML\MarioGame\src\MarioState.cpp(107,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/Mario.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(262,26): warning C4244: 'initializing': conversion from 'T' to 'unsigned int', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(262,26): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(262,26): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(262,26): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(262,26): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(263,26): warning C4244: 'initializing': conversion from 'T' to 'unsigned int', possible loss of data
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(263,26): warning C4244:         with
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(263,26): warning C4244:         [
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(263,26): warning C4244:             T=float
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(263,26): warning C4244:         ]
-C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(394,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(276,26): warning C4244: 'initializing': conversion from 'T' to 'unsigned int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(276,26): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(276,26): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(276,26): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(276,26): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(277,26): warning C4244: 'initializing': conversion from 'T' to 'unsigned int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(277,26): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(277,26): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(277,26): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(277,26): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(408,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   MushRoom.cpp
 C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/MushRoom.cpp')
@@ -320,16 +238,77 @@ C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         
 C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         ]
   (compiling source file 'src/MushRoom.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/MushRoom.cpp')
   
-C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'src/MushRoom.cpp')
+  
+  FireBall.cpp
+C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Objects/FireBall.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Objects/FireBall.cpp')
+  
+  FireFlower.cpp
+C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Objects/Items/FireFlower.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Objects/Items/FireFlower.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:         ]
+  (compiling source file 'src/Objects/Items/FireFlower.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         ]
+  (compiling source file 'src/Objects/Items/FireFlower.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Objects/Items/FireFlower.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Objects/Items/FireFlower.cpp')
+  
+  main.cpp
+C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,72): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\Animator.h(194,93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\Block.h(41,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/main.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,107): warning C4244:         ]
+  (compiling source file 'src/main.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Text.h(36,68): warning C4244:         ]
+  (compiling source file 'src/main.cpp')
   
      Creating library C:\GitHubProjects\MarioSFML\MarioGame\x64\Release\MarioGame.lib and object C:\GitHubProjects\MarioSFML\MarioGame\x64\Release\MarioGame.exp
   Generating code
-  1875 of 5016 functions (37.4%) were compiled, the rest were copied from previous compilation.
-    237 functions were new in current compilation
-    570 functions had inline decision re-evaluated but remain unchanged
+  4 of 5018 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    29 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   MarioGame.vcxproj -> C:\GitHubProjects\MarioSFML\MarioGame\x64\Release\MarioGame.exe

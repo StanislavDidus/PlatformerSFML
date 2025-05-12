@@ -143,6 +143,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\TClock.cpp" />
     <ClCompile Include="src\Objects\FireBall.cpp" />
     <ClCompile Include="src\Objects\Items\FireFlower.cpp" />
     <ClCompile Include="src\Objects\Flag.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="src\Manager\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\TClock.h" />
     <ClInclude Include="src\Objects\FireBall.h" />
     <ClInclude Include="src\Objects\Items\FireFlower.h" />
     <ClInclude Include="src\Objects\Flag.h" />

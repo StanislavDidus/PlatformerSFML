@@ -51,7 +51,7 @@ struct AnimationSequence : public Animation
         //Initialize array
 
         //Update timer
-        for (auto& timer : this->timing)
+        for (auto& timer : timing)
         {
             timer -= deltaTime;
             if (timer < 0.f)
@@ -59,7 +59,7 @@ struct AnimationSequence : public Animation
         }
         
         // Play each animation
-        this->is_playing = true;
+        is_playing = true;
         for(int i = 0; i < animations.size(); i++)
         {
             if(bools[i] && timing[i] <= 0.f)
@@ -76,7 +76,7 @@ struct AnimationSequence : public Animation
         if (is_all_animations_finished && end != nullptr)
         {
             *end = false;
-            this->is_playing = false;
+            is_playing = false;
         }
 
         is_finished = false;
@@ -87,7 +87,7 @@ struct AnimationSequence : public Animation
 
     std::shared_ptr<Animation> getAnimation(int index)
     {
-        return this->animations[index];
+        return animations[index];
     }
 };
 
@@ -127,14 +127,14 @@ struct FrameAnimation : public Animation
             
             //Play anim
             is_finished = false;
-            this->is_playing = true;
+            is_playing = true;
             int dir = get_direction();
             
             int columnCount = sprite.getTexture()->getSize().x / frame_width;
-            int x = this->animation_frames[current_frame] % columnCount;
-            int y = this->animation_frames[current_frame] / columnCount;
+            int x = animation_frames[current_frame] % columnCount;
+            int y = animation_frames[current_frame] / columnCount;
 
-            this->sprite.setTextureRect(sf::IntRect(
+            sprite.setTextureRect(sf::IntRect(
                 dir == 1 ? frame_width * x : frame_width * x + frame_width,
                 frame_height * y,
                 dir * frame_width,
@@ -163,7 +163,7 @@ struct FrameAnimation : public Animation
         }
         else
         {
-            this->is_playing = false;
+            is_playing = false;
             
         }
     }
@@ -204,7 +204,7 @@ struct PosAnimation : public Animation
             if (true)
             {
                 // check direction to the point
-                sf::Vector2f dir = this->positions[currentPos] - this->sprite.getPosition();
+                sf::Vector2f dir = positions[currentPos] - sprite.getPosition();
                 // measure distance
                 float distance = std::sqrt(dir.x * dir.x + dir.y * dir.y);
 
@@ -212,7 +212,7 @@ struct PosAnimation : public Animation
                 if (fabs(distance) <= 0.1f)
                 {
                     // callibrate position 
-                    this->sprite.setPosition(this->positions[currentPos]);
+                    sprite.setPosition(positions[currentPos]);
                     currentPos++;
                     // move backwards
 
@@ -231,15 +231,15 @@ struct PosAnimation : public Animation
                     // normalize direction (get unit vector)
                     dir /= distance;
                     // step
-                    sf::Vector2f step = dir * std::min(distance, this->animation_speed * deltaTime);
+                    sf::Vector2f step = dir * std::min(distance, animation_speed * deltaTime);
                     // set new position
-                    this->sprite.setPosition(this->sprite.getPosition() + step);
+                    sprite.setPosition(sprite.getPosition() + step);
                 }
             }
             else
             {
                 // move to the first point
-                //sf::Vector2f dir = this->pos.first - this->sprite.getPosition();
+                //sf::Vector2f dir = pos.first - sprite.getPosition();
                 // measure distance
                 //float distance = std::sqrt(dir.x * dir.x + dir.y * dir.y);
 
@@ -247,10 +247,10 @@ struct PosAnimation : public Animation
                 //if (fabs(distance) <= 0.1f)
                 {
                     // callibrate position
-                    //this->sprite.setPosition(this->pos.first);
+                    //sprite.setPosition(pos.first);
                     // finish animation
                     //is_playing = false;
-                    //this->is_moving_to_second = true;
+                    //is_moving_to_second = true;
                     //if (end != nullptr)
                         //*end = false;
               
@@ -260,9 +260,9 @@ struct PosAnimation : public Animation
                     // normalize direction
                     //dir /= distance;
                     // step
-                    //sf::Vector2f step = dir * std::min(distance, this->animation_speed * deltaTime);
+                    //sf::Vector2f step = dir * std::min(distance, animation_speed * deltaTime);
                     // move by step
-                    //this->sprite.setPosition(this->sprite.getPosition() + step);
+                    //sprite.setPosition(sprite.getPosition() + step);
                 }
             }
         }

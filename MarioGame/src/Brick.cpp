@@ -2,9 +2,9 @@
 
 Brick::Brick(const sf::Sprite& sprite, sf::Texture* texture, sf::Texture* texture1, const sf::FloatRect& rect, const std::string& type, int layer, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects) : Block(rect, type, texture, layer, col, gameObjects), broken_bricks_texture(*texture1)
 {
-	//this->initSprite();
-	//this->animator->addPosAnimation(
-		//this->sprite, 150.f, [this]() {return false; }, false, 25, { {this->sprite.getPosition()},{this->sprite.getPosition().x, this->sprite.getPosition().y - 15.f} }, "Hit");
+	//initSprite();
+	//animator->addPosAnimation(
+		//sprite, 150.f, [this]() {return false; }, false, 25, { {sprite.getPosition()},{sprite.getPosition().x, sprite.getPosition().y - 15.f} }, "Hit");
 	
 }
 
@@ -39,7 +39,7 @@ void Brick::initAnimator()
 
 void Brick::onHit()
 {
-	this->animator->playAnim("Hit");
+	animator->playAnim("Hit");
 	HitItem();
 }
 
@@ -81,7 +81,7 @@ void Brick::update(float deltaTime)
 		}
 	}
 
-	sf::Vector2f newPos = this->sprite.getPosition();
+	sf::Vector2f newPos = sprite.getPosition();
 	setPosition(newPos);
 }
 
