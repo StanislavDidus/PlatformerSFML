@@ -1,4 +1,4 @@
-#include "Brick.h"
+#include "Objects/Brick.h"
 
 Brick::Brick(const sf::Sprite& sprite, sf::Texture* texture, sf::Texture* texture1, const sf::FloatRect& rect, const std::string& type, int layer, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects) : Block(rect, type, texture, layer, col, gameObjects), broken_bricks_texture(*texture1)
 {

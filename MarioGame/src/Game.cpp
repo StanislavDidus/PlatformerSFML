@@ -151,7 +151,6 @@ void Game::initFlag()
 	//Init Flag
 	flag = std::make_unique<Flag>("Flag", sf::FloatRect((198.f * 16.f)  * 3.125f, 1.f * 16.f * 3.125f, 2.f * 3.125f, 16.f * 10.f * 3.125f), 15, texture_manager->get("FlagStick").get(), texture_manager->get("Flag").get());
 	quadTree->insert({flag->getBounds(), "Flag"});
-	//std::cout << flag->getBounds().left << ", " << flag->getBounds().top << "\n";
 }
 
 //Con/Des
@@ -182,7 +181,7 @@ void Game::addCoin()
 
 void Game::showScore(sf::Vector2f pos, sf::Texture* texture, int score)
 {
-	//Display scores
+	//Display score
 	std::shared_ptr<Text> text = std::make_shared<Text>(16,8, pos, texture);
 	text->getAnimator()->playAnim("Score");
 	addScore(score);
@@ -289,15 +288,11 @@ void Game::updateMap()
 
 void Game::updateCollisions(float deltaTime)
 {
-	//map->updateCollisions();
-
 	//Check collision with different gameobjects
 	for (const auto& obj : gameObjects)
 	{
-		//col_manager->addCollision({ obj->getBounds(), obj->getType(), obj.get() });
 		if (mario->getBounds().intersects(obj->getBounds()))
 		{
-			//std::cout << "Collect: " << obj->getType() << "\n";
 			if (obj->isActive())
 			{
 				obj->onHit();
@@ -328,7 +323,7 @@ void Game::update()
 	float deltaTime = clock.restart().asSeconds();
 	deltaTime = std::min(deltaTime, 0.033f);
 
-	//START MENU
+	//START TIMER
 	if (start_game_timer < 0.f)
 		is_game_started = true;
 	else
@@ -336,7 +331,7 @@ void Game::update()
 
 	updateEvents();
 
-	//If game is started update all needed managers
+	//If game is started update all needed objects
 	if (is_game_started)
 	{
 		updateCollisions(deltaTime);
@@ -424,8 +419,7 @@ void Game::restart()
 	}
 	else
 	{
-		//Game over 
-		//is_game_started = false;
+		//Finish Game
 		is_game_over = true;
 		is_game_started = false;
 	}
@@ -441,22 +435,17 @@ void Game::render()
 	if (is_game_started)
 	{
 
-		//Render level
+		//Add all renderable objects to the renderQueue
 		for (const auto& object : gameObjects)
 		{
-			//object->render(window.get());
 			renderQueue.emplace_back(object->layer, [this, object]() {object->render(window.get()); });
 		}
 
-		//map->render(window.get());
 		map->render(renderQueue, window.get());
-
 		renderQueue.emplace_back(flag->layer, [this]() {flag->render(window.get()); });
-
-		//Render player
 		renderQueue.emplace_back(mario->layer, [this]() {mario->render(window.get()); });
 
-		//Render all the objects in queue
+		//Sort and render all the objects in the queue
 		std::sort(renderQueue.begin(), renderQueue.end());
 		for (const auto& i : renderQueue)
 		{
@@ -478,7 +467,7 @@ void Game::render()
 	{
 		DisplayStartMenu();
 	}
-	if(is_game_over)
+	else if(is_game_over)
 	{
 		window->draw(game_over_text);
 	}

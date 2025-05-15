@@ -1,4 +1,4 @@
-﻿#include "LuckyBlock.h"
+﻿#include "Objects/LuckyBlock.h"
 #include "Game.h"
 
 void LuckyBlock::initLuckyBlock()
@@ -15,21 +15,14 @@ void LuckyBlock::initCoin()
 	coin_sprite.setScale(3.125f, 3.125f);
 	coin_sprite.setTextureRect(sf::IntRect(0, 0, 8, 16));
 	coin_sprite.setPosition(getSprite().getPosition().x + 8 * 3.125f - 4 * 3.125f, getSprite().getPosition().y);
-
-	//animator->addPosAnimation(
-		//coin_sprite, 450.f, [this]() {return false; }, false, 10, { {coin_sprite.getPosition().x , coin_sprite.getPosition().y - 85.f}  ,{coin_sprite.getPosition().x, coin_sprite.getPosition().y - 155.f} }, "Coin");
-
 	animator->addFrameAnimation(
 		coin_sprite, 8, 16, std::vector<int>{ 0,1,2,3 }, 100.f / 1000.f, [this]() {return true; }, [this]() {return 1; }, true, 5, "CIdle"
 	);
-
-
 }
 
 void LuckyBlock::initScore()
 {
 	score_text = std::make_unique<Text>(16,7, coin_sprite.getPosition(), texture_manager->get("200S").get());
-
 	PosAnimation ps = { coin_sprite, coin_sprite.getGlobalBounds().width / 3.125f, coin_sprite.getGlobalBounds().height / 3.125f, 450.f,[this]() {return false; }, false, 10, std::vector<sf::Vector2f>{{sprite.getPosition().x + coin_sprite.getGlobalBounds().width / 2, sprite.getPosition().y - 155},{sprite.getPosition().x + coin_sprite.getGlobalBounds().width / 2, sprite.getPosition().y - 85}}, "Coin"};
 	PosAnimation ps1 = { sprite, sprite.getGlobalBounds().width / 3.125f, sprite.getGlobalBounds().height / 3.125f, 150.f, [this]() {return false; }, false, 25, std::vector<sf::Vector2f>{{sprite.getPosition().x, sprite.getPosition().y - 15}, {sprite.getPosition()}}, "Hit"};
 	std::vector<std::shared_ptr<Animation>> ps_a;
@@ -190,5 +183,4 @@ const void LuckyBlock::giveCoin() const
 	animator->playAnim("Get");
 	game->addScore(200);
 	game->addCoin();
-	
 }

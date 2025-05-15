@@ -77,7 +77,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)packages\SFML_VS2019.1.0.0\build\native\x64\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)packages\SFML_VS2019.1.0.0\build\native\x64\include;$(ProjectDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -94,7 +94,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)packages\SFML_VS2019.1.0.0\build\native\x64\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)packages\SFML_VS2019.1.0.0\build\native\x64\include;$(ProjectDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -111,7 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)packages\SFML_VS2019.1.0.0\build\native\x64\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)packages\SFML_VS2019.1.0.0\build\native\x64\include;$(ProjectDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,7 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)packages\SFML_VS2019.1.0.0\build\native\x64\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)packages\SFML_VS2019.1.0.0\build\native\x64\include;$(ProjectDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,47 +143,47 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\TClock.cpp" />
-    <ClCompile Include="src\Objects\FireBall.cpp" />
-    <ClCompile Include="src\Objects\Items\FireFlower.cpp" />
-    <ClCompile Include="src\Objects\Flag.cpp" />
-    <ClCompile Include="src\Algorythms\QuadTree.cpp" />
-    <ClCompile Include="src\Brick.cpp" />
     <ClCompile Include="src\Animator.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
+    <ClCompile Include="src\Brick.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
+    <ClCompile Include="src\FireBall.cpp" />
+    <ClCompile Include="src\FireFlower.cpp" />
+    <ClCompile Include="src\Flag.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\LuckyBlock.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Mario.cpp" />
+    <ClCompile Include="src\MarioState.cpp" />
     <ClCompile Include="src\MushRoom.cpp" />
-    <ClCompile Include="src\Manager\TextureManager.cpp" />
+    <ClCompile Include="src\QuadTree.cpp" />
+    <ClCompile Include="src\TClock.cpp" />
+    <ClCompile Include="src\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\TClock.h" />
-    <ClInclude Include="src\Objects\FireBall.h" />
-    <ClInclude Include="src\Objects\Items\FireFlower.h" />
-    <ClInclude Include="src\Objects\Flag.h" />
-    <ClInclude Include="src\Algorythms\QuadTree.h" />
-    <ClInclude Include="src\Block.h" />
-    <ClInclude Include="src\Brick.h" />
-    <ClInclude Include="src\Animator.h" />
-    <ClInclude Include="src\AudioManager.h" />
-    <ClInclude Include="src\CollisionManager.h" />
-    <ClInclude Include="src\Game.h" />
-    <ClInclude Include="src\GameObject.h" />
-    <ClInclude Include="src\Item.h" />
-    <ClInclude Include="src\LuckyBlock.h" />
-    <ClInclude Include="src\Map.h" />
-    <ClInclude Include="src\Mario.h" />
-    <ClInclude Include="src\MarioState.cpp" />
-    <ClInclude Include="src\Math.h" />
-    <ClInclude Include="src\MushRoom.h" />
-    <ClInclude Include="src\Renderable.h" />
-    <ClInclude Include="src\Text.h" />
-    <ClInclude Include="src\Manager\TextureManager.h" />
+    <ClInclude Include="include\Algorythms\Math.h" />
+    <ClInclude Include="include\Algorythms\QuadTree.h" />
+    <ClInclude Include="include\Algorythms\TClock.h" />
+    <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\Managers\Animator.h" />
+    <ClInclude Include="include\Managers\AudioManager.h" />
+    <ClInclude Include="include\Managers\CollisionManager.h" />
+    <ClInclude Include="include\Managers\Map.h" />
+    <ClInclude Include="include\Managers\TextureManager.h" />
+    <ClInclude Include="include\Objects\Block.h" />
+    <ClInclude Include="include\Objects\Brick.h" />
+    <ClInclude Include="include\Objects\FireBall.h" />
+    <ClInclude Include="include\Objects\Flag.h" />
+    <ClInclude Include="include\Objects\GameObject.h" />
+    <ClInclude Include="include\Objects\Item.h" />
+    <ClInclude Include="include\Objects\Items\FireFlower.h" />
+    <ClInclude Include="include\Objects\Items\MushRoom.h" />
+    <ClInclude Include="include\Objects\LuckyBlock.h" />
+    <ClInclude Include="include\Objects\Mario.h" />
+    <ClInclude Include="include\Objects\Text.h" />
+    <ClInclude Include="include\Renderable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

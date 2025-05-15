@@ -1,4 +1,4 @@
-#include "TClock.h"
+#include "Algorythms/TClock.h"
 
 TClock::TClock()
 {
@@ -21,11 +21,6 @@ TClockEvent* TClock::getClock(const std::string& name)
 	}
 	else
 		return nullptr;
-}
-
-float TClock::getTime(const std::string& name)
-{
-	return clocks[name].current_time;
 }
 
 void TClock::update(float deltaTime)

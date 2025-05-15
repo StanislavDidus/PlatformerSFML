@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Mario.h"
+#include "Objects/Mario.h"
 
 class IMarioState
 {

@@ -1,4 +1,4 @@
-#include "MushRoom.h"
+#include "Objects/Items/MushRoom.h"
 #include "Game.h"
 
 void MushRoom::onHit()
