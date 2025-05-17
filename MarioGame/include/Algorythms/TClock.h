@@ -18,7 +18,7 @@ struct TClockEvent
 
 	TClockEvent() = default;
 	TClockEvent(float start_time, float target_time, const std::function<bool()>& func) : start_time(start_time), current_time(0.f), target_time(target_time),
-		func(func) {}
+		func(func), is_playing(true) {}
 };
 
  class TClock

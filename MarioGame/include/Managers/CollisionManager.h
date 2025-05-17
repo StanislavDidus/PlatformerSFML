@@ -123,6 +123,7 @@ public:
 
 					if (player.intersects(object) && col.object->is_collision)
 					{
+						
 						gameObjects.push_back(col.object);
 					}
 
@@ -142,16 +143,63 @@ public:
 		return closestGO;
 	}
 
-	void callibrateCollision(const GameObject& player, float& x, float& y)
+	void callibrateCollision(GameObject& player, float& x, float& y)
 	{
 		//Get all possible collition using QuadTree
 		sf::FloatRect playerBounds = player.getBounds();
-		sf::FloatRect newBoundsY = playerBounds;
-		newBoundsY.top += y;
 
 		std::vector<CollisionEvent> possible_collisions;
 		if (quadTree != nullptr)
-			quadTree->checkCollisions({ playerBounds.left + x, playerBounds.top + y, playerBounds.width, playerBounds.height }, possible_collisions);
+			quadTree->checkCollisions({ playerBounds.left, playerBounds.top, playerBounds.width, playerBounds.height }, possible_collisions);
+
+		sf::FloatRect newBoundsY = playerBounds;
+		newBoundsY.top += y;
+
+		/*for (const auto& object : possible_collisions)
+		{
+			sf::FloatRect objectBounds = object.collider_bounds;
+
+			if (newBoundsY.intersects(objectBounds))
+			{
+				float yOverlap = std::min(newBoundsY.top + newBoundsY.height, objectBounds.top + objectBounds.height) - std::max(newBoundsY.top, objectBounds.top);
+				if (yOverlap > 0)
+				{
+					if (newBoundsY.top < objectBounds.top)
+					{
+						y = -yOverlap;
+					}
+					else
+					{
+						y = yOverlap;
+					}
+				}
+
+			}
+		}
+
+		sf::FloatRect newBoundsX = playerBounds;
+		newBoundsX.left += x;
+
+		for (const auto& object : possible_collisions)
+		{
+			sf::FloatRect objectBounds = object.collider_bounds;
+			if (newBoundsX.intersects(objectBounds))
+			{
+				float xOverlap = std::min(newBoundsX.left + newBoundsX.width, objectBounds.left + objectBounds.width) - std::max(newBoundsX.left, objectBounds.left);
+
+				if (xOverlap > 0)
+				{
+					if (newBoundsX.left < objectBounds.left)
+					{
+						x = -xOverlap;
+					}
+					else
+					{
+						x = xOverlap;
+					}
+				}
+			}
+		}*/
 
 		//Check collision with all possible game objects with chosen directions
 		//And change x and y variables to the number that player does not go inside the collider

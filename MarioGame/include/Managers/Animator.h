@@ -36,10 +36,15 @@ struct AnimationSequence : public Animation
     AnimationSequence(std::vector<std::shared_ptr<Animation>>&& animations, std::vector<float>& timing, std::function<bool()> condition, const std::string& name, const int prior)
         : Animation(name, prior, condition), timing(timing), last_play_time(0.f), animations(std::move(animations))
     {
-        for (int i = 0; i < animations.size(); i++) 
+        for (int i = 0; i < this->animations.size(); i++) 
         {
             bools[i] = true;
         }
+    }
+
+    virtual ~AnimationSequence()
+    {
+        delete[] bools;
     }
 
     void play(float timer, float deltaTime, bool* end = nullptr) override
@@ -124,7 +129,7 @@ struct FrameAnimation : public Animation
             int dir = get_direction();
             
             //Get x any y coordinate of the frame
-            int columnCount = sprite.getTexture()->getSize().x / frame_width;
+            int columnCount = static_cast<int>(sprite.getTexture()->getSize().x / frame_width);
             int x = animation_frames[current_frame] % columnCount;
             int y = animation_frames[current_frame] / columnCount;
 
@@ -184,7 +189,7 @@ struct PosAnimation : public Animation
     bool is_moving_to_second = true;
 
 
-    PosAnimation(sf::Sprite& sprite, float width, float height, float speed, std::function<bool()> condition,
+    PosAnimation(sf::Sprite& sprite, int width, int height, float speed, std::function<bool()> condition,
         bool is_looped, int prior, std::vector<sf::Vector2f> positions, const std::string& name)
         : Animation(name,prior, condition), sprite(sprite), frame_width(width), frame_height(height),
         animation_speed(speed), last_play_time(0.f), is_looped(is_looped), positions(positions) {
@@ -253,8 +258,8 @@ public:
     Animator();
 	virtual ~Animator();
 
-    void addFrameAnimation(sf::Sprite& sprite, int w, int h, const std::vector<int>& frames, float speed, const std::function<bool()>& condition, const std::function<int()> &get_direction, bool is_looped, int prior, const std::string& name);
-    void addPosAnimation(sf::Sprite& sprite, int w, int h, float speed, std::function<bool()> condition, bool is_looped, int prior, std::vector<sf::Vector2f> positions, const std::string& name);
+    void addFrameAnimation(sf::Sprite& sprite, float w, float h, const std::vector<int>& frames, float speed, const std::function<bool()>& condition, const std::function<int()> &get_direction, bool is_looped, int prior, const std::string& name);
+    void addPosAnimation(sf::Sprite& sprite, float w, float h, float speed, std::function<bool()> condition, bool is_looped, int prior, std::vector<sf::Vector2f> positions, const std::string& name);
     void addAnimationSequence(std::vector<std::shared_ptr<Animation>>&& animations, std::vector<float>& timing, std::function<bool()> condition, const std::string& name, int prior);
 
     std::shared_ptr<Animation> getAnim(const std::string& name);

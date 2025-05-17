@@ -23,8 +23,8 @@ void LuckyBlock::initCoin()
 void LuckyBlock::initScore()
 {
 	score_text = std::make_unique<Text>(16,7, coin_sprite.getPosition(), texture_manager->get("200S").get());
-	PosAnimation ps = { coin_sprite, coin_sprite.getGlobalBounds().width / 3.125f, coin_sprite.getGlobalBounds().height / 3.125f, 450.f,[this]() {return false; }, false, 10, std::vector<sf::Vector2f>{{sprite.getPosition().x + coin_sprite.getGlobalBounds().width / 2, sprite.getPosition().y - 155},{sprite.getPosition().x + coin_sprite.getGlobalBounds().width / 2, sprite.getPosition().y - 85}}, "Coin"};
-	PosAnimation ps1 = { sprite, sprite.getGlobalBounds().width / 3.125f, sprite.getGlobalBounds().height / 3.125f, 150.f, [this]() {return false; }, false, 25, std::vector<sf::Vector2f>{{sprite.getPosition().x, sprite.getPosition().y - 15}, {sprite.getPosition()}}, "Hit"};
+	PosAnimation ps = { coin_sprite, static_cast<int>(coin_sprite.getGlobalBounds().width / 3.125f), static_cast<int>(coin_sprite.getGlobalBounds().height / 3.125f), 450.f,[this]() {return false; }, false, 10, std::vector<sf::Vector2f>{{sprite.getPosition().x + coin_sprite.getGlobalBounds().width / 2, sprite.getPosition().y - 155},{sprite.getPosition().x + coin_sprite.getGlobalBounds().width / 2, sprite.getPosition().y - 85}}, "Coin"};
+	PosAnimation ps1 = { sprite, static_cast<int>(sprite.getGlobalBounds().width / 3.125f), static_cast<int>(sprite.getGlobalBounds().height / 3.125f), 150.f, [this]() {return false; }, false, 25, std::vector<sf::Vector2f>{{sprite.getPosition().x, sprite.getPosition().y - 15}, {sprite.getPosition()}}, "Hit"};
 	std::vector<std::shared_ptr<Animation>> ps_a;
 	ps_a.emplace_back(std::make_unique<PosAnimation>(ps));
 	ps_a.emplace_back(std::make_unique<PosAnimation>(ps1));

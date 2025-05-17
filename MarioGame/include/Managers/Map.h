@@ -54,7 +54,8 @@ public:
 	int current_frame;
 	std::unique_ptr<sf::Clock> anim_timer;
 
-	Tile(const sf::FloatRect& p, const sf::IntRect& t, const std::string& ty, const bool col, const bool anim, int layer) : posRect(p), texRect(t), type(ty), is_collision(col), is_animation(anim), layer(layer)
+	Tile(const sf::FloatRect& p, const sf::IntRect& t, const std::string& ty, const bool col, const bool anim, int layer) : posRect(p), texRect(t), type(ty), is_collision(col),
+		is_animation(anim), layer(layer), current_frame(0), tile_set_index(0)
 	{
 		
 		//Init clock

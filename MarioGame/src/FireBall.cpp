@@ -44,15 +44,17 @@ void FireBall::update(float deltaTime)
 {
 	if (is_active)
 	{
-		float deltaX = velocity.x * deltaTime;
-		float deltaY = velocity.y * deltaTime;
-		collision_manager->callibrateCollision(*this, deltaX, deltaY);
-		sprite.move(deltaX, deltaY);
+		
 
 		velocity.y += gravity * deltaTime;
 		if (velocity.y > 400.f) velocity.y = 400.f;
 
 		updateCollisions(deltaTime);
+
+		float deltaX = velocity.x * deltaTime;
+		float deltaY = velocity.y * deltaTime;
+		collision_manager->callibrateCollision(*this, deltaX, deltaY);
+		sprite.move(deltaX, deltaY);
 	}
 
 	animator->update(deltaTime);

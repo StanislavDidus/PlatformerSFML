@@ -11,7 +11,6 @@ void Game::initVariables()
 	timer = 400.f;
 	ttimer = 0.f;
 	
-	is_colliding = false;
 	last_camera_pos = { 0.f,0.f };
 	lastTime = 0.f;
 
@@ -154,7 +153,7 @@ void Game::initFlag()
 }
 
 //Con/Des
-Game::Game() : lifes(3), score(0), coin_amount(0)
+Game::Game() : lifes(3), score(0), coin_amount(0), lastTime(0.f), start_game_timer(0.f), timer(400.f), ttimer(0.f), is_game_over(false), is_game_started(false)
 {
 	
 }
@@ -257,7 +256,7 @@ void Game::updateText()
 	time_text.setString(ss1.str());
 
 	std::ostringstream oss2;
-	int size = MathUtils::getDigitCount(score);
+	int size = static_cast<int>(MathUtils::getDigitCount(score));
 
 	oss2 << "MARIO\n" << std::setw(size + (6 - size)) << std::setfill('0') << score << "\n";
 	score_text.setString(oss2.str());

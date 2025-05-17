@@ -89,7 +89,7 @@ void QuadTree::checkCollisions(const sf::FloatRect& player, std::vector<Collisio
 	{
 		for (const auto& col : collisions)
 		{
-			if((col.object != nullptr && col.object->is_collision) || col.object == nullptr)
+			if ((col.object != nullptr && col.object->is_collision) || col.object == nullptr)
 				results.push_back(col);
 		}
 	}

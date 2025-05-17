@@ -58,7 +58,6 @@ private:
 	//Mario
 	std::unique_ptr<Mario> mario;
 	int lifes;
-	bool is_colliding;
 
 	bool is_game_over;
 

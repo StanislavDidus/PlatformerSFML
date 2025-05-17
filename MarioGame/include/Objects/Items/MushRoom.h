@@ -28,16 +28,17 @@ public:
 
 		if (isActive())
 		{
-			float deltaX = velocity.x * deltaTime * direction;
-			float deltaY = velocity.y * deltaTime;
-			col->callibrateCollision(*this, deltaX, deltaY);
-			checkCollision(deltaTime);
-			sprite.move(deltaX, deltaY);
+			
 
 			velocity.y += gravity * deltaTime;
 			if (velocity.y > 500.f)
 				velocity.y = 500.f;
 			//move({deltaX, deltaY}, direction, deltaTime);
+
+			float deltaX = velocity.x * deltaTime * direction;
+			float deltaY = velocity.y * deltaTime;
+			col->callibrateCollision(*this, deltaX, deltaY);
+			sprite.move(deltaX, deltaY);
 		}
 
 		updateTimer(deltaTime);

@@ -4,6 +4,9 @@
 Animator::Animator()
 {
 	timer = 0.f;
+	currentAnim = nullptr;
+	deltaTime = 0.f;
+	play_anim = "";
 }
 
 Animator::~Animator()
@@ -12,17 +15,18 @@ Animator::~Animator()
 }
 
 //Functions
-void Animator::addFrameAnimation(sf::Sprite& sprite, int w, int h, const std::vector<int>& frames, float speed, const std::function<bool()>& condition, const std::function<int()>& get_direction, bool is_looped, int prior, const std::string& name)
+
+
+void Animator::addFrameAnimation(sf::Sprite& sprite, float w, float h, const std::vector<int>& frames, float speed, const std::function<bool()>& condition, const std::function<int()>& get_direction, bool is_looped, int prior, const std::string& name)
 {
-	//std::pair<int, int> frames = {firstFrame, lastFrame};
-	std::shared_ptr<FrameAnimation> anim = std::make_shared<FrameAnimation>(sprite, w, h, frames, speed, condition, get_direction, is_looped, prior, name);
+	std::shared_ptr<FrameAnimation> anim = std::make_shared<FrameAnimation>(sprite, static_cast<int>(w), static_cast<int>(h), frames, speed, condition, get_direction, is_looped, prior, name);
 	animations.emplace_back(anim);
 	animations_map[name] = anim;
 }
 
-void Animator::addPosAnimation(sf::Sprite& sprite, int w, int h, float speed, std::function<bool()> condition, bool is_looped, int prior, std::vector<sf::Vector2f> positions, const std::string& name)
+void Animator::addPosAnimation(sf::Sprite& sprite, float w, float h, float speed, std::function<bool()> condition, bool is_looped, int prior, std::vector<sf::Vector2f> positions, const std::string& name)
 {
-	std::shared_ptr<PosAnimation> anim = std::make_shared<PosAnimation>(sprite, sprite.getGlobalBounds().width / 3.125f, sprite.getGlobalBounds().height / 3.125f, speed, condition, is_looped, prior, positions, name);
+	std::shared_ptr<PosAnimation> anim = std::make_shared<PosAnimation>(sprite, static_cast<int>(w), static_cast<int>(h), speed, condition, is_looped, prior, positions, name);
 	animations.emplace_back(anim);
 	animations_map[name] = anim;
 }
@@ -71,18 +75,18 @@ const sf::FloatRect Animator::getCurrentFrame()
 	int dir = frameAnim->get_direction();
 	if (dir == 0) dir = 1;
 
-	int columnCount = frameAnim->sprite.getTexture()->getSize().x / frameAnim->frame_width;
+	int columnCount = static_cast<int>(frameAnim->sprite.getTexture()->getSize().x / frameAnim->frame_width);
 	int x = frameAnim->animation_frames[frameAnim->current_frame] % columnCount;
 	int y = frameAnim->animation_frames[frameAnim->current_frame] / columnCount;
 
-	float left = frameAnim->frame_width * x;
-	float width = frameAnim->frame_width;
+	float left = static_cast<float>(frameAnim->frame_width * x);
+	float width = static_cast<float>(frameAnim->frame_width);
 
 	return sf::FloatRect(
 		left,
-		frameAnim->frame_height * y,
+		static_cast<float>(frameAnim->frame_height * y),
 		width,
-		frameAnim->frame_height);
+		static_cast<float>(frameAnim->frame_height));
 
 	/*return sf::FloatRect(
 		left,
