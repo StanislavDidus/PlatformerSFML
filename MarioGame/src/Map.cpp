@@ -31,7 +31,7 @@ void Map::initSprites()
 			{
 				for (int y = 0; y < this->tiled_map.getBounds().height / this->tile_sets[0]->getTileSize().y; y++)
 				{
-					auto& tile = tileLayer->getTiles()[y * this->tiled_map.getBounds().width / this->tile_sets[0]->getTileSize().x + x];
+					auto& tile = tileLayer->getTiles()[y * static_cast<int>(this->tiled_map.getBounds().width) / this->tile_sets[0]->getTileSize().x + x];
 
 					if (tile.ID == 0)
 						continue;
@@ -230,18 +230,20 @@ void Map::initVerArray()
 			float tile_width = (posRect.left + posRect.width);
 			float tile_height = (posRect.top + posRect.height);
 
-			float tex_width = texRect.left + texRect.width;
-			float tex_height = texRect.top + texRect.height;
+			float tex_left = static_cast<float>(texRect.left);
+			float tex_top = static_cast<float>(texRect.top);
+			float tex_width = static_cast<float>(texRect.left + texRect.width);
+			float tex_height = static_cast<float>(texRect.top + texRect.height);
 
 			vrtxs[j].v_array[i * 4 + 0].position = sf::Vector2f(tile_x, tile_y);
 			vrtxs[j].v_array[i * 4 + 1].position = sf::Vector2f(tile_width, tile_y);
 			vrtxs[j].v_array[i * 4 + 2].position = sf::Vector2f(tile_width, tile_height);
 			vrtxs[j].v_array[i * 4 + 3].position = sf::Vector2f(tile_x, tile_height);
 
-			vrtxs[j].v_array[i * 4 + 0].texCoords = sf::Vector2f(texRect.left, texRect.top);
-			vrtxs[j].v_array[i * 4 + 1].texCoords = sf::Vector2f(tex_width, texRect.top);
+			vrtxs[j].v_array[i * 4 + 0].texCoords = sf::Vector2f(tex_left, tex_top);
+			vrtxs[j].v_array[i * 4 + 1].texCoords = sf::Vector2f(tex_width, tex_top);
 			vrtxs[j].v_array[i * 4 + 2].texCoords = sf::Vector2f(tex_width, tex_height);
-			vrtxs[j].v_array[i * 4 + 3].texCoords = sf::Vector2f(texRect.left, tex_height);
+			vrtxs[j].v_array[i * 4 + 3].texCoords = sf::Vector2f(tex_left, tex_height);
 
 		}
 	}

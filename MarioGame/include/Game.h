@@ -24,9 +24,18 @@
 
 #include "Math.h"
 
+class IGameState;
+class IGameShowInfo;
+class IGameStartMenu;
+class IGameGameOver;
+class IGameTimeUp;
+class IGamePlay;
+
 class Game : public std::enable_shared_from_this<Game>
 {
 private:
+	std::shared_ptr<IGameState> current_state;
+
 	//Start game screen
 	float start_game_timer;
 	bool is_game_started;
@@ -115,6 +124,12 @@ private:
 	void initAudio();
 	void initText();
 public:
+	friend class IGameShowInfo;
+	friend class IGameStartMenu;
+	friend class IGameGameOver;
+	friend class IGameTimeUp;
+	friend class IGamePlay;
+
 	Game();
 	virtual ~Game();
 
@@ -125,6 +140,8 @@ public:
 	void showScore(sf::Vector2f pos, sf::Texture* texture, int score); //Display the number of points you gained with an animation
 	void DisplayStartMenu();
 	void restart();
+
+	void setState(const std::shared_ptr<IGameState>& state);
 
 	bool init();
 	void updateEvents();

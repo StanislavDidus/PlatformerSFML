@@ -155,7 +155,7 @@ public:
 		sf::FloatRect newBoundsY = playerBounds;
 		newBoundsY.top += y;
 
-		/*for (const auto& object : possible_collisions)
+		for (const auto& object : possible_collisions)
 		{
 			sf::FloatRect objectBounds = object.collider_bounds;
 
@@ -199,59 +199,59 @@ public:
 					}
 				}
 			}
-		}*/
+		}
 
 		//Check collision with all possible game objects with chosen directions
 		//And change x and y variables to the number that player does not go inside the collider
-		for (const auto& object : possible_collisions)
-		{
-			//Check Y collisions
-			sf::FloatRect objectBounds = object.collider_bounds;
-			float playerBottom = playerBounds.top + playerBounds.height;
+		//for (const auto& object : possible_collisions)
+		//{
+		//	//Check Y collisions
+		//	sf::FloatRect objectBounds = object.collider_bounds;
+		//	float playerBottom = playerBounds.top + playerBounds.height;
 
-			if (y > 0)
-			{
-				if (newBoundsY.intersects(objectBounds))
-				{
-					y = objectBounds.top - playerBottom;
-					newBoundsY.top = playerBounds.top + y;
-				}
-			}
-			else if (y < 0) 
-			{
-				if (newBoundsY.intersects(objectBounds))
-				{
-					y = (objectBounds.top + objectBounds.height) - playerBounds.top;
-					newBoundsY.top = playerBounds.top + y;
-				}
-			}
-		}
+		//	if (y > 0)
+		//	{
+		//		if (newBoundsY.intersects(objectBounds))
+		//		{
+		//			y = objectBounds.top - playerBottom;
+		//			newBoundsY.top = playerBounds.top + y;
+		//		}
+		//	}
+		//	else if (y < 0) 
+		//	{
+		//		if (newBoundsY.intersects(objectBounds))
+		//		{
+		//			y = (objectBounds.top + objectBounds.height) - playerBounds.top;
+		//			newBoundsY.top = playerBounds.top + y;
+		//		}
+		//	}
+		//}
 
-		playerBounds.top += y;
+		//playerBounds.top += y;
 
-		//Check X positions
-		sf::FloatRect newBoundsX = playerBounds;
-		newBoundsX.left += x;
+		////Check X positions
+		//sf::FloatRect newBoundsX = playerBounds;
+		//newBoundsX.left += x;
 
-		for (const auto& object : possible_collisions)
-		{
-			sf::FloatRect objectBounds = object.collider_bounds;
+		//for (const auto& object : possible_collisions)
+		//{
+		//	sf::FloatRect objectBounds = object.collider_bounds;
 
-			if (x < 0) 
-			{
-				if (newBoundsX.intersects(objectBounds))
-				{
-					x = objectBounds.left + objectBounds.width - playerBounds.left;
-				}
-			}
-			else if (x > 0) 
-			{
-				if (newBoundsX.intersects(objectBounds))
-				{
-					x = objectBounds.left - playerBounds.width - playerBounds.left;
-				}
-			}
-		}
+		//	if (x < 0) 
+		//	{
+		//		if (newBoundsX.intersects(objectBounds))
+		//		{
+		//			x = objectBounds.left + objectBounds.width - playerBounds.left;
+		//		}
+		//	}
+		//	else if (x > 0) 
+		//	{
+		//		if (newBoundsX.intersects(objectBounds))
+		//		{
+		//			x = objectBounds.left - playerBounds.width - playerBounds.left;
+		//		}
+		//	}
+		//}
 	}
 };
 

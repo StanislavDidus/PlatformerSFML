@@ -1,4 +1,4 @@
-﻿#include "Game.h"
+﻿#include "GameState.cpp"
 
 
 //Init
@@ -8,7 +8,7 @@ void Game::initVariables()
 	is_game_started = false;
 
 	//timers
-	timer = 400.f;
+	timer = 10.f;
 	ttimer = 0.f;
 	
 	last_camera_pos = { 0.f,0.f };
@@ -21,9 +21,8 @@ void Game::initTextureManager()
 {
 	//Init texture manager
 	texture_manager = std::make_shared<TextureManager>();
-	texture_manager->load("Mario", "assets/Textures/Mario/Mario0.png"); //Small mario
-	texture_manager->load("MarioBig", "assets/Textures/Mario/Mario1.png"); //Big mario
-	//texture_manager->load("MarioFire", "assets/Textures/Mario/Mario2.png"); //Fire mario
+	texture_manager->load("Mario", "assets/Textures/Mario/Mario.png"); //Small mario
+	texture_manager->load("MarioBig", "assets/Textures/Mario/MarioBig.png"); //Big mario
 	texture_manager->load("FireBall", "assets/Textures/FireBall.png"); //FireBall
 	texture_manager->load("Explosion", "assets/Textures/Explosion.png"); //Explosion
 	texture_manager->load("LuckyBlock", "assets/Textures/Levels/LuckyBlock.png"); //LuckyBlock
@@ -152,6 +151,21 @@ void Game::initFlag()
 	quadTree->insert({flag->getBounds(), "Flag"});
 }
 
+void Game::setState(const std::shared_ptr<IGameState>& state)
+{
+	if (current_state == state)
+		return;
+
+	if (current_state != nullptr) // OnExit
+	{
+		current_state->onExit(*this);
+	}
+
+	current_state = state; // set new state
+
+	current_state->onEnter(*this); // OnEnter
+}
+
 //Con/Des
 Game::Game() : lifes(3), score(0), coin_amount(0), lastTime(0.f), start_game_timer(0.f), timer(400.f), ttimer(0.f), is_game_over(false), is_game_started(false)
 {
@@ -251,7 +265,10 @@ void Game::updateText()
 		ttimer = 0.f;
 		timer -= 1.f;
 		if (timer < 0.f)
+		{
+			mario->timeUp();
 			timer = 0.f;
+		}
 	}
 	time_text.setString(ss1.str());
 

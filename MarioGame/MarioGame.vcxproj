@@ -151,6 +151,7 @@
     <ClCompile Include="src\FireFlower.cpp" />
     <ClCompile Include="src\Flag.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameState.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\LuckyBlock.cpp" />
     <ClCompile Include="src\main.cpp" />

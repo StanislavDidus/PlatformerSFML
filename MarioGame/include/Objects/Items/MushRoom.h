@@ -35,6 +35,7 @@ public:
 				velocity.y = 500.f;
 			//move({deltaX, deltaY}, direction, deltaTime);
 
+			checkCollision(deltaTime);
 			float deltaX = velocity.x * deltaTime * direction;
 			float deltaY = velocity.y * deltaTime;
 			col->callibrateCollision(*this, deltaX, deltaY);

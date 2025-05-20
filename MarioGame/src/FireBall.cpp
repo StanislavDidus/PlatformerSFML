@@ -77,7 +77,7 @@ void FireBall::updateCollisions(float deltaTime)
 	}
 	//Check Left and Right collisions
 	if (dir == -1 && collision_manager->checkCollision(sf::FloatRect(sprite.getGlobalBounds().left + velocity.x * deltaTime,
-		sprite.getGlobalBounds().top + velocity.y * deltaTime,
+		sprite.getGlobalBounds().top,
 		sprite.getGlobalBounds().width,
 		sprite.getGlobalBounds().height), velocity, "All", CollisionType::LEFT))
 	{
@@ -86,7 +86,7 @@ void FireBall::updateCollisions(float deltaTime)
 		is_active = false;
 	}
 	else if (dir==1 && collision_manager->checkCollision(sf::FloatRect(sprite.getGlobalBounds().left + velocity.x * deltaTime,
-		sprite.getGlobalBounds().top + velocity.y * deltaTime,
+		sprite.getGlobalBounds().top,
 		sprite.getGlobalBounds().width,
 		sprite.getGlobalBounds().height), velocity, "All", CollisionType::RIGHT))
 	{

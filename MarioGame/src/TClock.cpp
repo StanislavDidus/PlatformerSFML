@@ -8,7 +8,7 @@ TClock::~TClock()
 {
 }
 
-void TClock::addClock(float target_time, const std::function<bool()>& func, const std::string& name)
+void TClock::addClock(float target_time, const std::function<void()>& func, const std::string& name)
 {
 	clocks[name] = TClockEvent(0.f, target_time, func);
 }

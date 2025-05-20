@@ -351,6 +351,32 @@ class IMarioShoot : public IMarioState
 	}
 };
 
+class IMarioDie : public IMarioState
+{
+	void onEnter(Mario& mario)
+	{
+		mario.sprite.setTexture(mario.texture);
+		//mario.sprite.setTextureRect(sf::IntRect(0,0,16,16));
+		mario.velocity.y = -500.f;
+		mario.is_grown = false;
+	}
+
+	void onUpdate(Mario& mario, float deltaTime)
+	{
+
+		mario.jump_start_max = 0.3125f * abs(mario.velocity.x) + 25.f;
+
+		//Apply gravity and move 
+		mario.sprite.move(0.f, mario.velocity.y * deltaTime);
+		mario.applyGravity(deltaTime);
+	}
+
+	void onExit(Mario& mario)
+	{
+
+	}
+};
+
 class IMarioCollectFlag: public IMarioState
 {
 	void onEnter(Mario& mario) override

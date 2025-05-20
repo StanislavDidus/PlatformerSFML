@@ -46,6 +46,8 @@ void Mario::initVariables()
 	dead_time = 3.f;
 	dead_timer = 0.f;
 	need_restart = false;
+
+	t_clock = TClock();
 }
 
 void Mario::initSprite()
@@ -144,6 +146,11 @@ void Mario::initAnimator()
 	//Shoot
 	this->animator->addFrameAnimation(
 		this->sprite, 16, 32, std::vector<int>{ 30 }, shoot_time, [this]() {return std::dynamic_pointer_cast<IMarioShoot>(this->current_state) != nullptr;  }, [this]() {return this->direction; }, false, 50, "FShoot"
+	);
+
+	//Die
+	this->animator->addFrameAnimation(
+		this->sprite, 16, 16, std::vector<int>{ 6 }, 5.f, [this]() {return std::dynamic_pointer_cast<IMarioDie>(this->current_state) != nullptr;  }, [this]() {return 1; }, false, 100, "Die"
 	);
 }
 
@@ -320,7 +327,25 @@ void Mario::shoot()
 
 void Mario::die()
 {
-	is_dead = true;
+	if (!is_dead)
+	{
+		is_dead = true;
+		t_clock.addClock(3.f, [this]()
+			{
+				std::cout << "Restart\n";
+				need_restart = true;
+			},
+			"Restart");
+	}
+}
+
+void Mario::timeUp()
+{
+	if (std::dynamic_pointer_cast<IMarioDie>(current_state) == nullptr && !is_dead)
+	{
+		setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioDie>()));
+		t_clock.addClock(3.f, [this]() {std::cout << "TimeUp\n"; }, "TimeUp");
+	}
 }
 
 void Mario::checkSlide()
@@ -428,8 +453,10 @@ void Mario::update(float deltaTime)
 	tclock.update(deltaTime);
 	//std::cout << sprite.getPosition().x << ", " << sprite.getPosition().y << "\n";
 
+	t_clock.update(deltaTime);
+
 	//Check if mario is lower than 0
-	if (this->sprite.getPosition().y - this->sprite.getGlobalBounds().height > 600)
+	if (this->sprite.getPosition().y - this->sprite.getGlobalBounds().height > 600 && std::dynamic_pointer_cast<IMarioDie>(current_state) == nullptr)
 	{
 		//Dead
 		this->die();
@@ -495,7 +522,7 @@ void Mario::update(float deltaTime)
 	updateFireBalls(deltaTime);
 
 	//Check finish state (if mario is not in cinematic state and touches a flag)
-	is_touching_flag = col->checkCollision({ sprite.getGlobalBounds().left + velocity.x * deltaTime,
+	is_touching_flag = col->checkCollision({ sprite.getGlobalBounds().left,
 		sprite.getGlobalBounds().top,
 		sprite.getGlobalBounds().width,
 		sprite.getGlobalBounds().height
@@ -512,17 +539,6 @@ void Mario::update(float deltaTime)
 			sprite.getGlobalBounds().top + velocity.y * deltaTime,
 			sprite.getGlobalBounds().width,
 			sprite.getGlobalBounds().height }, velocity, "All", CollisionType::DOWN);
-
-	if (is_dead)
-	{
-		if(dead_timer < dead_time)
-			dead_timer += deltaTime;
-		else
-		{
-			dead_timer = 0.f;
-			need_restart = true;
-		}
-	}
 
 	sf::Vector2f newPosition = this->sprite.getPosition();
 	GameObject::setPosition(newPosition);

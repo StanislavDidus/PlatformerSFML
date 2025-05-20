@@ -24,6 +24,7 @@ class IMarioWalk;
 class IMarioJump;
 class IMarioCrouch;
 class IMarioShoot;
+class IMarioDie;
 class IMarioCollectFlag;
 class IMarioRunToCastle;
 
@@ -40,7 +41,7 @@ private:
 	sf::View* view;
 	sf::Clock clock;
 
-	
+	TClock t_clock;
 
 	std::shared_ptr<TextureManager> texture_manager;
 	//Mario
@@ -133,6 +134,7 @@ public:
 	friend class IMarioJump;
 	friend class IMarioCrouch;
 	friend class IMarioShoot;
+	friend class IMarioDie;
 	friend class IMarioCollectFlag;
 	friend class IMarioRunToCastle;
 
@@ -160,6 +162,7 @@ public:
 	void fire();
 	void shoot();
 	void die();
+	void timeUp();
 	void checkSlide();
 	void checkCollisions();
 	void flip(int dir);
