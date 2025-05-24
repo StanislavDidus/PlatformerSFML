@@ -58,8 +58,11 @@ private:
 	
 	//Timers
 	sf::Clock clock;
-	float timer;
-	float ttimer;
+
+	TClock tclock;
+	float game_time;
+
+	
 
 	//Items
 	std::vector<std::shared_ptr<GameObject>> gameObjects; // All items (coins,mushroonms,stars)
@@ -104,6 +107,8 @@ private:
 	sf::Text time_text;
 	//Game Over
 	sf::Text game_over_text;
+	//Time Up
+	sf::Text time_up_text;
 
 	//Score
 	int score;

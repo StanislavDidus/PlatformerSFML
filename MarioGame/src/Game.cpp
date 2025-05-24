@@ -7,9 +7,7 @@ void Game::initVariables()
 	start_game_timer = 3.f;
 	is_game_started = false;
 
-	//timers
-	timer = 10.f;
-	ttimer = 0.f;
+	game_time = 10.f;
 	
 	last_camera_pos = { 0.f,0.f };
 	lastTime = 0.f;
@@ -46,6 +44,10 @@ void Game::initWindow()
 	// 800 600
 	//window->setFramerateLimit(60);
 	window->setVerticalSyncEnabled(false);
+
+	sf::Image icon_image;
+	icon_image.loadFromFile("assets/Textures/Game_Icon.png");
+	window->setIcon(icon_image.getSize().x, icon_image.getSize().y, icon_image.getPixelsPtr());
 
 	//Set View
 	view = std::make_unique<sf::View>();
@@ -131,6 +133,12 @@ void Game::initText()
 	game_over_text.setPosition(window->getSize().x / 2.f - 150, window->getSize().y / 2.f / 30.f - 50.f);
 	game_over_text.setString("Game Over\n");
 
+	time_up_text.setFont(main_font);
+	time_up_text.setCharacterSize(30);
+	time_up_text.setFillColor(sf::Color::White);
+	time_up_text.setPosition(window->getSize().x / 2.f - 150, window->getSize().y / 2.f / 30.f - 50.f);
+	time_up_text.setString("Time Up\n");
+
 	mario_icon_texture = *texture_manager->get("Mario");
 	mario_icon.setTexture(mario_icon_texture);
 	mario_icon.setScale(3.3f,3.3f);
@@ -167,7 +175,7 @@ void Game::setState(const std::shared_ptr<IGameState>& state)
 }
 
 //Con/Des
-Game::Game() : lifes(3), score(0), coin_amount(0), lastTime(0.f), start_game_timer(0.f), timer(400.f), ttimer(0.f), is_game_over(false), is_game_started(false)
+Game::Game() : lifes(3), score(0), coin_amount(0), lastTime(0.f), start_game_timer(0.f), is_game_over(false), is_game_started(false)
 {
 	
 }
@@ -205,14 +213,16 @@ void Game::showScore(sf::Vector2f pos, sf::Texture* texture, int score)
 bool Game::init()
 {
 	initVariables();
-	initWindow();
 	initCollisions();
 	initTextureManager();
+	initWindow();
 	initMario();
 	initFlag();
 	initMap();
 	initAudio();
 	initText();
+
+	setState(std::static_pointer_cast<IGameState>(std::make_shared<IGameShowInfo>()));
 
 	return true;
 
@@ -258,19 +268,12 @@ void Game::updateText()
 	fps_text.setPosition(view->getCenter().x - window->getSize().x / 2.f + 50.f, view->getCenter().y - window->getSize().y / 2.f + 100.f);
 
 	std::stringstream ss1;
-	ss1 << "TIME\n " << timer << "\n";
-	ttimer += mario->deltaTime;
-	if (ttimer >= 1.f)
+	TClockEvent* clockEvent = tclock.getClock("GameLoop");
+	if (clockEvent != nullptr)
 	{
-		ttimer = 0.f;
-		timer -= 1.f;
-		if (timer < 0.f)
-		{
-			mario->timeUp();
-			timer = 0.f;
-		}
+		ss1 << "TIME\n " << game_time - static_cast<int>(clockEvent->current_time) << "\n";
+		time_text.setString(ss1.str());
 	}
-	time_text.setString(ss1.str());
 
 	std::ostringstream oss2;
 	int size = static_cast<int>(MathUtils::getDigitCount(score));
@@ -294,6 +297,7 @@ void Game::updateText()
 	lifes_amount_text.setString(oss4.str());
 
 	game_over_text.setPosition(view->getCenter().x - window->getSize().x / 2.f + 250.f, view->getCenter().y - window->getSize().y / 2.f + 275.f);
+	time_up_text.setPosition(view->getCenter().x - window->getSize().x / 2.f + 300.f, view->getCenter().y - window->getSize().y / 2.f + 300.f);
 }
 
 void Game::updateMap()
@@ -339,58 +343,12 @@ void Game::update()
 	float deltaTime = clock.restart().asSeconds();
 	deltaTime = std::min(deltaTime, 0.033f);
 
-	//START TIMER
-	if (start_game_timer < 0.f)
-		is_game_started = true;
-	else
-		start_game_timer -= deltaTime;
+	tclock.update(deltaTime);
+
+	if (current_state != nullptr)
+		current_state->onUpdate(*this, deltaTime);
 
 	updateEvents();
-
-	//If game is started update all needed objects
-	if (is_game_started)
-	{
-		updateCollisions(deltaTime);
-		mario->update(deltaTime);
-
-		for (const auto& object : gameObjects)
-		{
-			object->update(deltaTime);
-		}
-
-		small_coin_anim->update(deltaTime);
-
-		//Update flag
-		flag->update(deltaTime);
-		//Final CutScene
-		if (mario->is_touching_flag)
-		{
-			flag->Touch(deltaTime);
-		}
-		if (flag->is_finished)
-		{
-			mario->Finish(deltaTime);
-		}
-		//
-
-		if (mario->need_restart)
-		{
-			restart();
-		}
-		if (mario->need_quit)
-		{
-			window->close();
-		}
-		
-		updateAudio();
-		
-		updateMap();
-
-		for (const auto& score : scores_)
-			score->getAnimator()->update(deltaTime);
-	}
-	
-
 	updateView();
 	updateText();
 }
@@ -413,9 +371,7 @@ void Game::renderText()
 
 void Game::DisplayStartMenu()
 {
-	window->draw(current_world_text);
-	window->draw(mario_icon);
-	window->draw(lifes_amount_text);
+	
 }
 
 void Game::restart()
@@ -432,15 +388,14 @@ void Game::restart()
 		initAudio();
 		initText();
 		lifes--;
+
+		setState(std::static_pointer_cast<IGameState>(std::make_shared<IGameShowInfo>()));
 	}
 	else
 	{
 		//Finish Game
-		is_game_over = true;
-		is_game_started = false;
+		setState(std::static_pointer_cast<IGameState>(std::make_shared<IGameGameOver>()));
 	}
-
-	std::cout << "restart\n";
 }
 
 void Game::render()
@@ -448,45 +403,15 @@ void Game::render()
 	window->clear(); 
 	renderQueue.clear();
 
-	if (is_game_started)
+	current_state->onRender(*this);
+
+	//Sort and render all the objects in the queue
+	std::sort(renderQueue.begin(), renderQueue.end());
+	for (const auto& i : renderQueue)
 	{
-
-		//Add all renderable objects to the renderQueue
-		for (const auto& object : gameObjects)
-		{
-			renderQueue.emplace_back(object->layer, [this, object]() {object->render(window.get()); });
-		}
-
-		map->render(renderQueue, window.get());
-		renderQueue.emplace_back(flag->layer, [this]() {flag->render(window.get()); });
-		renderQueue.emplace_back(mario->layer, [this]() {mario->render(window.get()); });
-
-		//Sort and render all the objects in the queue
-		std::sort(renderQueue.begin(), renderQueue.end());
-		for (const auto& i : renderQueue)
-		{
-			i.renderFunc();
-		}
-
-		//Render UI
-		for (const auto& score : scores_)
-		{
-			if (score->getAnimation() != nullptr)
-				if (score->getAnimation()->is_playing)
-				{
-					score->render(window.get());
-				}
-
-		}
+		i.renderFunc();
 	}
-	else if(!is_game_over && !is_game_started)
-	{
-		DisplayStartMenu();
-	}
-	else if(is_game_over)
-	{
-		window->draw(game_over_text);
-	}
+
 	renderText();
 	window->setView(*view.get());
 	window->display();

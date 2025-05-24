@@ -344,7 +344,8 @@ void Mario::timeUp()
 	if (std::dynamic_pointer_cast<IMarioDie>(current_state) == nullptr && !is_dead)
 	{
 		setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioDie>()));
-		t_clock.addClock(3.f, [this]() {std::cout << "TimeUp\n"; }, "TimeUp");
+		/////////////////////////////////////////////////////////////////////////
+		//t_clock.addClock(3.f, [this]() {std::cout << "TimeUp\n"; }, "TimeUp");
 	}
 }
 

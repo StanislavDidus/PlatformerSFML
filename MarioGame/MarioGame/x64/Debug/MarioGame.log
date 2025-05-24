@@ -1,6 +1,2 @@
-﻿  Game.cpp
-  GameState.cpp
-  MushRoom.cpp
-  Generating Code...
-     Creating library C:\GitHubProjects\MarioSFML\MarioGame\x64\Debug\MarioGame.lib and object C:\GitHubProjects\MarioSFML\MarioGame\x64\Debug\MarioGame.exp
+﻿  GameState.cpp
   MarioGame.vcxproj -> C:\GitHubProjects\MarioSFML\MarioGame\x64\Debug\MarioGame.exe

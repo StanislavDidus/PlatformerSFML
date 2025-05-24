@@ -34,6 +34,8 @@ public:
 	void addClock(float target_time, const std::function<void()>& func, const std::string& name);
 	TClockEvent* getClock(const std::string& name);
 
+	void clear();
+
 	void update(float deltaTime);
 };
 
