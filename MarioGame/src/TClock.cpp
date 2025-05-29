@@ -10,13 +10,10 @@ TClock::~TClock()
 
 void TClock::addClock(float target_time, const std::function<void()>& func, const std::string& name)
 {
-	if (clocks.find(name) != clocks.end())
+	if (clocks.find(name) == clocks.end())
 	{
-		std::cout << "Clock's name is already used!\n";
-		return;
+		clocks[name] = TClockEvent(0.f, target_time, func);
 	}
-
-	clocks[name] = TClockEvent(0.f, target_time, func);
 }
 
 TClockEvent* TClock::getClock(const std::string& name)
@@ -47,13 +44,33 @@ void TClock::update(float deltaTime)
 
 		if (clock.start_time + clock.current_time >= clock.target_time)
 		{
-			clock.func();
 			removeList.push_back(it.first);
 		}
 	}
 
 	for (auto& clock : removeList)
 	{
+		clocks[clock].func();
+	}
+
+	for (auto& clock : removeList)
+	{
 		clocks.erase(clock);
 	}
+	/*for (auto it = clocks.begin(); it != clocks.end(); )
+	{
+		auto& clock = it->second;
+		clock.current_time += deltaTime;
+		clock.is_playing = true;
+
+		if (clock.start_time + clock.current_time >= clock.target_time)
+		{
+			clock.func();
+			it = clocks.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}*/
 }

@@ -152,6 +152,8 @@ public:
 	const bool isBig() const { return is_grown; }
 	const bool isFire() const { return is_fire; }
 
+	Animator* getAnimator() { return animator.get(); }
+
 	const int getLifes() const; //Return the amount of mario's lifes
 
 	void Finish(float deltaTime);

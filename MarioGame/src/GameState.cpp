@@ -16,7 +16,6 @@ class IGameShowInfo : public IGameState
 	void onEnter(Game& game) override
 	{
 		game.tclock.clear();
-
 		game.tclock.addClock(3.f, [this, &game]() { game.setState(std::static_pointer_cast<IGameState>(std::make_shared<IGamePlay>())); }, "Start");
 	}
 
@@ -88,7 +87,7 @@ class IGameTimeUp : public IGameState
 {
 	void onEnter(Game& game) override
 	{
-		game.tclock.addClock(3.f, [&game]() {game.restart(); }, "Restart");
+		game.tclock.addClock(3.f, [&game]() {game.restart1 = true; }, "Restart");
 	}
 
 	void onUpdate(Game& game, float deltaTime) override
@@ -113,6 +112,7 @@ class IGamePlay : public IGameState
 	{
 		game.tclock.addClock(game.game_time, [this, &game]()
 			{
+				std::cout << "Timer\n";
 				game.mario->timeUp();
 				game.tclock.addClock(3.f, [this, &game]() { game.setState(std::static_pointer_cast<IGameState>(std::make_shared<IGameTimeUp>())); }, "TimeUp");
 			}

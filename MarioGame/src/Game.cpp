@@ -7,12 +7,14 @@ void Game::initVariables()
 	start_game_timer = 3.f;
 	is_game_started = false;
 
-	game_time = 10.f;
+	game_time = 5.f;
 	
 	last_camera_pos = { 0.f,0.f };
 	lastTime = 0.f;
 
 	is_game_over = false;
+
+	restart1 = false;
 }
 
 void Game::initTextureManager()
@@ -343,7 +345,20 @@ void Game::update()
 	float deltaTime = clock.restart().asSeconds();
 	deltaTime = std::min(deltaTime, 0.033f);
 
-	tclock.update(deltaTime);
+	if (restart1)
+	{
+		restart();
+		restart1 = false;
+	}
+
+	if (!mario->getAnimator()->getAnim("Grow")->is_playing && !mario->getAnimator()->getAnim("Fire")->is_playing)
+	{
+		tclock.update(deltaTime);
+	}
+	else
+	{
+		std::cout << "stop\n";
+	}
 
 	if (current_state != nullptr)
 		current_state->onUpdate(*this, deltaTime);

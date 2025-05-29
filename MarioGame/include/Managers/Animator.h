@@ -155,6 +155,7 @@ struct FrameAnimation : public Animation
                 {
                     current_frame = 0;
                     is_finished = true;
+                    is_playing = false;
                     *end = false;
                 }
             }
@@ -163,7 +164,7 @@ struct FrameAnimation : public Animation
         }
         else
         {
-            is_playing = false;
+           // is_playing = false;
             
         }
     }
