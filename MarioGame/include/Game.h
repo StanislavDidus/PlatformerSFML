@@ -28,6 +28,7 @@ class IGameState;
 class IGameShowInfo;
 class IGameStartMenu;
 class IGameGameOver;
+class IGameFinish;
 class IGameTimeUp;
 class IGamePlay;
 
@@ -86,6 +87,9 @@ private:
 	//Flag
 	std::unique_ptr<Flag> flag;
 
+	sf::Sprite flagStar_sprite;
+	std::unique_ptr<Animator> flagStar_animator;
+
 	//UI
 	sf::Texture small_coin_texture;
 	sf::Sprite small_coin_sprite;
@@ -111,12 +115,16 @@ private:
 	sf::Text time_up_text;
 
 	//Score
-	int score;
+	float score;
 	int coin_amount;
 	
 	//Frame rate counter
 	sf::Clock fps_clock;
 	float lastTime;
+
+	//
+	bool is_mario_dead;
+	bool is_level_clear;
 
 
 	void initVariables();
@@ -133,6 +141,7 @@ public:
 	friend class IGameStartMenu;
 	friend class IGameGameOver;
 	friend class IGameTimeUp;
+	friend class IGameFinish;
 	friend class IGamePlay;
 
 	Game();
@@ -140,7 +149,7 @@ public:
 
 	const bool running() const;
 
-	void addScore(int score);
+	void addScore(float score);
 	void addCoin();
 	void showScore(sf::Vector2f pos, sf::Texture* texture, int score); //Display the number of points you gained with an animation
 	void DisplayStartMenu();
@@ -151,7 +160,6 @@ public:
 	bool init();
 	void updateEvents();
 	void updateView();
-	void updateAudio();
 	void updateText();
 	void updateMap(); //Update tile maps and gameObjects related to it
 	void updateCollisions(float deltaTime);

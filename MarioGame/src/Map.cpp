@@ -106,7 +106,7 @@ void Map::initSprites()
 					}
 					else if (lay->getName() == "Sky")
 					{
-						this->tiles.emplace_back(std::make_shared<Tile>(col_rect, sprite.getTextureRect(), "Sky", false, false, 5));
+						this->tiles.emplace_back(std::make_shared<Tile>(col_rect, sprite.getTextureRect(), "Sky", false, false, 4));
 					}
 					else
 						this->tiles.emplace_back(std::make_shared<Tile>(col_rect, sprite.getTextureRect(), "Decor", false, false, 6));

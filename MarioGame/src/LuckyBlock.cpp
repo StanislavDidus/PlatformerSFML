@@ -38,11 +38,13 @@ void LuckyBlock::initScore()
 
 LuckyBlock::LuckyBlock(std::shared_ptr<Game> game, const sf::Sprite& sprite, std::shared_ptr<TextureManager> texture_manager, const sf::FloatRect& rect, const std::string& type, const LuckyBlockType& l_type, std::vector<std::shared_ptr<GameObject>>& gameObjects, std::shared_ptr<CollisionManager> col, int layer) : Block(rect, type, texture_manager->get("LuckyBlock").get(), layer, col, gameObjects), game(game), l_type(l_type), texture_manager(texture_manager)
 {
+	audio_manager->addSound("PowerUp_Appear", "assets/Sounds/Game/PowerUp_Appear.wav", false);
 	initLuckyBlock();
 	if (l_type == LuckyBlockType::CoinType)
 	{
 		initCoin();
 		initScore();
+		audio_manager->addSound("Coin", "assets/Sounds/Game/Coin.wav", false);
 	}
 }
 
@@ -66,10 +68,11 @@ void LuckyBlock::update(float deltaTime)
 
 					break;
 				case LuckyBlockType::MushRoomType:
-
+					audio_manager->playSound("PowerUp_Appear");
 					spawnMushroom();
 					break;
 				case LuckyBlockType::FireFlowerType:
+					audio_manager->playSound("PowerUp_Appear");
 					spawnFireFlower();
 					break;
 				case LuckyBlockType::CoinType:
@@ -128,6 +131,7 @@ void LuckyBlock::onHit()
 	{
 		HitItem();
 		animator->playAnim("Hit");
+		//audio_manager->playSound("Bump");
 
 		switch (l_type)
 		{
@@ -180,6 +184,7 @@ const void LuckyBlock::spawnFireFlower()
 
 const void LuckyBlock::giveCoin() const
 {
+	audio_manager->playSound("Coin");
 	animator->playAnim("Get");
 	game->addScore(200);
 	game->addCoin();

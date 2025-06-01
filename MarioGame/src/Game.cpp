@@ -7,7 +7,7 @@ void Game::initVariables()
 	start_game_timer = 3.f;
 	is_game_started = false;
 
-	game_time = 5.f;
+	game_time = 400.f;
 	
 	last_camera_pos = { 0.f,0.f };
 	lastTime = 0.f;
@@ -15,6 +15,9 @@ void Game::initVariables()
 	is_game_over = false;
 
 	restart1 = false;
+
+	is_mario_dead = false;
+	is_level_clear = false;
 }
 
 void Game::initTextureManager()
@@ -34,6 +37,7 @@ void Game::initTextureManager()
 	texture_manager->load("FlagStick", "assets/Textures/Levels/Flag_Stick.png"); //FlagStick
 	texture_manager->load("BrokenBrick", "assets/Textures/Levels/BrokenBrick.png"); //BrokenBrick
 	texture_manager->load("Flag", "assets/Textures/Levels/Flag.png"); //Flag
+	texture_manager->load("FlagStar", "assets/Textures/Levels/FlagStar.png"); //FlagStar
 	texture_manager->load("200S", "assets/Textures/Scores/200.png"); //200 score
 	texture_manager->load("1000S", "assets/Textures/Scores/1000.png"); //1000 score
 }
@@ -77,7 +81,11 @@ void Game::initAudio()
 
 	//Main theme
 	game_audio_manager->addSound("Main Theme", "assets/Sounds/Game/Ground Theme.wav", true);
-	//game_audio_manager->playSound("Main Theme");
+
+	game_audio_manager->addSound("Die", "assets/Sounds/Game/Die.wav", false);
+	game_audio_manager->addSound("GameOver", "assets/Sounds/Game/GameOver.wav", false);
+	game_audio_manager->addSound("Clear", "assets/Sounds/Game/Stage_Clear.wav", false);
+	game_audio_manager->addSound("Warning", "assets/Sounds/Game/Warning.wav", false);
 }
 
 void Game::initText()
@@ -157,7 +165,7 @@ void Game::initMario()
 void Game::initFlag()
 {
 	//Init Flag
-	flag = std::make_unique<Flag>("Flag", sf::FloatRect((198.f * 16.f)  * 3.125f, 1.f * 16.f * 3.125f, 2.f * 3.125f, 16.f * 10.f * 3.125f), 15, texture_manager->get("FlagStick").get(), texture_manager->get("Flag").get());
+	flag = std::make_unique<Flag>("Flag", sf::FloatRect(9900.f, 50.f, 6.25f, 500.f), 15, texture_manager->get("FlagStick").get(), texture_manager->get("Flag").get());
 	quadTree->insert({flag->getBounds(), "Flag"});
 }
 
@@ -177,7 +185,7 @@ void Game::setState(const std::shared_ptr<IGameState>& state)
 }
 
 //Con/Des
-Game::Game() : lifes(3), score(0), coin_amount(0), lastTime(0.f), start_game_timer(0.f), is_game_over(false), is_game_started(false)
+Game::Game() : lifes(3), score(0.f), coin_amount(0), lastTime(0.f), start_game_timer(0.f), is_game_over(false), is_game_started(false)
 {
 	
 }
@@ -192,7 +200,7 @@ const bool Game::running() const
 	return window->isOpen();
 }
 
-void Game::addScore(int score)
+void Game::addScore(float score)
 {
 	this->score += score;
 }
@@ -226,10 +234,13 @@ bool Game::init()
 
 	setState(std::static_pointer_cast<IGameState>(std::make_shared<IGameShowInfo>()));
 
+	//last_camera_pos = { 9451.f, 375.f };
+
 	return true;
 
 	//placeholder
-	//last_camera_pos = { 9451.f, 375.f };
+	
+	this->view->setCenter(9451.f, 375.f);
 }
 
 //Functions
@@ -249,11 +260,6 @@ void Game::updateView()
 	last_camera_pos.x = MathUtils::clamp(last_camera_pos.x, window->getSize().x / 2.f, 211.f * 16.f * 3.125f - window->getSize().x / 2.f);
 	if(!(mario->getPosition().y - mario->getBounds().height > window->getSize().y))
 		view->setCenter(last_camera_pos);
-}
-
-void Game::updateAudio()
-{
-
 }
 
 void Game::updateText()
@@ -280,7 +286,7 @@ void Game::updateText()
 	std::ostringstream oss2;
 	int size = static_cast<int>(MathUtils::getDigitCount(score));
 
-	oss2 << "MARIO\n" << std::setw(size + (6 - size)) << std::setfill('0') << score << "\n";
+	oss2 << "MARIO\n" << std::setw(size + (6 - size)) << std::setfill('0') << (int)score << "\n";
 	score_text.setString(oss2.str());
 
 	std::ostringstream oss3;
@@ -355,10 +361,6 @@ void Game::update()
 	{
 		tclock.update(deltaTime);
 	}
-	else
-	{
-		std::cout << "stop\n";
-	}
 
 	if (current_state != nullptr)
 		current_state->onUpdate(*this, deltaTime);
@@ -419,13 +421,6 @@ void Game::render()
 	renderQueue.clear();
 
 	current_state->onRender(*this);
-
-	//Sort and render all the objects in the queue
-	std::sort(renderQueue.begin(), renderQueue.end());
-	for (const auto& i : renderQueue)
-	{
-		i.renderFunc();
-	}
 
 	renderText();
 	window->setView(*view.get());

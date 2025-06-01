@@ -26,12 +26,18 @@ class IMarioCrouch;
 class IMarioShoot;
 class IMarioDie;
 class IMarioCollectFlag;
+class IMarioWaitToRun;
 class IMarioRunToCastle;
 
 struct uint3
 {
 	sf::Uint32 x, y, z;
 	uint3(sf::Uint32 x, sf::Uint32 y, sf::Uint32 z) : x(x), y(y), z(z) {}
+};
+
+enum MarioState
+{
+	SMALL, GROWING, BIG, FIRING, FIRE
 };
 
 class Mario : public GameObject
@@ -81,14 +87,7 @@ private:
 
 	TClock tclock;
 
-	//Grow
-	bool is_grown;
-
-	//Fire
-	//float fire_time;
-	//float fire_timer;
-	bool is_fire;
-	bool fire_transform;
+	MarioState current_mario_state;
 
 	//Shoot
 	float shoot_time;
@@ -136,6 +135,7 @@ public:
 	friend class IMarioShoot;
 	friend class IMarioDie;
 	friend class IMarioCollectFlag;
+	friend class IMarioWaitToRun;
 	friend class IMarioRunToCastle;
 
 	Mario(sf::RenderWindow* window, Map* map, std::shared_ptr<CollisionManager> col, std::shared_ptr<TextureManager> texture_manager, sf::View* view, const sf::FloatRect& rect, const std::string& type, int layer, int lifes);
@@ -149,8 +149,8 @@ public:
 	void setGround(bool state);
 	void setPosition(const sf::Vector2f& newPosition) override;
 
-	const bool isBig() const { return is_grown; }
-	const bool isFire() const { return is_fire; }
+	const bool isBig() const { return current_mario_state == MarioState::BIG; }
+	const bool isFire() const { return current_mario_state == MarioState::FIRE; }
 
 	Animator* getAnimator() { return animator.get(); }
 

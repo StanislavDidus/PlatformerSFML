@@ -22,6 +22,6 @@ public:
 
 	void addSound(const std::string& name, const std::string& soundPath, bool loop);
 	void playSound(const std::string& name);
-	void update();
+	void stop();
 };
 

@@ -41,6 +41,7 @@ void Brick::onHit()
 {
 	animator->playAnim("Hit");
 	HitItem();
+	audio_manager->playSound("Bump");
 }
 
 void Brick::onHitBig()
@@ -49,6 +50,7 @@ void Brick::onHitBig()
 	{
 		HitItem();
 		Destroy();
+		audio_manager->playSound("Brick_Smash");
 	}
 }
 

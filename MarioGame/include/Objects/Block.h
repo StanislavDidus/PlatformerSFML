@@ -11,6 +11,7 @@
 #include "../Managers/CollisionManager.h"
 #include "Block.h"
 #include "../Managers/Animator.h"
+#include "../Managers/AudioManager.h"
 
 class Block : public GameObject
 {
@@ -20,6 +21,7 @@ public:
 	std::unique_ptr<Animator> animator;
 	std::shared_ptr<CollisionManager> col;
 	std::vector<std::shared_ptr<GameObject>>& gameObjects;
+	std::unique_ptr<AudioManager> audio_manager;
 	sf::Sprite sprite;
 	Block(const sf::FloatRect& rect, const std::string& type, sf::Texture* texture, int layer, std::shared_ptr<CollisionManager> col, std::vector<std::shared_ptr<GameObject>>& gameObjects) : GameObject(type, rect, layer), col(col), gameObjects(gameObjects)
 	{
@@ -32,6 +34,10 @@ public:
 		sprite.setTexture(this->texture);
 		sprite.setTextureRect({ 0,0,16,16 });
 		sprite.setScale(3.125f, 3.125f);
+
+		audio_manager = std::make_unique<AudioManager>();
+		audio_manager->addSound("Bump", "assets/Sounds/Mario/Bump.wav", false);
+		audio_manager->addSound("Brick_Smash", "assets/Sounds/Mario/Brick_Smash.wav", false);
 
 		
 		//Animations
@@ -49,6 +55,7 @@ public:
 	{
 		animator->playAnim("Hit");
 		HitItem();
+		audio_manager->playSound("Bump");
 	}
 
 	void onHitBig() override

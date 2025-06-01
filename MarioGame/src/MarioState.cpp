@@ -23,7 +23,7 @@ class IMarioIdle : public IMarioState
 	{
 		//Inputs
 		bool isEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
-		if (isEPressed && !mario.wasShootPressedLastFrame && mario.fireBalls.size() < 2 && mario.is_fire && mario.shoot_time == 0.f)
+		if (isEPressed && !mario.wasShootPressedLastFrame && mario.fireBalls.size() < 2 && mario.current_mario_state == MarioState::FIRE && mario.shoot_time == 0.f)
 		{
 			mario.last_state = mario.current_state;
 			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioShoot>()));
@@ -36,7 +36,7 @@ class IMarioIdle : public IMarioState
 		{
 			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioJump>()));
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && mario.is_grown)
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && (mario.current_mario_state == MarioState::BIG || mario.current_mario_state == MarioState::FIRE))
 		{
 			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioCrouch>()));
 		}
@@ -67,6 +67,8 @@ class IMarioIdle : public IMarioState
 		mario.col->callibrateCollision(mario, deltaX, deltaY);
 		mario.sprite.move(deltaX, deltaY);
 		mario.applyGravity(deltaTime);
+
+
 	}
 
 	void onExit(Mario& mario) override
@@ -86,7 +88,7 @@ class IMarioWalk : public IMarioState
 	{
 		//Inputs
 		bool isEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
-		if (isEPressed && !mario.wasShootPressedLastFrame && mario.fireBalls.size() < 2 && mario.is_fire && mario.shoot_time == 0.f)
+		if (isEPressed && !mario.wasShootPressedLastFrame && mario.fireBalls.size() < 2 && mario.current_mario_state == MarioState::FIRE && mario.shoot_time == 0.f)
 		{
 			mario.last_state = mario.current_state;
 			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioShoot>()));
@@ -106,7 +108,7 @@ class IMarioWalk : public IMarioState
 			mario.move(1.f, 0.f);
 			mario.flip(1.f);
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && mario.is_grown)
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && (mario.current_mario_state == MarioState::BIG || mario.current_mario_state == MarioState::FIRE))
 		{
 			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioCrouch>()));
 		}
@@ -147,7 +149,14 @@ class IMarioJump : public IMarioState
 
 		mario.velocity.y = -50.f;
 
-		mario.mario_audio_manager->playSound("Jump");
+		if (mario.current_mario_state == MarioState::SMALL)
+		{
+			mario.mario_audio_manager->playSound("Jump_Small");
+		}
+		else if (mario.current_mario_state == MarioState::BIG || mario.current_mario_state == MarioState::FIRE)
+		{
+			mario.mario_audio_manager->playSound("Jump_Super");
+		}
 	}
 	
 	void onUpdate(Mario& mario, float deltaTime) override
@@ -155,7 +164,7 @@ class IMarioJump : public IMarioState
 		//Inputs
 		//Move mario
 		bool isEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
-		if (isEPressed && !mario.wasShootPressedLastFrame && mario.fireBalls.size() < 2 && mario.is_fire && mario.shoot_time == 0.f)
+		if (isEPressed && !mario.wasShootPressedLastFrame && mario.fireBalls.size() < 2 && mario.current_mario_state == MarioState::FIRE && mario.shoot_time == 0.f)
 		{
 			mario.last_state = mario.current_state;
 			mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioShoot>()));
@@ -207,16 +216,10 @@ class IMarioJump : public IMarioState
 				mario.velocity.y = mario.max_velocity.y * -1.f;
 		}
 
-		if (mario.getPosition().y < mario.jump_start_pos - mario.jump_start_max && mario.velocity.y >= 0.f)
+	if ((mario.getPosition().y < mario.jump_start_pos - mario.jump_start_max && mario.velocity.y >= 0.f) ||
+		(mario.getBounds().top > mario.sprite.getPosition().y))
 		{
 			mario.is_jump_over = true;
-			//mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioFall>()));
-		}
-
-		if (mario.getBounds().top > mario.sprite.getPosition().y)
-		{
-			mario.is_jump_over = true;
-			//mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioFall>()));
 		}
 
 		// Check lucky block collision
@@ -230,10 +233,14 @@ class IMarioJump : public IMarioState
 
 			if (obj != nullptr)
 			{
-				if (!mario.is_grown)
+				if (mario.current_mario_state == MarioState::SMALL)
+				{
 					obj->onHit();
-				else
+				}
+				else if (mario.current_mario_state == MarioState::BIG || mario.current_mario_state == MarioState::FIRE)
+				{
 					obj->onHitBig();
+				}
 
 				mario.is_jump_over = true;
 				mario.velocity.y += 350.f;
@@ -261,7 +268,7 @@ class IMarioJump : public IMarioState
 
 	void onExit(Mario& mario) override
 	{
-		//mario.is_jump_over = false;
+
 	}
 };
 
@@ -317,6 +324,7 @@ class IMarioShoot : public IMarioState
 	{
 		mario.is_jump_over = true;
 		mario.fireBalls.push_back(std::make_shared<FireBall>("FireBall", sf::FloatRect(mario.sprite.getPosition().x + 8 * mario.direction, mario.sprite.getPosition().y + 8, 8, 8), 20, mario.texture_manager, mario.col, mario.direction));
+		mario.mario_audio_manager->playSound("FireBall");
 	}
 
 	void onUpdate(Mario& mario, float deltaTime)
@@ -358,7 +366,7 @@ class IMarioDie : public IMarioState
 		mario.sprite.setTexture(mario.texture);
 		//mario.sprite.setTextureRect(sf::IntRect(0,0,16,16));
 		mario.velocity.y = -500.f;
-		mario.is_grown = false;
+		mario.current_mario_state == MarioState::SMALL;
 	}
 
 	void onUpdate(Mario& mario, float deltaTime)
@@ -381,13 +389,15 @@ class IMarioCollectFlag: public IMarioState
 {
 	void onEnter(Mario& mario) override
 	{
-		if (!mario.is_grown)
+		if (mario.current_mario_state == MarioState::SMALL)
 			mario.sprite.setTextureRect(sf::IntRect(112, 0, 16, 16));
-		else if (!mario.is_grown && !mario.is_fire)
+		else if (mario.current_mario_state == MarioState::BIG)
 			mario.sprite.setTextureRect(sf::IntRect(0, 64, 16, 32));
-		else
-			mario.sprite.setTextureRect(sf::IntRect(0, 32, 16, 32));
+		else if(mario.current_mario_state == MarioState::FIRE)
+			mario.sprite.setTextureRect(sf::IntRect(0, 128, 16, 32));
 		mario.sprite.move(20.f, 0.f);
+
+		mario.sprite.setPosition(MathUtils::clamp(mario.sprite.getPosition().x, 9900.f - 48.f, 9900.f), MathUtils::clamp(mario.sprite.getPosition().y, 50.f, 550.f - 48.f));
 	}
 
 	void onUpdate(Mario& mario, float deltaTime) override
@@ -404,24 +414,47 @@ class IMarioCollectFlag: public IMarioState
 	}
 };
 
-class IMarioRunToCastle : public IMarioState
+class IMarioWaitToRun: public IMarioState
 {
 	void onEnter(Mario& mario) override
 	{
 		mario.sprite.move(mario.sprite.getGlobalBounds().width, 0.f);
-		mario.sprite.setTextureRect(sf::IntRect(128, 0, -16, 16));
+		if (mario.current_mario_state == MarioState::SMALL)
+			mario.sprite.setTextureRect(sf::IntRect(128, 0, -16, 16));
+		else if (mario.current_mario_state == MarioState::BIG)
+			mario.sprite.setTextureRect(sf::IntRect(16, 64, -16, 32));
+		else if (mario.current_mario_state == MarioState::FIRE)
+			mario.sprite.setTextureRect(sf::IntRect(16, 128, -16, 32));
+		mario.tclock.addClock(1.f, [this, &mario]() {mario.setState(std::static_pointer_cast<IMarioState>(std::make_shared<IMarioRunToCastle>())); }, "RunToCastle");
+	}
+
+	void onUpdate(Mario& mario, float deltaTime) override
+	{
+		
+	}
+
+	void onExit(Mario& mario) override
+	{
+
+	}
+};
+
+class IMarioRunToCastle : public IMarioState
+{
+	void onEnter(Mario& mario) override
+	{
+		
 		//mario.is_finishing = true;
 	}
 
 	void onUpdate(Mario& mario, float deltaTime) override
 	{
-		if (!mario.is_grown)
+		if (mario.current_mario_state == MarioState::SMALL)
 			mario.animator->playAnim("Run");
-		else if(!mario.is_grown && !mario.is_fire)
+		else if (mario.current_mario_state == MarioState::BIG)
 			mario.animator->playAnim("BRun");
-		else
+		else if(mario.current_mario_state == MarioState::FIRE)
 			mario.animator->playAnim("FRun");
-		mario.move(1.f, 0.f);
 		//velocity.x = 100.f;
 		if (mario.sprite.getPosition().y < 600 - mario.sprite.getGlobalBounds().height)
 			mario.velocity.y = 70.f;
@@ -433,7 +466,7 @@ class IMarioRunToCastle : public IMarioState
 			mario.need_quit = true;
 		}
 
-		float deltaX = mario.velocity.x * deltaTime;
+		float deltaX = 175.f * deltaTime;
 		float deltaY = mario.velocity.y * deltaTime;
 		mario.sprite.move(deltaX, deltaY);
 	}

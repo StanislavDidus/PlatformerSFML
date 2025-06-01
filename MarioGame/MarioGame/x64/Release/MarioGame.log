@@ -1,0 +1,29 @@
+﻿  Mario.cpp
+C:\GitHubProjects\MarioSFML\MarioGame\src\MarioState.cpp(104,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Mario.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\MarioState.cpp(109,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'src/Mario.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\MarioState.cpp(369,29): warning C4553: '==': result of expression not used; did you intend '='?
+  (compiling source file 'src/Mario.cpp')
+  
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(285,26): warning C4244: 'initializing': conversion from 'T' to 'unsigned int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(285,26): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(285,26): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(285,26): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(285,26): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(286,26): warning C4244: 'initializing': conversion from 'T' to 'unsigned int', possible loss of data
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(286,26): warning C4244:         with
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(286,26): warning C4244:         [
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(286,26): warning C4244:             T=float
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(286,26): warning C4244:         ]
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(318,18): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\GitHubProjects\MarioSFML\MarioGame\src\Mario.cpp(431,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+     Creating library C:\GitHubProjects\MarioSFML\MarioGame\x64\Release\MarioGame.lib and object C:\GitHubProjects\MarioSFML\MarioGame\x64\Release\MarioGame.exp
+  Generating code
+  1 of 5778 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    4 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  MarioGame.vcxproj -> C:\GitHubProjects\MarioSFML\MarioGame\x64\Release\MarioGame.exe

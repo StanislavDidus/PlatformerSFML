@@ -31,7 +31,10 @@ void AudioManager::playSound(const std::string& name)
 	sounds[name].play();
 }
 
-void AudioManager::update()
+void AudioManager::stop()
 {
-
+	for (auto& sound : sounds)
+	{
+		sound.second.stop();
+	}
 }

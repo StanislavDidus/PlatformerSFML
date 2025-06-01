@@ -37,6 +37,9 @@ void TClock::update(float deltaTime)
 
 	for (auto& it : clocks)
 	{
+		if (!it.second.is_active)
+			continue;
+
 		auto& clock = it.second;
 
 		clock.current_time += deltaTime;

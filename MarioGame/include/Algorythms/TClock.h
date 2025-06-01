@@ -15,10 +15,11 @@ struct TClockEvent
 	float target_time;
 	bool is_playing;
 	std::function<void()> func;
+	bool is_active;
 
 	TClockEvent() = default;
 	TClockEvent(float start_time, float target_time, const std::function<void()>& func) : start_time(start_time), current_time(0.f), target_time(target_time),
-		func(func), is_playing(true) {}
+		func(func), is_playing(true), is_active(true) {}
 };
 
  class TClock
