@@ -498,7 +498,7 @@ void Mario::update(float deltaTime)
 			wasPressed = true;
 		}
 	}
-	/*else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
 		if (!wasPressed) {
 			fire();
 			wasPressed = true;
@@ -509,7 +509,7 @@ void Mario::update(float deltaTime)
 			grow();
 			wasPressed = true;
 		}
-	}*/
+	}
 	else {
 		wasPressed = false;
 	}

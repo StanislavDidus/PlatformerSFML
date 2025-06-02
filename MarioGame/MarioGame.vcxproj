@@ -171,6 +171,7 @@
     <ClInclude Include="include\Managers\Animator.h" />
     <ClInclude Include="include\Managers\AudioManager.h" />
     <ClInclude Include="include\Managers\CollisionManager.h" />
+    <ClInclude Include="include\Managers\EventBus.h" />
     <ClInclude Include="include\Managers\Map.h" />
     <ClInclude Include="include\Managers\TextureManager.h" />
     <ClInclude Include="include\Objects\Block.h" />
