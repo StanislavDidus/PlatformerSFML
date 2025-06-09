@@ -217,36 +217,9 @@ class IGamePlay : public IGameState
 		//Update flag
 		game.flag->update(deltaTime);
 		//Final CutScene
-		if (game.mario->is_touching_flag && !game.is_level_clear)
-		{
-			game.is_level_clear = true;
-			game.game_audio_manager->stop();
-			game.game_audio_manager->playSound("Clear");
-		}
-		else if (game.mario->is_touching_flag)
+		if (game.mario->is_touching_flag)
 		{
 			game.flag->Touch(deltaTime);
-		}
-		if (game.flag->is_finished)
-		{
-			game.mario->Finish(deltaTime);
-		}
-		//
-		if (game.mario->is_dead && !game.is_mario_dead)
-		{
-			game.is_mario_dead = true;
-			game.game_audio_manager->stop();
-			game.game_audio_manager->playSound("Die");
-			game.tclock.addClock(3.f, [this, &game]()
-				{
-					game.restart();
-				},
-				"Restart");
-		}
-		if (game.mario->need_quit)
-		{
-			//Castle screen 
-			game.setState(std::static_pointer_cast<IGameState>(std::make_shared<IGameFinish>()));
 		}
 
 

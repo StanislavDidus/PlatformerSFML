@@ -15,20 +15,20 @@ public:
 		return instance;
 	}
 
-	void AddListener(const std::string& name, std::function<void()>* func)
+	void AddListener(const std::string& name, std::shared_ptr<std::function<void()>> func)
 	{
 		events[name].push_back(func);
 	}
 
-	void RemoveListener(const std::string& name, std::function<void()>* func)
+	void RemoveListener(const std::string& name, std::shared_ptr < std::function<void()>> func)
 	{
 		auto v = events[name];
-		v.erase(std::remove_if(v.begin(), v.end(), [&](std::function<void()>* f) {if (f == func) return f; }));
+		v.erase(std::remove_if(v.begin(), v.end(), [&](std::shared_ptr<std::function<void()>> f) {if (f == func) return f; }));
 	}
 
 	void Push(const std::string& name)
 	{
-		for (auto* f : events[name])
+		for (auto& f : events[name])
 		{
 			queue.push_back(f);
 		}
@@ -36,15 +36,15 @@ public:
 
 	void process()
 	{
-		for (auto* f : queue)
+		for (auto& f : queue)
 		{
 			(*f)();
 		}
 		queue.clear();
 	}
 private:
-	std::unordered_map<std::string, std::vector<std::function<void()>*>> events;
-	std::vector<std::function<void()>*> queue;
+	std::unordered_map<std::string, std::vector<std::shared_ptr<std::function<void()>>>> events;
+	std::vector< std::shared_ptr<std::function<void()>>> queue;
 
 	EventBus() {}
 };

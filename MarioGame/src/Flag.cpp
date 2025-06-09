@@ -29,7 +29,7 @@ void Flag::Touch(float deltaTime)
 	}
 	else
 	{
-		is_finished = true;
+		EventBus::Get().Push("OnFlagFinish");
 	}
 }
 

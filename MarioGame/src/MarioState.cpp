@@ -101,12 +101,12 @@ class IMarioWalk : public IMarioState
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
 			mario.move(-1.f, 0.f);
-			mario.flip(-1.f);
+			mario.flip(-1);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
 			mario.move(1.f, 0.f);
-			mario.flip(1.f);
+			mario.flip(1);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && (mario.current_mario_state == MarioState::BIG || mario.current_mario_state == MarioState::FIRE))
 		{
@@ -366,7 +366,7 @@ class IMarioDie : public IMarioState
 		mario.sprite.setTexture(mario.texture);
 		//mario.sprite.setTextureRect(sf::IntRect(0,0,16,16));
 		mario.velocity.y = -500.f;
-		mario.current_mario_state == MarioState::SMALL;
+		mario.current_mario_state = MarioState::SMALL;
 	}
 
 	void onUpdate(Mario& mario, float deltaTime)
@@ -398,6 +398,8 @@ class IMarioCollectFlag: public IMarioState
 		mario.sprite.move(20.f, 0.f);
 
 		mario.sprite.setPosition(MathUtils::clamp(mario.sprite.getPosition().x, 9900.f - 48.f, 9900.f), MathUtils::clamp(mario.sprite.getPosition().y, 50.f, 550.f - 48.f));
+	
+		EventBus::Get().Push("OnMarioTouchFlag");
 	}
 
 	void onUpdate(Mario& mario, float deltaTime) override
@@ -463,7 +465,7 @@ class IMarioRunToCastle : public IMarioState
 
 		if (mario.sprite.getPosition().x > 10200)
 		{
-			mario.need_quit = true;
+			EventBus::Get().Push("OnQuit");
 		}
 
 		float deltaX = 175.f * deltaTime;

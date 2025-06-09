@@ -16,6 +16,7 @@
 #include "GameObject.h"
 #include "Algorythms/QuadTree.h"
 #include "Objects/FireBall.h"
+#include "Managers/EventBus.h"
 //#include "Manager/TextureManager.h"
 
 class IMarioState;
@@ -125,7 +126,6 @@ public:
 	bool is_touching_flag;
 	bool is_dead;
 	bool need_restart;
-	bool need_quit;
 
 	float deltaTime;
 	friend class IMarioIdle;
@@ -156,7 +156,7 @@ public:
 
 	const int getLifes() const; //Return the amount of mario's lifes
 
-	void Finish(float deltaTime);
+	void Finish();
 
 	//Functions
 	void move(float dirX, float dirY);

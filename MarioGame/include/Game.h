@@ -21,6 +21,7 @@
 #include "Managers/TextureManager.h"
 #include "Algorythms/QuadTree.h"
 #include "Objects/Flag.h"
+#include "Managers/EventBus.h"
 
 #include "Math.h"
 
@@ -122,8 +123,6 @@ private:
 	sf::Clock fps_clock;
 	float lastTime;
 
-	//
-	bool is_mario_dead;
 	bool is_level_clear;
 
 
@@ -136,6 +135,7 @@ private:
 	void initCollisions();
 	void initAudio();
 	void initText();
+	void initEventBus();
 public:
 	friend class IGameShowInfo;
 	friend class IGameStartMenu;
@@ -154,6 +154,9 @@ public:
 	void showScore(sf::Vector2f pos, sf::Texture* texture, int score); //Display the number of points you gained with an animation
 	void DisplayStartMenu();
 	void restart();
+
+	void OnMarioDeath();
+	void OnMarioTouchFlag();
 
 	void setState(const std::shared_ptr<IGameState>& state);
 

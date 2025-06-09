@@ -16,7 +16,6 @@ void Game::initVariables()
 
 	restart1 = false;
 
-	is_mario_dead = false;
 	is_level_clear = false;
 }
 
@@ -45,7 +44,7 @@ void Game::initTextureManager()
 void Game::initWindow()
 {
 	//Init Window
-	window = std::make_unique<sf::RenderWindow>(sf::VideoMode(800,600), "Mario nintendo game", sf::Style::Default); // 4:3
+	window = std::make_unique<sf::RenderWindow>(sf::VideoMode(800,600), "Platformer", sf::Style::Default); // 4:3
 	
 	// 800 600
 	//window->setFramerateLimit(60);
@@ -156,6 +155,21 @@ void Game::initText()
 	mario_icon.setPosition(250.f,20.f);
 }
 
+void Game::initEventBus()
+{
+	auto func = std::make_shared<std::function<void()>>([this]() { OnMarioDeath(); });
+	EventBus::Get().AddListener("OnMarioDeath", func);
+
+	auto func1 = std::make_shared<std::function<void()>>([this]() { setState(std::static_pointer_cast<IGameState>(std::make_shared<IGameFinish>())); });
+	EventBus::Get().AddListener("OnQuit", func1);
+
+	auto func2 = std::make_shared<std::function<void()>>([this]() { OnMarioTouchFlag(); });
+	EventBus::Get().AddListener("OnMarioTouchFlag", func2);
+
+	auto func3 = std::make_shared<std::function<void()>>([this]() { mario->Finish(); });
+	EventBus::Get().AddListener("OnFlagFinish", func3);
+}
+
 void Game::initMario()
 {
 	//Init Mario
@@ -185,7 +199,8 @@ void Game::setState(const std::shared_ptr<IGameState>& state)
 }
 
 //Con/Des
-Game::Game() : lifes(3), score(0.f), coin_amount(0), lastTime(0.f), start_game_timer(0.f), is_game_over(false), is_game_started(false)
+Game::Game() : lifes(3), score(0.f), coin_amount(0), lastTime(0.f), start_game_timer(0.f), is_game_over(false), is_game_started(false),
+game_time(0.f), is_level_clear(false), restart1(false)
 {
 	
 }
@@ -215,7 +230,7 @@ void Game::showScore(sf::Vector2f pos, sf::Texture* texture, int score)
 	//Display score
 	std::shared_ptr<Text> text = std::make_shared<Text>(16,8, pos, texture);
 	text->getAnimator()->playAnim("Score");
-	addScore(score);
+	addScore(static_cast<float>(score));
 	scores_.push_back(text);
 }
 
@@ -231,6 +246,7 @@ bool Game::init()
 	initMap();
 	initAudio();
 	initText();
+	initEventBus();
 
 	setState(std::static_pointer_cast<IGameState>(std::make_shared<IGameShowInfo>()));
 
@@ -284,7 +300,7 @@ void Game::updateText()
 	}
 
 	std::ostringstream oss2;
-	int size = static_cast<int>(MathUtils::getDigitCount(score));
+	int size = static_cast<int>(MathUtils::getDigitCount(static_cast<int>(score)));
 
 	oss2 << "MARIO\n" << std::setw(size + (6 - size)) << std::setfill('0') << (int)score << "\n";
 	score_text.setString(oss2.str());
@@ -351,6 +367,8 @@ void Game::update()
 	float deltaTime = clock.restart().asSeconds();
 	deltaTime = std::min(deltaTime, 0.033f);
 
+	EventBus::Get().process();
+
 	if (restart1)
 	{
 		restart();
@@ -413,6 +431,24 @@ void Game::restart()
 		//Finish Game
 		setState(std::static_pointer_cast<IGameState>(std::make_shared<IGameGameOver>()));
 	}
+}
+
+void Game::OnMarioDeath()
+{
+	game_audio_manager->stop();
+	std::cout << "die\n";
+	game_audio_manager->playSound("Die");
+	tclock.addClock(3.f, [this]()
+		{
+			restart();
+		},
+		"Restart");
+}
+
+void Game::OnMarioTouchFlag()
+{
+	game_audio_manager->stop();
+	game_audio_manager->playSound("Clear");
 }
 
 void Game::render()

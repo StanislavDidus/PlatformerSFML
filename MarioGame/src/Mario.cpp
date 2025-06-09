@@ -210,7 +210,7 @@ const int Mario::getLifes() const
 	return lifes;
 }
 
-void Mario::Finish(float deltaTime)
+void Mario::Finish()
 {
 	if (std::dynamic_pointer_cast<IMarioWaitToRun>(this->current_state) == nullptr && std::dynamic_pointer_cast<IMarioRunToCastle>(this->current_state) == nullptr)
 	{
@@ -330,6 +330,7 @@ void Mario::die()
 	if (!is_dead)
 	{
 		is_dead = true;
+		EventBus::Get().Push("OnMarioDeath");
 	}
 }
 

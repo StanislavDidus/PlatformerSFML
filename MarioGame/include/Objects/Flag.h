@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "GameObject.h"
+#include "Managers/EventBus.h"
 
 #include <iostream>
 #include <vector>
