@@ -1,0 +1,9 @@
+﻿  FireFlower.cpp
+  GameState.cpp
+  Item.cpp
+  LuckyBlock.cpp
+  MushRoom.cpp
+  PlayerState.cpp
+  main.cpp
+  Generating Code...
+  MarioGame.vcxproj -> C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\x64\Debug\SFMLPlatformer.exe
