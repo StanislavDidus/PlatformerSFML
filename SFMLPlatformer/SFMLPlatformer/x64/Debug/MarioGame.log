@@ -1,0 +1,34 @@
+﻿  Animator.cpp
+  AudioManager.cpp
+  Brick.cpp
+  CollisionManager.cpp
+  FireBall.cpp
+  FireFlower.cpp
+  Flag.cpp
+  Game.cpp
+  GameState.cpp
+  Item.cpp
+  LuckyBlock.cpp
+  main.cpp
+  Map.cpp
+  Player.cpp
+C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\src\Player.cpp(285,26): warning C4244: 'initializing': conversion from 'T' to 'unsigned int', possible loss of data
+C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\src\Player.cpp(285,26): warning C4244:         with
+C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\src\Player.cpp(285,26): warning C4244:         [
+C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\src\Player.cpp(285,26): warning C4244:             T=float
+C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\src\Player.cpp(285,26): warning C4244:         ]
+C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\src\Player.cpp(286,26): warning C4244: 'initializing': conversion from 'T' to 'unsigned int', possible loss of data
+C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\src\Player.cpp(286,26): warning C4244:         with
+C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\src\Player.cpp(286,26): warning C4244:         [
+C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\src\Player.cpp(286,26): warning C4244:             T=float
+C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\src\Player.cpp(286,26): warning C4244:         ]
+C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\src\Player.cpp(318,18): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\src\Player.cpp(432,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  PlayerState.cpp
+  MushRoom.cpp
+  QuadTree.cpp
+  TClock.cpp
+  TextureManager.cpp
+  Generating Code...
+     Creating library C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\x64\Debug\SFMLPlatformer.lib and object C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\x64\Debug\SFMLPlatformer.exp
+  MarioGame.vcxproj -> C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\x64\Debug\SFMLPlatformer.exe
