@@ -3,7 +3,6 @@
   "WorkspaceRootPath": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\",
   "Documents": [
     {
-<<<<<<< HEAD
       "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|SFMLPlatformer.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|SFMLPlatformer.vcxproj|solutionrelative:include\\Objects\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -241,245 +240,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|SFMLPlatformer.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Managers\\TextureManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|SFMLPlatformer.vcxproj|solutionrelative:include\\Managers\\TextureManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-=======
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\GameState.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\GameState.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Objects\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\Flag.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Flag.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Flag.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Objects\\Flag.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\PlayerState.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\PlayerState.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Managers\\EventBus.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Managers\\EventBus.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\LuckyBlock.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\LuckyBlock.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\AudioManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\AudioManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Managers\\AudioManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Managers\\AudioManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Block.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Objects\\Block.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\LuckyBlock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Objects\\LuckyBlock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\Brick.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Brick.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Brick.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Objects\\Brick.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\Map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Algorythms\\TClock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Algorythms\\TClock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\TClock.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\TClock.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Managers\\CollisionManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Managers\\CollisionManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\FireFlower.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\FireFlower.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Items\\FireFlower.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Objects\\Items\\FireFlower.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Item.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Objects\\Item.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\MushRoom.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\MushRoom.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Managers\\Animator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Managers\\Animator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\FireBall.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\FireBall.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Items\\MushRoom.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Objects\\Items\\MushRoom.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\CollisionManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\CollisionManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\Animator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Animator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Renderable.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Renderable.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Text.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Objects\\Text.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\GameObject.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Objects\\GameObject.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\FireBall.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Objects\\FireBall.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Managers\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Managers\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\QuadTree.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\QuadTree.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Algorythms\\QuadTree.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Algorythms\\QuadTree.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Algorythms\\Math.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Algorythms\\Math.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\TextureManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\TextureManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\TClock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\LuckyBlock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Mario.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Animator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Block.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Brick.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\MushRoom.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Item.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\GameObject.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Text.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Math.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\AudioManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\Item.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:src\\Item.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Managers\\TextureManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33851946-0324-4587-8C2F-9A19753D9923}|MarioGame.vcxproj|solutionrelative:include\\Managers\\TextureManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Objects\\Flag.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Algorythms\\QuadTree.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Objects\\Items\\FireFlower.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Objects\\Items\\FireFlower.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Objects\\FireBall.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Objects\\FireBall.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Renderable.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Manager\\TextureManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Algorythms\\QuadTree.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Objects\\Flag.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Manager\\TextureManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
     }
   ],
   "DocumentGroupContainers": [
@@ -489,25 +249,16 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-<<<<<<< HEAD
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 0,
-=======
-          "SelectedChildIndex": 3,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Player.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Player.h",
               "RelativeDocumentMoniker": "include\\Objects\\Player.h",
               "ToolTip": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Player.h",
               "RelativeToolTip": "include\\Objects\\Player.h",
-<<<<<<< HEAD
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-06-09T18:01:32.92Z",
@@ -516,15 +267,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 26,
-=======
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-09T18:01:32.92Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Player.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\Player.cpp",
               "RelativeDocumentMoniker": "src\\Player.cpp",
@@ -536,11 +278,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 27,
-=======
-              "DocumentIndex": 7,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "PlayerState.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\PlayerState.cpp",
               "RelativeDocumentMoniker": "src\\PlayerState.cpp",
@@ -564,11 +302,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 29,
-=======
-              "DocumentIndex": 2,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Game.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Game.h",
               "RelativeDocumentMoniker": "include\\Game.h",
@@ -580,11 +314,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 30,
-=======
-              "DocumentIndex": 1,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "GameState.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\GameState.cpp",
               "RelativeDocumentMoniker": "src\\GameState.cpp",
@@ -596,11 +326,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 31,
-=======
-              "DocumentIndex": 9,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\main.cpp",
               "RelativeDocumentMoniker": "src\\main.cpp",
@@ -612,11 +338,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 32,
-=======
-              "DocumentIndex": 10,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "LuckyBlock.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\LuckyBlock.cpp",
               "RelativeDocumentMoniker": "src\\LuckyBlock.cpp",
@@ -628,11 +350,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 33,
-=======
-              "DocumentIndex": 13,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Block.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Block.h",
               "RelativeDocumentMoniker": "include\\Objects\\Block.h",
@@ -644,11 +362,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 34,
-=======
-              "DocumentIndex": 16,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Brick.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Brick.h",
               "RelativeDocumentMoniker": "include\\Objects\\Brick.h",
@@ -660,11 +374,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 35,
-=======
-              "DocumentIndex": 15,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Brick.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\Brick.cpp",
               "RelativeDocumentMoniker": "src\\Brick.cpp",
@@ -676,11 +386,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 36,
-=======
-              "DocumentIndex": 11,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "AudioManager.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\AudioManager.cpp",
               "RelativeDocumentMoniker": "src\\AudioManager.cpp",
@@ -692,11 +398,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 37,
-=======
-              "DocumentIndex": 12,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "AudioManager.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Managers\\AudioManager.h",
               "RelativeDocumentMoniker": "include\\Managers\\AudioManager.h",
@@ -708,11 +410,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 38,
-=======
-              "DocumentIndex": 5,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Flag.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\Flag.cpp",
               "RelativeDocumentMoniker": "src\\Flag.cpp",
@@ -724,11 +422,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 39,
-=======
-              "DocumentIndex": 6,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Flag.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Flag.h",
               "RelativeDocumentMoniker": "include\\Objects\\Flag.h",
@@ -740,11 +434,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 40,
-=======
-              "DocumentIndex": 8,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "EventBus.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Managers\\EventBus.h",
               "RelativeDocumentMoniker": "include\\Managers\\EventBus.h",
@@ -756,11 +446,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 41,
-=======
-              "DocumentIndex": 14,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "LuckyBlock.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\LuckyBlock.h",
               "RelativeDocumentMoniker": "include\\Objects\\LuckyBlock.h",
@@ -772,11 +458,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 42,
-=======
-              "DocumentIndex": 17,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Map.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\Map.cpp",
               "RelativeDocumentMoniker": "src\\Map.cpp",
@@ -788,11 +470,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 43,
-=======
-              "DocumentIndex": 18,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "TClock.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Algorythms\\TClock.h",
               "RelativeDocumentMoniker": "include\\Algorythms\\TClock.h",
@@ -804,11 +482,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 44,
-=======
-              "DocumentIndex": 19,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "TClock.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\TClock.cpp",
               "RelativeDocumentMoniker": "src\\TClock.cpp",
@@ -820,11 +494,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 45,
-=======
-              "DocumentIndex": 23,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Item.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Item.h",
               "RelativeDocumentMoniker": "include\\Objects\\Item.h",
@@ -836,11 +506,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 46,
-=======
-              "DocumentIndex": 20,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "CollisionManager.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Managers\\CollisionManager.h",
               "RelativeDocumentMoniker": "include\\Managers\\CollisionManager.h",
@@ -852,11 +518,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 47,
-=======
-              "DocumentIndex": 25,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Animator.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Managers\\Animator.h",
               "RelativeDocumentMoniker": "include\\Managers\\Animator.h",
@@ -868,11 +530,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 48,
-=======
-              "DocumentIndex": 21,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "FireFlower.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\FireFlower.cpp",
               "RelativeDocumentMoniker": "src\\FireFlower.cpp",
@@ -884,11 +542,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 49,
-=======
-              "DocumentIndex": 22,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "FireFlower.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Items\\FireFlower.h",
               "RelativeDocumentMoniker": "include\\Objects\\Items\\FireFlower.h",
@@ -900,11 +554,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 50,
-=======
-              "DocumentIndex": 27,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "MushRoom.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Items\\MushRoom.h",
               "RelativeDocumentMoniker": "include\\Objects\\Items\\MushRoom.h",
@@ -916,11 +566,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 51,
-=======
-              "DocumentIndex": 24,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "MushRoom.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\MushRoom.cpp",
               "RelativeDocumentMoniker": "src\\MushRoom.cpp",
@@ -932,11 +578,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 52,
-=======
-              "DocumentIndex": 26,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "FireBall.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\FireBall.cpp",
               "RelativeDocumentMoniker": "src\\FireBall.cpp",
@@ -948,11 +590,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 53,
-=======
-              "DocumentIndex": 28,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "CollisionManager.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\CollisionManager.cpp",
               "RelativeDocumentMoniker": "src\\CollisionManager.cpp",
@@ -964,11 +602,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 54,
-=======
-              "DocumentIndex": 29,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Animator.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\Animator.cpp",
               "RelativeDocumentMoniker": "src\\Animator.cpp",
@@ -980,11 +614,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 55,
-=======
-              "DocumentIndex": 34,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Map.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Managers\\Map.h",
               "RelativeDocumentMoniker": "include\\Managers\\Map.h",
@@ -996,11 +626,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 56,
-=======
-              "DocumentIndex": 30,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Renderable.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Renderable.h",
               "RelativeDocumentMoniker": "include\\Renderable.h",
@@ -1012,11 +638,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 57,
-=======
-              "DocumentIndex": 31,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Text.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\Text.h",
               "RelativeDocumentMoniker": "include\\Objects\\Text.h",
@@ -1028,11 +650,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 58,
-=======
-              "DocumentIndex": 32,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "GameObject.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\GameObject.h",
               "RelativeDocumentMoniker": "include\\Objects\\GameObject.h",
@@ -1044,11 +662,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 59,
-=======
-              "DocumentIndex": 33,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "FireBall.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Objects\\FireBall.h",
               "RelativeDocumentMoniker": "include\\Objects\\FireBall.h",
@@ -1060,11 +674,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 60,
-=======
-              "DocumentIndex": 38,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "TextureManager.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\TextureManager.cpp",
               "RelativeDocumentMoniker": "src\\TextureManager.cpp",
@@ -1076,11 +686,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 61,
-=======
-              "DocumentIndex": 35,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "QuadTree.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\QuadTree.cpp",
               "RelativeDocumentMoniker": "src\\QuadTree.cpp",
@@ -1092,11 +698,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 62,
-=======
-              "DocumentIndex": 36,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "QuadTree.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Algorythms\\QuadTree.h",
               "RelativeDocumentMoniker": "include\\Algorythms\\QuadTree.h",
@@ -1108,11 +710,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 63,
-=======
-              "DocumentIndex": 37,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Math.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Algorythms\\Math.h",
               "RelativeDocumentMoniker": "include\\Algorythms\\Math.h",
@@ -1124,11 +722,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 64,
-=======
-              "DocumentIndex": 52,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Item.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\src\\Item.cpp",
               "RelativeDocumentMoniker": "src\\Item.cpp",
@@ -1140,11 +734,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 65,
-=======
-              "DocumentIndex": 53,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "TextureManager.h",
               "DocumentMoniker": "C:\\GitHubProjects\\SFMLPlatformer\\SFMLPlatformer\\include\\Managers\\TextureManager.h",
               "RelativeDocumentMoniker": "include\\Managers\\TextureManager.h",
@@ -1156,11 +746,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 14,
-=======
-              "DocumentIndex": 54,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Flag.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Objects\\Flag.cpp",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Objects\\Flag.cpp",
@@ -1172,11 +758,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 2,
-=======
-              "DocumentIndex": 40,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "LuckyBlock.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\LuckyBlock.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\LuckyBlock.h",
@@ -1188,11 +770,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 15,
-=======
-              "DocumentIndex": 55,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "QuadTree.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Algorythms\\QuadTree.cpp",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Algorythms\\QuadTree.cpp",
@@ -1204,11 +782,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 16,
-=======
-              "DocumentIndex": 56,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Game.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Game.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Game.h",
@@ -1220,11 +794,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 3,
-=======
-              "DocumentIndex": 41,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Map.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Map.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Map.h",
@@ -1236,11 +806,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 4,
-=======
-              "DocumentIndex": 42,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Mario.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Mario.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Mario.h",
@@ -1252,11 +818,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 1,
-=======
-              "DocumentIndex": 39,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "TClock.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\TClock.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\TClock.h",
@@ -1268,11 +830,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 17,
-=======
-              "DocumentIndex": 57,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "FireFlower.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Objects\\Items\\FireFlower.cpp",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Objects\\Items\\FireFlower.cpp",
@@ -1284,11 +842,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 18,
-=======
-              "DocumentIndex": 58,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "FireFlower.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Objects\\Items\\FireFlower.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Objects\\Items\\FireFlower.h",
@@ -1300,11 +854,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 19,
-=======
-              "DocumentIndex": 59,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "FireBall.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Objects\\FireBall.cpp",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Objects\\FireBall.cpp",
@@ -1316,11 +866,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 20,
-=======
-              "DocumentIndex": 60,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "FireBall.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Objects\\FireBall.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Objects\\FireBall.h",
@@ -1332,11 +878,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 5,
-=======
-              "DocumentIndex": 43,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Animator.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Animator.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Animator.h",
@@ -1348,11 +890,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 6,
-=======
-              "DocumentIndex": 44,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Block.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Block.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Block.h",
@@ -1364,11 +902,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 7,
-=======
-              "DocumentIndex": 45,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Brick.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Brick.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Brick.h",
@@ -1380,11 +914,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 21,
-=======
-              "DocumentIndex": 61,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Renderable.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Renderable.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Renderable.h",
@@ -1396,11 +926,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 8,
-=======
-              "DocumentIndex": 46,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "MushRoom.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\MushRoom.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\MushRoom.h",
@@ -1412,11 +938,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 9,
-=======
-              "DocumentIndex": 47,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Item.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Item.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Item.h",
@@ -1428,11 +950,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 10,
-=======
-              "DocumentIndex": 48,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "GameObject.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\GameObject.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\GameObject.h",
@@ -1444,11 +962,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 22,
-=======
-              "DocumentIndex": 62,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "TextureManager.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Manager\\TextureManager.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Manager\\TextureManager.h",
@@ -1460,11 +974,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 11,
-=======
-              "DocumentIndex": 49,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Text.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Text.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Text.h",
@@ -1476,11 +986,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 23,
-=======
-              "DocumentIndex": 63,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "QuadTree.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Algorythms\\QuadTree.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Algorythms\\QuadTree.h",
@@ -1492,11 +998,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 24,
-=======
-              "DocumentIndex": 64,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Flag.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Objects\\Flag.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Objects\\Flag.h",
@@ -1508,11 +1010,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 12,
-=======
-              "DocumentIndex": 50,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "Math.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Math.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Math.h",
@@ -1524,11 +1022,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 13,
-=======
-              "DocumentIndex": 51,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "AudioManager.h",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\AudioManager.h",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\AudioManager.h",
@@ -1540,11 +1034,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
               "DocumentIndex": 25,
-=======
-              "DocumentIndex": 65,
->>>>>>> 9f18425c18947a7fb4b9d01dfed33609d174b210
               "Title": "TextureManager.cpp",
               "DocumentMoniker": "C:\\GitHubProjects\\MarioSFML\\MarioGame\\src\\Manager\\TextureManager.cpp",
               "RelativeDocumentMoniker": "..\\..\\MarioSFML\\MarioGame\\src\\Manager\\TextureManager.cpp",
