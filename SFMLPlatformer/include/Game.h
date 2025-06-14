@@ -64,7 +64,7 @@ private:
 	TClock tclock;
 	float game_time;
 
-	bool restart1;
+	bool restart_next_frame;
 
 	//Items
 	std::vector<std::shared_ptr<GameObject>> gameObjects; // All items (coins,mushroonms,stars)

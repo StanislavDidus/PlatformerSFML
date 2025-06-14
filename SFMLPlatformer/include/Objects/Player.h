@@ -144,6 +144,7 @@ public:
 	//Accessors
 	const sf::FloatRect getBounds() const;
 	const sf::Vector2f getPosition() const;
+	const PlayerState getState() const { return current_Player_state; }
 
 	//Modifiers
 	void setGround(bool state);

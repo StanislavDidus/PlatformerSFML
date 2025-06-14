@@ -397,7 +397,7 @@ class IPlayerCollectFlag: public IPlayerState
 			Player.sprite.setTextureRect(sf::IntRect(0, 128, 16, 32));
 		Player.sprite.move(20.f, 0.f);
 
-		Player.sprite.setPosition(MathUtils::clamp(Player.sprite.getPosition().x, 9900.f - 48.f, 9900.f), MathUtils::clamp(Player.sprite.getPosition().y, 50.f, 550.f - 48.f));
+		Player.sprite.setPosition(MathUtils::clamp(Player.sprite.getPosition().x, 9900.f - Player.sprite.getGlobalBounds().width, 9900.f), MathUtils::clamp(Player.sprite.getPosition().y, 50.f, 550.f + Player.sprite.getGlobalBounds().height));
 	
 		EventBus::Get().Push("OnPlayerTouchFlag");
 	}

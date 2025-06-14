@@ -89,7 +89,7 @@ class IGameTimeUp : public IGameState
 {
 	void onEnter(Game& game) override
 	{
-		game.tclock.addClock(3.f, [&game]() {game.restart1 = true; }, "Restart");
+		game.tclock.addClock(3.f, [&game]() {game.restart_next_frame = true; }, "Restart");
 	}
 
 	void onUpdate(Game& game, float deltaTime) override
@@ -219,6 +219,7 @@ class IGamePlay : public IGameState
 		//Final CutScene
 		if (game.player->is_touching_flag)
 		{
+			//We move flag while mario touchs it 
 			game.flag->Touch(deltaTime);
 		}
 

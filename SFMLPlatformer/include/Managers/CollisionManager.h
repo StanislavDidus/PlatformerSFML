@@ -150,7 +150,7 @@ public:
 
 		std::vector<CollisionEvent> possible_collisions;
 		if (quadTree != nullptr)
-			quadTree->checkCollisions({ playerBounds.left, playerBounds.top, playerBounds.width, playerBounds.height }, possible_collisions);
+			quadTree->checkCollisions({ playerBounds.left + x, playerBounds.top + y, playerBounds.width, playerBounds.height }, possible_collisions);
 
 		sf::FloatRect newBoundsY = playerBounds;
 		newBoundsY.top += y;

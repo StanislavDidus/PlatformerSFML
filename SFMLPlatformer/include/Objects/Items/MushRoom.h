@@ -28,12 +28,9 @@ public:
 
 		if (isActive())
 		{
-			
-
 			velocity.y += gravity * deltaTime;
 			if (velocity.y > 500.f)
 				velocity.y = 500.f;
-			//move({deltaX, deltaY}, direction, deltaTime);
 
 			checkCollision(deltaTime);
 			float deltaX = velocity.x * deltaTime * direction;

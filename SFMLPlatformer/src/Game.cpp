@@ -14,7 +14,7 @@ void Game::initVariables()
 
 	is_game_over = false;
 
-	restart1 = false;
+	restart_next_frame = false;
 
 	is_level_clear = false;
 }
@@ -68,7 +68,7 @@ void Game::initMap()
 void Game::initCollisions()
 {
 	//Init QuadTree
-	quadTree = std::make_shared<QuadTree>(sf::FloatRect(0.f, 0.f, 10550.f, 700.f), 4, 1000);
+	quadTree = std::make_shared<QuadTree>(sf::FloatRect(0.f, 0.f, 10550.f, 700.f), 5, 1000);
 	//Init CollisionManager
 	col_manager = std::make_shared<CollisionManager>(quadTree, window.get());
 }
@@ -200,7 +200,7 @@ void Game::setState(const std::shared_ptr<IGameState>& state)
 
 //Con/Des
 Game::Game() : lifes(3), score(0.f), coin_amount(0), lastTime(0.f), start_game_timer(0.f), is_game_over(false), is_game_started(false),
-game_time(0.f), is_level_clear(false), restart1(false)
+game_time(0.f), is_level_clear(false), restart_next_frame(false)
 {
 	
 }
@@ -250,13 +250,7 @@ bool Game::init()
 
 	setState(std::static_pointer_cast<IGameState>(std::make_shared<IGameShowInfo>()));
 
-	//last_camera_pos = { 9451.f, 375.f };
-
 	return true;
-
-	//placeholder
-	
-	this->view->setCenter(9451.f, 375.f);
 }
 
 //Functions
@@ -327,12 +321,10 @@ void Game::updateText()
 void Game::updateMap()
 {
 	map->update(player->deltaTime);
-	//quadTree->insert({ flag->getBounds(), "Flag" });
 }
 
 void Game::updateCollisions(float deltaTime)
 {
-	//Check collision with different gameobjects
 	for (const auto& obj : gameObjects)
 	{
 		if (player->getBounds().intersects(obj->getBounds()))
@@ -369,10 +361,10 @@ void Game::update()
 
 	EventBus::Get().process();
 
-	if (restart1)
+	if (restart_next_frame)
 	{
 		restart();
-		restart1 = false;
+		restart_next_frame = false;
 	}
 
 	if (!player->getAnimator()->getAnim("Grow")->is_playing && !player->getAnimator()->getAnim("Fire")->is_playing)
