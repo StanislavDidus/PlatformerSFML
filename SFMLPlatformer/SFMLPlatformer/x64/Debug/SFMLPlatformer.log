@@ -1,9 +1,11 @@
 ﻿  FireFlower.cpp
-  Game.cpp
   GameState.cpp
   Item.cpp
   LuckyBlock.cpp
+  Map.cpp
   MushRoom.cpp
+  PlayerState.cpp
+  QuadTree.cpp
   main.cpp
   Generating Code...
   SFMLPlatformer.vcxproj -> C:\GitHubProjects\SFMLPlatformer\SFMLPlatformer\x64\Debug\SFMLPlatformer.exe
