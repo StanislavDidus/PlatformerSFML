@@ -1,21 +1,21 @@
 # PlatformerSFML
 
-My simple platformer where main goal is to collect coins and get to the end of the level
-You can pick up special items to change state of the player and unlock new abilities
+My simple platformer where main goal is to collect coins and get to the end of the level.
+You can pick up special items to change state of the player and unlock new abilities.
 
 Resources:
-SFML library
-Tmxlite by Matt Marchant
+SFML library,
+Tmxlite by Matt Marchant,
 
 Controls:
-AD - movement
-Space - Jump
-S - Crouch(Only in BIG or FIRE form)
-E - Shoot fire balls(Only if FIRE form)
+AD - movement,
+Space - Jump,
+S - Crouch(Only in BIG or FIRE form),
+E - Shoot fire balls(Only if FIRE form),
 
 Debug buttons:
-G - BIG form
-F - Fire form
+G - BIG form,
+F - Fire form,
 
 How to use:
 - Install the archive
