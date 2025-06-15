@@ -3,7 +3,7 @@
 My simple platformer where main goal is to collect coins and get to the end of the level  
 You can pick up special items to change state of the player and unlock new abilities  
 
-Resources:
+Resources:  
 SFML library  
 Tmxlite by Matt Marchant  
 
@@ -22,7 +22,7 @@ How to use:
 - Unpack it in any folder
 - Open SFMLPlatformer.exe file
 
-This game uses features like:
+This game uses features like:  
   - State machine(to manage states of the player and the game itself)
   - QuadTree(for better perfomance of the collision system)
   - TileMapEditor(to easily load and change tilemaps)
