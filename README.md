@@ -7,17 +7,17 @@ Resources:
 SFML library  
 Tmxlite by Matt Marchant  
 
-Controls:
+Controls:  
 AD - movement  
 Space - Jump  
 S - Crouch(Only in BIG or FIRE form)  
 E - Shoot fire balls(Only if FIRE form)  
 
-Debug buttons:
+Debug buttons:  
 G - BIG form  
 F - Fire form  
 
-How to use:
+How to use:  
 - Install the archive
 - Unpack it in any folder
 - Open SFMLPlatformer.exe file
