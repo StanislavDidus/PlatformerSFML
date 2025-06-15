@@ -1,7 +1,7 @@
 # PlatformerSFML
 
-My simple platformer where main goal is to collect coins and get to the end of the level.
-You can pick up special items to change state of the player and unlock new abilities.
+My simple platformer where main goal is to collect coins and get to the end of the level  
+You can pick up special items to change state of the player and unlock new abilities  
 
 Resources:
 SFML library,
